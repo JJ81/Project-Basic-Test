@@ -54,9 +54,13 @@ QUERY.Reply = {
 };
 
 QUERY.ReReply = {
-	Write: 'insert into `reply_video` set ?;',
-	Modify: 'update `reply_video` set `comment` =? where `id` = ?;',
-	Remove: 'delete from `reply_video` where `id` =?'
+	Create :
+	'insert into `reply_video` (`video_id`, `comment`, `comment_id`, `layer`, `user_id`) ' +
+	'values(?,?,?,?,?);'
+
+	// Write: 'insert into `reply_video` set ?;',
+	// Modify: 'update `reply_video` set `comment` =? where `id` = ?;',
+	// Remove: 'delete from `reply_video` where `id` =?'
 };
 
 QUERY.BROADCAST = {

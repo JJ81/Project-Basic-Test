@@ -370,6 +370,35 @@ describe('[API 2.0] API CHECK LIST', () => {
 
 
 	// 덧글 혹은 답글 관련 테스트 시작
+	let re_reply_id = null;
+	// 덧글 혹은 답글 관련 테스트 시작
+	describe('Re-Reply Test serialized', () => {
+		let mockup_data = {
+			video_id : '297043e0-86d8-11e6-b591-0108467f781a',
+			comment : 'Re-reply create test',
+			comment_id : '285', // id 참조값
+			layer : '1', // 레이어를 순서대로 어디까지 입력을 해볼 수 있을까? 레이어 5까지?
+			user_id : 'player001'
+		};
+
+		// Create
+		it('Create Reply Test', (done) => {
+			request.post(`${HOST_API}re-reply/create`, {json : mockup_data}, (err, res, body) => {
+				if(err){
+					console.error(err);
+					throw err;
+				}
+				expect(body).to.be.json; // 이 코드가 실제 json 형식을 검사하고 있는게 맞는가???
+				expect(res.statusCode).to.equal(200);
+				expect(body.success).to.be.true;
+				re_reply_id = body.result.insertId;
+				console.log(`Created Re-Reply : ${re_reply_id}`);
+				done();
+			});
+		});
+	});
+
+
 
 
 

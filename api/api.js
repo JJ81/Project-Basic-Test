@@ -13,6 +13,7 @@ const
 	// UTIL = require('../util/util'),
 	User = require('../service/UserService'),
 	Reply = require('../service/ReplyService');
+	ReReply = require('../service/ReRelyService');
 // Auth = require('../service/AuthService')
 
 
@@ -357,16 +358,45 @@ router.delete('/reply/delete', (req, res) => {
 	});
 });
 
+/**
+ * 답글 생성
+ */
+router.post('/re-reply/create', (req, res) => {
+	const _obj = {
+		video_id: req.body.video_id,
+		comment: req.body.comment,
+		comment_id: req.body.comment_id,
+		layer: req.body.layer,
+		user_id: req.body.user_id
+	};
 
-router.post('/re-reply/create');
+	ReReply.Create(_obj, (err, rows) => {
+		if (!err) {
+			res.json({
+				success : true,
+				result : rows
+			});
+		} else {
+			console.error(err);
+			res.json({
+				success : false,
+				msg : err
+			});
+		}
+	});
+});
 
-router.post('/re-reply/list');
 
-router.post('/re-reply/:user_id/:re-reply_id');
-
-router.post('/re-reply/update');
-
-router.post('/re-reply/delete');
+// router.post('/re-reply/list', () => {
+//
+//
+// });
+//
+// router.post('/re-reply/:user_id/:re-reply_id');
+//
+// router.post('/re-reply/update');
+//
+// router.post('/re-reply/delete');
 
 
 

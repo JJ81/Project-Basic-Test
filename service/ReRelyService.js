@@ -6,9 +6,27 @@ const
   mysql_dbc = require('../commons/db_conn')(),
   connection = mysql_dbc.init(),
   QUERY = require('../database/query'),
-	Reply = {};
+	ReReply = {};
 
 
+ReReply.Create = (info, callback) => {
+	connection.query(QUERY.ReReply.Create,
+		[
+			info.video_id,
+			info.comment,
+			info.comment_id,
+			info.layer,
+			info.user_id
+		],
+		(err, rows) => {
+			if(!err){
+				callback(null, rows);
+			}else{
+				callback(err, null);
+				console.error(err);
+			}
+		});
+};
 
 
 // Reply.write = (reply_info, callback) => {
@@ -43,4 +61,4 @@ const
 
 
 
-module.exports = Reply;
+module.exports = ReReply;
