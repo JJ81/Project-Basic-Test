@@ -382,7 +382,7 @@ describe('[API 2.0] API CHECK LIST', () => {
 		};
 
 		// Create
-		it('Create Reply Test', (done) => {
+		it('Create ReReply Test', (done) => {
 			request.post(`${HOST_API}re-reply/create`, {json : mockup_data}, (err, res, body) => {
 				if(err){
 					console.error(err);
@@ -396,11 +396,76 @@ describe('[API 2.0] API CHECK LIST', () => {
 				done();
 			});
 		});
+
+		// Read by Id
+		it('Read ReReply Test by Id', (done) => {
+			request.get(`${HOST_API}re-reply/${mockup_data.user_id}/${re_reply_id}`, (err, res, body) => {
+				if(err){
+					console.error(err);
+					throw err;
+				}
+				let _body = JSON.parse(body);
+				expect(_body).to.be.json;
+				expect(res.statusCode).to.equal(200);
+				expect(_body.success).to.be.true;
+				expect(_body.result[0].id).to.equal(re_reply_id);
+				done();
+			});
+		});
+
+		// Update by Id
+		it('Update Re-Reply Test', (done) => {
+			let update_data = {
+				comment : 'Update Re-REPLY TEST. COMMENT is updated',
+				re_reply_id : re_reply_id,
+				user_id : 'player001'
+			};
+			request.put(`${HOST_API}re-reply/update`, {json : update_data}, (err, res, body) => {
+				if(err){
+					console.error(err);
+					throw err;
+				}
+				expect(body).to.be.json;
+				expect(res.statusCode).to.equal(200);
+				expect(body.success).to.be.true;
+				done();
+			});
+		});
+
+		// Delete
+		it('Delete Reply Test', (done) => {
+			let delete_data = {
+				re_reply_id,
+				user_id : 'player001'
+			};
+			request.delete(`${HOST_API}re-reply/delete`, {json : delete_data}, (err, res, body) => {
+				if(err){
+					console.error(err);
+					throw err;
+				}
+				expect(body).to.be.json;
+				expect(res.statusCode).to.equal(200);
+				expect(body.success).to.be.true;
+				expect(body.result.affectedRows).to.equal(1);
+				done();
+			});
+		});
 	});
 
-
-
-
+	describe('Get ReReply List', () => {
+		it('/re-reply/list/:video_id', (done) => {
+			request.get(`${HOST_API}reply/list?video_id=297043e0-86d8-11e6-b591-0108467f781a&offset=0&size=1000`, (err, res, body) => {
+				if(err){
+					console.error(err);
+					throw err;
+				}
+				let _body = JSON.parse(body);
+				expect(res.statusCode).to.equal(200);
+				expect(_body.success).to.be.true;
+				done();
+			});
+		});
+	});
 
 	// -- 덧글 혹은 답글 관련 테스트 종료
 

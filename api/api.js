@@ -386,19 +386,107 @@ router.post('/re-reply/create', (req, res) => {
 	});
 });
 
+router.get('/re-reply/:user_id/:re_reply_id', (req, res) => {
+	'use strict';
 
-// router.post('/re-reply/list', () => {
-//
-//
-// });
-//
-// router.post('/re-reply/:user_id/:re-reply_id');
-//
-// router.post('/re-reply/update');
-//
-// router.post('/re-reply/delete');
+	let info = {
+		user_id : req.params.user_id,
+		re_reply_id : req.params.re_reply_id
+	};
+
+	ReReply.ReadById(info, (err, rows) => {
+		if (!err) {
+			res.json({
+				success : true,
+				result : rows
+			});
+		} else {
+			console.error(err);
+			res.json({
+				success : false,
+				msg : err
+			});
+		}
+	});
+});
 
 
+router.put('/re-reply/update', (req, res) => {
+	'use strict';
+
+	let info = {
+		comment: req.body.comment,
+		re_reply_id: req.body.re_reply_id,
+		user_id: req.body.user_id
+	};
+
+	console.log(info);
+
+	ReReply.UpdateById(info, (err, rows) => {
+		if(!err){
+			res.json({
+				success: true,
+				result : rows
+			});
+		}else{
+			console.error(err);
+			res.json({
+				success: false,
+				msg : err
+			});
+		}
+	});
+});
+
+
+router.delete('/re-reply/delete', (req, res) => {
+	'use strict';
+
+	let info = {
+		re_reply_id : req.body.re_reply_id,
+		user_id : req.body.user_id
+	};
+
+	ReReply.DeleteById(info, (err, rows) => {
+		if(!err){
+			res.json({
+				success: true,
+				result : rows
+			});
+		}else{
+			console.error(err);
+			res.json({
+				success: false,
+				msg : err
+			});
+		}
+	});
+});
+
+router.get('/reply/list', (req, res) => {
+	'use strict';
+
+	let info = {
+		video_id : req.query.video_id,
+		offset : parseInt(req.query.offset),
+		size : parseInt(req.query.size)
+	};
+
+	ReReply.GetList(info, (err, rows) => {
+		if(!err){
+			res.json({
+				success: true,
+				result : rows
+			});
+		}else{
+			console.error(err);
+			res.json({
+				success: false,
+				msg : err
+			});
+		}
+	});
+});
 
 
 
@@ -789,8 +877,6 @@ router.get('/news/list', (req, res) => {
 			}
 		});
 });
-
-
 
 
 module.exports = router;

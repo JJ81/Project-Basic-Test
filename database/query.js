@@ -55,12 +55,26 @@ QUERY.Reply = {
 
 QUERY.ReReply = {
 	Create :
-	'insert into `reply_video` (`video_id`, `comment`, `comment_id`, `layer`, `user_id`) ' +
-	'values(?,?,?,?,?);'
-
-	// Write: 'insert into `reply_video` set ?;',
-	// Modify: 'update `reply_video` set `comment` =? where `id` = ?;',
-	// Remove: 'delete from `reply_video` where `id` =?'
+		'insert into `reply_video` (`video_id`, `comment`, `comment_id`, `layer`, `user_id`) ' +
+		'values(?,?,?,?,?);',
+		// todo Reply와 중복으로 일단 두고 개선 comment_id 참조 관계 정의 필요
+	ReadById :
+		'select * from `reply_video` ' +
+		'where `user_id`=? ' +
+		'and `id`=?;',
+	UpdateById :
+		'update `reply_video` set `comment`=? ' +
+		'where `id`=? and `user_id`=?;',
+	DeleteById :
+		'delete from `reply_video` ' +
+		'where `id`=? and `user_id`=?;',
+	GetListByVideoID :
+		'select * from `reply_video` '+
+		'where `video_id`=? ' +
+		'and `comment_id` is not null ' +
+		'and `layer` is not null ' +
+		'order by `created_dt` asc ' +
+		'limit ?, ?;'
 };
 
 QUERY.BROADCAST = {

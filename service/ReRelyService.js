@@ -1,13 +1,11 @@
 /**
  * Created by cheese on 2017. 1. 24..
  */
-
 const
-  mysql_dbc = require('../commons/db_conn')(),
-  connection = mysql_dbc.init(),
-  QUERY = require('../database/query'),
+	mysql_dbc = require('../commons/db_conn')(),
+	connection = mysql_dbc.init(),
+	QUERY = require('../database/query'),
 	ReReply = {};
-
 
 ReReply.Create = (info, callback) => {
 	connection.query(QUERY.ReReply.Create,
@@ -28,37 +26,66 @@ ReReply.Create = (info, callback) => {
 		});
 };
 
+ReReply.ReadById = (info, callback) => {
+	connection.query(QUERY.ReReply.ReadById,
+		[info.user_id, info.re_reply_id],
+		(err, rows) => {
+			if(!err){
+				callback(null, rows);
+			}else{
+				callback(err, null);
+				console.error(err);
+			}
+		});
+};
 
-// Reply.write = (reply_info, callback) => {
-//     connection.query(QUERY.Reply.Write, reply_info, (err, result) => {
-//         if (!err) {
-//             callback(null, {success: true, msg: '댓글을 입력했습니다.'});
-//         } else {
-//             callback(err, {success: false, msg: '디사 시도해주세요'});
-//         }
-//     });
-// };
-//
-// Reply.modify = (reply_info, callback) => {
-//     connection.query(QUERY.Reply.Modify, [reply_info.comment, reply_info.id], (err, result) => {
-//         if (!err) {
-//             callback(null, {success: true, msg: '댓글을 수정했습니다.'});
-//         } else {
-//             callback(err, {success: false, msg: '디사 시도해주세요'});
-//         }
-//     });
-// };
-//
-// Reply.remove = (id, callback) => {
-//     connection.query(QUERY.Reply.Remove, id, (err, result) => {
-//         if (!err) {
-//             callback(null, {success: true, msg: '댓글을 삭제했습니다.'});
-//         } else {
-//             callback(err, {success: false, msg: '디사 시도해주세요'});
-//         }
-//     });
-// };
+ReReply.UpdateById = (info, callback) => {
+	connection.query(QUERY.ReReply.UpdateById,
+		[
+			info.comment,
+			info.re_reply_id,
+			info.user_id
+		],
+		(err, rows) => {
+			if(!err){
+				callback(null, rows);
+			}else{
+				callback(err, null);
+				console.error(err);
+			}
+		});
+};
 
+ReReply.DeleteById = (info, callback) => {
+	connection.query(QUERY.ReReply.DeleteById,
+		[
+			info.re_reply_id,
+			info.user_id
+		],
+		(err, rows) => {
+			if(!err){
+				callback(null, rows);
+			}else{
+				callback(err, null);
+				console.error(err);
+			}
+		});
+};
 
+ReReply.GetList = (info, callback) => {
+	connection.query(QUERY.ReReply.GetListByVideoID,
+		[
+			info.video_id,
+			info.offset,
+			info.size
+		],
+		(err, rows) => {
+			if(!err){
+				callback(null, rows);
+			}else{
+				callback(err, null);
+			}
+		});
+};
 
 module.exports = ReReply;
