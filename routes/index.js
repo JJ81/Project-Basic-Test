@@ -23,13 +23,18 @@ const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({extended:false});
 
 
+// LocalStrategy로부터 들어온 데이터를 세션에 저장하는 역할을 한다
 passport.serializeUser((user, done) => {
+	console.log('serializeUser');
 	console.log(user);
 	done(null, user);
 });
 
+// 각 페이지에 접근할 때마다 세션으로부터 데이터를 읽어온다.
 passport.deserializeUser((user, done) => {
+	console.log('De-serializeUser');
 	console.log(user);
+	// 이곳에서 최소한의 user정보를 통해서 디비를 조회하는 방식으로 메뉴얼에 나와 있지만 세션에 모두 넣고 사용한다
 	done(null, user);
 });
 
@@ -40,38 +45,34 @@ var isAuthenticated = (req, res, next) => {
 };
 
 passport.use(new LocalStrategy({
-	usernameField: 'agent',
+	usernameField: 'user_id',
 	passwordField: 'password',
 	passReqToCallback: true
-}, (req, agent, password, done) => {
-	connection.query(QUERY.AGENT.login, [agent], (err, data) => {
+}, (user_id, password, done) => {
+	connection.query(QUERY.USER.Login, [user_id], (err, data) => {
 		if (err) {
-			return done(null, false);
-		} else {
-			if (data.length === 1) {
-				if (!bcrypt.compareSync(password, data[0].password)) {
-					console.log('password is not matched.');
-					return done(null, false);
-				} else {
-					console.log('password is matched.');
-					console.info(data[0]);
-					return done(null, {
-						'agent': data[0].code,
-						'layer': data[0].layer,
-						'parent_id': data[0].parent_id,
-						'top_parent_id': data[0].top_parent_id,
-						'balance': data[0].balance
-					});
-				}
-			} else {
-				return done(null, false);
-			}
+			return done(err);
 		}
-	});
-}
-));
 
-router.get('/login', function (req, res) {
+		if(!data){
+			console.log('incorrect username');
+			return done(null, false, {message : 'incorrect username'});
+		}
+
+		if (!bcrypt.compareSync(password, data[0].password)) {
+			console.log('password is not matched.');
+			return done(null, false, {message : 'invalid password'});
+		}
+
+		return done(null, {
+			'user_id': data[0].user_id,
+			'nickname' : data[0].nickname,
+			'market_code' : data[0].market_code
+		});
+	});
+}));
+
+router.get('/login', (req, res) => {
 	if (req.user == null) {
 		res.render('login', {
 			current_path: 'login',

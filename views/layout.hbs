@@ -23,10 +23,11 @@
 <link rel="canonical" href="http://holdemclub.tv" />
 
 <!-- todo 페이지마다 나누어서 로딩할 것 -->
-<link rel='stylesheet' href='/stylesheets/styles.css' />
+<link rel='stylesheet' href='/static/stylesheets/styles.css' />
 
 {{!-- DNS Prefetch setting for CDN --}}
 <link rel="dns-prefetch" href="http://static.holdemclub.tv/" />
+<link rel="dns-prefetch" href="http://media.holdemclub.tv/" />
 
 {{!-- 페이지뷰가 낮을 경우 prefetch를 꺼버린다. --}}
 {{!-- <meta http-equiv="x-dns-prefetch-control" content="off" /> --}}
@@ -56,10 +57,10 @@
         </div>
     </div>
 
-    <script src="/components/requirejs/require.js"></script>
+    <script src="/static/components/requirejs/require.js"></script>
     <script src="/javascripts/app.js"></script>
-    {{#if (isEquals current_path 'login')}}<script src="javascripts/login.js"></script>{{/if}}
-    {{#if (isEquals current_path 'INDEX')}}<script src="javascripts/index.js"></script>{{/if}}
+    {{#if (isEquals current_path 'login')}}<script src="/static/javascripts/login.js"></script>{{/if}}
+    {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/index.js"></script>{{/if}}
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

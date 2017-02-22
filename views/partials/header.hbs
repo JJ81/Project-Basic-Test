@@ -8,5 +8,11 @@
         </a>
     </h1>
 
-    <a href="/login" class="btn_login btn btn-danger btn-md">로그인</a>
+
+    {{#if loggedIn}}
+        <!--{{loggedIn.nickname}}-->
+        <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
+    {{else}}
+        <a href="/login" class="btn_login btn btn-danger btn-md">로그인</a>
+    {{/if}}
 </div>
