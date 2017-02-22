@@ -8,9 +8,8 @@
         </a>
     </h1>
 
-
     {{#if loggedIn}}
-        <!--{{loggedIn.nickname}}-->
+        <span class="pull-right">nickname : {{loggedIn.nickname}} / username : {{loggedIn.username}} </span>
         <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
     {{else}}
         <a href="/login" class="btn_login btn btn-danger btn-md">로그인</a>

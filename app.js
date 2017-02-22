@@ -29,17 +29,14 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/static', express.static(__dirname + '/public'));
-//app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // todo 무료 개방 TLS를 적용할 경우 아래 코드를 수정해야 한다
 // var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
-
-// todo cookieSessio에서는 secret 설정은 어떻게 하는가?
-
 app.use(cookieSession({
-	name: 'holdemclubtv_session', // session
+	name: 'holdemclub_session',
 	keys: ['HC2.0', 'HoldemclubTV'],
 	cookie: {
 		secure: false // https를 통해서만 쿠키를 전송하도록 한다
@@ -51,17 +48,20 @@ app.use(cookieSession({
 
 // helmet related configuration for security
 app.use(helmet());
-app.disable('x-powered-by'); // prevent from sending header info containing server's
-app.use(flash());
+app.disable('x-powered-by');
 
-// 정적 데이터를 받아올 때마다 세션을 뒤지는 현상(deserializeUser method is triggered multiple times by passport session )을 방지하기 위해서는 정적 데이터 로드를 먼저 해주는 편이 좋다.
+app.use(flash());
 app.use(passport.initialize());
-app.use(passport.session()); // passport session is triggered, causing deserializeUser to be invoked
+app.use(passport.session());
 app.use(logger('dev'));
-app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
+// const methodOverride = require('method-override');
+// override with the X-HTTP-Method-Override header in the request
+// app.use(methodOverride('X-HTTP-Method-Override'));
 
 const allowCORS = (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
@@ -70,8 +70,6 @@ const allowCORS = (req, res, next) => {
 	(req.method === 'OPTIONS') ? res.send(200) : next();
 };
 app.use(allowCORS);
-
-
 
 global.PROJ_TITLE = '홀덤클럽티비';
 

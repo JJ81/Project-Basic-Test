@@ -23,18 +23,15 @@ const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({extended:false});
 
 
-// LocalStrategy로부터 들어온 데이터를 세션에 저장하는 역할을 한다
 passport.serializeUser((user, done) => {
-	console.log('serializeUser');
+	console.log('Serialize');
 	console.log(user);
 	done(null, user);
 });
 
-// 각 페이지에 접근할 때마다 세션으로부터 데이터를 읽어온다.
 passport.deserializeUser((user, done) => {
-	console.log('De-serializeUser');
+	console.log('De-serialize');
 	console.log(user);
-	// 이곳에서 최소한의 user정보를 통해서 디비를 조회하는 방식으로 메뉴얼에 나와 있지만 세션에 모두 넣고 사용한다
 	done(null, user);
 });
 
@@ -48,35 +45,61 @@ passport.use(new LocalStrategy({
 	usernameField: 'user_id',
 	passwordField: 'password',
 	passReqToCallback: true
-}, (user_id, password, done) => {
-	connection.query(QUERY.USER.Login, [user_id], (err, data) => {
+}, (req, user, password, done) => {
+	connection.query(QUERY.USER.Login, [user], (err, data) => {
 		if (err) {
-			return done(err);
-		}
+			console.error(err);
+			return done(null, false);
+		} else {
 
-		if(!data){
-			console.log('incorrect username');
-			return done(null, false, {message : 'incorrect username'});
-		}
+			if(data.length === 0){
+				console.log('username is not exist.');
+				return done(null, null, {'message' : 'Username is not exist.'});
+			}
 
-		if (!bcrypt.compareSync(password, data[0].password)) {
-			console.log('password is not matched.');
-			return done(null, false, {message : 'invalid password'});
-		}
+			if (data.length === 1) {
+				if (!bcrypt.compareSync(password, data[0].password)) {
+					console.log('password is not matched.');
+					return done(null, false, {'message' : 'Password is not matched.'});
+				} else {
 
-		return done(null, {
-			'user_id': data[0].user_id,
-			'nickname' : data[0].nickname,
-			'market_code' : data[0].market_code
-		});
+					return done(null, {
+						'username' : data[0].user_id,
+						'nickname' : data[0].nickname,
+						'market_code' : data[0].market_code
+					});
+				}
+			} else {
+				console.log('Account is duplicated.');
+				return done(null, false, {message : 'Your account is duplicated.'});
+			}
+		}
 	});
-}));
+}
+));
 
-router.get('/login', (req, res) => {
+router.get('/login', function (req, res) {
+	'use strict';
+
+	let
+		msg = '',
+		flash_msg = req.flash(); // 캐싱을 해두지 않으면 조건에 따라서 플래시 모듈에 저장된 메시지가 사라진다.
+
+	try{
+		if(flash_msg.error.length > 0){
+			console.log('message');
+			console.log(flash_msg);
+			msg = flash_msg.error.pop();
+		}
+	}catch(e){
+		console.error(e);
+	}
+
 	if (req.user == null) {
 		res.render('login', {
 			current_path: 'login',
-			title: PROJ_TITLE + 'login'
+			title: PROJ_TITLE + ', 로그인',
+			msg
 		});
 	} else {
 		res.redirect('/');

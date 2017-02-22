@@ -62,127 +62,127 @@ const
  */
 
 
-passport.serializeUser((user, done) => {
-	done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-	done(null, user);
-});
-
-
-const isAuthenticated = (req, res, next) => {
-	if (req.isAuthenticated())
-		return next();
-	res.redirect('/login');
-};
+// passport.serializeUser((user, done) => {
+// 	done(null, user);
+// });
+//
+// passport.deserializeUser((user, done) => {
+// 	done(null, user);
+// });
+//
+//
+// const isAuthenticated = (req, res, next) => {
+// 	if (req.isAuthenticated())
+// 		return next();
+// 	res.redirect('/login');
+// };
 
 /*게임 로그인에 대한 API*/
-router.post('/login', function (req, res) {
-	const _obj = {
-		user_id: req.body.user_id,
-		password: req.body.password
-	};
-    // TODO _obj null, undefined 로직 추가해야됨
-});
+// router.post('/login', function (req, res) {
+// 	const _obj = {
+// 		user_id: req.body.user_id,
+// 		password: req.body.password
+// 	};
+//     // TODO _obj null, undefined 로직 추가해야됨
+// });
 
 
 /**
  * 홀덤쿨럽 티비 로그인 API
  * 로그인 실패시 로그인실패 카운트 증가, 로그인 실패 10일경우 계정락
  */
-passport.use(new LocalStrategy({
-	usernameField: 'user_id',
-	passwordField: 'password',
-	passReqToCallback: true
-}, (req, user_id, password, done) => {
-	User.login(user_id, password, (err, result) => {
-		if (err) {
-			return done(null, false);
-		} else {
-			if (result.success) {
-				return done(null, result.user_info);
-			} else {
-				return done(null, false);
-			}
-		}
-	});
-}));
+// passport.use(new LocalStrategy({
+// 	usernameField: 'user_id',
+// 	passwordField: 'password',
+// 	passReqToCallback: true
+// }, (req, user_id, password, done) => {
+// 	User.login(user_id, password, (err, result) => {
+// 		if (err) {
+// 			return done(null, false);
+// 		} else {
+// 			if (result.success) {
+// 				return done(null, result.user_info);
+// 			} else {
+// 				return done(null, false);
+// 			}
+// 		}
+// 	});
+// }));
 
 
-router.post('/login', passport.authenticate('local', {
-	failureRedirect: '/login',
-	failureFlash: true
-}), (req, res) => {
-	res.redirect('/');
-});
-
-
-router.get('/logout', (req, res) => {
-	req.logout();
-	res.redirect('/');
-});
-
-/**
- * 홀덤클럽 회원가입
- */
-router.post('/signup', (req, res) => {
-    
-    // TODO _obj 검사 그런데 마켓팅코드는 입력안할수있는데??, password === re_password  검사
-    const _obj = {
-        user_id: req.body.user_id,
-        nickname: req.body.nickname,
-        password: bcrypt.hashSync(req.body.password, 10),
-        email: req.body.email,
-        market_code: req.body.market_code || null,
-        signup_dt: new Date()
-    };
-    
-    User.signUp(_obj, (err, result) => {
-        if (!err) {
-            res.json(result);
-        } else {
-            res.json(result);
-        }
-    });
-});
-
-
-router.get('/users/duplication/user_id', (req, res) => {
-    const user_id = req.query.user_id;
-    
-    User.duplicateByUserId(user_id, (err, result) => {
-        if (!err) {
-            res.json(result);
-        } else {
-            res.json(result);
-        }
-    });
-});
-
-router.get('/users/duplication/nickname', (req, res) => {
-    const nickname = req.query.nickname;
-    
-    User.duplicateByNickname(nickname, (err, result) => {
-        if (!err) {
-            res.json(result);
-        } else {
-            res.json(result);
-        }
-    });
-});
-
-router.get('/users/duplication/email', (req, res) => {
-    const email = req.query.email;
-    
-    User.duplicateByEmail(email, (err, result) => {
-        if (!err) {
-            res.json(result);
-        } else {
-            res.json(result);
-        }
-    });
-});
+// router.post('/login', passport.authenticate('local', {
+// 	failureRedirect: '/login',
+// 	failureFlash: true
+// }), (req, res) => {
+// 	res.redirect('/');
+// });
+//
+//
+// router.get('/logout', (req, res) => {
+// 	req.logout();
+// 	res.redirect('/');
+// });
+//
+// /**
+//  * 홀덤클럽 회원가입
+//  */
+// router.post('/signup', (req, res) => {
+//
+//     // TODO _obj 검사 그런데 마켓팅코드는 입력안할수있는데??, password === re_password  검사
+//     const _obj = {
+//         user_id: req.body.user_id,
+//         nickname: req.body.nickname,
+//         password: bcrypt.hashSync(req.body.password, 10),
+//         email: req.body.email,
+//         market_code: req.body.market_code || null,
+//         signup_dt: new Date()
+//     };
+//
+//     User.signUp(_obj, (err, result) => {
+//         if (!err) {
+//             res.json(result);
+//         } else {
+//             res.json(result);
+//         }
+//     });
+// });
+//
+//
+// router.get('/users/duplication/user_id', (req, res) => {
+//     const user_id = req.query.user_id;
+//
+//     User.duplicateByUserId(user_id, (err, result) => {
+//         if (!err) {
+//             res.json(result);
+//         } else {
+//             res.json(result);
+//         }
+//     });
+// });
+//
+// router.get('/users/duplication/nickname', (req, res) => {
+//     const nickname = req.query.nickname;
+//
+//     User.duplicateByNickname(nickname, (err, result) => {
+//         if (!err) {
+//             res.json(result);
+//         } else {
+//             res.json(result);
+//         }
+//     });
+// });
+//
+// router.get('/users/duplication/email', (req, res) => {
+//     const email = req.query.email;
+//
+//     User.duplicateByEmail(email, (err, result) => {
+//         if (!err) {
+//             res.json(result);
+//         } else {
+//             res.json(result);
+//         }
+//     });
+// });
 
 
 
