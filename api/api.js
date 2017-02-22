@@ -17,6 +17,9 @@ const
 // Auth = require('../service/AuthService')
 
 
+// TODO API단에서 Passport를 이용해서 로그인, 로그아웃 구현하기 digest or oauth...
+
+
 /**
  * URI에 리소스명은 동사보다는 명사를 사용한다.
  * URI에 동사는 http 메서드로 대신한다.
