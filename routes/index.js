@@ -10,8 +10,8 @@ const async = require('async');
 const QUERY = require('../database/query');
 const JSON = require('JSON');
 
-require('../database/redis')(router, 'local'); // redis
-require('../helpers/helpers');
+// require('../database/redis')(router, 'local'); // redis
+// require('../helpers/helpers');
 
 const axios = require('axios');
 const request = require('request');
