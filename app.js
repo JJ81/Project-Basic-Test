@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/static', express.static(__dirname + '/public'));
 
-// todo 무료 개방 TLS를 적용할 경우 아래 코드를 수정해야 한다
+// todo TLS 적용시 아래 코드를 수정
 // var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
 app.use(cookieSession({
 	name: 'holdemclub_session',
@@ -66,16 +66,18 @@ app.use(cookieParser());
 const allowCORS = (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, api_key');
 	(req.method === 'OPTIONS') ? res.send(200) : next();
 };
 app.use(allowCORS);
 
 global.PROJ_TITLE = '홀덤클럽티비';
 
+
 app.use('/', routes);
 app.use('/api/v1/', api);
 app.use('/api/v2/', api);
+
 
 
 // 404응답은 오류로 인해 발생하는 것이 아니기에 오류 핸들러 미들웨어가 파악할 수 없다.

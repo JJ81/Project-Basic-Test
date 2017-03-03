@@ -191,6 +191,135 @@ const
 
 ////////////////////////////////////////// API v2.0 //////////////////////////////////////////////////
 
+const LOGIN_ERROR_RESULT = {
+	INTERNAL_ERROR : 'INTERNAL_ERROR',
+	NO_ACCOUNT : 'NO_ACCOUNT',
+	LOGIN_FAILED_WARNING : 'LOGIN_FAILED_WARNING',
+	PASSWORD_NOT_MATCHED : 'PASSWORD_NOT_MATCHED',
+	BANNED : 'BANNED',
+	LOGIN_FAILED_EXCEED : 'LOGIN_FAILED_EXCEED',
+	LOGIN_SUCCESS : 'LOGIN_SUCCESS'
+};
+
+
+router.post('/login', (req, res) => {
+	'use strict';
+
+	let
+		user_id = req.body.user_id,
+		password = req.body.password;
+
+
+	connection.query(QUERY.USER.Login, [user_id], (err, data) => {
+		if (err) {
+			console.info('[User : ' + user_id + ']' + err);
+
+			res.json({
+				'status': 500,
+				'success': false,
+				'msg': '내부 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.',
+				'result': LOGIN_ERROR_RESULT.INTERNAL_ERROR
+			});
+			// todo 아래 로직 순서가 맞는지 검토하고 리팩토링할 것.
+		} else {
+
+			if (data.length == 0) {
+				// 로그인에 실패했을 때 (등록된 계정이 없습니다)
+				console.info('[User : '+user_id+'] this account does not exist.');
+				res.json({
+					'status': 401,
+					'success': false,
+					'msg': '등록된 계정이 없습니다.',
+					'result': LOGIN_ERROR_RESULT.NO_ACCOUNT
+				});
+			} else {
+				// 해당 아이디가 검색되면 내부에서 password가 맞는지 검사
+				if (!bcrypt.compareSync(password, data[0].password)) {
+					if (data[0].login_fail_count >= 5 && data[0].login_fail_count < 10) {
+
+						// todo 로그인 실패 횟수 증가
+						// service_login.failToLogin(data[0].user_id);
+
+						console.info('[User : '+user_id+'] Password does not match.');
+
+						res.json({
+							'status': 401,
+							'success': false,
+							'msg': '비밀번호가 맞지 않습니다. 로그인에 10번 이상 실패하면 계정이 정지될 수 있습니다. [현재실패횟수 : ' + parseInt(data[0].login_fail_count + 1) + ']',
+							'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_WARNING
+						});
+
+					} else if (data[0].login_fail_count >= 10) {
+
+						console.info('[User : ' +user_id+ '] This account is banned because of login failure.' );
+
+						res.json({
+							'status': 401,
+							'success': false,
+							'msg': '정지당한 계정입니다. ',
+							'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_EXCEED
+						});
+					} else {
+
+						// service_login.failToLogin(data[0].user_id);
+
+						console.info('[User : '+user_id+'] Password does not match.');
+						res.json({
+							'status': 401,
+							'success': false,
+							'msg': '비밀번호가 맞지 않습니다. 다시 시도해주세요.',
+							'result': LOGIN_ERROR_RESULT.PASSWORD_NOT_MATCHED
+						});
+					}
+
+				} else {
+
+					if (data[0].banned) {
+						console.info('[User : '+user_id+'] This account is banned temporarily');
+						res.json({
+							'status': 401,
+							'success': false,
+							'msg': '정지당한 계정입니다.',
+							'result': LOGIN_ERROR_RESULT.BANNED
+						});
+					} else {
+						// login_fail_count가 10회 이상일 경우 로그인을 할 수 없다.
+						console.info('[User : '+user_id+'] This accunt attempt login fail over 10 times.')
+						if (data[0].login_fail_count >= 10) {
+							res.json({
+								'status': 401,
+								'success': false,
+								'msg': '로그인을 10회이상 실패하셨습니다.',
+								'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_EXCEED
+							});
+						} else {
+							// 패스워드가 맞을 경우
+							// 로그인에 성공했을 경우 로그인 실패 횟수를 0으로 초기화한다.
+							// 로그인에 성공했을 경우 로그인 기록을 로그에 저장한다.
+
+							// service_login.clearFailedCount(data[0].user_id);
+							// service_login.updateLog(data[0].user_id);
+
+
+							console.info('[User : '+user_id+'] This account is loggined successfully.');
+							res.json({
+								'status': 200,
+								'success': true,
+								'msg': '로그인에 성공했습니다.',
+								'result': LOGIN_ERROR_RESULT.LOGIN_SUCCESS,
+								'data': data
+							});
+						}
+					}
+				}
+			}
+		}
+	});
+});
+
+
+
+
 /**
  * TODO 댓글과 덧글을 어떻게 구분할 것인가
  * TODO 댓글을 가져올 때 덧글을 어떻게 가져와서 보여줄 것인가? -> 일단 숨겨두고 버튼을 누르면 보일 수 있도록 하자.

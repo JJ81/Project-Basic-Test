@@ -9,6 +9,7 @@ const bcrypt = require('bcrypt');
 const async = require('async');
 const QUERY = require('../database/query');
 const JSON = require('JSON');
+const fs = require('fs');
 
 require('../database/redis')(router, 'local'); // redis
 require('../helpers/helpers');
@@ -116,6 +117,23 @@ router.post('/login', passport.authenticate('local', {
 router.get('/logout', isAuthenticated, (req, res) => {
 	req.logout();
 	res.redirect('/');
+});
+
+
+/**
+ * API-DOCS
+ */
+router.get('/api-doc', (req, res) => {
+	fs.readFile('swagger/api.json', 'utf8', (err, data) => {
+		if(!err){
+			console.info(data);
+			res.json(JSON.parse(data));
+		}else{
+			console.error(err);
+			res.json({});
+		}
+	});
+
 });
 
 

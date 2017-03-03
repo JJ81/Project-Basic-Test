@@ -991,6 +991,8 @@ select * from `reply_video`;
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>select * from `user` 
+where user_id='plr123'</string>
 		<string>## 여기서부터 덧글
 ## 덧글의 계층에 따라서 layer 혹은 level정보를 입력해야 한다.
 
@@ -1063,7 +1065,6 @@ BEGIN
 		SET i = i + 1;
 	END WHILE;
 END</string>
-		<string>DROP PROCEDURE IF EXISTS FILL_TEST_ACCOUNT</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>
