@@ -16,7 +16,7 @@ const flash = require('connect-flash');
 // 쿠키 기반 스토리지를 구현 하나의 세션키가 아닌 세션 전체를 쿠키에 직렬화한다
 // 브라우저는 하나의 쿠키당 4096바이트 이상을 지원하도록 되어 있지만 한계를 초과하지 않도록 보장하려면 하나의 도메인당 4093바이트의 크기를 초과해서는 안된다
 // 클라이언트에서 쿠키 데이터를 볼 수 있기 때문에 쿠키 데이터를 안전하게 모호하게 유지를 해야 할 경우 express-session을 선택하는 것이 더 나을 수 있다.
-const cookieSession = require('cookie-session');
+const cookieSession = require('cookie-session'); //  todo !!!
 const helmet = require('helmet');
 
 // view engine setup
@@ -29,8 +29,9 @@ hbs.registerPartials(__dirname + '/views/partials');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// todo 파비콘 설정을 이곳에 하지 않고 CDN으로부터 받을 수 있도록 한다.
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules')));
+// app.use(express.static(path.join(__dirname, 'node_modules')));
 app.use('/static', express.static(__dirname + '/public'));
 
 // todo TLS 적용시 아래 코드를 수정
@@ -57,8 +58,9 @@ app.use(logger('dev'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser()); // todo 이곳에 secret 설정할 것
 
+// todo method-override에 대해서 학습할 것
 // const methodOverride = require('method-override');
 // override with the X-HTTP-Method-Override header in the request
 // app.use(methodOverride('X-HTTP-Method-Override'));
@@ -71,10 +73,21 @@ const allowCORS = (req, res, next) => {
 };
 app.use(allowCORS);
 
+
 global.PROJ_TITLE = '홀덤클럽티비';
 
 
+
+
 app.use('/', routes);
+
+/*
+// todo api_key 설정을 통해서 api호출에 대한 검증을 거칠 수 있도록 한다.
+// secret_key가 별도로 발급되어야 하나?
+// 혹은 refresh_key가 발급되어서 api_key만료일을 파악하고 로그인을 통해서 재발행할 수 있도록 해야...
+// api_key 원리에 대해서 학습할 것.
+ref. https://www.npmjs.com/package/passport-localapikey
+*/
 app.use('/api/v1/', api);
 app.use('/api/v2/', api);
 
@@ -94,7 +107,7 @@ app.use((req, res, next) => {
 // error handlers
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로 500 에러에 대한 설정을 할 수 있도록 할 것
 	app.use((err, req, res, next) => {
 		res.status(err.status || 500);
 		res.render('500', {

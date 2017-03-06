@@ -45,8 +45,6 @@
 		<dict>
 			<key>connectionEncoding</key>
 			<string>utf8mb4</string>
-			<key>contentFilter</key>
-			<dict/>
 			<key>contentPageNumber</key>
 			<integer>1</integer>
 			<key>contentSelection</key>
@@ -70,7 +68,7 @@
 			<key>contentSortColIsAsc</key>
 			<true/>
 			<key>contentViewport</key>
-			<string>{{0, 0}, {2319, 1175}}</string>
+			<string>{{0, 0}, {694, 450}}</string>
 			<key>isToolbarVisible</key>
 			<true/>
 			<key>queries</key>
@@ -969,6 +967,10 @@ where `id`='265' and `user_id`='player001';
 ### 특정 덧글에 대한 덧글을 달기 위해서는 상위 덧글의 레이어 혹은 레벨을 알고 있어야 한다.
 
 select * from `reply_video`;
+
+
+
+
 
 
 
