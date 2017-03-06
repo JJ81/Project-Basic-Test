@@ -79,7 +79,9 @@ global.PROJ_TITLE = '홀덤클럽티비';
 
 
 
-app.use('/', routes);
+app.use('/v1', api);
+app.use('/v2', api);
+
 
 /*
 // todo api_key 설정을 통해서 api호출에 대한 검증을 거칠 수 있도록 한다.
@@ -88,8 +90,9 @@ app.use('/', routes);
 // api_key 원리에 대해서 학습할 것.
 ref. https://www.npmjs.com/package/passport-localapikey
 */
-app.use('/api/v1/', api);
-app.use('/api/v2/', api);
+
+// app.use('/api/v1/', api);
+// app.use('/api/v2/', api);
 
 
 
@@ -97,11 +100,14 @@ app.use('/api/v2/', api);
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
 	res.status(404);
-	res.render('404', {
-		current_path: '404 Error Page',
-		title: PROJ_TITLE + 'ERROR PAGE',
-		loggedIn: req.user
+	res.json({
+		status : res.statusCode
 	});
+	// res.render('404', {
+	// 	current_path: '404 Error Page',
+	// 	title: PROJ_TITLE + 'ERROR PAGE',
+	// 	loggedIn: req.user
+	// });
 });
 
 // error handlers
@@ -110,10 +116,13 @@ app.use((req, res, next) => {
 if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로 500 에러에 대한 설정을 할 수 있도록 할 것
 	app.use((err, req, res, next) => {
 		res.status(err.status || 500);
-		res.render('500', {
-			current_path: ' 500 Error Page',
-			title: PROJ_TITLE + 'ERROR PAGE'
+		res.json({
+			status : res.statusCode
 		});
+		// res.render('500', {
+		// 	current_path: ' 500 Error Page',
+		// 	title: PROJ_TITLE + 'ERROR PAGE'
+		// });
 	});
 }
 
@@ -121,10 +130,16 @@ if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
 	console.error(err.stack);
-	res.render('500', {
-		current_path: '500 Error Page',
-		title: PROJ_TITLE + 'ERROR PAGE'
+
+	res.status(err.status || 500);
+	res.json({
+		status : res.statusCode
 	});
+
+	// res.render('500', {
+	// 	current_path: '500 Error Page',
+	// 	title: PROJ_TITLE + 'ERROR PAGE'
+	// });
 });
 
 // Swifty Automatic Changing ENV.

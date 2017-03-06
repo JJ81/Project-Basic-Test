@@ -284,8 +284,8 @@ router.post('/login', (req, res) => {
 						});
 					} else {
 						// login_fail_count가 10회 이상일 경우 로그인을 할 수 없다.
-						console.info('[User : '+user_id+'] This accunt attempt login fail over 10 times.')
 						if (data[0].login_fail_count >= 10) {
+							console.info('[User : '+user_id+'] This accunt attempt login fail over 10 times.')
 							res.json({
 								'status': 401,
 								'success': false,
@@ -293,6 +293,7 @@ router.post('/login', (req, res) => {
 								'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_EXCEED
 							});
 						} else {
+
 							// 패스워드가 맞을 경우
 							// 로그인에 성공했을 경우 로그인 실패 횟수를 0으로 초기화한다.
 							// 로그인에 성공했을 경우 로그인 기록을 로그에 저장한다.
@@ -302,6 +303,7 @@ router.post('/login', (req, res) => {
 
 
 							console.info('[User : '+user_id+'] This account is loggined successfully.');
+
 							res.json({
 								'status': 200,
 								'success': true,
