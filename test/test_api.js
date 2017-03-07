@@ -16,7 +16,7 @@ const HOST_API = `${HOST}v2/`;
 
 describe('[API 2.0] Check Login', () => {
 
-	
+
 
 
 	// describe('Broadcast Signal', () => {
