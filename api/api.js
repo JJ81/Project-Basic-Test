@@ -22,11 +22,9 @@ router.post('/login', (req, res) => {
 		user_id = req.body.user_id,
 		password = req.body.password;
 
-	console.info(`[login test] ${user_id} / ${password}`);
-
 	// 입력값에 대한 검사
 	if(user_id === '' || password === ''){
-		console.error(`[input error] user_id : ${user_id}, password : ${password}`);
+		console.error(`[input error] user_id : ${user_id}`);
 		res.status(400);
 		res.json({
 			status : res.statusCode,
