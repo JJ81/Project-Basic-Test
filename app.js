@@ -78,7 +78,13 @@ global.PROJ_TITLE = '홀덤클럽티비';
 
 
 
-
+// unauthorized
+app.get('/', (req, res) => {
+	res.status(401);
+	res.json({
+		status : res.statusCode
+	});
+});
 app.use('/v1', api);
 app.use('/v2', api);
 

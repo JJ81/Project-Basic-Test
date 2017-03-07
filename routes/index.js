@@ -11,7 +11,7 @@ const QUERY = require('../database/query');
 const JSON = require('JSON');
 const fs = require('fs');
 
-require('../database/redis')(router, 'local'); // redis
+// require('../database/redis')(router, 'local'); // redis
 require('../helpers/helpers');
 
 const axios = require('axios');
