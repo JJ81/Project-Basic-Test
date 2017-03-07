@@ -65,6 +65,8 @@ app.use(cookieParser()); // todo 이곳에 secret 설정할 것
 // override with the X-HTTP-Method-Override header in the request
 // app.use(methodOverride('X-HTTP-Method-Override'));
 
+
+// API호출을 어디에서 받을지 여부 설정을 AWS Security에서 한다면 이곳에서는 하지 않아도 되는가??
 const allowCORS = (req, res, next) => {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
