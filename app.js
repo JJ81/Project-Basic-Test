@@ -77,13 +77,9 @@ app.use(allowCORS);
 global.PROJ_TITLE = '홀덤클럽티비';
 
 
-
-// unauthorized
+// for checking healthy from ELB
 app.get('/', (req, res) => {
-	res.status(401);
-	res.json({
-		status : res.statusCode
-	});
+	res.send('holdemclub 2.0 api server');
 });
 app.use('/v1', api);
 app.use('/v2', api);
