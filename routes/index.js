@@ -23,6 +23,7 @@ const csrfProtection = csrf({ cookie: true });
 const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({extended:false});
 
+const UserService = require('../service/UserService');
 
 passport.serializeUser((user, done) => {
 	console.log('Serialize');
@@ -63,6 +64,14 @@ passport.use(new LocalStrategy({
 					console.log('password is not matched.');
 					return done(null, false, {'message' : 'Password is not matched.'});
 				} else {
+
+
+					// todo 로그인시 날짜를 해당 컬럼에 기록할 수 있어야 한다
+					UserService.RecordLoginTime(data[0].user_id, (err, result) => {
+						if(err){
+							console.error(err);
+						}
+					});
 
 					return done(null, {
 						'username' : data[0].user_id,

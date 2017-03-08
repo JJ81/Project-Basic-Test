@@ -6,318 +6,98 @@ const
 	express = require('express'),
 	router = express.Router(),
 	bcrypt = require('bcrypt'),
-	passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy,
-	// async = require('async'),
-	// CommonDAO = require('../RedisDAO/CommonDAO'),
-	// UTIL = require('../util/util'),
-	User = require('../service/UserService'),
-	Reply = require('../service/ReplyService');
+	async = require('async'),
+	CommonDAO = require('../RedisDAO/RedisDAO'),
+	UTIL = require('../util/util'),
+	UserService = require('../service/UserService'),
+	Reply = require('../service/ReplyService'),
 	ReReply = require('../service/ReRelyService');
-// Auth = require('../service/AuthService')
-
-
-// TODO API단에서 Passport를 이용해서 로그인, 로그아웃 구현하기 digest or oauth...
 
 
 /**
- * URI에 리소스명은 동사보다는 명사를 사용한다.
- * URI에 동사는 http 메서드로 대신한다.
- * 가급적이면 의미상 단수형 명사(/dog)보다는 복수형 명사(/dogs)를 사용하는 것이 의미상 표현하기가 더 좋다.
- *
- * 만약에 관계의 명이 복잡하다면 관계명을 명시적으로 표현하는 방법이 있다. 예를 들어 사용자가 “좋아하는” 디바이스 목록을 표현해보면
- * HTTP Get : /users/{userid}/likes/devices
- * 예) /users/terry/likes/devices
- *
- * 에러핸들링 공통 로직이될거같으니 하나의 힘수로 만들자
- * 가급적이면 Error Code 번호를 제공하는 것이 좋다.
- *
- * 200 성공
- * 400 Bad Request - field validation 실패시
- * 401 Unauthorized - API 인증,인가 실패
- * 404 Not found ? 해당 리소스가 없음
- * 500 Internal Server Error - 서버 에러
- *
- * 공통 URL = /api/v1/
- *
- * {행위} , {HTTP Method}, {URI}
- *
- * 로그인, 댓글, 답글, 회원가입, 아이디중복검사, 닉네임중복검사, 아이디찾기, 비빌번호 찾기(새롭게 설정함)
- * 조회수 증가로직, 게임 로그인을 위한 회원가입(유저아아디, 닉네임 받아야됨)
- * 회원 정보수정, 로그아웃,
- *
- *
- * {로그인}, {POST}, {/login}
- * {회원가입}, {POST}, {/signup}
- * {아이디중복검사}, {GET}, {/users/duplication/user_id?user_id={payer001}}
- * {닉네임중복검사}, {GET}, {/users/duplication/nickname?nickname={payer001}}
- * {회원 정보수정}, {PUT}, {/myinfo}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- * {}, {}, {}
- *
+ * 회원가입
+ * todo 테스트 코드 미작성
  */
-
-
-// passport.serializeUser((user, done) => {
-// 	done(null, user);
-// });
-//
-// passport.deserializeUser((user, done) => {
-// 	done(null, user);
-// });
-//
-//
-// const isAuthenticated = (req, res, next) => {
-// 	if (req.isAuthenticated())
-// 		return next();
-// 	res.redirect('/login');
-// };
-
-/*게임 로그인에 대한 API*/
-// router.post('/login', function (req, res) {
-// 	const _obj = {
-// 		user_id: req.body.user_id,
-// 		password: req.body.password
-// 	};
-//     // TODO _obj null, undefined 로직 추가해야됨
-// });
-
-
-/**
- * 홀덤쿨럽 티비 로그인 API
- * 로그인 실패시 로그인실패 카운트 증가, 로그인 실패 10일경우 계정락
- */
-// passport.use(new LocalStrategy({
-// 	usernameField: 'user_id',
-// 	passwordField: 'password',
-// 	passReqToCallback: true
-// }, (req, user_id, password, done) => {
-// 	User.login(user_id, password, (err, result) => {
-// 		if (err) {
-// 			return done(null, false);
-// 		} else {
-// 			if (result.success) {
-// 				return done(null, result.user_info);
-// 			} else {
-// 				return done(null, false);
-// 			}
-// 		}
-// 	});
-// }));
-
-
-// router.post('/login', passport.authenticate('local', {
-// 	failureRedirect: '/login',
-// 	failureFlash: true
-// }), (req, res) => {
-// 	res.redirect('/');
-// });
-//
-//
-// router.get('/logout', (req, res) => {
-// 	req.logout();
-// 	res.redirect('/');
-// });
-//
-// /**
-//  * 홀덤클럽 회원가입
-//  */
-// router.post('/signup', (req, res) => {
-//
-//     // TODO _obj 검사 그런데 마켓팅코드는 입력안할수있는데??, password === re_password  검사
-//     const _obj = {
-//         user_id: req.body.user_id,
-//         nickname: req.body.nickname,
-//         password: bcrypt.hashSync(req.body.password, 10),
-//         email: req.body.email,
-//         market_code: req.body.market_code || null,
-//         signup_dt: new Date()
-//     };
-//
-//     User.signUp(_obj, (err, result) => {
-//         if (!err) {
-//             res.json(result);
-//         } else {
-//             res.json(result);
-//         }
-//     });
-// });
-//
-//
-// router.get('/users/duplication/user_id', (req, res) => {
-//     const user_id = req.query.user_id;
-//
-//     User.duplicateByUserId(user_id, (err, result) => {
-//         if (!err) {
-//             res.json(result);
-//         } else {
-//             res.json(result);
-//         }
-//     });
-// });
-//
-// router.get('/users/duplication/nickname', (req, res) => {
-//     const nickname = req.query.nickname;
-//
-//     User.duplicateByNickname(nickname, (err, result) => {
-//         if (!err) {
-//             res.json(result);
-//         } else {
-//             res.json(result);
-//         }
-//     });
-// });
-//
-// router.get('/users/duplication/email', (req, res) => {
-//     const email = req.query.email;
-//
-//     User.duplicateByEmail(email, (err, result) => {
-//         if (!err) {
-//             res.json(result);
-//         } else {
-//             res.json(result);
-//         }
-//     });
-// });
-
-
-
-////////////////////////////////////////// API v2.0 //////////////////////////////////////////////////
-
-const LOGIN_ERROR_RESULT = {
-	INTERNAL_ERROR : 'INTERNAL_ERROR',
-	NO_ACCOUNT : 'NO_ACCOUNT',
-	LOGIN_FAILED_WARNING : 'LOGIN_FAILED_WARNING',
-	PASSWORD_NOT_MATCHED : 'PASSWORD_NOT_MATCHED',
-	BANNED : 'BANNED',
-	LOGIN_FAILED_EXCEED : 'LOGIN_FAILED_EXCEED',
-	LOGIN_SUCCESS : 'LOGIN_SUCCESS'
-};
-
-
-router.post('/login', (req, res) => {
+router.post('/signup', (req, res) => {
 	'use strict';
 
-	let
-		user_id = req.body.user_id,
-		password = req.body.password;
+	let _obj = {
+		user_id: req.body.user_id,
+		nickname: req.body.nickname,
+		password: req.body.password,
+		email: req.body.email,
+		market_code: req.body.market_code
+	};
 
+	if(_obj.password !== req.body.re_password) {
+		res.json({
+			success : false,
+			msg : 'Password is not matched each other.'
+		});
+	}
 
-	connection.query(QUERY.USER.Login, [user_id], (err, data) => {
-		if (err) {
-			console.info('[User : ' + user_id + ']' + err);
+	_obj.password = bcrypt.hashSync(req.body.password, 10);
 
+	UserService.SignUp(_obj, (err, result) => {
+		if (!err) {
 			res.json({
-				'status': 500,
-				'success': false,
-				'msg': '내부 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.',
-				'result': LOGIN_ERROR_RESULT.INTERNAL_ERROR
+				success : true,
+				result : result
 			});
-			// todo 아래 로직 순서가 맞는지 검토하고 리팩토링할 것.
 		} else {
-
-			if (data.length == 0) {
-				// 로그인에 실패했을 때 (등록된 계정이 없습니다)
-				console.info('[User : '+user_id+'] this account does not exist.');
-				res.json({
-					'status': 401,
-					'success': false,
-					'msg': '등록된 계정이 없습니다.',
-					'result': LOGIN_ERROR_RESULT.NO_ACCOUNT
-				});
-			} else {
-				// 해당 아이디가 검색되면 내부에서 password가 맞는지 검사
-				if (!bcrypt.compareSync(password, data[0].password)) {
-					if (data[0].login_fail_count >= 5 && data[0].login_fail_count < 10) {
-
-						// todo 로그인 실패 횟수 증가
-						// service_login.failToLogin(data[0].user_id);
-
-						console.info('[User : '+user_id+'] Password does not match.');
-
-						res.json({
-							'status': 401,
-							'success': false,
-							'msg': '비밀번호가 맞지 않습니다. 로그인에 10번 이상 실패하면 계정이 정지될 수 있습니다. [현재실패횟수 : ' + parseInt(data[0].login_fail_count + 1) + ']',
-							'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_WARNING
-						});
-
-					} else if (data[0].login_fail_count >= 10) {
-
-						console.info('[User : ' +user_id+ '] This account is banned because of login failure.' );
-
-						res.json({
-							'status': 401,
-							'success': false,
-							'msg': '정지당한 계정입니다. ',
-							'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_EXCEED
-						});
-					} else {
-
-						// service_login.failToLogin(data[0].user_id);
-
-						console.info('[User : '+user_id+'] Password does not match.');
-						res.json({
-							'status': 401,
-							'success': false,
-							'msg': '비밀번호가 맞지 않습니다. 다시 시도해주세요.',
-							'result': LOGIN_ERROR_RESULT.PASSWORD_NOT_MATCHED
-						});
-					}
-
-				} else {
-
-					if (data[0].banned) {
-						console.info('[User : '+user_id+'] This account is banned temporarily');
-						res.json({
-							'status': 401,
-							'success': false,
-							'msg': '정지당한 계정입니다.',
-							'result': LOGIN_ERROR_RESULT.BANNED
-						});
-					} else {
-						// login_fail_count가 10회 이상일 경우 로그인을 할 수 없다.
-						console.info('[User : '+user_id+'] This accunt attempt login fail over 10 times.')
-						if (data[0].login_fail_count >= 10) {
-							res.json({
-								'status': 401,
-								'success': false,
-								'msg': '로그인을 10회이상 실패하셨습니다.',
-								'result': LOGIN_ERROR_RESULT.LOGIN_FAILED_EXCEED
-							});
-						} else {
-							// 패스워드가 맞을 경우
-							// 로그인에 성공했을 경우 로그인 실패 횟수를 0으로 초기화한다.
-							// 로그인에 성공했을 경우 로그인 기록을 로그에 저장한다.
-
-							// service_login.clearFailedCount(data[0].user_id);
-							// service_login.updateLog(data[0].user_id);
-
-
-							console.info('[User : '+user_id+'] This account is loggined successfully.');
-							res.json({
-								'status': 200,
-								'success': true,
-								'msg': '로그인에 성공했습니다.',
-								'result': LOGIN_ERROR_RESULT.LOGIN_SUCCESS,
-								'data': data
-							});
-						}
-					}
-				}
-			}
+			res.json({
+				success : false,
+				msg : err
+			});
 		}
 	});
 });
 
+/**
+ * 회원가입시 유저 아이디 중복 검사
+ *
+ */
+router.get('/users/duplication/user_id', (req, res) => {
+	const user_id = req.query.user_id;
 
+	UserService.DuplicateByUserId(user_id, (err, result) => {
+		if (!err) {
+			res.json(result);
+		} else {
+			res.json(result);
+		}
+	});
+});
+
+/**
+ * 회원가입시 닉네임 중복 검사
+ */
+router.get('/users/duplication/nickname', (req, res) => {
+	const nickname = req.query.nickname;
+
+	UserService.duplicateByNickname(nickname, (err, result) => {
+		if (!err) {
+			res.json(result);
+		} else {
+			res.json(result);
+		}
+	});
+});
+
+/**
+ * 회원가입시 이메일 중복 검사
+ */
+router.get('/users/duplication/email', (req, res) => {
+	const email = req.query.email;
+
+	UserService.duplicateByEmail(email, (err, result) => {
+		if (!err) {
+			res.json(result);
+		} else {
+			res.json(result);
+		}
+	});
+});
 
 
 /**

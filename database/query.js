@@ -22,11 +22,12 @@ const QUERY = {};
 };*/
 
 QUERY.USER = {
-	Login: 'select * from `user` where `user_id`=?;'
+	Login: 'select * from `user` where `user_id`=?;',
+	RecordLoginTime : 'update `user` set `last_login_dt` = CURRENT_TIMESTAMP where `user_id`=?;',
 	// FailToLogin: 'update `user` set `login_fail_count`=`login_fail_count`+1 where `user_id`=?;',
 	// ClearFailedCount: 'update `user` set `login_fail_count`=0  where `user_id`=?;',
 	// UpdateGameLog: 'insert into `log_access_game` set `user_id` = ?, `last_login_dt` = ?;',
-	// SignUp: 'insert into `user` set ?;',
+	SignUp: 'insert into `user` set ?;'
 	// DuplicateByUserId: 'select `user_id` from `user` where `user_id` = ?;',
 	// DuplicateByNickname: 'select `nickname` from `user` where `nickname` = ?;',
 	// DuplicateByEmail: 'select `email` from `user` where `email` = ?;',
