@@ -154,51 +154,50 @@ UserService.RecordLoginTime = (user_id, cb) => {
 	});
 };
 
-
+// todo 수정전
 UserService.DuplicateByUserId= (user_id, callback) => {
-    
-    connection.query(QUERY.USER.DuplicateByUserId, user_id, (err, result)=>{
-        if(!err){
-            if(result.length === 0){
-                callback(null, {success: true, msg: '사용 가능합니다.'});
-            }else{
-                callback(null, {success: false, msg: '이미 사용중입니다.'});
-            }
-        }else{
-            callback(err, {success: false, msg: '다시 시도해주세요'});
-        }
-    });
+	connection.query(QUERY.USER.DuplicateByUserId, user_id, (err, result)=>{
+		if(!err){
+			if(result.length === 0){
+				callback(null, {success: true, msg: '사용 가능합니다.'});
+			}else{
+				callback(null, {success: false, msg: '이미 사용중입니다.'});
+			}
+		}else{
+			callback(err, {success: false, msg: '다시 시도해주세요'});
+		}
+	});
 };
 
+
+// todo 수정 전
 UserService.duplicateByNickname = (nickname, callback) => {
-    
-    connection.query(QUERY.USER.DuplicateByNickname, nickname, (err, result)=>{
-        if(!err){
-            if(result.length === 0){
-                callback(null, {success: true, msg: '사용 가능합니다.'});
-            }else{
-                callback(null, {success: false, msg: '이미 사용중입니다.'})
-            }
-        }else{
-            callback(err, {success: false, msg: '다시 시도해주세요'});
-        }
-    });
+	connection.query(QUERY.USER.DuplicateByNickname, nickname, (err, result)=>{
+		if(!err){
+			if(result.length === 0){
+				callback(null, {success: true, msg: '사용 가능합니다.'});
+			}else{
+				callback(null, {success: false, msg: '이미 사용중입니다.'});
+			}
+		}else{
+			callback(err, {success: false, msg: '다시 시도해주세요'});
+		}
+	});
 };
 
-
+// todo 수정전
 UserService.duplicateByEmail = (email, callback) => {
-    
-    connection.query(QUERY.USER.DuplicateByEmail, email, (err, result)=>{
-        if(!err){
-            if(result.length === 0){
-                callback(null, {success: true, msg: '사용 가능합니다.'});
-            }else{
-                callback(null, {success: false, msg: '이미 사용중입니다.'});
-            }
-        }else{
-            callback(err, {success: false, msg: '다시 시도해주세요'});
-        }
-    });
+	connection.query(QUERY.USER.DuplicateByEmail, email, (err, result)=>{
+		if(!err){
+			if(result.length === 0){
+				callback(null, {success: true, msg: '사용 가능합니다.'});
+			}else{
+				callback(null, {success: false, msg: '이미 사용중입니다.'});
+			}
+		}else{
+			callback(err, {success: false, msg: '다시 시도해주세요'});
+		}
+	});
 };
 
 module.exports = UserService;

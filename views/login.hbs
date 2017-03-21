@@ -18,14 +18,19 @@
                 <input type="hidden" name="login_check">
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbok">
-                        <label><input type="checkbox" id="remember"> Remember Me</label>
-                    </div>
-                </div>
+                <!--<div class="col-xs-8">-->
+                    <!--<div class="checkbok">-->
+                        <!--<label><input type="checkbox" id="remember"> Remember Me</label>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <!-- /.col -->
                 <div class="col-xs-4">
-                    <button type="submit" class="btn btn-danger btn-block btn-flat" id="btn-agent-login">Sign In</button>
+                    <ol>
+                        <li><button type="submit" class="btn btn-danger btn-block btn-flat" id="btn-agent-login">Sign In</button></li>
+                        <li><a class="btn btn_login_fb" href="/auth/login/facebook">페이스북 로그인</a></li>
+                        <li><a class="btn_login_kko" href="/auth/login/kakao">카카오 로그인</a></li>
+                        <li><a class="btn_login_nav" href="/auth/login/naver">네이버 로그인</a></li>
+                    </ol>
                 </div>
                 <!-- /.col -->
             </div>

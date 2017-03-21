@@ -10,6 +10,7 @@ const async = require('async');
 const QUERY = require('../database/query');
 const JSON = require('JSON');
 const fs = require('fs');
+const secret_config = require('../secret/federation');
 
 require('../database/redis')(router, 'local'); // redis
 require('../helpers/helpers');
@@ -65,8 +66,7 @@ passport.use(new LocalStrategy({
 					return done(null, false, {'message' : 'Password is not matched.'});
 				} else {
 
-
-					// todo 로그인시 날짜를 해당 컬럼에 기록할 수 있어야 한다
+					// 로그인시 날짜를 해당 컬럼에 기록할 수 있어야 한다
 					UserService.RecordLoginTime(data[0].user_id, (err, result) => {
 						if(err){
 							console.error(err);
@@ -130,6 +130,233 @@ router.get('/logout', isAuthenticated, (req, res) => {
 
 
 /**
+ * @ Third Party Login
+ */
+const NaverStrategy = require('passport-naver').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
+const KakaoStrategy = require('passport-kakao').Strategy;
+
+/**
+ * 서드파티로 로그인할 경우 이 함수를 통해서 회원가입을 진행시키고 로그인을 자동처리해준다.
+ * @param info : 서드 파티로 부터 받은 유저 정보
+ * @param done : passport로부터 받은 콜백
+ * TODO 유저아이디와 닉네임을 수정할 수 있도록 고지를 해준다 대신 개인 정보를 볼 수 있고 수정할 수 있는 페이지가 필요하다.
+ * todo 회원가입시 guid를 통해서 유저아이디와 닉네임을 임시로 사용할 수 있도록 한다. 8자리 숫자로 조합하는 형태
+ * todo 세션에서 그리고 컬럼에서 닉네임 등을 설정하지 않을 것을 확인하고 페이지를 이동할 때마다 알려준다. user_fed에 컬럼 추가할 것 boolean
+ * todo 중복 에러처리를 하나의 메서드로 만든다.
+ */
+function loginByThirdparty(info, done) {
+	console.log('process : ' + info.auth_type);
+
+	// 트랜잭션 시작
+	connection.beginTransaction(function (err) {
+		if (err) {
+			console.error('[err] ' + err);
+			err.code = 500;
+			return done(err);
+		} else {
+			console.log('no err on the transaction');
+
+			// 여기서부터 트랜잭션 블록 코드
+			// auth_type과 auth_id를 통해서 신규인지 기존 회원인지 알아낸다.
+			var stmt_duplicated = 'select * from `user_federation` where' +
+				' `auth_type`="' + info.auth_type + '" and `auth_id`="' + info.auth_id + '";';
+
+			console.log(stmt_duplicated);
+
+			connection.query(stmt_duplicated, function (err, data) {
+				if (err) {
+					console.error('[err] ' + err);
+					err.code = 500;
+					return done(err);
+					//return next(new Error('loginByThirdpary'));
+				} else {
+					console.log('중복 검사 통과');
+					if (data.length === 0) {
+						// 신규 ->  기존 데이터와 비교하여 중복 확인할 것 -> 중복시 임의의 user_id, nickname을 생성하고 -> 회원가입 후 로그인 시킬 것.
+						console.log('New User');
+
+
+						/**
+						 * TODO 이곳은 서드파티 첫로그인(회원 가입)시키는 구간이다
+						 * TODO 1. user table에  서드파티 로그인 회원정보 저장 (user_id = auth_id를 입력(중복 제거, 로그인 이후 별도의 페이지에서 최초1회 수정하게해야됨(게임로그인을 위한 설정)), 최초 로그인 판단 칼럼 추가, auth_id 칼럼추가 FK 지정 )
+						 * TODO 2. user_federation table에 서드파티 로그인 유저 정보를 저장시킨다.
+						 * TODO 3. myhome 페이지에서 서드파티 로그인 유저만 아아디/닉네음을 1회만 수정가능하게 설정한다.
+						 * TODO 4. 서드파티 로그인 유저 판단 로직은? (user_id = auth.id, ???)
+						 *
+						 * */
+
+						var stmt_reg_new_user = 'insert into `user` set `user_id`=?, `nickname`=?, `email`=?, `last_login_dt`=?, `signup_dt`=?, `auth_id`=? ;';
+						var stmt_add_user_fed = 'insert into `user_federation` set `user_id`=?, `auth_type`=?, `auth_id`=?, `auth_name`=? ';
+						var current_time = service.currentTime();
+
+						async.series([
+							function (callback) {
+								connection.query(stmt_reg_new_user, [info.auth_id, info.auth_name, info.auth_email, current_time, current_time, info.auth_id], function (err, reg_new_user) {
+									callback(err, reg_new_user);
+								})
+							},
+							function (callback) {
+								connection.query(stmt_add_user_fed, [info.auth_id, info.auth_type, info.auth_id, info.auth_name], function (err, add_user_fed) {
+									callback(err, add_user_fed);
+								})
+							}
+						], function (err, results) {
+							if (err) {
+								console.error('[err] ' + err);
+								err.code = 500;
+								connection.rollback();
+								return done(err);
+							} else {
+								connection.commit();
+								done(null, {
+									'user_id': info.auth_id,
+									'nickname': info.auth_name,
+									'set_game_login': false
+								});
+							}
+						});
+					} else {
+						// 기존 -> user에서 데이터를 조회하여 로그인 처리할 것
+						console.log('Old User');
+						var stmt_old = "select * from `user_federation` where `auth_id`='" + info.auth_id + "' and `auth_type`='" + info.auth_type + "'";
+						var stmt_get_user_info = 'select * from `user` where `auth_id`=?;';
+
+						async.series([
+							function (callback) {
+								connection.query(stmt_old, function (err, user_info_from_fed) {
+									callback(err, user_info_from_fed);
+								})
+							},
+							function (callback) {
+								connection.query(stmt_get_user_info, info.auth_id, function (err, user_info) {
+									callback(err, user_info);
+								})
+							}
+						], function (err, results) {
+							if (err) {
+								console.error('[err] ' + err);
+								err.code = 500;
+								return done(err);
+							} else {
+								done(null, {
+									'user_id': results[1][0].user_id,
+									'nickname': results[1][0].nickname,
+									'set_game_login': (results[1][0].game_login === 0) ? false : true
+								});
+							}
+						});
+					}
+				}
+			});
+		}
+	});
+}
+
+
+// naver login
+passport.use(new NaverStrategy({
+		clientID: secret_config.naver.client_id,
+		clientSecret: secret_config.naver.secret_id,
+		callbackURL: secret_config.naver.callback_url
+	},
+	function (accessToken, refreshToken, profile, done) {
+		var _profile = profile._json;
+
+		console.log('Naver login info');
+		console.info(_profile);
+
+		loginByThirdparty({
+			'auth_type': 'naver',
+			'auth_id': _profile.id,
+			'auth_name': _profile.nickname,
+			'auth_email': _profile.email
+		}, done);
+
+	}
+));
+
+// 페이스북으로 로그인 처리
+passport.use(new FacebookStrategy({
+		clientID: secret_config.facebook.client_id,
+		clientSecret: secret_config.facebook.secret_id,
+		callbackURL: secret_config.facebook.callback_url,
+		profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone',
+			'updated_time', 'verified', 'displayName']
+	}, function (accessToken, refreshToken, profile, done) {
+		var _profile = profile._json;
+
+		console.log('Facebook login info');
+		console.info(_profile);
+
+		loginByThirdparty({
+			'auth_type': 'facebook',
+			'auth_id': _profile.id,
+			'auth_name': _profile.name,
+			'auth_email': _profile.id
+		}, done);
+	}
+));
+
+// kakao로 로그인
+passport.use(new KakaoStrategy({
+		clientID: secret_config.kakao.client_id,
+		callbackURL: secret_config.kakao.callback_url
+	},
+	function (accessToken, refreshToken, profile, done) {
+		var _profile = profile._json;
+		console.log('Kakao login info');
+		console.info(_profile);
+		// todo 유저 정보와 done을 공통 함수에 던지고 해당 함수에서 공통으로 회원가입 절차를 진행할 수 있도록 한다.
+
+		loginByThirdparty({
+			'auth_type': 'kakao',
+			'auth_id': _profile.id,
+			'auth_name': _profile.properties.nickname,
+			'auth_email': _profile.id
+		}, done);
+	}
+));
+
+// naver 로그인
+router.get('/auth/login/naver',
+	passport.authenticate('naver')
+);
+// naver 로그인 연동 콜백
+router.get('/auth/login/naver/callback',
+	passport.authenticate('naver', {
+		successRedirect: '/',
+		failureRedirect: '/login'
+	})
+);
+
+// kakao 로그인
+router.get('/auth/login/kakao',
+	passport.authenticate('kakao')
+);
+// kakao 로그인 연동 콜백
+router.get('/auth/login/kakao/callback',
+	passport.authenticate('kakao', {
+		successRedirect: '/',
+		failureRedirect: '/login'
+	})
+);
+
+// facebook 로그인
+router.get('/auth/login/facebook',
+	passport.authenticate('facebook')
+);
+// facebook 로그인 연동 콜백
+router.get('/auth/login/facebook/callback',
+	passport.authenticate('facebook', {
+		successRedirect: '/',
+		failureRedirect: '/login'
+	})
+);
+
+
+
+/**
  * API-DOCS
  */
 router.get('/api-doc', (req, res) => {
@@ -142,7 +369,6 @@ router.get('/api-doc', (req, res) => {
 			res.json({});
 		}
 	});
-
 });
 
 
