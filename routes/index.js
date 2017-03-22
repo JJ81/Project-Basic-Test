@@ -378,14 +378,17 @@ router.get('/api-doc', (req, res) => {
 
 // todo config 파일로 이동시키고 서버실행시 변경이 될 수 있도록 설정한다.
 const HOST_INFO = {
+	ORIGIN : '/api/',
 	LOCAL : 'http://localhost:3002/api/',
-	DEV : 'http://beta.holdemclub.tv/api/',
+	DEV : 'http://dev.holdemclub.tv/api/',
+	BETA : 'http://beta.holdemclub.tv/api/',
 	REAL : 'http://holdemclub.tv/api/',
 	VERSION : 'v2'
 };
 
-const HOST = `${HOST_INFO.LOCAL}${HOST_INFO.VERSION}`;
+const HOST = `${HOST_INFO.DEV}${HOST_INFO.VERSION}`;
 // console.log(HOST);
+
 
 router.get('/', (req, res) => {
 	'use strict';
@@ -415,8 +418,9 @@ router.get('/', (req, res) => {
 			},
 			(cb) => { // 좌측 채널 리스트
 				request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
-					let _body = JSON.parse(body);
 					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
 						if(_body.success){
 							cb(null, _body);
 						}else{
@@ -431,8 +435,9 @@ router.get('/', (req, res) => {
 			},
 			(cb) => { // 최신 업데이트 비디오
 				request.get(`${HOST}/video/recent/list?size=3&offset=0`, (err, res, body)  => {
-					let _body  = JSON.parse(body);
 					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
 						if(_body.success){
 							cb(null, _body);
 						}else{
@@ -446,8 +451,9 @@ router.get('/', (req, res) => {
 			},
 			(cb) => { // 추천 채널 리스트
 				request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
-					let _body  = JSON.parse(body);
 					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
 						if(_body.success){
 							cb(null, _body);
 						}else{
@@ -461,8 +467,9 @@ router.get('/', (req, res) => {
 			},
 			(cb) => { // 뉴스 가져오기
 				request.get(`${HOST}/news/list`, (err, res, body) => {
-					let _body  = JSON.parse(body);
 					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
 						if(_body.success){
 							cb(null, _body);
 						}else{

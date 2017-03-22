@@ -97,11 +97,30 @@ QUERY.NAVI = {
 		'group by ch.group_id ' +
 		'order by ch.priority desc;',
 	CHANNEL_RECOM :
+		// 'select channels.*, cr.priority as recom_priority from ' +
+		// '(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
+		// 'from `channel_new` as cn ' +
+		// 'inner join ( ' +
+		// 	'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
+		// 'from `channel_new` as cn ' +
+		// 'left join `channel_group` as cg ' +
+		// 'on cn.group_id = cg.group_id ' +
+		// ') as ch ' +
+		// 'on ch.channel_id = cn.channel_id ' +
+		// 'where ch.type != \'U\' ' +
+		// 'group by ch.group_id) as channels ' +
+		// 'inner join ' +
+		// '(select * from `contents` ' +
+		// 'where `type`=\'R\' '+
+		// 'order by `priority` desc, `created_dt` desc)' +
+		// ' as cr ' +
+		// 'on channels.super_channel = cr.ref_id ' +
+		// 'order by cr.priority desc;'
 		'select channels.*, cr.priority as recom_priority from ' +
 		'(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
 		'from `channel_new` as cn ' +
 		'inner join ( ' +
-			'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
+		'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
 		'from `channel_new` as cn ' +
 		'left join `channel_group` as cg ' +
 		'on cn.group_id = cg.group_id ' +
@@ -114,7 +133,7 @@ QUERY.NAVI = {
 		'where `type`=\'R\' '+
 		'order by `priority` desc, `created_dt` desc)' +
 		' as cr ' +
-		'on channels.super_channel = cr.ref_id ' +
+		'on channels.super_channel = cr.channel_id ' +
 		'order by cr.priority desc;'
 };
 

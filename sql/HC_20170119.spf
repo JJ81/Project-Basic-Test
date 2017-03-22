@@ -45,30 +45,29 @@
 		<dict>
 			<key>connectionEncoding</key>
 			<string>utf8mb4</string>
+			<key>contentFilter</key>
+			<dict/>
 			<key>contentPageNumber</key>
 			<integer>1</integer>
 			<key>contentSelection</key>
 			<data>
-			YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFy
-			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDA0VSRudWxs0wkK
-			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
-			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
-			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
-			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
-			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
-			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeACld1c2VyX2lk0h4fLS5f
-			EA9OU011dGFibGVTdHJpbmejLS8jWE5TU3RyaW5n0h4fMTJeTlNN
-			dXRhYmxlQXJyYXmjMTMjV05TQXJyYXnSHh8iNaIiI18QD05TS2V5
-			ZWRBcmNoaXZlctE4OVRkYXRhgAEACAARABoAIwAtADIANwBFAEsA
-			UgBaAGUAbABwAHIAdAB2AHoAfAB+AIAAggCHAIwAkQC6AMEAwgDD
-			AMUAygDVAN4A9AD4AQUBDgETARUBFwEZAR4BKAEqATIBNwFJAU0B
-			VgFbAWoBbgF2AXsBfgGQAZMBmAAAAAAAAAIBAAAAAAAAADoAAAAA
-			AAAAAAAAAAAAAAGa
+			YnBsaXN0MDDUAQIDBAUGJyhYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYdJFUkbnVsbNMJCgsMDxJX
+			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
+			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
+			ZXhTZXTUFwsYGRobHBxaTlNMb2NhdGlvblxOU1JhbmdlQ291bnRY
+			TlNMZW5ndGgQAIAGEAHSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2Vz
+			Wk5TSW5kZXhTZXSiIiNaTlNJbmRleFNldFhOU09iamVjdNIeHyUm
+			XE5TRGljdGlvbmFyeaIlI18QD05TS2V5ZWRBcmNoaXZlctEpKlRk
+			YXRhgAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBx
+			AHMAdQB3AHwAgQChAKoAtQDCAMsAzQDPANEA1gDhAOoA9QD4AQMB
+			DAERAR4BIQEzATYBOwAAAAAAAAIBAAAAAAAAACsAAAAAAAAAAAAA
+			AAAAAAE9
 			</data>
 			<key>contentSortColIsAsc</key>
 			<true/>
 			<key>contentViewport</key>
-			<string>{{0, 0}, {694, 450}}</string>
+			<string>{{0, 0}, {1902, 972}}</string>
 			<key>isToolbarVisible</key>
 			<true/>
 			<key>queries</key>
@@ -970,6 +969,27 @@ select * from `reply_video`;
 
 
 
+### 아래 쿼리 수정이 필요함. 추천 콘텐츠를 가져오는 쿼리 로직 // contents 테이블이 변경되었음...
+
+select channels.*, cr.priority as recom_priority from
+(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+		from `channel_new` as cn
+		inner join (
+			select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+		from `channel_new` as cn
+		left join `channel_group` as cg
+		on cn.group_id = cg.group_id
+		) as ch
+		on ch.channel_id = cn.channel_id
+		where ch.type != 'U'
+		group by ch.group_id) as channels
+		inner join
+		(select * from `contents`
+		where `type`='R'
+		order by `priority` desc, `created_dt` desc)
+		 as cr
+		on channels.super_channel = cr.ref_id
+		order by cr.priority desc;
 
 
 
@@ -978,7 +998,7 @@ select * from `reply_video`;
 
 </string>
 			<key>table</key>
-			<string>user</string>
+			<string>channel_new</string>
 			<key>view</key>
 			<string>SP_VIEW_CUSTOMQUERY</string>
 			<key>windowVerticalDividerPosition</key>
@@ -993,6 +1013,30 @@ select * from `reply_video`;
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>###
+
+
+
+
+select channels.*, cr.priority as recom_priority from
+(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+		from `channel_new` as cn
+		inner join (
+			select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+		from `channel_new` as cn
+		left join `channel_group` as cg
+		on cn.group_id = cg.group_id
+		) as ch
+		on ch.channel_id = cn.channel_id
+		where ch.type != 'U'
+		group by ch.group_id) as channels
+		inner join
+		(select * from `contents`
+		where `type`='R'
+		order by `priority` desc, `created_dt` desc)
+		 as cr
+		on channels.super_channel = cr.ref_id
+		order by cr.priority desc</string>
 		<string>select * from `user` 
 where user_id='plr123'</string>
 		<string>## 여기서부터 덧글
@@ -1059,14 +1103,6 @@ where `user_id` like 'plr%';</string>
 select * from `user`
 where `user_id` like 'plr%';</string>
 		<string>call FILL_TEST_ACCOUNT();</string>
-		<string>CREATE PROCEDURE FILL_TEST_ACCOUNT()
-BEGIN
-	DECLARE i INT DEFAULT 1;
-	WHILE i &lt;= 999 DO
-		INSERT INTO `user` (`user_id`, `market_code`, `password`, `nickname`) VALUES (concat('plr',  i), 'DEV_TEST', '$2a$10$cqGXmkeUv7dOi7WkAp6rNeGUa6utkKE5PZtiIKNUl6n2oH4ug8jp2', concat('plr',  i));
-		SET i = i + 1;
-	END WHILE;
-END</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>
