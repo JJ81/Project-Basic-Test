@@ -378,117 +378,107 @@ router.get('/api-doc', (req, res) => {
 
 // todo config 파일로 이동시키고 서버실행시 변경이 될 수 있도록 설정한다.
 const HOST_INFO = {
-	ORIGIN : '/api/',
 	LOCAL : 'http://localhost:3002/api/',
-	DEV : 'http://dev.holdemclub.tv/api/',
-	BETA : 'http://beta.holdemclub.tv/api/',
-	REAL : 'http://holdemclub.tv/api/',
 	VERSION : 'v2'
 };
 
-const HOST = `${HOST_INFO.DEV}${HOST_INFO.VERSION}`;
-// console.log(HOST);
-
+const HOST = `${HOST_INFO.LOCAL}${HOST_INFO.VERSION}`;
 
 router.get('/', (req, res) => {
 	'use strict';
 
 	async.parallel(
 		[
-			// (cb) => { // 방송중
-			// 	request.get(`${HOST}/broadcast/live`, (err, res, body) => {
-			// 		if(!err && res.statusCode == 200){
-			// 			// console.log(typeof body);
-			// 			// console.log(body);
-			// 			// console.log(body.success);
-			//
-			// 			let _body = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				console.error('[live] success status is false');
-			// 				cb(null, null);
-			// 			}
-			// 		}else{
-			// 			cb(err, null);
-			// 			console.error(err);
-			// 		}
-			// 	});
-			// },
-			// (cb) => { // 좌측 채널 리스트
-			// 	request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				console.error('[navi] success status is false');
-			// 				cb('Navigation', null);
-			// 			}
-			// 		}else{
-			// 			cb(err, null);
-			// 			console.error(err);
-			// 		}
-			// 	});
-			// },
-			// (cb) => { // 최신 업데이트 비디오
-			// 	request.get(`${HOST}/video/recent/list?size=3&offset=0`, (err, res, body)  => {
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body  = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				cb('Video', null);
-			// 			}
-			// 		}else{
-			// 			console.error('[video] recent 3 videos');
-			// 			cb(err, null);
-			// 		}
-			// 	});
-			// },
-			// (cb) => { // 추천 채널 리스트
-			// 	request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body  = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				cb('Recom', null);
-			// 			}
-			// 		}else{
-			// 			console.error('[Recom] ');
-			// 			cb(err, null);
-			// 		}
-			// 	});
-			// },
-			// (cb) => { // 뉴스 가져오기
-			// 	request.get(`${HOST}/news/list`, (err, res, body) => {
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body  = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				cb('News', null);
-			// 			}
-			// 		}else{
-			// 			console.error('[Recom] ');
-			// 			cb(err, null);
-			// 		}
-			// 	});
-			// }
+			(cb) => { // 방송중
+				request.get(`${HOST}/broadcast/live`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[live] success status is false');
+							cb(null, null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
+			},
+			(cb) => { // 좌측 채널 리스트
+				request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[navi] success status is false');
+							cb('Navigation', null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
+			},
+			(cb) => { // 최신 업데이트 비디오
+				request.get(`${HOST}/video/recent/list?size=3&offset=0`, (err, res, body)  => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Video', null);
+						}
+					}else{
+						console.error('[video] recent 3 videos');
+						cb(err, null);
+					}
+				});
+			},
+			(cb) => { // 추천 채널 리스트
+				request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Recom', null);
+						}
+					}else{
+						console.error('[Recom] ');
+						cb(err, null);
+					}
+				});
+			},
+			(cb) => { // 뉴스 가져오기
+				request.get(`${HOST}/news/list`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('News', null);
+						}
+					}else{
+						console.error('[Recom] ');
+						cb(err, null);
+					}
+				});
+			}
 		], (err, result) => {
 		if (!err) {
 			res.render('index', {
 				current_path: 'INDEX',
 				static : STATIC_URL,
-				title: PROJ_TITLE
-				// loggedIn: req.user,
-				// live : result[0].result,
+				title: PROJ_TITLE,
+				loggedIn: req.user,
+				live : result[0].result
 				// channels : result[1].result,
 				// videos : result[2].result,
 				// recom : result[3].result,
