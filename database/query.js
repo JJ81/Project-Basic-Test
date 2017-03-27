@@ -85,12 +85,13 @@ QUERY.BROADCAST = {
 QUERY.NAVI = {
 	CHANNEL_ALL_ORDERED :
 		'select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
-		'from `channel_new` as cn ' +
+		'from `channels` as cn ' +
 		'inner join ( ' +
 			'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
-			'from `channel_new` as cn ' +
+			'from `channels` as cn ' +
 			'left join `channel_group` as cg ' +
-			'on cn.group_id = cg.group_id ' +
+		'on cn.group_id = cg.group_id ' +
+		'on cn.group_id = cg.group_id ' +
 		') as ch ' +
 		'on ch.channel_id = cn.channel_id ' +
 		'where ch.type != \'U\' ' +
@@ -118,10 +119,10 @@ QUERY.NAVI = {
 		// 'order by cr.priority desc;'
 		'select channels.*, cr.priority as recom_priority from ' +
 		'(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
-		'from `channel_new` as cn ' +
+		'from `channels` as cn ' +
 		'inner join ( ' +
 		'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
-		'from `channel_new` as cn ' +
+		'from `channels` as cn ' +
 		'left join `channel_group` as cg ' +
 		'on cn.group_id = cg.group_id ' +
 		') as ch ' +
@@ -139,24 +140,58 @@ QUERY.NAVI = {
 
 QUERY.CONTENTS = {
 	RECENT_VIDEO_LIST :
-		'select * from `video` ' +
-		'order by `priority` desc, `created_dt` desc ' +
-		'limit ?, ?;',
+		// 'select * from `video` ' +
+		// 'where active=true ' +
+		// 'order by `priority` desc, `created_dt` desc ' +
+		// 'limit ?, ?;',
+		// 'select `video_id`, `channel_id`, `title`, `hits`, `type`, `link` from `video` ' +
+		// 'where active=true ' +
+		// 'order by `priority` desc, `created_dt` desc ' +
+		// 'limit ?, ?;',
+	`
+	select video_id, channel_id, title, hits, type, link from video
+	where active=true
+	order by priority desc, created_dt desc
+	limit 0, 4;
+	`,
 	RepresentativeList :
-		'select * from `contents` ' +
-		'where `type`=\'RT\' ' +
-		'order by `priority` desc, `created_dt` desc ' +
-		'limit ?,?;',
+		// 백틱을 사용하 + 기호를 사용하여 개행을 할 필요가 없어진다.
+		`
+			select * from contents as cs
+			inner join channel as c
+			on cs.channel_id = c.channel_id
+			where cs.type=\'RT\' and cs.active=true
+			order by cs.priority desc, cs.created_dt desc
+			limit ?,?;
+		`,
+
+		// 'select * from `contents` as cs ' +
+		// 'inner join `channel` as c ' +
+		// 'on cs.channel_id = c.channel_id ' +
+		// 'where cs.`type`=\'RT\' and cs.active=true ' +
+		// 'order by cs.priority desc, cs.created_dt desc ' +
+		// 'limit ?,?;',
 	EducationList :
-		'select * from `contents` ' +
-		'where `type`=\'E\' ' +
-		'order by `priority` desc, `created_dt` desc ' +
-		'limit ?,?;',
+		'select * from `contents` as cs ' +
+		'inner join `video` as v ' +
+		'on v.video_id = cs.video_id ' +
+		'where cs.`type`=\'E\' and cs.active=true ' +
+		'order by cs.`priority` desc, cs.`created_dt` desc ' +
+		'limit 0, 4;',
+		// 'select * from `contents` ' +
+		// 'where `type`=\'E\' ' +
+		// 'order by `priority` desc, `created_dt` desc ' +
+		// 'limit ?,?;',
 	SummaryList :
-		'select * from `contents` ' +
-		'where `type`=\'S\' ' +
-		'order by `priority` desc, `created_dt` desc ' +
-		'limit ?,?;',
+		// 'select * from `contents` ' +
+		// 'where `type`=\'S\' ' +
+		// 'order by `priority` desc, `created_dt` desc ' +
+		// 'limit ?,?;',
+		'select * from `contents` as cs ' +
+		'inner join `video` as v ' +
+		'on v.video_id = cs.video_id ' +
+		'where cs.`type`=\'S\' and cs.active=true ' +
+		'limit ?, ?;'
 };
 
 QUERY.EVENT = {
@@ -184,13 +219,13 @@ QUERY.VIDEO = {
 
 QUERY.CHANNEL = {
 	GetById :
-		'select * from `channel_new` where channel_id=?;'
+		'select * from `channels` where channel_id=?;'
 };
 
 
 QUERY.NEWS = {
 	LIST :
-		'select * from `news` ' +
+	'select * from `news` ' +
 		'where `active`=true ' +
 		'order by `created_dt` desc ' +
 		'limit ?;'

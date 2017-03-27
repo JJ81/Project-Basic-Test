@@ -424,7 +424,7 @@ router.get('/', (req, res) => {
 				});
 			},
 			(cb) => { // 최신 업데이트 비디오
-				request.get(`${HOST}/video/recent/list?size=3&offset=0`, (err, res, body)  => {
+				request.get(`${HOST}/video/recent/list?size=4&offset=0`, (err, res, body)  => {
 					if(!err && res.statusCode == 200){
 						let _body  = JSON.parse(body);
 
@@ -470,6 +470,60 @@ router.get('/', (req, res) => {
 						cb(err, null);
 					}
 				});
+			},
+
+			// 대표 콘텐츠 가져오기
+			(cb) => {
+				request(`${HOST}/contents/representative/list?size=4&offset=0`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Representative', null);
+						}
+					}else{
+						console.error('[Representative] ');
+						cb(err, null);
+					}
+				});
+			},
+
+			// 교육 콘텐츠 가져오기
+			(cb) => {
+				request(`${HOST}/contents/education/list?size=4&offset=0`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Edu', null);
+						}
+					}else{
+						console.error('[Edu] ');
+						cb(err, null);
+					}
+				});
+			},
+
+			// 요약 콘텐츠 가져오기
+			(cb) => {
+				request(`${HOST}/contents/summary/list?size=4&offset=0`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Summary', null);
+						}
+					}else{
+						console.error('[Summary] ');
+						cb(err, null);
+					}
+				});
 			}
 		], (err, result) => {
 		if (!err) {
@@ -478,11 +532,14 @@ router.get('/', (req, res) => {
 				static : STATIC_URL,
 				title: PROJ_TITLE,
 				loggedIn: req.user,
-				live : result[0].result
-				// channels : result[1].result,
-				// videos : result[2].result,
-				// recom : result[3].result,
-				// news : result[4].result
+				live : result[0].result,
+				channels : result[1].result,
+				videos : result[2].result,
+				recom : result[3].result,
+				news : result[4].result,
+				representative : result[5].result,
+				education : result[6].result,
+				summary : result[7].result
 			});
 		} else {
 			console.error(err);

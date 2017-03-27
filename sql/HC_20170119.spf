@@ -51,23 +51,28 @@
 			<integer>1</integer>
 			<key>contentSelection</key>
 			<data>
-			YnBsaXN0MDDUAQIDBAUGJyhYJHZlcnNpb25YJG9iamVjdHNZJGFy
-			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYdJFUkbnVsbNMJCgsMDxJX
-			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
-			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
-			ZXhTZXTUFwsYGRobHBxaTlNMb2NhdGlvblxOU1JhbmdlQ291bnRY
-			TlNMZW5ndGgQAIAGEAHSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2Vz
-			Wk5TSW5kZXhTZXSiIiNaTlNJbmRleFNldFhOU09iamVjdNIeHyUm
-			XE5TRGljdGlvbmFyeaIlI18QD05TS2V5ZWRBcmNoaXZlctEpKlRk
-			YXRhgAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBx
-			AHMAdQB3AHwAgQChAKoAtQDCAMsAzQDPANEA1gDhAOoA9QD4AQMB
-			DAERAR4BIQEzATYBOwAAAAAAAAIBAAAAAAAAACsAAAAAAAAAAAAA
-			AAAAAAE9
+			YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDA0VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeAClJpZNIeHy0uXxAPTlNN
+			dXRhYmxlU3RyaW5noy0vI1hOU1N0cmluZ9IeHzEyXk5TTXV0YWJs
+			ZUFycmF5ozEzI1dOU0FycmF50h4fIjWiIiNfEA9OU0tleWVkQXJj
+			aGl2ZXLRODlUZGF0YYABAAgAEQAaACMALQAyADcARQBLAFIAWgBl
+			AGwAcAByAHQAdgB6AHwAfgCAAIIAhwCMAJEAugDBAMIAwwDFAMoA
+			1QDeAPQA+AEFAQ4BEwEVARcBGQEeASgBKgEtATIBRAFIAVEBVgFl
+			AWkBcQF2AXkBiwGOAZMAAAAAAAACAQAAAAAAAAA6AAAAAAAAAAAA
+			AAAAAAABlQ==
 			</data>
+			<key>contentSortCol</key>
+			<string>type</string>
 			<key>contentSortColIsAsc</key>
-			<true/>
+			<false/>
 			<key>contentViewport</key>
-			<string>{{0, 0}, {1902, 972}}</string>
+			<string>{{0, 0}, {1611, 810}}</string>
 			<key>isToolbarVisible</key>
 			<true/>
 			<key>queries</key>
@@ -986,10 +991,43 @@ select channels.*, cr.priority as recom_priority from
 		inner join
 		(select * from `contents`
 		where `type`='R'
-		order by `priority` desc, `created_dt` desc)
-		 as cr
-		on channels.super_channel = cr.ref_id
+		order by `priority` desc, `created_dt` desc) as cr
+		on channels.super_channel = cr.channel_id
 		order by cr.priority desc;
+
+
+# 최신업데이트 비디오 가져오기
+select * from `video`
+where active=true
+order by `priority` desc, `created_dt` desc
+limit 0, 4;
+
+
+# 대표 콘텐츠 가져오기
+select * from `contents`
+where `type`='RT'
+order by `priority` desc, `created_dt` desc
+limit 0,4;
+
+
+select * from `contents` as cs
+inner join `channel` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0, 4;
+
+
+# 포커 교육 콘텐츠 가져오기
+select * from `contents`
+where `type`='E'
+order by `priority` desc, `created_dt` desc
+limit 0, 4;
+
+
+
+
+
 
 
 
@@ -998,7 +1036,7 @@ select channels.*, cr.priority as recom_priority from
 
 </string>
 			<key>table</key>
-			<string>channel_new</string>
+			<string>contents</string>
 			<key>view</key>
 			<string>SP_VIEW_CUSTOMQUERY</string>
 			<key>windowVerticalDividerPosition</key>
@@ -1013,6 +1051,130 @@ select channels.*, cr.priority as recom_priority from
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string># 포커 교육 콘텐츠 가져오기
+select * from `contents`
+where `type`='E'
+order by `priority` desc, `created_dt` desc
+limit 0, 4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0, 4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c # 임시로 channel_group 대신 channel테이블 정보를 참조하기로 한다.
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string># 대표 콘텐츠 가져오기
+select * from `contents`
+where `type`='RT'
+order by `priority` desc, `created_dt` desc
+limit 0,4</string>
+		<string>select distinct * from `contents` as cs
+inner join `video` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `video` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT' and cs.active=true
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `video` as c
+on cs.channel_id = c.channel_id
+where cs.`type`='RT'
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c # 임시로 channel_group 대신 channel테이블 정보를 참조하기로 한다.
+on cs.channel_id = c.channel_id
+where cs.`type`='RT'
+order by cs.priority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c # 임시로 channel_group 대신 channel테이블 정보를 참조하기로 한다.
+on cs.channel_id = c.channel_id
+where cs.`type`='RT'
+order by cs.apriority desc, cs.created_dt desc
+limit 0,4</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c # 임시로 channel_group 대신 channel테이블 정보를 참조하기로 한다.
+on cs.channel_id = c.channel_id
+where cs.`type`='RT'
+order by cs.apriority` desc, cs.`created_dt` desc
+limit 0,4;</string>
+		<string>select * from `contents` as cs
+inner join `channel` as c # 임시로 channel_group 대신 channel테이블 정보를 참조하기로 한다.
+on cs.channel_id = c.channel_id
+where `type`='RT'
+order by `priority` desc, `created_dt` desc
+limit 0,4</string>
+		<string>select * from `video`
+where active=true
+order by `priority` desc, `created_dt` desc
+limit 0, 4</string>
+		<string>select * from `video`
+order by `priority` desc, `created_dt` desc
+limit 0, 4</string>
+		<string>select * from `video`
+order by `priority` desc, `created_dt` desc
+#limit 0, 4;</string>
+		<string>select * from `video`
+order by `priority` desc, `created_dt` desc
+limit ?, ?</string>
+		<string>### 아래 쿼리 수정이 필요함. 추천 콘텐츠를 가져오는 쿼리 로직 // contents 테이블이 변경되었음...
+
+select channels.*, cr.priority as recom_priority from
+(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+		from `channel_new` as cn
+		inner join (
+			select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+		from `channel_new` as cn
+		left join `channel_group` as cg
+		on cn.group_id = cg.group_id
+		) as ch
+		on ch.channel_id = cn.channel_id
+		where ch.type != 'U'
+		group by ch.group_id) as channels
+		inner join
+		(select * from `contents`
+		where `type`='R'
+		order by `priority` desc, `created_dt` desc) as cr
+		on channels.super_channel = cr.channel_id
+		order by cr.priority desc</string>
+		<string>### 아래 쿼리 수정이 필요함. 추천 콘텐츠를 가져오는 쿼리 로직 // contents 테이블이 변경되었음...
+
+select channels.*, cr.priority as recom_priority from
+(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+		from `channel_new` as cn
+		inner join (
+			select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+		from `channel_new` as cn
+		left join `channel_group` as cg
+		on cn.group_id = cg.group_id
+		) as ch
+		on ch.channel_id = cn.channel_id
+		where ch.type != 'U'
+		group by ch.group_id) as channels
+		inner join
+		(select * from `contents`
+		where `type`='R'
+		order by `priority` desc, `created_dt` desc)
+		 as cr
+		on channels.super_channel = cr.ref_id
+		order by cr.priority desc</string>
 		<string>###
 
 
@@ -1039,70 +1201,6 @@ select channels.*, cr.priority as recom_priority from
 		order by cr.priority desc</string>
 		<string>select * from `user` 
 where user_id='plr123'</string>
-		<string>## 여기서부터 덧글
-## 덧글의 계층에 따라서 layer 혹은 level정보를 입력해야 한다.
-
-select * from `reply_video`</string>
-		<string>select * from `user` where `user_id`='plr1'</string>
-		<string>select * from `user` where `user_id`='plr001'</string>
-		<string>select * from `user` where `user_id`='player001'</string>
-		<string>select `user_id`, `password`, `nickname`, `name`, `email`, `login_fail_count`, `banned`, `market_code` from `user` where `user_id`='plr3'</string>
-		<string>select `user_id`, `password`, `nickname`, `name`, `email`, `login_fail_count`, `banned`, `market_code` from `user` where `user_id`='plr2'</string>
-		<string>select `user_id`, `password`, `nickname`, `name`, `email`, `login_fail_count`, `banned`, `market_code` from `user` where `user_id`='plr1'</string>
-		<string>select * from `user`
-where `user_id` like 'player%'</string>
-		<string>select * from `user`
-where `user_id` like 'plr%'</string>
-		<string>select count(*) from `user`
-where `user_id` like 'plr%'</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-select count(*) from `user`
-where `user_id` like 'plr%';
-
-select count(*) from `user`
-where `user_id` like 'plr%';</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-select count(*) from `user`
-where `user_id` like 'plr%';</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-
-select * from `user`
-where `user_id` like 'plr%';
-###
-
-
-select count(*) from `user`
-where `user_id` like 'plr%';</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-
-select * from `user`
-where `user_id` like 'plr%';;
-
-select count(*) from `user`
-where `user_id` like 'plr%';</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-
-select * from `user`
-where `user_id` like 'plr%';
-
-select count(*) from `user`
-where `user_id` like 'plr%';</string>
-		<string>#call FILL_TEST_ACCOUNT();
-
-
-select * from `user`
-where `user_id` like 'plr%';</string>
-		<string>call FILL_TEST_ACCOUNT();
-;
-
-select * from `user`
-where `user_id` like 'plr%';</string>
-		<string>call FILL_TEST_ACCOUNT();</string>
 	</array>
 	<key>rdbms_type</key>
 	<string>mysql</string>

@@ -4,7 +4,9 @@
         {{#if live}}
             {{#each live}}
                 {{#if (isEquals status 1)}}
-                    방송중 <small>({{id}})</small>
+                    <a href="{{link}}" target="_blank">
+                        방송중 <small>({{id}})</small>
+                    </a>
                 {{else}}
                     미방송중
                 {{/if}}
