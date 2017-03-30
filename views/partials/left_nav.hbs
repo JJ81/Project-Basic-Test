@@ -1,25 +1,25 @@
 <div class="sidebar-fixed">
     <div class="inner-sidebar">
-        <h3>
         {{#if live}}
-            {{#each live}}
-                {{#if (isEquals status 1)}}
-                    <a href="{{link}}" target="_blank">
-                        방송중 <small>({{id}})</small>
-                    </a>
-                {{else}}
-                    미방송중
-                {{/if}}
-            {{/each}}
-        {{else}}
-            미방송중
-        {{/if}}
+        <h3>
+        {{#each live}}
+            {{#if (isEquals status 1)}}
+            <a href="{{link}}" target="_blank">
+                방송중 <small>({{id}})</small>
+            </a>
+            {{/if}}
+        {{/each}}
         </h3>
+        {{/if}}
 
+        {{#if recom}}
         <h3 class="title">추천방송</h3>
         <ul class="recomList">
             {{#each recom}}
                 <li class="nav_list">
+
+                    {{!-- todo G타입일 경우만 해당 링크를 걸어주어야 한다. --}}
+                    {{#if (isEquals type 'S') }}
                     <a href="#{{type}}" class="linkNav">
                         <img src="{{../static}}channel/{{super_channel}}/logo"
                              width="32"
@@ -28,6 +28,18 @@
                              alt="{{super_title}}" />
                         {{super_title}}
                     </a>
+                    {{/if}}
+                    {{#if (isEquals type 'G') }}
+                    <a href="/channel/{{super_channel}}" class="linkNav">
+                        <img src="{{../static}}channel/{{super_channel}}/logo"
+                             width="32"
+                             height="32"
+                             class="img_logo"
+                             alt="{{super_title}}" />
+                        {{super_title}}
+                    </a>
+                    {{/if}}
+
                     <!-- each로 채널 리스트를 그리기 위해서 정리된 배열을 리턴해주는 헬퍼의 도움을 받아서 처리한다. -->
                     {{#if (isEquals type 'S') }}
                         <ol>
@@ -48,7 +60,8 @@
                 </li>
             {{/each}}
         </ul>
-
+        {{/if}}
+        {{#if channels}}
         <h3 class="title">홀클.tv 컨텐츠</h3>
         <ul class="channelList">
             {{#each channels}}
@@ -93,5 +106,6 @@
             </li>
             {{/each}}
         </ul>
+        {{/if}}
     </div>
 </div>

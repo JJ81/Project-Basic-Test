@@ -84,20 +84,82 @@ QUERY.BROADCAST = {
 
 QUERY.NAVI = {
 	CHANNEL_ALL_ORDERED :
-		'select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
-		'from `channels` as cn ' +
-		'inner join ( ' +
-			'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
-			'from `channels` as cn ' +
-			'left join `channel_group` as cg ' +
-		'on cn.group_id = cg.group_id ' +
-		'on cn.group_id = cg.group_id ' +
-		') as ch ' +
-		'on ch.channel_id = cn.channel_id ' +
-		'where ch.type != \'U\' ' +
-		'group by ch.group_id ' +
-		'order by ch.priority desc;',
+	`
+	select c.channel_id as super_channel, c.title as super_title, c.type, c.priority, group_concat(c2.title order by c2.priority asc) as sub_title, group_concat(c2.channel_id order by c2.priority asc) as sub_channel from (
+	select cs.channel_id, cs.title, cs.type, cs.description, cs.created_dt, cs.priority, if(cs.group_id is null, cs.title, cs.group_id) as group_id, cs.hit_count, cs.active from channels as cs
+	where cs.type != 'U' and cs.active=true
+	) as c
+	left join (
+		select * from channels as c2
+		where c2.type = 'U' and c2.active=true
+	) as c2
+	on c2.group_id = c.group_id
+	group by c.group_id
+	order by c.priority asc;
+	`,
+	// `
+	// select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+	// from channels as cn
+	// inner join (
+	// select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+	// from channels as cn
+	// left join (
+	// select channel_id, group_id from channels
+	// where type != 'S' and group_id is not null
+	// order by priority desc
+	// ) as cg
+	// on cn.group_id = cg.group_id
+	// ) as ch
+	// on ch.channel_id = cn.channel_id
+	// where ch.type != 'U'
+	// group by ch.group_id
+	// order by ch.priority asc;
+	// `,
+	// `
+	// select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title
+	// from channels as cn
+	// inner join (
+	// 	select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id
+	// 	from channels as cn
+	// 	left join channels as cg
+	// 	on cn.group_id = cg.group_id
+	// ) as ch
+	// on ch.channel_id = cn.channel_id
+	// where ch.type != 'U'
+	// group by ch.group_id
+	// order by ch.priority desc;
+	// `,
+		// 'select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
+		// 'from `channels` as cn ' +
+		// 'inner join ( ' +
+		// 	'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
+		// 	'from `channels` as cn ' +
+		// 	'left join `channel_group` as cg ' +
+		// 'on cn.group_id = cg.group_id ' +
+		// ') as ch ' +
+		// 'on ch.channel_id = cn.channel_id ' +
+		// 'where ch.type != \'U\' ' +
+		// 'group by ch.group_id ' +
+		// 'order by ch.priority desc;',
 	CHANNEL_RECOM :
+	`
+	select c.channel_id as super_channel, c.title as super_title, c.type, rc.priority, group_concat(c2.title order by c2.priority asc) as sub_title, group_concat(c2.channel_id order by c2.priority asc) as sub_channel from (
+		select cs.channel_id, cs.title, cs.type, cs.description, cs.created_dt, cs.priority, if(cs.group_id is null, cs.title, cs.group_id) as group_id, cs.hit_count, cs.active from channels as cs
+		where cs.type != 'U' and cs.active=true
+	) as c
+	left join (
+		select * from channels as c2
+		where c2.type = 'U' and c2.active=true
+	) as c2
+	on c2.group_id = c.group_id
+	inner join (
+		select channel_id, priority from contents
+		where type='R' and active=true
+	) as rc
+	on rc.channel_id = c.channel_id
+	group by c.group_id
+	order by rc.priority asc;
+	`,
 		// 'select channels.*, cr.priority as recom_priority from ' +
 		// '(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
 		// 'from `channel_new` as cn ' +
@@ -117,25 +179,25 @@ QUERY.NAVI = {
 		// ' as cr ' +
 		// 'on channels.super_channel = cr.ref_id ' +
 		// 'order by cr.priority desc;'
-		'select channels.*, cr.priority as recom_priority from ' +
-		'(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
-		'from `channels` as cn ' +
-		'inner join ( ' +
-		'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
-		'from `channels` as cn ' +
-		'left join `channel_group` as cg ' +
-		'on cn.group_id = cg.group_id ' +
-		') as ch ' +
-		'on ch.channel_id = cn.channel_id ' +
-		'where ch.type != \'U\' ' +
-		'group by ch.group_id) as channels ' +
-		'inner join ' +
-		'(select * from `contents` ' +
-		'where `type`=\'R\' '+
-		'order by `priority` desc, `created_dt` desc)' +
-		' as cr ' +
-		'on channels.super_channel = cr.channel_id ' +
-		'order by cr.priority desc;'
+		// 'select channels.*, cr.priority as recom_priority from ' +
+		// '(select ch.channel as super_channel, ch.title as super_title, ch.type, group_concat(ch.channel_id order by ch.priority desc) as sub_channel, group_concat(cn.title order by ch.priority desc) as sub_title ' +
+		// 'from `channels` as cn ' +
+		// 'inner join ( ' +
+		// 'select cn.channel_id as channel, cn.title, cn.type, cn.description, cn.created_dt, cn.priority, cn.active, if(cg.group_id is null, cn.title, cg.group_id) as group_id, if(cg.channel_id is null, cn.channel_id, cg.channel_id) as channel_id ' +
+		// 'from `channels` as cn ' +
+		// 'left join `channels` as cg ' +
+		// 'on cn.group_id = cg.group_id ' +
+		// ') as ch ' +
+		// 'on ch.channel_id = cn.channel_id ' +
+		// 'where ch.type != \'U\' ' +
+		// 'group by ch.group_id) as channels ' +
+		// 'inner join ' +
+		// '(select * from `contents` ' +
+		// 'where `type`=\'R\' '+
+		// 'order by `priority` desc, `created_dt` desc)' +
+		// ' as cr ' +
+		// 'on channels.super_channel = cr.channel_id ' +
+		// 'order by cr.priority desc;'
 };
 
 QUERY.CONTENTS = {
