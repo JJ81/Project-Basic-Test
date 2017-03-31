@@ -711,7 +711,9 @@ router.get('/event/vote/answer/:id', (req, res) => {
  */
 router.get('/video/list/:channel_id', (req, res) => {
 	connection.query(QUERY.VIDEO.LIST,
-		[req.params.channel_id],
+		[
+			req.params.channel_id
+		],
 		(err, rows) => {
 			if(!err){
 				res.json({

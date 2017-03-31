@@ -132,3 +132,13 @@ html, body{
   text-align: center;
   color : $main-font-color;
 }
+
+
+
+.video_list{
+  padding: 0;
+  li{
+    list-style: none;
+    margin-bottom: 20px;
+  }
+}

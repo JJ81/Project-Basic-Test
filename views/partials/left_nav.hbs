@@ -17,8 +17,6 @@
         <ul class="recomList">
             {{#each recom}}
                 <li class="nav_list">
-
-                    {{!-- todo G타입일 경우만 해당 링크를 걸어주어야 한다. --}}
                     {{#if (isEquals type 'S') }}
                     <a href="#{{type}}" class="linkNav">
                         <img src="{{../static}}channel/{{super_channel}}/logo"
@@ -28,8 +26,7 @@
                              alt="{{super_title}}" />
                         {{super_title}}
                     </a>
-                    {{/if}}
-                    {{#if (isEquals type 'G') }}
+                    {{else if (isEquals type 'G') }}
                     <a href="/channel/{{super_channel}}" class="linkNav">
                         <img src="{{../static}}channel/{{super_channel}}/logo"
                              width="32"

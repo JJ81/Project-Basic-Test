@@ -272,9 +272,14 @@ QUERY.EVENT = {
 
 QUERY.VIDEO = {
 	LIST :
-		'select * from `video` ' +
-		'where `channel_id`=? ' +
-		'order by `created_dt` desc;',
+	`
+	select * from video
+	where channel_id=?
+	order by title asc, created_dt asc;
+	`,
+		// 'select * from `video` ' +
+		// 'where `channel_id`=? ' +
+		// 'order by `title` asc, `created_dt` asc;',
 	GetInfoByVideoId :
 		'select * from `video` where `video_id`=?;'
 };

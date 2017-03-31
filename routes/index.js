@@ -606,6 +606,7 @@ router.get('/event/:id/result', (req, res) => {
 /**
  * 진행중인 혹은 진행이 되기 전 이벤트에 대한 정보 페이지
  */
+// todo ref_id 관련 수정이 필요할지도
 router.get('/event/:ref_id/information', (req, res) => {
 	'use strict';
 
@@ -665,11 +666,17 @@ router.get('/event/:ref_id/information', (req, res) => {
  * 비디오 리스트 뷰
  */
 router.get('/channel/:channel_id', (req, res) => {
+	// todo get을 통해서 데이터를 받는 부분에 대한 검증이 이루어지고
+	// todo 해당 데이터를 리턴받을 수 있는 유틸을 만들어보자.
+	// todo 어떤 모듈을 이용해야 하는지 조사하고 한 곳에서 반영해보자
+	// todo connection 자체에서 제공하고 있는 기능에 대해서도 조사를 해보자.
+
 	async.parallel(
 		[
 			// todo 네비게이션 데이터 가져오기
 
 			// todo 비디오 리스트 가져오기
+			// todo 재정렬이 필요. 오름차순과 내림차순을 구분할 수 있도록 설정을 해보자. --> lodash? underscore?
 			(cb) => {
 				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
 					.then((response)=>{
@@ -690,7 +697,7 @@ router.get('/channel/:channel_id', (req, res) => {
 					static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
-					videos : result[0].data.result
+					videos : JSON.stringify(result[0].data.result)
 				});
 			}else{
 				console.error(err);
@@ -744,6 +751,12 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 		});
 });
 
+
+router.get('/signup', (req, res) => {
+	res.render('signup', {
+
+	});
+});
 
 
 

@@ -1,12 +1,20 @@
-<ul>
-    {{#each videos}}
-    <li>
-        <a href="/channel/{{channel_id}}/video/{{video_id}}">
-            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" />
-            <span>타이틀 : {{title}}</span><br />
-            <span>조회수 : {{hits}}</span><br />
-            <span>생성일 : {{created_dt}}</span>
-        </a>
-    </li>
-    {{/each}}
-</ul>
+<div id="list-video">
+    <a href="#" class="btn btn-primary" v-on:click="desending">최신순</a>
+    <a href="#" class="btn btn-primary" v-on:click="asending">날짜순</a>
+
+    <br /><br />
+
+    <ol class="clearfix video_list">
+        <li v-for="list in video_list" class="col-md-3">
+            <a v-bind:href="makeUrl(list)" v-cloak>
+                <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="260" /><br />
+                <strong><% list.title %></strong><br />
+                <span>조회수 : <% list.hits %></span><br />
+                <span><% list.created_dt %></span>
+            </a>
+        </li>
+    </ol>
+</div>
+{{!-- todo 데이터를 바인딩 하기 위해서 vue 객체에 토스를 해줄 수 있는 방법은 무엇이 있을까 현재와 같은 방법이 가장 좋은 것일까? --}}
+<input type="hidden" value="{{static}}" id="static-url" />
+<input type="hidden" value="{{videos}}" id="data-video-list" />

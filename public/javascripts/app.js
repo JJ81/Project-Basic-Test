@@ -12,7 +12,8 @@ require.config({
 		lodash : ['/components/lodash/dist/lodash.min'],
 		fastclick : ['/components/fastclick/lib/fastclick'],
 		swiper : ['/components/swiper/dist/js/swiper.jquery'],
-		common : ['/javascripts/common']
+		common : ['/javascripts/common'],
+		vue : ['https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min']
 	},
 	shim: {
 		jqueryValidate : ['jquery'],

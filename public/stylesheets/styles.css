@@ -25,6 +25,9 @@
   white-space: nowrap;
   overflow: hidden; }
 
+[v-cloak] {
+  display: none; }
+
 .sidebar-fixed {
   background: #fff;
   position: absolute;
@@ -117,6 +120,12 @@ html, body {
   padding: 10px;
   text-align: center;
   color: #333; }
+
+.video_list {
+  padding: 0; }
+  .video_list li {
+    list-style: none;
+    margin-bottom: 20px; }
 
 .community {
   padding: 10px; }
