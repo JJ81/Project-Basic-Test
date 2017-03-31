@@ -30,15 +30,23 @@ define(
 	utils.dateFormatter = function(date){
 		var d = new Date(date);
 		return d.getFullYear() + '-' +(d.getMonth() + 1) + '-' + d.getDate();
-	}
+	};
 
 	utils.numberFormatter = function(num){
 		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-	}
+	};
+
+	utils.preventEnterEvent = function (target) {
+		for(var i=0,size=target.length;i<size;i++){
+			(function (_target) {
+				_target.bind('keydown', function (e) {
+					if(e.keyCode === 13){
+						return;
+					}
+				});
+			}(target[i]));
+		}
+	};
 
 	return utils;
-
-	// return {
-	// 	utils: utils
-	// };
 });

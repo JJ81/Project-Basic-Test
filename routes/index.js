@@ -715,6 +715,21 @@ router.get('/channel/:channel_id', (req, res) => {
 router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 	async.parallel(
 		[
+			// todo 네비게이션 관련 데이터 가져오기
+
+			// todo 이전 재생 channel_id, video_id
+
+			// todo 다음 재생 channel_id, video_id
+
+			// todo 달려 있는 댓글과 답글 가져오기 --> 답글 체제로만 유지할 것. 일단 스펙 아웃
+
+			// todo youtube일 경우와 아닐 경우를 구분하여 재생하고
+
+			// todo 영상광고는 항상 홀덤천국일 것이며, 영상광고가 늘어난다면 등록하는 부분을 따로 두는 것이 좋겠다. 광고 영상은 항상 youtube 올려서 진행을 한다.
+
+			// todo 영상 위에 배너 광고는 항상 홀덤천국만일 것이며 이것 또한 관리자 페이지에서 수정이나 추가가 될 수 있도록 한다.
+
+
 			(cb) => { // 비디오 리스트 가져오기
 				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
 					.then((response)=>{
@@ -736,6 +751,7 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 					});
 			}
 		],
+
 		(err, result) => {
 			if(!err){
 				res.render('video_view', {
@@ -753,7 +769,9 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 		});
 });
 
-
+/**
+ * 회원가입 뷰
+ */
 router.get('/signup', csrfProtection, (req, res) => {
 	if(req.user != null){
 		res.redirect('/');
@@ -779,8 +797,13 @@ router.get('/signup', csrfProtection, (req, res) => {
 	});
 });
 
-const sanitize = require('sanitize-html');
 
+
+
+const sanitize = require('sanitize-html');
+/**
+ * 회원가입 처리
+ */
 router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	if(req.user != null){
 		res.redirect('/');
@@ -814,7 +837,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 		_info.re_password === '' || _info.re_password == null ||
 		_info.email === '' || _info.email == null
 	){
-		req.flash('error', '잘못된 시도입니다. 정상적으로 이용해주세요.');
+		req.flash('error', '잘못된 시도입니다. 정상적으로 값을 입력해주세요.');
 		res.redirect('/signup');
 	}
 
