@@ -16,25 +16,29 @@ const
 
 /**
  * 회원가입
- * todo 테스트 코드 미작성
  */
 router.post('/signup', (req, res) => {
 	'use strict';
 
 	let _obj = {
-		user_id: req.body.user_id,
+		user_id: req.body.username,
 		nickname: req.body.nickname,
 		password: req.body.password,
 		email: req.body.email,
-		market_code: req.body.market_code
+		market_code: (req.body.market_code === '') ? null : req.body.market_code
 	};
 
-	if(_obj.password !== req.body.re_password) {
-		res.json({
-			success : false,
-			msg : 'Password is not matched each other.'
-		});
-	}
+	console.log(_obj);
+
+
+
+	// INFO index.js 에서 이미 여러가지 검사를 수행한 후에 내부적으로 호출을 한 것이므로 일단은 중복으로 검사를 하지 않는다.
+	// if(_obj.password !== req.body.re_password) {
+	// 	res.json({
+	// 		success : false,
+	// 		msg : 'Password is not matched each other.'
+	// 	});
+	// }
 
 	_obj.password = bcrypt.hashSync(req.body.password, 10);
 
@@ -54,48 +58,63 @@ router.post('/signup', (req, res) => {
 });
 
 /**
- * TODO 개발 진행중...
- * 회원가입시 유저 아이디 중복 검사
- *
+ * Check if username is valid or not
  */
 router.get('/users/duplication/user_id', (req, res) => {
 	const user_id = req.query.user_id;
 
 	UserService.DuplicateByUserId(user_id, (err, result) => {
 		if (!err) {
-			res.json(result);
+			res.json({
+				success : true,
+				valid : result.valid
+			});
 		} else {
-			res.json(result);
+			res.json({
+				success: false,
+				msg : err
+			});
 		}
 	});
 });
 
 /**
- * 회원가입시 닉네임 중복 검사
+ * Check if nickname is valid or not
  */
 router.get('/users/duplication/nickname', (req, res) => {
 	const nickname = req.query.nickname;
 
 	UserService.duplicateByNickname(nickname, (err, result) => {
 		if (!err) {
-			res.json(result);
+			res.json({
+				success: true,
+				valid : result.valid
+			});
 		} else {
-			res.json(result);
+			res.json({
+				success : false
+			});
 		}
 	});
 });
 
 /**
- * 회원가입시 이메일 중복 검사
+ * 이메일 중복 검사
  */
 router.get('/users/duplication/email', (req, res) => {
 	const email = req.query.email;
 
 	UserService.duplicateByEmail(email, (err, result) => {
 		if (!err) {
-			res.json(result);
+			res.json({
+				success : true,
+				valid : result.valid
+			});
 		} else {
-			res.json(result);
+			res.json({
+				success: false,
+				msg : err
+			});
 		}
 	});
 });

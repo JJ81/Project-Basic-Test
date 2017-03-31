@@ -1,1 +1,44 @@
-회원가입
+{{#if error}}
+<div class="error">
+    error : {{error}}
+</div>
+{{/if}}
+<div id="signup">
+    <form method="post" action="/signup">
+        <h2>회원가입</h2>
+        <fieldset>
+            <legend>회원가입</legend>
+            <label for="username">*아이디</label>
+            <input type="text" name="username" class="form-control" placeholder="아이디를 입력하세요." required autocomplete="off" autofocus value="{{usr_username}}" />
+            {{#if username}} {{username}}<br />{{/if}}
+
+            <label for="nickname">*닉네임</label>
+            <input type="text" name="nickname" class="form-control" placeholder="닉네임을 입력하세요." required autocomplete="off" value="{{usr_nickname}}" />
+            {{#if nickname}} {{nickname}}<br />{{/if}}
+
+            <label for="password">*비밀번호</label>
+            <input type="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요." required autocomplete="off" />
+            <small>* 문자와 숫자를 포함하여 8자 이상 입력을 해야 합니다.</small><br />
+            {{#if password}} {{password}} <br />{{/if}} {{!-- todo 메시지가 콤마를 기준으로 여러개가 나올 경우 개행이 되어서 출력이 될 수 있도록 한다  --}}
+
+            <label for="re_password">*비밀번호(확인)</label>
+            <input type="password" name="re_password" class="form-control" placeholder="비밀번호를 다시 입력하세요." required autocomplete="off" />
+            {{#if re_password}} {{re_password}} <br /> {{/if}}
+
+            <label for="email">*이메일</label>
+            <input type="email" name="email" class="form-control" placeholder="이메일을 입력하세요." required autocomplete="off" value="{{usr_email}}" />
+            <small>* 입력하신 이메일을 분실했을 경우, 아이디나 패스워드를 찾을 수 없습니다.</small><br />
+            {{#if email}} {{email}} <br />{{/if}}
+
+            <label for="market_code">마켓 코드 (선택)</label>
+            <input type="text" name="market_code" class="form-control" placeholder="(선택) 마케팅코드를 입력해주세요." /><br />
+
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+            <hr />
+
+            <button type="submit" class="btn btn-primary">가입하기</button>
+            <a href="/" class="btn btn-default">홈으로</a>
+        </fieldset>
+    </form>
+</div>

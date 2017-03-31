@@ -58,7 +58,7 @@ app.use(logger('dev'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cookieParser()); // todo 이곳에 secret 설정할 것
+app.use(cookieParser(require('./secret/db_info').secret));
 
 // todo method-override에 대해서 학습할 것
 // const methodOverride = require('method-override');
@@ -76,11 +76,6 @@ app.use(allowCORS);
 
 global.PROJ_TITLE = '홀덤클럽티비';
 
-
-
-
-app.use('/', routes);
-
 /*
 // todo api_key 설정을 통해서 api호출에 대한 검증을 거칠 수 있도록 한다.
 // secret_key가 별도로 발급되어야 하나?
@@ -88,8 +83,15 @@ app.use('/', routes);
 // api_key 원리에 대해서 학습할 것.
 ref. https://www.npmjs.com/package/passport-localapikey
 */
+app.use('/', routes);
 app.use('/api/v1/', api);
 app.use('/api/v2/', api);
+
+
+
+// app.use(express.cookieParser('holdemclubtv'));
+// app.use(express.session({ cookie: { maxAge: 1000*60 }}));
+// app.use(flash());
 
 
 

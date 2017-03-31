@@ -25,6 +25,8 @@ const bodyParser = require('body-parser');
 const parseForm = bodyParser.urlencoded({extended:false});
 
 const UserService = require('../service/UserService');
+const util = require('../util/util');
+
 
 passport.serializeUser((user, done) => {
 	console.log('Serialize');
@@ -752,9 +754,176 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 });
 
 
-router.get('/signup', (req, res) => {
-	res.render('signup', {
+router.get('/signup', csrfProtection, (req, res) => {
+	if(req.user != null){
+		res.redirect('/');
+	}
 
+	// 하나의 객체로 묶어서 메모리에 보낼 경우 출력에 문제가 발생한다 (connect-flash)
+
+	res.render('signup', {
+		// layout : false
+		current_path: 'SIGNUP',
+		title : PROJ_TITLE + ', 회원가입',
+		csrfToken : req.csrfToken(),
+		username: req.flash('username'),
+		nickname : req.flash('nickname'),
+		password : req.flash('password'),
+		re_password : req.flash('re_password'),
+		email : req.flash('email'),
+		error : req.flash('error'),
+		usr_username : req.flash('usr_username'),
+		usr_nickname : req.flash('usr_nickname'),
+		usr_email : req.flash('usr_email')
+		// todo market_code 현재 의미가 없다.
+	});
+});
+
+const sanitize = require('sanitize-html');
+
+router.post('/signup', parseForm, csrfProtection, (req, res) => {
+	if(req.user != null){
+		res.redirect('/');
+	}
+
+
+	// protect sql injection or xss
+	const _info = {
+		username : sanitize(req.body.username.trim()),
+		nickname : sanitize(req.body.nickname.trim()),
+		password : sanitize(req.body.password.trim()),
+		re_password : sanitize(req.body.re_password.trim()),
+		email : sanitize(req.body.email.trim()),
+		market_code : sanitize(req.body.market_code.trim())
+	};
+
+	req.flash('usr_username', _info.username);
+	req.flash('usr_nickname', _info.nickname);
+	req.flash('usr_email', _info.email);
+
+	console.log(_info);
+
+	// 여기서부터 check validation
+
+	// 각 필드가 비어 있으면 안된다.
+	// check null or empty
+	if(
+		_info.username === '' || _info.username == null ||
+		_info.nickname === '' || _info.nickname == null ||
+		_info.password === '' || _info.password == null ||
+		_info.re_password === '' || _info.re_password == null ||
+		_info.email === '' || _info.email == null
+	){
+		req.flash('error', '잘못된 시도입니다. 정상적으로 이용해주세요.');
+		res.redirect('/signup');
+	}
+
+	// 아래 검사를 모두 진행을 한 후에 한꺼번에 메시지를 주자.
+	async.parallel([
+		(cb) => {
+			axios.get(`${HOST}/users/duplication/user_id?user_id=${_info.username}`)
+				.then((response)=>{
+					if(response.data.success){
+						cb(null, response);
+					}else{
+						cb('[error] check if username is duplicated or not', null);
+					}
+				}).catch((error)=>{
+					console.error(error);
+					cb(error, null);
+				});
+		},
+		(cb) => {
+			axios.get(`${HOST}/users/duplication/nickname?nickname=${_info.nickname}`)
+				.then((response)=>{
+					if(response.data.success){
+						cb(null, response);
+					}else{
+						cb('[error] check if nickname is duplicated or not', null);
+					}
+				}).catch((error)=>{
+					console.error(error);
+					cb(error, null);
+				});
+		},
+		(cb) => {
+			axios.get(`${HOST}/users/duplication/email?email=${_info.email}`)
+				.then((response)=>{
+					if(response.data.success){
+						cb(null, response);
+					}else{
+						cb('[error] check if email is duplicated or not', null);
+					}
+				}).catch((error)=>{
+					console.error(error);
+					cb(error, null);
+				});
+		}
+	], (err, result) => {
+		if(!err){
+			var isPass = true;
+
+			// 아이디 중복 검사
+			if(!result[0].data.valid){
+				req.flash('username', '중복된 아이디입니다.'); // todo 같은 키에 여러개의 값을 할당하면 컴마로 구분을 해서 입력이 되는 것을 볼 수 있다.
+				isPass = false;
+			}
+
+			// 닉네임 중복검사
+			if(!result[1].data.valid){
+				req.flash('nickname', '중복된 닉네임입니다.');
+				isPass = false;
+			}
+
+			// 이메일 중복 검사
+			if(!result[2].data.valid){
+				req.flash('email', '중복된 이메일입니다.');
+				isPass = false;
+			}
+
+			if(_info.password !== _info.re_password){
+				req.flash('password', '입력한 비밀번호가 일치하지 않습니다. ');
+				req.flash('re_password', '입력한 비밀번호가 일치하지 않습니다. ');
+				isPass = false;
+			}
+
+			if(_info.password.length < 8 || _info.re_password.length < 8){
+				req.flash('password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+				req.flash('re_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+				isPass = false;
+			}
+
+			if(!util.checkDigit(_info.password) || !util.checkDigit(_info.re_password)){
+				req.flash('password', '숫자가 포함되어야 합니다.');
+				req.flash('re_password', '숫자가 포함되어야 합니다.');
+				isPass = false;
+			}
+
+			if(!util.checkIsEmail(_info.email)){
+				req.flash('email', '이메일 형식이 맞지 않습니다.');
+				isPass = false;
+			}
+
+			if(isPass){
+				axios.post(`${HOST}/signup`, _info)
+					.then((response)=>{
+						if(response.data.success){
+							// todo 로그인 화면으로 넘어가기 전에 메모리를 비워주거나 비워주는 설정이 필요하다? 자연스럽게 사라지는 것이 기본 세팅인 듯하다.
+							res.redirect('/login');
+						}
+					}).catch((error)=>{
+						console.error(error);
+						req.flash('error', '서버에 문제가 생겼습니다. 잠시 후에 다시 시도해주세요.');
+						res.redirect('signup');
+					});
+			}else{
+				res.redirect('/signup');
+			}
+		}else{
+			console.error(err);
+			req.flash('error', '서버에 문제가 생겼습니다. 잠시 후에 다시 시도해주세요.');
+			res.redirect('/signup');
+		}
 	});
 });
 

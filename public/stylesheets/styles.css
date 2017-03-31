@@ -28,6 +28,9 @@
 [v-cloak] {
   display: none; }
 
+legend {
+  display: none; }
+
 .sidebar-fixed {
   background: #fff;
   position: absolute;
@@ -126,6 +129,11 @@ html, body {
   .video_list li {
     list-style: none;
     margin-bottom: 20px; }
+
+.btn-signup {
+  position: absolute;
+  right: 90px;
+  top: 15px; }
 
 .community {
   padding: 10px; }
