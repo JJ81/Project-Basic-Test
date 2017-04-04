@@ -796,7 +796,7 @@ router.get('/video/:video_id/information', (req, res) => {
  */
 router.get('/news/list', (req, res) => {
 	connection.query(QUERY.NEWS.LIST,
-		[4],
+		[parseInt(req.query.size)], // query string으로 받을 경우 string을 number로 변환을 해주어야 한다
 		(err, rows) => {
 			if(!err){
 				res.json({

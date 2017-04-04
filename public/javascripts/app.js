@@ -13,11 +13,14 @@ require.config({
 		fastclick : ['/components/fastclick/lib/fastclick'],
 		swiper : ['/components/swiper/dist/js/swiper.jquery'],
 		common : ['/javascripts/common'],
-		vue : ['https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min']
+		vue : ['https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min'],
+		videojs : ['http://vjs.zencdn.net/5.19.0/video'],
+		youtubejs : ['/static/javascripts/youtube.min']
 	},
 	shim: {
 		jqueryValidate : ['jquery'],
 		jqueryCookie : ['jquery'],
-		swiper : ['jquery']
+		swiper : ['jquery'],
+		videojs : ['jquery']
 	}
 });

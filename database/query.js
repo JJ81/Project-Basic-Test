@@ -300,9 +300,9 @@ QUERY.CHANNEL = {
 QUERY.NEWS = {
 	LIST :
 	'select * from `news` ' +
-		'where `active`=true ' +
-		'order by `created_dt` desc ' +
-		'limit ?;'
+	'where `active`=true ' +
+	'order by `created_dt` desc ' +
+	'limit ?;'
 };
 
 module.exports = QUERY;

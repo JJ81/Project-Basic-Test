@@ -1,10 +1,66 @@
-<!--
-    todo CDN을 적용했을 때의 속도 차이를 테스트해본다.
-    video : media.holdemclub.tv
-    image : static.holdemclub.tv
--->
-
 {{#each video}}
+    {{!-- ad video from youtube --}}
+    <div class="ad_video">
+        <!--youtube-->
+        <video id="really-cool-video"
+               class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"
+               playsinline webkit-playsinline controls
+               preload="auto"
+               autoplay
+               poster="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail"
+               data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://youtu.be/BbOkcbVT4rc"}], "youtube": {"modestbranding":1, "playsinline":1, "ytControls":0 }  }'>
+        </video>
+        {{!--
+            todo 이 부분이 모바일에서는 어떻게 보여야 하는지 설정이 필요하다.
+            todo 모바일에서 플레이버튼이 필요하다. 만약 버튼을 눌러서 작동을 하지 않는다면 포스터 기능은 제거한다.
+         --}}
+        <a href="#" class="btn_ad_skip_a blind">광고 건너뛰기</a>
+        <a href="#" class="btn_timer_on_the_screen first_ad_timer blind"><span class="timer_first_ad">10</span>초 후에 광고 건너뛰기</a>
+        <br />
+        {{!-- todo 모바일에서만 아래 버튼이 노출이 될 수 있도록 설정할 것. --}}
+        <!--<a href="#" class="btn-ad-play">play</a>-->
+        <!--youtube-->
+    </div>
+
+    {{!-- main video --}}
+    <div class="video_view blind">
+    {{#if (isEquals type 'Y')}}
+        <video id="main-video"
+               class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"
+               playsinline webkit-playsinline controls
+               preload="auto"
+               autoplay
+               poster="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail"
+               data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "{{link}}"}], "youtube": {"modestbranding":1, "playsinline":1, "ytControls":0 }  }'>
+        </video>
+    {{else}}
+        <video id="main-video"
+               class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered"
+               preload="auto"
+               width="640"
+               height="264"
+               poster="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail"
+               data-setup="{}" controls playsinline webkit-playsinline>
+            <source src="{{../static}}channel/{{channel_id}}/{{video_id}}/video.mp4" type='video/mp4'>
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+            </p>
+        </video>
+    {{/if}}
+
+        {{#if ( isEquals ../isMobile 0 ) }}
+        {{!-- todo 모바일에서는 보이는 형식이 달라져야 하며 혹은 아예 노출을 하지 않는 것이 좋겠다. --}}
+        <div class="ban_in_video blind">
+            <div class="ban_inner">
+                <a href="#" target="_blank"><img src="{{../static}}ad/ad_900_80.jpg" alt="배너" width="100%" /></a>
+                <a href="#" class="btn_ban_in_video"></a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+
+
     title : {{title}}<br />
     channel_id : {{channel_id}}<br />
     video_id : {{video_id}}<br />
@@ -12,21 +68,42 @@
     type : {{type}}<br />
     hits : {{hits}}<br />
     created_dt : {{created_dt}}<br />
-    active : {{active}}
 {{/each}}
 
 
 <hr />
 
-<h3>비디오 리스트</h3>
-
+<h4>연관 비디오 리스트</h4>
+{{#if videos}}
+<ol class="clearfix video_list">
 {{#each videos}}
-    title : {{title}}<br />
-    channel_id : {{channel_id}}<br />
-    video_id : {{video_id}}<br />
-    link : {{link}}<br />
-    type : {{type}}<br />
-    hits : {{hits}}<br />
-    created_dt : {{created_dt}}<br />
-    active : {{active}}<br />
+    <li class="col-md-3{{#if (isEquals video_id ../currentVideoId )}} active{{/if}}">
+        <a href="/channel/{{channel_id}}/video/{{video_id}}">
+            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="240" /><br />
+            <strong>{{title}}</strong><br />
+            <span>조회수 : {{hits}}</span><br />
+            <span>{{created_dt}}</span>
+        </a>
+    </li>
+
+    <!--title : {{title}}<br />-->
+    <!--channel_id : {{channel_id}}<br />-->
+    <!--video_id : {{video_id}}<br />-->
+    <!--link : {{link}}<br />-->
+    <!--type : {{type}}<br />-->
+    <!--hits : {{hits}}<br />-->
+    <!--created_dt : {{created_dt}}<br />-->
 {{/each}}
+</ol>
+{{/if}}
+
+{{!-- todo 댓글은 일단 스펙 아웃한다. --}}
+
+
+
+<input type="hidden" value="{{prevVideo}}" id="prevVideo" />
+<input type="hidden" value="{{nextVideo}}" id="nextVideo" />
+<input type="hidden" value="{{currentVideoId}}" id="currentVideoId">
+<input type="hidden" value="{{isMobile}}" id="isMobile" />
+<input type="hidden" value="{{video_lists}}" id="videos" />
+<input type="hidden" value="{{isMobile}}" id="isMobile" />

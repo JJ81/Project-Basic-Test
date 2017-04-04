@@ -90,8 +90,16 @@ passport.use(new LocalStrategy({
 }
 ));
 
+/**
+ * 로그인
+ * todo https로 처리할 수 있도록 리다이렉션이 필요하다.
+ */
 router.get('/login', function (req, res) {
 	'use strict';
+
+	if(req.user !== null){
+		res.redirect('/');
+	}
 
 	let
 		msg = '',
@@ -458,7 +466,7 @@ router.get('/', (req, res) => {
 				});
 			},
 			(cb) => { // 뉴스 가져오기
-				request.get(`${HOST}/news/list`, (err, res, body) => {
+				request.get(`${HOST}/news/list?size=4`, (err, res, body) => {
 					if(!err && res.statusCode == 200){
 						let _body  = JSON.parse(body);
 
@@ -468,7 +476,7 @@ router.get('/', (req, res) => {
 							cb('News', null);
 						}
 					}else{
-						console.error('[Recom] ');
+						console.error('[News] ');
 						cb(err, null);
 					}
 				});
@@ -672,13 +680,10 @@ router.get('/channel/:channel_id', (req, res) => {
 	// todo 해당 데이터를 리턴받을 수 있는 유틸을 만들어보자.
 	// todo 어떤 모듈을 이용해야 하는지 조사하고 한 곳에서 반영해보자
 	// todo connection 자체에서 제공하고 있는 기능에 대해서도 조사를 해보자.
+	'use strict';
 
 	async.parallel(
 		[
-			// todo 네비게이션 데이터 가져오기
-
-			// todo 비디오 리스트 가져오기
-			// todo 재정렬이 필요. 오름차순과 내림차순을 구분할 수 있도록 설정을 해보자. --> lodash? underscore?
 			(cb) => {
 				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
 					.then((response)=>{
@@ -689,6 +694,59 @@ router.get('/channel/:channel_id', (req, res) => {
 						console.error(error);
 						cb(error, null);
 					});
+			},
+			(cb) => { // 좌측 채널 리스트
+				request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
+
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[navi] success status is false');
+							cb('Navigation', null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
+			},
+
+			(cb) => { // 추천 채널 리스트
+				request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Recom', null);
+						}
+					}else{
+						console.error('[Recom] ');
+						cb(err, null);
+					}
+				});
+			},
+
+			(cb) => { // 방송중
+				request.get(`${HOST}/broadcast/live`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[live] success status is false');
+							cb(null, null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
 			}
 		],
 		(err, result) => {
@@ -699,7 +757,10 @@ router.get('/channel/:channel_id', (req, res) => {
 					static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
-					videos : JSON.stringify(result[0].data.result)
+					videos : JSON.stringify(result[0].data.result),
+					channels : result[1].result,
+					recom : result[2].result,
+					live : result[3].result
 				});
 			}else{
 				console.error(err);
@@ -709,34 +770,24 @@ router.get('/channel/:channel_id', (req, res) => {
 });
 
 
+var isMobile = require('is-mobile');
 /**
  * 비디오 뷰
  */
 router.get('/channel/:channel_id/video/:video_id', (req, res) => {
+	'use strict';
 	async.parallel(
 		[
-			// todo 네비게이션 관련 데이터 가져오기
-
-			// todo 이전 재생 channel_id, video_id
-
-			// todo 다음 재생 channel_id, video_id
-
-			// todo 달려 있는 댓글과 답글 가져오기 --> 답글 체제로만 유지할 것. 일단 스펙 아웃
-
-			// todo youtube일 경우와 아닐 경우를 구분하여 재생하고
-
-			// todo 영상광고는 항상 홀덤천국일 것이며, 영상광고가 늘어난다면 등록하는 부분을 따로 두는 것이 좋겠다. 광고 영상은 항상 youtube 올려서 진행을 한다.
-
-			// todo 영상 위에 배너 광고는 항상 홀덤천국만일 것이며 이것 또한 관리자 페이지에서 수정이나 추가가 될 수 있도록 한다.
-
-
+			// 달려 있는 댓글과 답글 가져오기 --> 답글 체제로만 유지할 것. 일단 스펙 아웃
+			// 영상 위에 배너 광고는 항상 홀덤천국만일 것이며 이것 또한 관리자 페이지에서 수정이나 추가가 될 수 있도록 한다.
+			// 채널 타이틀 가져와야
 			(cb) => { // 비디오 리스트 가져오기
 				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
 					.then((response)=>{
 						cb(null, response);
-						console.log(response);
+						//console.log(response);
 					}).catch((error)=>{
-						console.error(error);
+						//console.error(error);
 						cb(error, null);
 					});
 			},
@@ -744,23 +795,89 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 				axios.get(`${HOST}/video/${req.params.video_id}/information`)
 					.then((response)=>{
 						cb(null, response);
-						console.log(response);
+						//console.log(response);
 					}).catch((error)=>{
-						console.error(error);
+						//console.error(error);
 						cb(error, null);
 					});
+			},
+
+			(cb) => { // 좌측 채널 리스트
+				request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
+
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[navi] success status is false');
+							cb('Navigation', null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
+			},
+
+			(cb) => { // 추천 채널 리스트
+				request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body  = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							cb('Recom', null);
+						}
+					}else{
+						console.error('[Recom] ');
+						cb(err, null);
+					}
+				});
+			},
+
+			(cb) => { // 방송중
+				request.get(`${HOST}/broadcast/live`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[live] success status is false');
+							cb(null, null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
 			}
+
 		],
 
 		(err, result) => {
 			if(!err){
+				var _video_info = getCurrentVideoIndex(result[0].data.result, result[1].data.result[0].video_id);
+				console.log(_video_info);
+
 				res.render('video_view', {
 					current_path: 'VIDEOVIEW',
 					static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
+					videos : result[0].data.result,
+					video_lists : JSON.stringify(result[0].data.result),
 					video : result[1].data.result,
-					videos : result[0].data.result
+					prevVideo : _video_info.prev,
+					nextVideo : _video_info.next,
+					currentVideoId : result[1].data.result[0].video_id,
+					isMobile: (isMobile(req) == 1) ? 1 : 0,
+					channels : result[2].result,
+					recom : result[3].result,
+					live : result[4].result
 				});
 			}else{
 				console.error(err);
@@ -769,8 +886,35 @@ router.get('/channel/:channel_id/video/:video_id', (req, res) => {
 		});
 });
 
+// 일단 순차 검색을 통해서 검색 결과를 리턴한다.
+function getCurrentVideoIndex(arr, target){
+	var
+		i=0,
+		size=arr.length,
+		prev = null,
+		next = null;
+
+	for(;i<size;i++){
+		if(arr[i].video_id === target){
+			console.log('current ' + i+1);
+			if(i === 0) {
+				next = i+1;
+			} else if(i+1 === size) {
+				prev = size-1;
+			} else {
+				prev = i-1;
+				next = i+1;
+			}
+			return { prev, next };
+		}
+	}
+	return { prev, next };
+}
+
+
 /**
  * 회원가입 뷰
+ * todo https로 처리할 것.
  */
 router.get('/signup', csrfProtection, (req, res) => {
 	if(req.user != null){
@@ -803,6 +947,7 @@ router.get('/signup', csrfProtection, (req, res) => {
 const sanitize = require('sanitize-html');
 /**
  * 회원가입 처리
+ * todo https로 처리할 것
  */
 router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	if(req.user != null){
@@ -951,6 +1096,14 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 });
 
 
+router.get('/private', isAuthenticated, (req, res) => {
+	res.render('private' , {
+		current_path: 'PRIVATE',
+		static : STATIC_URL,
+		title: PROJ_TITLE,
+		loggedIn: req.user
+	});
+});
 
 // router.get('/test', (req, res) => {
 // 	res.json({result: 'Hello World'});

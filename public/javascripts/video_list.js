@@ -23,17 +23,14 @@ requirejs(
 			}
 		})();
 
-
-
-
-		function dateFormatter(date){
-			var d = new Date(date);
-			return d.getFullYear() + '-' +(d.getMonth() + 1) + '-' + d.getDate();
-		}
-
-		function numberFormatter(num){
-			return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		}
+		// function dateFormatter(date){
+		// 	var d = new Date(date);
+		// 	return d.getFullYear() + '-' +(d.getMonth() + 1) + '-' + d.getDate();
+		// }
+		//
+		// function numberFormatter(num){
+		// 	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		// }
 
 
 		new Vue({
