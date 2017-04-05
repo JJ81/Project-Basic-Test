@@ -1,8 +1,5 @@
-{{#if msg}}
-<div class="has-error">{{msg}}</div>
-{{/if}}
-
 <div class="login-box">
+    {{#if msg}}<div class="has-error">{{msg}}</div>{{/if}}
     <div class="login-box-body">
         <form role="form" id="form-login" method="post" action="/login">
 
@@ -19,32 +16,13 @@
             <hr />
 
             <button type="submit" class="btn btn-primary">로그인</button>
-            <a href="#" class="btn btn-link">아이디 찾기</a>
-            <a href="#" class="btn btn-link">비밀번호 찾기</a>
 
-            <!--<div>-->
-                <!--<input type="hidden" name="login_check" />-->
-            <!--</div>-->
+            <hr />
 
-            <div class="row">
-                <!--<div class="col-xs-8">-->
-                    <!--<div class="checkbok">-->
-                        <!--<label><input type="checkbox" id="remember"> Remember Me</label>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!-- /.col -->
-                <!--<div class="col-xs-4">-->
-                    <!--<ol>-->
-                        <!--<li><button type="submit" class="btn btn-danger btn-block btn-flat" id="btn-agent-login">Sign In</button></li>-->
-                        <!--<li><a class="btn btn_login_fb" href="/auth/login/facebook">페이스북 로그인</a></li>-->
-                        <!--<li><a class="btn_login_kko" href="/auth/login/kakao">카카오 로그인</a></li>-->
-                        <!--<li><a class="btn_login_nav" href="/auth/login/naver">네이버 로그인</a></li>-->
-                    <!--</ol>-->
-                <!--</div>-->
-                <!-- /.col -->
-            </div>
+            <a href="/find/id" class="btn btn-link">아이디 찾기</a>
+            <a href="/find/password" class="btn btn-link">비밀번호 찾기</a>
+
         </form>
-        <!--<a href="#">I forgot my password</a><br />-->
     </div>
-    <!-- /.login-box-body -->
 </div>
+

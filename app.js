@@ -36,7 +36,7 @@ app.use('/static', express.static(__dirname + '/public'));
 
 // todo TLS 적용시 아래 코드를 수정
 // var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
-app.use(cookieSession({
+app.use(cookieSession({ // todo secret key 설정하는 부분 확인할 것.
 	name: 'holdemclub_session',
 	keys: ['HC2.0', 'HoldemclubTV'],
 	cookie: {
@@ -58,7 +58,7 @@ app.use(logger('dev'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cookieParser(require('./secret/db_info').secret));
+app.use(cookieParser(require('./secret/db_info').secret)); // todo 쿠키를 이와 같이 secret 키로 복호화한다면 암호화는 어디서?
 
 // todo method-override에 대해서 학습할 것
 // const methodOverride = require('method-override');

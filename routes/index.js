@@ -26,6 +26,7 @@ const parseForm = bodyParser.urlencoded({extended:false});
 
 const UserService = require('../service/UserService');
 const util = require('../util/util');
+const sanitize = require('sanitize-html');
 
 
 passport.serializeUser((user, done) => {
@@ -51,6 +52,10 @@ passport.use(new LocalStrategy({
 	passwordField: 'password',
 	passReqToCallback: true
 }, (req, user, password, done) => {
+
+	user = sanitize(user.trim());
+	password = sanitize(password.trim());
+
 	connection.query(QUERY.USER.Login, [user], (err, data) => {
 		if (err) {
 			console.error(err);
@@ -58,14 +63,14 @@ passport.use(new LocalStrategy({
 		} else {
 
 			if(data.length === 0){
-				console.log('username is not exist.');
-				return done(null, null, {'message' : 'Username is not exist.'});
+				console.error('Username is not exist.');
+				return done(null, null, {'message' : '아이디가 존재하지 않습니다.'});
 			}
 
 			if (data.length === 1) {
 				if (!bcrypt.compareSync(password, data[0].password)) {
-					console.log('password is not matched.');
-					return done(null, false, {'message' : 'Password is not matched.'});
+					console.error('password is not matched.');
+					return done(null, false, {'message' : '비밀번호가 일치하지 않습니다.'});
 				} else {
 
 					// 로그인시 날짜를 해당 컬럼에 기록할 수 있어야 한다
@@ -83,8 +88,8 @@ passport.use(new LocalStrategy({
 					});
 				}
 			} else {
-				console.log('Account is duplicated.');
-				return done(null, false, {message : 'Your account is duplicated.'});
+				console.log('Account is duplicated : ' + user);
+				return done(null, false, {message : '당신의 계정에 문제가 있습니다. info@holdemclub.tv로 문의주세요.'});
 			}
 		}
 	});
@@ -945,7 +950,7 @@ router.get('/signup', csrfProtection, (req, res) => {
 
 
 
-const sanitize = require('sanitize-html');
+
 /**
  * 회원가입 처리
  * todo https로 처리할 것
@@ -1405,5 +1410,52 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
 		}
 	});
 });
+
+/**
+ * 로그인을 할 수 없을 경우
+ * 이메일과 닉네임으로 아이디 찾기
+ */
+router.get('/find/id', csrfProtection, (req, res) => {
+	res.render('find_id', {
+
+	});
+});
+
+/**
+ * 아이디 출력 화면
+ */
+router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
+
+});
+
+/**
+ * 아이디 & 이메일 입력
+ */
+router.get('/find/password', csrfProtection, (req, res) => {
+	res.render('find_pw', {
+
+	});
+});
+
+/**
+ * 수정 페이지는 들어갈 수 없도록 설정할 것.
+ * 아이디 이메일 일치 여부 확인 --> 비밀번호 설정 페이지로 이동
+ * 일시적 token(expiry date 포함)을 만들어서 넘긴다. 비공개키로 복호화할 수 있는 알고리즘을 사용할 것. --> 인터넷에서 조사할 것.
+ */
+router.post('/reset/password', parseForm, csrfProtection, (req, res)=>{
+	// todo form전송으로 받은 것을 다시 form 전송 릴레이가 가능한가 테스트해볼 것.
+});
+
+/**
+ * 비밀번호 수정 처리 -> 로그인 페이지로 이동
+ * 새로운 비밀번호 수정처리
+ * 넘어온 토큰을 복호화하여 유효기간이 만료했는지 확인할 것.
+ * 이메일로 링크를 보내는 방법과 위와 같은 방법 사이에는 어떠한 차이가 있는가?
+ */
+router.post('/private/password/request', parseForm, csrfProtection, (req, res) => {
+
+});
+
+
 
 module.exports = router;
