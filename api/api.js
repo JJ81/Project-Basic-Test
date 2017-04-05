@@ -28,18 +28,6 @@ router.post('/signup', (req, res) => {
 		market_code: (req.body.market_code === '') ? null : req.body.market_code
 	};
 
-	console.log(_obj);
-
-
-
-	// INFO index.js 에서 이미 여러가지 검사를 수행한 후에 내부적으로 호출을 한 것이므로 일단은 중복으로 검사를 하지 않는다.
-	// if(_obj.password !== req.body.re_password) {
-	// 	res.json({
-	// 		success : false,
-	// 		msg : 'Password is not matched each other.'
-	// 	});
-	// }
-
 	_obj.password = bcrypt.hashSync(req.body.password, 10);
 
 	UserService.SignUp(_obj, (err, result) => {

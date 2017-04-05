@@ -1,0 +1,15 @@
+<h3>이메일 수정</h3>
+{{#if error}}<div class="error">{{error}}</div>{{/if}}
+<form action="/private/email/modify" method="post" class="form">
+    <legend>이메일 수정 페이지</legend>
+    <fieldset>
+        <input type="email" name="email" class="form-control" placeholder="새로운 이메일 주소를 입력하세요" autocomplete="off" autofocus required value="{{email}}" />
+        {{#if msg_email}}{{msg_email}}{{/if}}
+        <input type="password" name="password" class="form-control" autocomplete="off" required placeholder="현재 비멀번호를 입력해주세요." />
+        {{#if msg_password}}{{msg_password}}{{/if}}
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <hr />
+        <button type="submit" class="btn btn-primary">수정하기</button>
+        <a href="/private" class="btn btn-default">돌아가기</a>
+    </fieldset>
+</form>

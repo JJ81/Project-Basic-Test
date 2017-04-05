@@ -37,10 +37,10 @@ hbs.registerHelper('checkMinus', function (num) {
 });
 
 hbs.registerHelper('time', function (date) {
-  if (date !== null && date !== undefined && date !== '') {
-    return dateFormat(date, "yyyy-mm-dd");
-  }
-  return '-';
+	if (date !== null && date !== undefined && date !== '') {
+		return dateFormat(date, 'yyyy-mm-dd');
+	}
+	return '-';
 });
 
 hbs.registerHelper('stime', function (date) {

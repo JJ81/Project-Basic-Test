@@ -29,14 +29,14 @@ const util = require('../util/util');
 
 
 passport.serializeUser((user, done) => {
-	console.log('Serialize');
-	console.log(user);
+	//console.log('Serialize');
+	//console.log(user);
 	done(null, user);
 });
 
 passport.deserializeUser((user, done) => {
-	console.log('De-serialize');
-	console.log(user);
+	//console.log('De-serialize');
+	//console.log(user);
 	done(null, user);
 });
 
@@ -78,6 +78,7 @@ passport.use(new LocalStrategy({
 					return done(null, {
 						'username' : data[0].user_id,
 						'nickname' : data[0].nickname,
+						'email' : data[0].email,
 						'market_code' : data[0].market_code
 					});
 				}
@@ -97,7 +98,7 @@ passport.use(new LocalStrategy({
 router.get('/login', function (req, res) {
 	'use strict';
 
-	if(req.user !== null){
+	if(req.user !== undefined){
 		res.redirect('/');
 	}
 
@@ -950,10 +951,9 @@ const sanitize = require('sanitize-html');
  * todo https로 처리할 것
  */
 router.post('/signup', parseForm, csrfProtection, (req, res) => {
-	if(req.user != null){
+	if(req.user !== undefined){
 		res.redirect('/');
 	}
-
 
 	// protect sql injection or xss
 	const _info = {
@@ -1095,30 +1095,315 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	});
 });
 
-
+/**
+ * 개인 정보 페이지
+ */
 router.get('/private', isAuthenticated, (req, res) => {
-	res.render('private' , {
-		current_path: 'PRIVATE',
-		static : STATIC_URL,
-		title: PROJ_TITLE,
-		loggedIn: req.user
+	'use strict';
+
+	let _info = {
+		user_id : req.user.username,
+		nickname : req.user.nickname
+	};
+
+	UserService.getUserInfo(_info, (err, result) => {
+		if(!err){
+			if(result){
+				result[0].user_id = util.hiddenCharacter(result[0].user_id);
+				result[0].password = '******';
+
+				res.render('private' , {
+					// layout : false,
+					current_path: 'PRIVATE',
+					static : STATIC_URL,
+					title: PROJ_TITLE + ', 개인정보',
+					loggedIn: req.user,
+					info : result
+				});
+			}else{
+				console.error('Something went wrong to fetch user data by session\'s from private page.');
+				res.redirect('/');
+			}
+
+		}else{
+			console.error(err);
+			res.redirect('/');
+		}
 	});
 });
 
-// router.get('/test', (req, res) => {
-// 	res.json({result: 'Hello World'});
-// });
+/**
+ * 이메일 수정 페이지
+ */
+router.get('/private/email',isAuthenticated, csrfProtection, (req, res) => {
+	res.render('private-email', {
+		current_path: 'PRIVATE-EMAIL',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 이메일 수정',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken(),
+		error : req.flash('error'),
+		msg_email : req.flash('msg_email'),
+		msg_password : req.flash('msg_password'),
+		email : req.flash('email')
+	});
+});
 
-// router.get('/test/form', csrfProtection, (req, res) => {
-// 	res.render('form', {
-// 		title : PROJ_TITLE
-// 		,csrfToken : req.csrfToken()
-// 		// test : mysql_location // this is working!!
-// 	});
-// });
+/**
+ * 이메일 수정 처리
+ */
+router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection, (req, res) => {
+	'use strict';
 
-// router.post('/test/form/submit', parseForm, csrfProtection, (req, res) => {
-// 	res.send('data is being processed');
-// });
+	let _info = {
+		email : sanitize(req.body.email.trim()),
+		password : sanitize(req.body.password.trim())
+	};
+
+	// 빈 값 처리
+	if(_info.email === '' || _info.password === ''){
+		req.flash('error', '정상적인 접근이 아닙니다. 다시 시도해주세요.');
+		res.redirect('/private/email');
+	}
+
+	if(!util.checkIsEmail(_info.email)){
+		req.flash('email', '이메일 형식이 올바르지 않습니다.');
+		res.redirect('/private/email');
+	}
+
+	async.series([
+		// 이메일 중복 체크
+		(cb) => {
+			UserService.duplicateByEmail(_info.email, (err, result) => {
+				if(!err){
+					cb(null, result);
+				}else{
+					console.error(err);
+					cb(err, null);
+				}
+			});
+		},
+		// 비밀번호 일치 여부
+		(cb) => {
+			UserService.CheckPassword({
+				user_id : req.user.username,
+				email : req.user.email,
+				nickname : req.user.nickname,
+				password : _info.password
+			}, (err, result) => {
+				if(!err){
+					cb(null, result);
+				}else{
+					console.error(err);
+					cb(err, null);
+				}
+			});
+		}
+	], (err, result) => {
+		if(!err){
+
+			if(!result[0].valid){
+				req.flash('msg_email', '중복된 이메일입니다.');
+			}else{
+				req.flash('email', _info.email);
+			}
+
+			if(!result[1].valid){
+				req.flash('msg_password', '비밀번호가 맞지 않습니다.');
+			}
+
+			if(result[0].valid && result[1].valid){
+				UserService.ChangeEmail({
+					user_id : req.user.username,
+					nickname : req.user.nickname,
+					email : _info.email
+				}, (err, result) => {
+					if(!err){
+						req.user.email = _info.email;
+						req.flash('email', null);
+						res.redirect('/private');
+					}else{
+						req.flash('error', '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+						res.redirect('/private/email');
+					}
+				});
+			}else{
+				res.redirect('/private/email');
+			}
+
+		}else{
+			req.flash('error', '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+			console.error(err);
+			res.redirect('/private/email');
+		}
+	});
+});
+
+/**
+ * 비밀번호 수정 페이지
+ */
+router.get('/private/password', isAuthenticated, csrfProtection, (req, res) => {
+	// todo 타당성 검사 결과 메시지 전달 처리
+
+	res.render('private-password', {
+		current_path: 'PRIVATE-PASSWORD',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 비밀번호 수정',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken(),
+		error : req.flash('error'),
+		msg_old_password : req.flash('msg_old_password'),
+		msg_new_password : req.flash('msg_new_password'),
+		msg_re_password : req.flash('msg_re_password')
+	});
+});
+
+/**
+ * 비밀번호 수정 처리
+ * todo 비밀번호를 수정하는 로직 테스트가 아직 끝나지 않았다.
+ */
+router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtection, (req, res) => {
+	'use strict';
+	// trim, sanitize
+	let _info = {
+		user_id : req.user.username,
+		nickname : req.user.nickname,
+		old_password : req.body.old_password.trim(),
+		new_password : req.body.new_password.trim(),
+		re_password : req.body.re_password.trim()
+	};
+
+	let isPass = true;
+
+	// 빈값 처리 확인
+	if(_info.old_password === '' || _info.new_password === '' || _info.re_password === '' ){
+		req.flash('error', '잘못된 접근입니다. 다시 시도해주세요.');
+		isPass = false;
+	}
+
+	// 입력한 비밀번호 일치 여부
+	if(_info.new_password !== _info.re_password){
+		req.flash('msg_new_password', '입력한 비밀번호가 일치하지 않습니다.');
+		req.flash('msg_re_password', '입력한 비밀번호가 일치하지 않습니다.');
+		isPass = false;
+	}
+
+	if(_info.new_password.length < 8 || _info.re_password.length < 8){
+		req.flash('msg_new_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+		req.flash('msg_re_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+		isPass = false;
+	}
+
+	if(!util.checkDigit(_info.new_password) || !util.checkDigit(_info.re_password)){
+		req.flash('msg_new_password', '숫자가 포함되어야 합니다.');
+		req.flash('msg_re_password', '숫자가 포함되어야 합니다.');
+		isPass = false;
+	}
+
+	// 현재 비밀번호 맞는지 여부 확인
+	UserService.CheckPassword({
+		user_id : _info.user_id,
+		nickname : _info.nickname,
+		password : _info.old_password
+	}, (err, result) => {
+		if(!err){
+			// console.log('check result for password');
+			// console.log(result.valid);
+
+			if(result.valid){ // 비빈이 맞으면서 이전 조건이 모두 만족하는 경우 디비에 입력을 시도한다.
+
+				if(isPass){
+					// 새로운 비밀번호를 디비에 입력
+					UserService.UpdatePassword({
+						user_id : req.user.username,
+						nickname : req.user.nickname,
+						password : _info.new_password
+					},(err, result) => {
+						if(!err){
+							if(isPass){
+								res.redirect('/private');
+							}else{
+								res.redirect('/private/password');
+							}
+						}else{
+							console.error(err);
+							req.flash('error', '서버상에 에러가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+							res.redirect('/private/password');
+						}
+					});
+				}else{
+					res.redirect('/private/password');
+				}
+
+			}else{
+				console.error('password is not matched.');
+				req.flash('msg_old_password', '입력한 비밀번호는 맞지 않습니다.');
+				res.redirect('/private/password');
+			}
+		}else{
+			console.error(err);
+			req.flash('error', '서버상에 문제가 있습니다. 잠시 후에 다시 시도해주세요.');
+			res.redirect('/private/password');
+		}
+	});
+});
+
+/**
+ * 마케팅코드 입력
+ */
+router.get('/private/market-code', isAuthenticated, csrfProtection, (req, res) => {
+	res.render('private-marketcode', {
+		current_path: 'PRIVATE-MARKETCODE',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 마케팅코드 수정',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken(),
+		error : req.flash('error')
+	});
+});
+
+/**
+ * 마케팅 코드 처리
+ */
+router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProtection, (req, res) => {
+	// trim, sanitize
+	'use strict';
+
+	let _info = {
+		user_id : req.user.username,
+		nickname : req.user.nickname,
+		market_code : sanitize(req.body.market_code.trim())
+	};
+
+	// 빈값 등을 처리
+	if(_info.market_code === ''){
+		req.flash('market_code', '잘못된 접근입니다.');
+		res.redirect('/private/market-code');
+	}
+
+	// 유저 정보를 통해서 마케팅 코드가 있는지 여부를 확인하고
+	UserService.ExistsMarketCode(_info, (err, result) => {
+		if(!err){
+			if(result[0].market_code == null){
+				UserService.InsertMarketCode(_info, (err, result) => {
+					if(!err){
+						res.redirect('/private');
+					}else{
+						req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 대시 시도해주세요.');
+						res.redirect('/private/market-code');
+					}
+				});
+			}else{
+				console.error('에러가 발생했다.');
+				req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+				res.redirect('/private/market_code');
+			}
+		}else{
+			console.error(err);
+			req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+			res.redirect('/private/market_code');
+		}
+	});
+});
 
 module.exports = router;

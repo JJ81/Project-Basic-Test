@@ -28,7 +28,7 @@
 [v-cloak] {
   display: none; }
 
-legend {
+legend, caption {
   display: none; }
 
 .sidebar-fixed {

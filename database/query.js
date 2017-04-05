@@ -38,6 +38,26 @@ QUERY.USER = {
 	`,
 	DuplicateByEmail:
 		'select `email` from `user` where `email`=?;',
+	GetInfo :
+		`
+		select * from user where user_id=? and nickname=?;
+		`,
+	ChangeEmail :
+		`
+		update user set email=? where user_id=? and nickname=?;
+		`,
+	QueryMarketCode :
+		`
+		select market_code from user where user_id=? and nickname=?;
+		`,
+	InsertMarketCode :
+		`
+		update user set market_code=? where user_id=? and nickname=?;
+		`,
+	UpdatePassword :
+		`
+		update user set password=? where user_id=? and nickname=?;
+		`
 };
 
 QUERY.Reply = {
