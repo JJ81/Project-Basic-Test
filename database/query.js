@@ -39,25 +39,33 @@ QUERY.USER = {
 	DuplicateByEmail:
 		'select `email` from `user` where `email`=?;',
 	GetInfo :
-		`
-		select * from user where user_id=? and nickname=?;
-		`,
+	`
+	select * from user where user_id=? and nickname=?;
+	`,
 	ChangeEmail :
-		`
-		update user set email=? where user_id=? and nickname=?;
-		`,
+	`
+	update user set email=? where user_id=? and nickname=?;
+	`,
 	QueryMarketCode :
-		`
-		select market_code from user where user_id=? and nickname=?;
-		`,
+	`
+	select market_code from user where user_id=? and nickname=?;
+	`,
 	InsertMarketCode :
-		`
-		update user set market_code=? where user_id=? and nickname=?;
-		`,
+	`
+	update user set market_code=? where user_id=? and nickname=?;
+	`,
 	UpdatePassword :
-		`
-		update user set password=? where user_id=? and nickname=?;
-		`
+	`
+	update user set password=? where user_id=? and nickname=?;
+	`,
+	UserWithNicknameAndEmail :
+	`
+	select user_id, auth_id, password from user where nickname=? and email=?;
+	`,
+	UserWithUserIdAndEmail :
+	`
+	select user_id, email from user where user_id=? and email=?;
+	`
 };
 
 QUERY.Reply = {

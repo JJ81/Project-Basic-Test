@@ -27,7 +27,9 @@ const parseForm = bodyParser.urlencoded({extended:false});
 const UserService = require('../service/UserService');
 const util = require('../util/util');
 const sanitize = require('sanitize-html');
-
+const MSG = require('../commons/message');
+const crypto = require('crypto');
+const RedisDAO = require('../RedisDAO/RedisDAO');
 
 passport.serializeUser((user, done) => {
 	//console.log('Serialize');
@@ -1417,7 +1419,12 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
  */
 router.get('/find/id', csrfProtection, (req, res) => {
 	res.render('find_id', {
-
+		current_path: 'FINDID',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 아이디 찾기',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken(),
+		error : req.flash('error')
 	});
 });
 
@@ -1425,7 +1432,41 @@ router.get('/find/id', csrfProtection, (req, res) => {
  * 아이디 출력 화면
  */
 router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
+	'use strict';
 
+	let _info = {
+		nickname : sanitize(req.body.nickname.trim()),
+		email : sanitize(req.body.email.trim())
+	};
+
+	if(_info.nickname === '' || _info.email === ''){
+		req.flash('error', MSG.WRONG_ACCESS);
+		res.redirect('/find/id');
+	}
+
+	UserService.UserWithNicknameAndEmail(_info, (err, result) => {
+		if(!err){
+			console.log('check result');
+			console.log(result);
+
+			if(result[0].auth_id == null && result[0].password !== null){
+				res.render('find_id_result', {
+					current_path: 'FINDIDRESULT',
+					static : STATIC_URL,
+					title: PROJ_TITLE + ', 아이디 찾기 결과',
+					loggedIn: req.user,
+					user_id : result[0].user_id
+				});
+			}else{
+				req.flash('error', MSG.THIRDPARTY_LOGIN);
+				res.redirect('/find/id');
+			}
+		}else{
+			console.error(err);
+			req.flash('error', MSG.SERVER_ERROR);
+			res.redirect('/find/id');
+		}
+	});
 });
 
 /**
@@ -1433,7 +1474,12 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
  */
 router.get('/find/password', csrfProtection, (req, res) => {
 	res.render('find_pw', {
-
+		current_path: 'FINDPW',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 비밀번호 찾기',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken(),
+		error : req.flash('error')
 	});
 });
 
@@ -1442,8 +1488,85 @@ router.get('/find/password', csrfProtection, (req, res) => {
  * 아이디 이메일 일치 여부 확인 --> 비밀번호 설정 페이지로 이동
  * 일시적 token(expiry date 포함)을 만들어서 넘긴다. 비공개키로 복호화할 수 있는 알고리즘을 사용할 것. --> 인터넷에서 조사할 것.
  */
-router.post('/reset/password', parseForm, csrfProtection, (req, res)=>{
-	// todo form전송으로 받은 것을 다시 form 전송 릴레이가 가능한가 테스트해볼 것.
+const EXPIRED_DATE = 1000*60*30; // 30min
+router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
+	'use strict';
+
+	let _info = {
+		user_id : sanitize(req.body.user_id.trim()),
+		email : sanitize(req.body.email.trim())
+	};
+
+	if(_info.user_id === '' || _info.email === ''){
+		req.flash('error', MSG.WRONG_ACCESS);
+		res.redirect('/find/password');
+	}
+
+
+	// 레디스에 토큰과 함께 정보 입력 --> 토큰값을 가지고 디비에 저장
+	async.waterfall(
+		[
+			(done) => { // 넘어온 데이터를 기반으로 데이터가 있는지 확인을 한다.
+				UserService.UserWithUserIdAndEmail(_info, (err, result) => {
+					if(!err){
+
+						console.log('result');
+						console.info(result);
+
+						done(null, result);
+					}else{
+						req.flash('error', MSG.SERVER_ERROR);
+						res.redirect('/find/password');
+					}
+				});
+			},
+			(result, done) => { // token 생성
+				crypto.randomBytes(20, function(err, buf) {
+					var token = buf.toString('hex');
+					if(!err){
+
+						console.log('token : ' + token);
+						done(null, result, token);
+					}else{
+						console.error(err);
+						req.flash('error', MSG.SERVER_ERROR);
+						res.redirect('/find/password');
+					}
+				});
+			},
+			(result, token, done) => { // 정보를 레디스에 캐시
+				var _value = {
+					user_id : result[0].user_id,
+					email : result[0].email,
+					token,
+					expired_dt : (new Date().getTime() + EXPIRED_DATE) // 30 mins.
+				};
+
+				RedisDAO.CacheWithKeyName(req.cache, `${token}`, JSON.stringify(_value), (r_err, r_result) => {
+					if(!r_err){
+						done(null, token);
+					}else{
+						req.flash('error', MSG.SERVER_ERROR);
+						console.error(MSG.SERVER_ERROR);
+						res.redirect('/find/password');
+					}
+				});
+			}
+		],
+		(err, token) => {
+			if(!err){
+
+				console.log('throw this token');
+				console.log(token);
+
+				// todo 장기적으로는 이 링크를 직접 이메일 소유자에게 전달해야 한다 (nodeMailer) (상대방의 아이디와 이메일을 수집하여 패스워드를 수정하는 사건이 발생할 수 있다.)
+				res.redirect(`/reset/password?token=${token}`);
+			}else{
+				console.error(err);
+				req.flash('error', MSG.SERVER_ERROR);
+				res.redirect('/find/password');
+			}
+		});
 });
 
 /**
@@ -1452,7 +1575,100 @@ router.post('/reset/password', parseForm, csrfProtection, (req, res)=>{
  * 넘어온 토큰을 복호화하여 유효기간이 만료했는지 확인할 것.
  * 이메일로 링크를 보내는 방법과 위와 같은 방법 사이에는 어떠한 차이가 있는가?
  */
-router.post('/private/password/request', parseForm, csrfProtection, (req, res) => {
+router.get('/reset/password', csrfProtection, (req, res) => {
+	var _token = sanitize(req.query.token.trim());
+	var _valid = false;
+
+	console.log('received token as below shown');
+	console.log(_token);
+
+	if(_token === ''){
+		req.flash('error', MSG.SERVER_ERROR);
+		res.redirect('/find/password');
+	}
+
+	// 토큰으로 레디스를 조회한다
+	RedisDAO.QueryDataByKeyName(req.cache, _token, (err, cached) => {
+		if(!err){
+			if(cached !== null){
+				var _data = JSON.parse(cached);
+
+				if(_data.token !== _token){
+					req.flash('error', MSG.WRONG_ACCESS);
+					res.redirect('/find/password');
+				}
+
+				// console.log(_data);
+				// console.log(_data.expired_dt);
+				// console.log( new Date().getTime() );
+				// console.log( Math.abs(new Date().getTime() - _data.expired_dt) );
+
+				if( Math.abs(new Date().getTime() - _data.expired_dt) <= EXPIRED_DATE ) {
+					_valid = true;
+				}else{
+					_valid = false;
+				}
+
+				res.render('reset_pw', {
+					current_path: 'RESETPW',
+					static : STATIC_URL,
+					title: PROJ_TITLE + ', 비밀번호 설정',
+					loggedIn: req.user,
+					csrfToken : req.csrfToken(),
+					error : req.flash('error'),
+					token : _token,
+					valid : _valid
+					// todo 비밀번호를 위한 플래시 메시지 설정 필요
+				});
+
+			}else{
+				console.error('Redis error to fetch data by temporary token from finding password');
+				req.flash('error', MSG.WRONG_ACCESS);
+				res.redirect('/find/password');
+			}
+		}else{
+			console.error(err);
+			req.flash('error', MSG.SERVER_ERROR);
+			res.redirect('/find/password');
+		}
+	}); // redis
+
+
+});
+
+/**
+ *
+ */
+router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
+	'use strict';
+
+	// 입력받은 값을 sanitize, trim
+	let _info = {
+		token : sanitize(req.body.token.trim()),
+		password : sanitize(req.body.password.trim()),
+		re_password : sanitize(req.body.re_password.trim())
+	};
+
+	// 빈 값 체크
+	if(_info.token === '' || _info.password === '' || _info.re_password === ''){
+		req.flash('error', MSG.WRONG_ACCESS);
+		res.redirect('/find/password');
+	}else if(_info.token !== '' && _info.password === '' || _info.re_password === ''){
+		req.flash('msg_password', MSG.WRONG_ACCESS);
+		res.redirect('/find/password');
+	}
+
+	// todo 비밀번호 규칙이 어긋나는 경우
+	// 문자와 숫자를 포함하여 8자 이상 그리고 숫자를 꼭 포함해야 하는 경우
+
+	// todo 그러고보니 문자가 포함되어 있는지 조사를 하지 않는 것 같다.... 다른 곳에도 추가할 것.
+
+	// 최종 디비에 입력을 하기 전에 레디스를 통해서 token 만료일을 다시 확인한다
+
+	// 레디스 확인 이후에 입력받은 비밀번호를 디비에 저장한다.
+
+	// 로그인 페이지로 이동한다.
+
 
 });
 

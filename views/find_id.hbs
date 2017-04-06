@@ -1,2 +1,20 @@
 <h3>아이디 찾기</h3>
+{{#if error}}<div class="error">{{error}}</div>{{/if}}
+<form action="/find/id/result" method="post" class="form">
+    <legend>아이디 찾기 페이지</legend>
+    <fieldset>
+        <input type="text" name="nickname" class="form-control" autocomplete="off" required placeholder="닉네임을 입력해주세요." autofocus />
+
+        <input type="email" name="email" class="form-control" autocomplete="off" required placeholder="이메일을 입력해주세요." />
+
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <br />
+        <p>도움이 필요하시다면, <a href="mailto:info@holdemclub.tv">info@holdemclub.tv</a>로 문의 주세요.</p>
+        <hr />
+
+        <button type="submit" class="btn btn-primary">아이디 찾기</button>
+        <a href="/private" class="btn btn-default">돌아가기</a>
+    </fieldset>
+</form>
+
 

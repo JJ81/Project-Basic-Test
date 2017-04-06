@@ -36,9 +36,9 @@ app.use('/static', express.static(__dirname + '/public'));
 
 // todo TLS 적용시 아래 코드를 수정
 // var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
-app.use(cookieSession({ // todo secret key 설정하는 부분 확인할 것.
-	name: 'holdemclub_session',
-	keys: ['HC2.0', 'HoldemclubTV'],
+app.use(cookieSession({
+	name: 'hc_session',
+	keys: ['HC2.0', 'HoldemclubTV', 'ghfejazmffjqdlwhgdk'], // this is secret key
 	cookie: {
 		secure: false // https를 통해서만 쿠키를 전송하도록 한다
 		,httpOnly: false // 쿠키가 클라이언트 js가 아닌 httpd를 통해서만 전송이 되도록 하며 XSS 공격으로부터 보호할 수 있다

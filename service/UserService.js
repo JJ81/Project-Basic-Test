@@ -183,12 +183,56 @@ UserService.InsertMarketCode = (user_info, callback) => {
 		});
 };
 
+/**
+ *
+ * @param user_info
+ * @param callback
+ * @constructor
+ */
 UserService.UpdatePassword = (user_info, callback) => {
 	connection.query(QUERY.USER.UpdatePassword,
 		[
 			bcrypt.hashSync(user_info.password, 10),
 			user_info.user_id,
 			user_info.nickname
+		],
+		(err, result) => {
+			if(!err){
+				callback(null, result);
+			}else{
+				console.error(err);
+				callback(err, null);
+			}
+		});
+};
+
+/**
+ * 닉네임과 이메일 정보를 통해서 유저의 아이디를 전달한다.
+ * @param user_info
+ * @param callback
+ * @constructor
+ */
+UserService.UserWithNicknameAndEmail = (user_info, callback) => {
+	connection.query(QUERY.USER.UserWithNicknameAndEmail,
+		[
+			user_info.nickname,
+			user_info.email
+		],
+		(err, result) => {
+			if(!err){
+				callback(null, result);
+			}else{
+				console.error(err);
+				callback(err, null);
+			}
+		});
+};
+
+UserService.UserWithUserIdAndEmail = (user_info, callback) => {
+	connection.query(QUERY.USER.UserWithUserIdAndEmail,
+		[
+			user_info.user_id,
+			user_info.email
 		],
 		(err, result) => {
 			if(!err){

@@ -1,1 +1,16 @@
 <h3>비밀번호 찾기</h3>
+{{#if error}}<div class="error">{{error}}</div>{{/if}}
+<form action="/find/password/request" method="post" class="form">
+    <legend>비밀번호 찾기 페이지</legend>
+    <fieldset>
+        <input type="text" name="user_id" class="form-control" autocomplete="off" required placeholder="아이디를 입력해주세요." autofocus />
+        <input type="email" name="email" class="form-control" autocomplete="off" required placeholder="이메일을 입력해주세요." />
+
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+        <hr />
+
+        <button type="submit" class="btn btn-primary">비밀번호 찾기</button>
+        <a href="/login" class="btn btn-default">돌아가기</a>
+    </fieldset>
+</form>

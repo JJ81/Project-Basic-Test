@@ -1,1 +1,19 @@
 <h3>비밀번호 설정</h3>
+{{#if valid}}
+    <form action="/reset/password/result" method="post">
+        <input type="password" name="password" class="form-control" autocomplete="off" autofocus required placeholder="새로운 비밀번호를 입력하세요." />
+        <input type="password" name="re_password" class="form-control" autocomplete="off" required placeholder="새로운 비밀번호를 확인해주세요." />
+
+        <hr />
+
+        <button type="submit" class="btn btn-primary">비밀번호 설정</button>
+        <a href="/login" class="btn btn-default">로그인화면으로</a>
+        <input type="hidden" name="_csrf" />
+        <input type="hidden" name="token" value="{{token}}" />
+    </form>
+{{else}}
+    <p>해당 링크의 만료 시일이 지났습니다.<br /> 비밀번호를 찾는 과정을 다시 진행해주세요.</p>
+    <hr />
+    <a href="/find/password" class="btn btn-primary">비밀번호 찾기</a>
+{{/if}}
+
