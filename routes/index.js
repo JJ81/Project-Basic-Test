@@ -1579,8 +1579,8 @@ router.get('/reset/password', csrfProtection, (req, res) => {
 	var _token = sanitize(req.query.token.trim());
 	var _valid = false;
 
-	console.log('received token as below shown');
-	console.log(_token);
+	// console.log('received token as below shown');
+	// console.log(_token);
 
 	if(_token === ''){
 		req.flash('error', MSG.SERVER_ERROR);
@@ -1598,11 +1598,6 @@ router.get('/reset/password', csrfProtection, (req, res) => {
 					res.redirect('/find/password');
 				}
 
-				// console.log(_data);
-				// console.log(_data.expired_dt);
-				// console.log( new Date().getTime() );
-				// console.log( Math.abs(new Date().getTime() - _data.expired_dt) );
-
 				if( Math.abs(new Date().getTime() - _data.expired_dt) <= EXPIRED_DATE ) {
 					_valid = true;
 				}else{
@@ -1616,11 +1611,10 @@ router.get('/reset/password', csrfProtection, (req, res) => {
 					loggedIn: req.user,
 					csrfToken : req.csrfToken(),
 					error : req.flash('error'),
+					msg_password : req.flash('msg_password'),
 					token : _token,
 					valid : _valid
-					// todo 비밀번호를 위한 플래시 메시지 설정 필요
 				});
-
 			}else{
 				console.error('Redis error to fetch data by temporary token from finding password');
 				req.flash('error', MSG.WRONG_ACCESS);
@@ -1632,8 +1626,6 @@ router.get('/reset/password', csrfProtection, (req, res) => {
 			res.redirect('/find/password');
 		}
 	}); // redis
-
-
 });
 
 /**
@@ -1649,6 +1641,10 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 		re_password : sanitize(req.body.re_password.trim())
 	};
 
+	// console.log(_info);
+
+	let isPass = true;
+
 	// 빈 값 체크
 	if(_info.token === '' || _info.password === '' || _info.re_password === ''){
 		req.flash('error', MSG.WRONG_ACCESS);
@@ -1658,18 +1654,69 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 		res.redirect('/find/password');
 	}
 
-	// todo 비밀번호 규칙이 어긋나는 경우
-	// 문자와 숫자를 포함하여 8자 이상 그리고 숫자를 꼭 포함해야 하는 경우
+	// todo 위의 두 블록코드는 외부 모듈로 분리하여 공통으로 사용할 수 있도록 변경할 것
 
-	// todo 그러고보니 문자가 포함되어 있는지 조사를 하지 않는 것 같다.... 다른 곳에도 추가할 것.
+	if(_info.password !== _info.re_password){
+		req.flash('msg_password', '비밀번호가 일치하지 않습니다.');
+		isPass = false;
+	}
 
-	// 최종 디비에 입력을 하기 전에 레디스를 통해서 token 만료일을 다시 확인한다
+	if(!util.checkContainLetter(_info.password)){
+		req.flash('msg_password', '비밀번호에 문자가 포함되어 있지 않습니다.');
+		isPass = false;
+	}
 
-	// 레디스 확인 이후에 입력받은 비밀번호를 디비에 저장한다.
+	if(!util.checkDigit(_info.password)){
+		req.flash('msg_password', '비밀번호에 숫자가 포함되어 있지 않습니다.');
+		isPass = false;
+	}
 
-	// 로그인 페이지로 이동한다.
+	if(_info.password.length < 8){
+		req.flash('msg_password', '비밀번호는 보안을 위해서 8자 이상 입력을 해야합니다.');
+		isPass = false;
+	}
 
+	if(isPass){
+		// 최종 디비에 입력을 하기 전에 레디스를 통해서 token 만료일을 다시 확인한다
+		RedisDAO.QueryDataByKeyName(req.cache, `${_info.token}`, (err, cached) => {
+			if(!err){
+				if(cached !== null){
+					// 토큰이 일치하는지 확인한다.
+					var _data = JSON.parse(cached);
 
+					console.log('cached data');
+					console.log(_data);
+
+					if(_data.token === _info.token){
+
+						UserService.StoreNewPassword({
+							user_id : _data.user_id,
+							password : _info.password
+						}, (err, result) => {
+							if(!err){
+								res.redirect('/login');
+							}else{
+								req.flash('error', MSG.SERVER_ERROR);
+								res.redirect(`/reset/password?token=${_info.token}`);
+							}
+						});
+
+					}else{
+						req.flash('error', MSG.WRONG_ACCESS);
+						res.redirect('/find/password');
+					}
+				}else{
+					req.flash('error', MSG.WRONG_ACCESS);
+					res.redirect('/find/password');
+				}
+			}else{
+				req.flash('error', MSG.SERVER_ERROR);
+				res.redirect(`/reset/password?token=${_info.token}`);
+			}
+		});
+	}else{
+		res.redirect(`/reset/password?token=${_info.token}`);
+	}
 });
 
 

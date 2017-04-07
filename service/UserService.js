@@ -245,4 +245,20 @@ UserService.UserWithUserIdAndEmail = (user_info, callback) => {
 };
 
 
+UserService.StoreNewPassword= (user_info, callback) => {
+	console.log('store to db');
+	console.log(user_info);
+
+	var _pass = bcrypt.hashSync(user_info.password, 10);
+	connection.query(QUERY.USER.UpdateNewPassword,
+		[ user_info.user_id, _pass ],
+		(err, result) => {
+			if(!err){
+				callback(null, result);
+			}else{
+				callback(err, null);
+			}
+		});
+};
+
 module.exports = UserService;

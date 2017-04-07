@@ -65,6 +65,10 @@ QUERY.USER = {
 	UserWithUserIdAndEmail :
 	`
 	select user_id, email from user where user_id=? and email=?;
+	`,
+	UpdateNewPassword :
+	`
+	update user set password=? where user_id=?;
 	`
 };
 

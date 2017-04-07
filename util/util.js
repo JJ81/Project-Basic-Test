@@ -22,8 +22,8 @@ util.hiddenCharacter = (character, digit) => {
 	return arr.join('');
 };
 
-util.getRealPassSize = (pass) => {
-	return 0;
+util.checkContainLetter = (str) => {
+	return /[a-z]/.test(str.toLowerCase());
 };
 
 
