@@ -397,6 +397,16 @@ function CheckHttpsWithReferer(ref){
 	return re.test(ref);
 }
 
+var httpsToHttp = function (req, res, next) {
+	if( CheckHttpsWithReferer(req.headers.referer) ){
+		console.log('https');
+		res.redirect('http://' + req.headers.host);
+	}else{
+		console.log('http');
+		next();
+	}
+};
+
 
 /**
  * 메인 페이지
@@ -414,18 +424,8 @@ const HOST = `${HOST_INFO.LOCAL}${HOST_INFO.VERSION}`;
  * landing page
  *
  */
-router.get('/', (req, res) => {
+router.get('/', httpsToHttp, (req, res) => {
 	'use strict';
-
-	// todo https로 들어올 경우  redirection.
-
-
-	if( CheckHttpsWithReferer(req.headers.referer) ){
-		console.log('https');
-	}else{
-		console.log('http');
-	}
-
 
 	async.parallel(
 		[
