@@ -397,6 +397,11 @@ function CheckHttpsWithReferer(ref){
 	return re.test(ref);
 }
 
+
+// todo 아래와 같은 방법으로는 https가 http로 이동시킬 수가 없다.
+// 만약 node단에서 해결이 나지 않는다면 nginx에서 설정을 변경해야겠다.
+// 혹은 각 라우터에서 리다이렉션을 걸어서 테스트를 해보기로 한다
+
 var httpsToHttp = function (req, res, next) {
 	if( CheckHttpsWithReferer(req.headers.referer) ){
 		console.log('https');
