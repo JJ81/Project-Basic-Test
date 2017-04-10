@@ -84,10 +84,12 @@ app.use(function (req, res, next) {
 	// console.log(`env ${_env}`);
 
 	console.log('option 1');
-	console.log(req.secure);
+	console.log(req.headers['x-forwarded-proto']);
 
 	console.log('option 2');
 	console.log(req.protocol);
+
+
 
 
 	// 특정 페이지의 경우 https 혹은 http로 이동할 수 있도록 한다.
