@@ -393,8 +393,8 @@ router.get('/api-doc', (req, res) => {
 
 // todo util로 이동시킬 것
 function CheckHttpsWithReferer(ref){
-	var re = new RegExp('^(http|https)://', 'i'), referer = req.headers.referer;
-	return re.test(referer);
+	var re = new RegExp('^(http|https)://', 'i');
+	return re.test(ref);
 }
 
 
@@ -419,11 +419,8 @@ router.get('/', (req, res) => {
 
 	// todo https로 들어올 경우  redirection.
 
-	//console.log(req);
-	console.log(req.headers.referer);
-	const ref = req.headers.referer;
 
-	if( CheckHttpsWithReferer(ref) ){
+	if( CheckHttpsWithReferer(req.headers.referer) ){
 		console.log('https');
 	}else{
 		console.log('http');
