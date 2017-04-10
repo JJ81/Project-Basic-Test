@@ -76,6 +76,26 @@ app.use(allowCORS);
 
 global.PROJ_TITLE = '홀덤클럽티비';
 
+
+app.use(function (req, res, next) {
+	var _env = app.get('env');
+	console.log(`env ${_env}`);
+
+	// 특정 페이지의 경우 https 혹은 http로 이동할 수 있도록 한다.
+	if(req.secure){
+		console.log('go from https to http');
+		// [matching] 화이트 리스트를 작성해서 해당 페이지가 아닐 경우 https -> http로 이동시킨다.
+
+
+	}else{
+		console.log('go from http to https');
+		// http --> https 로 이동시킨다. 임의로 http로 접근하려고 할 경우 https로 리다이렉션이 일어날 수 있도록 한다.
+	}
+
+	next();
+});
+
+
 /*
 // todo api_key 설정을 통해서 api호출에 대한 검증을 거칠 수 있도록 한다.
 // secret_key가 별도로 발급되어야 하나?
@@ -111,6 +131,8 @@ app.use((req, res, next) => {
 // will print stacktrace
 if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로 500 에러에 대한 설정을 할 수 있도록 할 것
 	app.use((err, req, res, next) => {
+		// todo 개발에 필요한 디비깅용으로 로그를 살펴볼 수 있도록 설정할 것
+
 		res.status(err.status || 500);
 		res.render('500', {
 			current_path: ' 500 Error Page',
@@ -119,6 +141,9 @@ if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로
 	});
 }
 
+
+// todo production으로 띄울 경우 에러가 발생했을 때 메일을 받을 수 있도록 변경할 것
+// todo log@holdemclub.tv로 받을 수 있도록 한다.
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
@@ -129,18 +154,19 @@ app.use((err, req, res, next) => {
 	});
 });
 
+
 // Swifty Automatic Changing ENV.
 // todo config 파일을 생성하여 아래의 설정을 공통으로 가져갈 수 있도록
-if (app.get('env') === 'local'){
-	global.mysql_location = 'local';
-	global.redis_location = 'local';
-}else if(app.get('env') === 'development'){
-	global.redis_location = 'dev';
-	global.mysql_location = 'dev';
-}else if(app.get('env') === 'production'){
-	global.mysql_location = 'real';
-	global.redis_location = 'real';
-}
+// if (app.get('env') === 'local'){
+// 	global.mysql_location = 'local';
+// 	global.redis_location = 'local';
+// }else if(app.get('env') === 'development'){
+// 	global.redis_location = 'dev';
+// 	global.mysql_location = 'dev';
+// }else if(app.get('env') === 'production'){
+// 	global.mysql_location = 'real';
+// 	global.redis_location = 'real';
+// }
 
 
 module.exports = app;

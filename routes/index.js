@@ -12,7 +12,8 @@ const JSON = require('JSON');
 const fs = require('fs');
 const secret_config = require('../secret/federation');
 
-require('../database/redis')(router, 'real'); // redis todo 자동으로 설정 변경이 될 수 있도록 할 것.
+// todo  redis | 자동으로 설정 변경이 될 수 있도록 할 것.
+require('../database/redis')(router, 'real');
 require('../helpers/helpers');
 
 const axios = require('axios');
