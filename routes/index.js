@@ -421,8 +421,9 @@ router.get('/', (req, res) => {
 
 	//console.log(req);
 	console.log(req.headers.referer);
+	const ref = req.headers.referer;
 
-	if( CheckHttpsWithReferer(req.headers.referer) ){
+	if( CheckHttpsWithReferer(ref) ){
 		console.log('https');
 	}else{
 		console.log('http');
