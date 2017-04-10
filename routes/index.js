@@ -1440,6 +1440,8 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 		email : sanitize(req.body.email.trim())
 	};
 
+	console.info('[find id] ' + _info);
+
 	if(_info.nickname === '' || _info.email === ''){
 		req.flash('error', MSG.WRONG_ACCESS);
 		res.redirect('/find/id');
@@ -1447,12 +1449,6 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 
 	UserService.UserWithNicknameAndEmail(_info, (err, result) => {
 		if(!err){
-			// console.log('check result');
-			// console.log(result);
-
-			// todo result가 비어 있을 경우 체크가 없다.
-			// todo 존재하지 않은 닉네임과 이메일입니다. 라는 메시지를 출력할 수 있도록 할 것.
-
 			if(result !== null && result.length > 0){
 				if(result[0].auth_id == null && result[0].password !== null){
 					res.render('find_id_result', {
