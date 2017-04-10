@@ -1440,7 +1440,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 		email : sanitize(req.body.email.trim())
 	};
 
-	console.info('[find id] ' + _info);
+	console.info(`[find id] => ${_info}`);
 
 	if(_info.nickname === '' || _info.email === ''){
 		req.flash('error', MSG.WRONG_ACCESS);
