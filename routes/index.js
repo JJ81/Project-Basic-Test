@@ -12,7 +12,7 @@ const JSON = require('JSON');
 const fs = require('fs');
 const secret_config = require('../secret/federation');
 
-require('../database/redis')(router, 'local'); // redis
+require('../database/redis')(router, 'real'); // redis todo 자동으로 설정 변경이 될 수 있도록 할 것.
 require('../helpers/helpers');
 
 const axios = require('axios');
@@ -113,6 +113,7 @@ router.get('/login', function (req, res) {
 		msg = '',
 		flash_msg = req.flash(); // 캐싱을 해두지 않으면 조건에 따라서 플래시 모듈에 저장된 메시지가 사라진다.
 
+	// todo length 관련 에러 로그가 찍히는 것을 수정할 것.
 	try{
 		if(flash_msg.error.length > 0){
 			console.log('message');
@@ -1446,19 +1447,27 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 
 	UserService.UserWithNicknameAndEmail(_info, (err, result) => {
 		if(!err){
-			console.log('check result');
-			console.log(result);
+			// console.log('check result');
+			// console.log(result);
 
-			if(result[0].auth_id == null && result[0].password !== null){
-				res.render('find_id_result', {
-					current_path: 'FINDIDRESULT',
-					static : STATIC_URL,
-					title: PROJ_TITLE + ', 아이디 찾기 결과',
-					loggedIn: req.user,
-					user_id : result[0].user_id
-				});
+			// todo result가 비어 있을 경우 체크가 없다.
+			// todo 존재하지 않은 닉네임과 이메일입니다. 라는 메시지를 출력할 수 있도록 할 것.
+
+			if(result !== null){
+				if(result[0].auth_id == null && result[0].password !== null){
+					res.render('find_id_result', {
+						current_path: 'FINDIDRESULT',
+						static : STATIC_URL,
+						title: PROJ_TITLE + ', 아이디 찾기 결과',
+						loggedIn: req.user,
+						user_id : result[0].user_id
+					});
+				}else{
+					req.flash('error', MSG.THIRDPARTY_LOGIN);
+					res.redirect('/find/id');
+				}
 			}else{
-				req.flash('error', MSG.THIRDPARTY_LOGIN);
+				req.flash('error', MSG.WRONG_INFO);
 				res.redirect('/find/id');
 			}
 		}else{
