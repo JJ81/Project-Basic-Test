@@ -401,11 +401,12 @@ var httpsToHttp = function (req, res, next) {
 	if( CheckHttpsWithReferer(req.headers.referer) ){
 		console.log('https');
 		console.log('http://' + req.headers.host);
-		res.redirect(302, 'http://' + req.headers.host);
+		//res.redirect(302, 'http://' + req.headers.host);
 	}else{
 		console.log('http');
-		next();
+
 	}
+	next();
 };
 
 
