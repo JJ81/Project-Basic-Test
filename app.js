@@ -84,10 +84,10 @@ app.use(function (req, res, next) {
 	// console.log(`env ${_env}`);
 
 	console.log('option 1');
-	console.log(req.headers['x-forwarded-proto']);
-
-	console.log('option 2');
-	console.log(req.protocol);
+	console.log(req.connection.encrypted);
+	//
+	// console.log('option 2');
+	// console.log(req.protocol);
 
 
 
