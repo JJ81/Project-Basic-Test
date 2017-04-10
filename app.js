@@ -75,19 +75,13 @@ app.use(allowCORS);
 
 
 global.PROJ_TITLE = '홀덤클럽티비';
-// global.REDIS_ENV = 'local';
+
+
 
 app.use(function (req, res, next) {
-	var _env = app.get('env');
-	console.log(`env ${_env}`);
+	// var _env = app.get('env');
+	// console.log(`env ${_env}`);
 
-	if(_env === 'production'){
-		global.REDIS_ENV = 'real';
-	}else{
-		global.REDIS_ENV = 'local';
-	}
-
-	console.log('REDIS ENV : ' + global.REDIS_ENV);
 
 	// 특정 페이지의 경우 https 혹은 http로 이동할 수 있도록 한다.
 	if(req.secure){
@@ -100,6 +94,16 @@ app.use(function (req, res, next) {
 	}
 
 	next();
+
+	// if(_env === 'production'){
+	// 	require('./database/redis')(app, 'real');
+	// 	console.log('redis real');
+	// 	next();
+	// }else{
+	// 	require('./database/redis')(app, 'local');
+	// 	console.log('redis local');
+	// 	next();
+	// }
 
 });
 
