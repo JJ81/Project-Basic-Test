@@ -1453,7 +1453,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 			// todo result가 비어 있을 경우 체크가 없다.
 			// todo 존재하지 않은 닉네임과 이메일입니다. 라는 메시지를 출력할 수 있도록 할 것.
 
-			if(result !== null){
+			if(result !== null && result.length > 0){
 				if(result[0].auth_id == null && result[0].password !== null){
 					res.render('find_id_result', {
 						current_path: 'FINDIDRESULT',
