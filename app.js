@@ -78,7 +78,6 @@ app.enable('trust proxy');
 global.PROJ_TITLE = '홀덤클럽티비';
 
 
-
 app.use(function (req, res, next) {
 	// var _env = app.get('env');
 	// console.log(`env ${_env}`);
@@ -88,39 +87,13 @@ app.use(function (req, res, next) {
 	var match = re.test(referer);
 
 	console.log(match);
-
-	// console.log('Check Referrer');
-	// console.log(req.headers.referer);
-
-	//
-	// console.log('option 2');
-	// console.log(req.protocol);
-
-
-
-
-	// 특정 페이지의 경우 https 혹은 http로 이동할 수 있도록 한다.
-	// if(req.secure){
-	// 	console.log('https');
-	// 	// [matching] 화이트 리스트를 작성해서 해당 페이지가 아닐 경우 https -> http로 이동시킨다.
-	//
-	// }else{
-	// 	console.log('http');
-	// 	// http --> https 로 이동시킨다. 임의로 http로 접근하려고 할 경우 https로 리다이렉션이 일어날 수 있도록 한다.
-	// }
+	if(match){
+		console.log('https')
+	}else{
+		console.log('http');
+	}
 
 	next();
-
-	// if(_env === 'production'){
-	// 	require('./database/redis')(app, 'real');
-	// 	console.log('redis real');
-	// 	next();
-	// }else{
-	// 	require('./database/redis')(app, 'local');
-	// 	console.log('redis local');
-	// 	next();
-	// }
-
 });
 
 

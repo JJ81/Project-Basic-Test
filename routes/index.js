@@ -1726,5 +1726,4 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 });
 
 
-
 module.exports = router;
