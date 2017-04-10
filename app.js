@@ -84,7 +84,8 @@ app.use(function (req, res, next) {
 	// console.log(`env ${_env}`);
 
 	console.log('option 1');
-	console.log(req.connection.encrypted);
+	console.log(req.connection);
+	console.log(req);
 	//
 	// console.log('option 2');
 	// console.log(req.protocol);
