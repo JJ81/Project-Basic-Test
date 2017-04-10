@@ -419,14 +419,14 @@ router.get('/', (req, res) => {
 
 	// todo https로 들어올 경우  redirection.
 
-	console.log(req);
+	//console.log(req);
 	console.log(req.headers.referer);
 
-	// if(CheckHttpsWithReferer(req.headers.referer)){
-	// 	console.log('https');
-	// }else{
-	// 	console.log('http');
-	// }
+	if( CheckHttpsWithReferer(req.headers.referer) ){
+		console.log('https');
+	}else{
+		console.log('http');
+	}
 
 
 	async.parallel(
