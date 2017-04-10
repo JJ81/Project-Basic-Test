@@ -403,6 +403,7 @@ function CheckHttpsWithReferer(ref){
 // 혹은 각 라우터에서 리다이렉션을 걸어서 테스트를 해보기로 한다
 
 var httpsToHttp = function (req, res, next) {
+	// todo 리턴값이 거꾸로 적용이 되고 있어서 문제가 있었던 것 같다 이를 변경해보자.
 	if( CheckHttpsWithReferer(req.headers.referer) ){
 		console.log('https');
 		console.log('http://' + req.headers.host);
