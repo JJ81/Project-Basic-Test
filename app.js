@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
 	var _env = app.get('env');
 	console.log(`env ${_env}`);
 
-	if(env === 'production'){
+	if(_env === 'production'){
 		global.REDIS_ENV = 'real';
 	}else{
 		global.REDIS_ENV = 'local';
