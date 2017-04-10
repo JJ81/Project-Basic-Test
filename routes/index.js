@@ -400,12 +400,13 @@ function CheckHttpsWithReferer(ref){
 var httpsToHttp = function (req, res, next) {
 	if( CheckHttpsWithReferer(req.headers.referer) ){
 		console.log('https');
-		// console.log(req.headers.host);
-		return res.redirect('http://' + req.headers.host);
+		console.log('http://' + req.headers.host);
+		// res.redirect('http://' + req.headers.host);
 	}else{
 		console.log('http');
-		next();
+
 	}
+	next();
 };
 
 
