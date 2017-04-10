@@ -391,6 +391,13 @@ router.get('/api-doc', (req, res) => {
 });
 
 
+// todo util로 이동시킬 것
+function CheckHttpsWithReferer(ref){
+	var re = new RegExp('^(http|https)://', 'i'), referer = req.headers.referer;
+	return re.test(referer);
+}
+
+
 /**
  * 메인 페이지
  */
@@ -403,8 +410,21 @@ const HOST_INFO = {
 
 const HOST = `${HOST_INFO.LOCAL}${HOST_INFO.VERSION}`;
 
+/**
+ * landing page
+ *
+ */
 router.get('/', (req, res) => {
 	'use strict';
+
+	// todo https로 들어올 경우  redirection.
+
+	if(CheckHttpsWithReferer(req.headers.referer)){
+		console.log('https');
+	}else{
+		console.log('http');
+	}
+
 
 	async.parallel(
 		[
