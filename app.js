@@ -81,18 +81,26 @@ app.use(function (req, res, next) {
 	var _env = app.get('env');
 	console.log(`env ${_env}`);
 
+	if(env === 'production'){
+		global.REDIS_ENV = 'real';
+	}else{
+		global.REDIS_ENV = 'local';
+	}
+
+	console.log('REDIS ENV : ' + global.REDIS_ENV);
+
 	// 특정 페이지의 경우 https 혹은 http로 이동할 수 있도록 한다.
 	if(req.secure){
-		console.log('go from https to http');
+		console.log('https');
 		// [matching] 화이트 리스트를 작성해서 해당 페이지가 아닐 경우 https -> http로 이동시킨다.
 
-
 	}else{
-		console.log('go from http to https');
+		console.log('http');
 		// http --> https 로 이동시킨다. 임의로 http로 접근하려고 할 경우 https로 리다이렉션이 일어날 수 있도록 한다.
 	}
 
 	next();
+
 });
 
 
