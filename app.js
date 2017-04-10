@@ -75,7 +75,7 @@ app.use(allowCORS);
 
 
 global.PROJ_TITLE = '홀덤클럽티비';
-
+// global.REDIS_ENV = 'local';
 
 app.use(function (req, res, next) {
 	var _env = app.get('env');
