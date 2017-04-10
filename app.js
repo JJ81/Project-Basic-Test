@@ -83,8 +83,14 @@ app.use(function (req, res, next) {
 	// var _env = app.get('env');
 	// console.log(`env ${_env}`);
 
-	console.log('Check Referrer);
-	console.log(req.headers.referer);
+	var re = new RegExp('^(http|https)://', 'i');
+	var referer = req.headers.referer;
+	var match = re.test(referer);
+
+	console.log(match);
+
+	// console.log('Check Referrer');
+	// console.log(req.headers.referer);
 
 	//
 	// console.log('option 2');
