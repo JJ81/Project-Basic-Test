@@ -83,9 +83,9 @@ app.use(function (req, res, next) {
 	// var _env = app.get('env');
 	// console.log(`env ${_env}`);
 
-	console.log('option 1');
-	console.log(req.connection);
-	console.log(req);
+	console.log('Check Referrer);
+	console.log(req.headers.referer);
+
 	//
 	// console.log('option 2');
 	// console.log(req.protocol);
