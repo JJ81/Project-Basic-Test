@@ -1144,7 +1144,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 /**
  * 개인 정보 페이지
  */
-router.get('/private', isAuthenticated, (req, res) => {
+router.get('/private', httpToHttps, isAuthenticated, (req, res) => {
 	'use strict';
 
 	let _info = {
@@ -1181,7 +1181,7 @@ router.get('/private', isAuthenticated, (req, res) => {
 /**
  * 이메일 수정 페이지
  */
-router.get('/private/email', isAuthenticated, csrfProtection, (req, res) => {
+router.get('/private/email', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-email', {
 		current_path: 'PRIVATE-EMAIL',
 		static : STATIC_URL,
@@ -1288,7 +1288,7 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 /**
  * 비밀번호 수정 페이지
  */
-router.get('/private/password', isAuthenticated, csrfProtection, (req, res) => {
+router.get('/private/password', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	// todo 타당성 검사 결과 메시지 전달 처리
 
 	res.render('private-password', {
@@ -1397,7 +1397,7 @@ router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtecti
 /**
  * 마케팅코드 입력
  */
-router.get('/private/market-code', isAuthenticated, csrfProtection, (req, res) => {
+router.get('/private/market-code', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-marketcode', {
 		current_path: 'PRIVATE-MARKETCODE',
 		static : STATIC_URL,
