@@ -78,30 +78,6 @@ app.enable('trust proxy');
 global.PROJ_TITLE = '홀덤클럽티비';
 
 
-// todo 아래와 같이 실행을 하게 되면 문제가 생긴다. 요청마다 실행이 되기 때문에 각 라우터마다 적용을 해주어야겠다.
-// app.use(function (req, res, next) {
-// 	// var _env = app.get('env');
-// 	// console.log(`env ${_env}`);
-//
-// 	var re = new RegExp('^(http|https)://', 'i');
-// 	var referer = req.headers.referer;
-// 	var match = re.test(referer);
-//
-//
-// 	if(match){
-// 		console.log('https');
-// 		// todo referrer에서 화이트 리스트를 뒤져서 없다면 http로 리다이렉트 시킨다.
-//
-//
-// 	}else{
-// 		// todo referer에서 화이트 리스트에 매칭이 될 경우 https로 리다이렉트 시킨다.
-// 		console.log('http');
-// 	}
-//
-// 	next();
-// });
-
-
 /*
 // todo api_key 설정을 통해서 api호출에 대한 검증을 거칠 수 있도록 한다.
 // secret_key가 별도로 발급되어야 하나?

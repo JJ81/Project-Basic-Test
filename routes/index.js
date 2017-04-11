@@ -391,26 +391,22 @@ router.get('/api-doc', (req, res) => {
 });
 
 
-// todo util로 이동시킬 것
-function CheckHttpsWithReferer(ref){
-	var re = new RegExp('^(http|https)://', 'i');
-	return re.test(ref);
-}
+
+// function CheckHttpsWithReferer(ref){
+// 	var re = new RegExp('^(https)://', 'i');
+// 	return re.test(ref);
+// }
 
 
-// todo 아래와 같은 방법으로는 https가 http로 이동시킬 수가 없다.
-// 만약 node단에서 해결이 나지 않는다면 nginx에서 설정을 변경해야겠다.
-// 혹은 각 라우터에서 리다이렉션을 걸어서 테스트를 해보기로 한다
-
+// todo index 페이지에 테스트를 해보지만, 다른 페이지도 이렇게 될까?
 var httpsToHttp = function (req, res, next) {
-	// todo 리턴값이 거꾸로 적용이 되고 있어서 문제가 있었던 것 같다 이를 변경해보자.
-	if( CheckHttpsWithReferer(req.headers.referer) ){
+	if( util.checkHttpsWithRef(req.headers.referer) ){
 		console.log('https');
+		console.log(req.headers);
 		console.log('http://' + req.headers.host);
 		//res.redirect(302, 'http://' + req.headers.host);
 	}else{
 		console.log('http');
-
 	}
 	next();
 };

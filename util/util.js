@@ -26,5 +26,8 @@ util.checkContainLetter = (str) => {
 	return /[a-z]/.test(str.toLowerCase());
 };
 
+util.checkHttpsWithRef = (ref) => {
+	return new RegExp('^(https)://', 'i').test(ref);
+};
 
 module.exports = util;
