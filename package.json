@@ -15,7 +15,8 @@
     "production": "NODE_ENV=production nodemon ./bin/www nodemon",
     "test": "mocha --debug",
     "webpack-watch": "webpack --config webpack.config.js -p -w",
-    "nsp": "nsp check"
+    "nsp": "nsp check",
+    "npm" : "npm outdated --depth 0 && npm update;"
   },
   "dependencies": {
     "JSON": "^1.0.0",
