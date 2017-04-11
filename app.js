@@ -112,8 +112,9 @@ app.use((req, res, next) => {
 // error handlers
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로 500 에러에 대한 설정을 할 수 있도록 할 것
+if (app.get('env') !== 'production') { // todo 개발용 혹은 제품용으로 500 에러에 대한 설정을 할 수 있도록 할 것
 	app.use((err, req, res, next) => {
+		console.log('From development');
 		// todo 개발에 필요한 디비깅용으로 로그를 살펴볼 수 있도록 설정할 것
 
 		res.status(err.status || 500);
@@ -124,32 +125,29 @@ if (app.get('env') === 'development') { // todo 개발용 혹은 제품용으로
 	});
 }
 
+if(app.get('env') === 'production'){
+	// todo production으로 띄울 경우 에러가 발생했을 때 메일을 받을 수 있도록 변경할 것
 
-// todo production으로 띄울 경우 에러가 발생했을 때 메일을 받을 수 있도록 변경할 것
-// todo log@holdemclub.tv로 받을 수 있도록 한다.
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res, next) => {
-	console.error(err.stack);
-	res.render('500', {
-		current_path: '500 Error Page',
-		title: PROJ_TITLE + 'ERROR PAGE'
+	app.use((err, req, res, next) => {
+		console.log('From production');
+
+		if(err.code === 'EBADCSRFTOKEN'){
+			console.error(`CSRFERR : ${err}`);
+		}
+
+		// todo log@holdemclub.tv로 받을 수 있도록 한다.
+		console.error(err.stack);
+
+		res.render('500', {
+			current_path: '500 Error Page',
+			title: PROJ_TITLE + 'ERROR PAGE'
+		});
 	});
-});
+}
 
 
-// Swifty Automatic Changing ENV.
-// todo config 파일을 생성하여 아래의 설정을 공통으로 가져갈 수 있도록
-// if (app.get('env') === 'local'){
-// 	global.mysql_location = 'local';
-// 	global.redis_location = 'local';
-// }else if(app.get('env') === 'development'){
-// 	global.redis_location = 'dev';
-// 	global.mysql_location = 'dev';
-// }else if(app.get('env') === 'production'){
-// 	global.mysql_location = 'real';
-// 	global.redis_location = 'real';
-// }
 
 
 module.exports = app;
