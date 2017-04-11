@@ -1470,7 +1470,7 @@ router.get('/find/id', httpToHttps, csrfProtection, (req, res) => {
 /**
  * 아이디 출력 화면
  */
-router.post('/find/id/result', httpToHttps, parseForm, csrfProtection, (req, res) => {
+router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 	'use strict';
 
 	let _info = {
