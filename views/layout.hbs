@@ -21,7 +21,7 @@
 <meta name="keyword" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
 <meta name="author" content="홀덤클럽티비" />
 <meta http-equiv="x-dns-prefetch-control" content="on" />
-<link rel="canonical" href="http://holdemclub.tv" />
+<link rel="canonical" href="http://holdemclub.tv/" />
 
 {{!-- 스타일을 나눌 필요가 생길 경우 페이지에 필요할 때마다 요청할 수 있도록 설정한다. --}}
 <link rel='stylesheet' href='/static/stylesheets/styles.min.css' />
@@ -32,11 +32,6 @@
 
 {{!-- 페이지뷰가 낮을 경우 prefetch를 꺼버린다. --}}
 {{!-- <meta http-equiv="x-dns-prefetch-control" content="off" /> --}}
-
-
-
-<link href="http://vjs.zencdn.net/5.19.0/video-js.css" rel="stylesheet" />
-
 
 <title>{{title}}</title>
 </head>
@@ -63,7 +58,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+    {{!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script> --}}
     <script src="/static/components/requirejs/require.js"></script>
     <script src="/javascripts/app.js"></script>
     {{#if (isEquals current_path 'login')}}<script src="/static/javascripts/login.js"></script>{{/if}}

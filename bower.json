@@ -26,6 +26,7 @@
     "jquery-ui": "jqueryui#^1.12.1",
     "requirejs": "^2.3.2",
     "jquery-validation": "jquery.validate#^1.13.0",
-    "swiper": "^3.4.1"
+    "swiper": "^3.4.1",
+    "vue": "^2.2.6"
   }
 }
