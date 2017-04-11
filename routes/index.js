@@ -1456,7 +1456,7 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
  * 로그인을 할 수 없을 경우
  * 이메일과 닉네임으로 아이디 찾기
  */
-router.get('/find/id', csrfProtection, (req, res) => {
+router.get('/find/id', httpToHttps, csrfProtection, (req, res) => {
 	res.render('find_id', {
 		current_path: 'FINDID',
 		static : STATIC_URL,
@@ -1516,7 +1516,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 /**
  * 아이디 & 이메일 입력
  */
-router.get('/find/password', csrfProtection, (req, res) => {
+router.get('/find/password', httpToHttps, csrfProtection, (req, res) => {
 	res.render('find_pw', {
 		current_path: 'FINDPW',
 		static : STATIC_URL,
@@ -1619,7 +1619,7 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
  * 넘어온 토큰을 복호화하여 유효기간이 만료했는지 확인할 것.
  * 이메일로 링크를 보내는 방법과 위와 같은 방법 사이에는 어떠한 차이가 있는가?
  */
-router.get('/reset/password', csrfProtection, (req, res) => {
+router.get('/reset/password', httpToHttps, csrfProtection, (req, res) => {
 	var _token = sanitize(req.query.token.trim());
 	var _valid = false;
 
