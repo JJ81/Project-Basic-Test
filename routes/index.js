@@ -131,8 +131,8 @@ router.get('/login', httpToHttps, function (req, res) {
 
 	// todo length 관련 에러 로그가 찍히는 것을 수정할 것.
 	try{
-		if(flash_msg.error.length > 0){
-			console.log('message');
+		if(flash_msg.error){
+			// console.log('message');
 			console.log(flash_msg);
 			msg = flash_msg.error.pop();
 		}
@@ -962,7 +962,7 @@ function getCurrentVideoIndex(arr, target){
  * 회원가입 뷰
  * todo https로 처리할 것.
  */
-router.get('/signup', csrfProtection, (req, res) => {
+router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 	if(req.user != null){
 		res.redirect('/');
 	}
