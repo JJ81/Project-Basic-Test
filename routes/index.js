@@ -98,11 +98,27 @@ passport.use(new LocalStrategy({
 }
 ));
 
+
+var httpToHttps = function (req, res, next) {
+	var
+		isHttps = req.headers['x-forwarded-port'],
+		host = req.headers.host,
+		url = req.url;
+
+	if(isHttps === '443'){
+		console.log('443');
+		next();
+	}else{
+		console.log('80');
+		res.redirect(`https://${host}${url}`);
+	}
+};
+
+
 /**
  * 로그인
- * todo https로 처리할 수 있도록 리다이렉션이 필요하다.
  */
-router.get('/login', function (req, res) {
+router.get('/login', httpToHttps, function (req, res) {
 	'use strict';
 
 	if(req.user !== undefined){
@@ -391,24 +407,19 @@ router.get('/api-doc', (req, res) => {
 });
 
 
-
-// function CheckHttpsWithReferer(ref){
-// 	var re = new RegExp('^(https)://', 'i');
-// 	return re.test(ref);
-// }
-
-
-// todo index 페이지에 테스트를 해보지만, 다른 페이지도 이렇게 될까?
 var httpsToHttp = function (req, res, next) {
-	if( util.checkHttpsWithRef(req.headers.referer) ){
-		console.log('https');
-		console.log(req.headers);
-		console.log('http://' + req.headers.host);
-		//res.redirect(302, 'http://' + req.headers.host);
+	var
+		isHttps = req.headers['x-forwarded-port'],
+		host = req.headers.host,
+		url = req.url;
+
+	if(isHttps === '443'){
+		console.log('443');
+		res.redirect(`http://${host}${url}`);
 	}else{
-		console.log('http');
+		console.log('80');
+		next();
 	}
-	next();
 };
 
 
@@ -709,7 +720,7 @@ router.get('/event/:ref_id/information', (req, res) => {
 /**
  * 비디오 리스트 뷰
  */
-router.get('/channel/:channel_id', (req, res) => {
+router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 	// todo get을 통해서 데이터를 받는 부분에 대한 검증이 이루어지고
 	// todo 해당 데이터를 리턴받을 수 있는 유틸을 만들어보자.
 	// todo 어떤 모듈을 이용해야 하는지 조사하고 한 곳에서 반영해보자
@@ -722,7 +733,7 @@ router.get('/channel/:channel_id', (req, res) => {
 				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
 					.then((response)=>{
 						cb(null, response);
-						console.log(response);
+						//console.log(response);
 
 					}).catch((error)=>{
 						console.error(error);
@@ -785,7 +796,6 @@ router.get('/channel/:channel_id', (req, res) => {
 		],
 		(err, result) => {
 			if(!err){
-
 				res.render('video_list', {
 					current_path: 'VIDEOLIST',
 					static : STATIC_URL,
@@ -804,11 +814,13 @@ router.get('/channel/:channel_id', (req, res) => {
 });
 
 
+// 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.
 var isMobile = require('is-mobile');
+
 /**
  * 비디오 뷰
  */
-router.get('/channel/:channel_id/video/:video_id', (req, res) => {
+router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 	'use strict';
 	async.parallel(
 		[
@@ -982,6 +994,7 @@ router.get('/signup', csrfProtection, (req, res) => {
 /**
  * 회원가입 처리
  * todo https로 처리할 것
+ * http로 진입이 되었을 경우 에러 처리
  */
 router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	if(req.user !== undefined){
@@ -1168,7 +1181,7 @@ router.get('/private', isAuthenticated, (req, res) => {
 /**
  * 이메일 수정 페이지
  */
-router.get('/private/email',isAuthenticated, csrfProtection, (req, res) => {
+router.get('/private/email', isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-email', {
 		current_path: 'PRIVATE-EMAIL',
 		static : STATIC_URL,
