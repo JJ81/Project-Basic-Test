@@ -12,7 +12,12 @@ const JSON = require('JSON');
 const fs = require('fs');
 const secret_config = require('../secret/federation');
 
-require('../database/redis')(router, 'real');
+if(express().get('env') === 'production'){
+	require('../database/redis')(router, 'real');
+}else{
+	require('../database/redis')(router, 'local');
+}
+
 require('../helpers/helpers');
 
 const axios = require('axios');
@@ -105,12 +110,16 @@ var httpToHttps = function (req, res, next) {
 		host = req.headers.host,
 		url = req.url;
 
-	if(isHttps === '443'){
-		console.log('443');
+	if(express().get('env') !== 'production'){
 		next();
 	}else{
-		console.log('80');
-		res.redirect(`https://${host}${url}`);
+		if(isHttps === '443'){
+			//console.log('443');
+			next();
+		}else{
+			//console.log('80');
+			res.redirect(`https://${host}${url}`);
+		}
 	}
 };
 
@@ -414,10 +423,10 @@ var httpsToHttp = function (req, res, next) {
 		url = req.url;
 
 	if(isHttps === '443'){
-		console.log('443');
+		//console.log('443');
 		res.redirect(`http://${host}${url}`);
 	}else{
-		console.log('80');
+		//console.log('80');
 		next();
 	}
 };

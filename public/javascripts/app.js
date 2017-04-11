@@ -9,18 +9,20 @@ require.config({
 		bootstrap : ['/components/bootstrap/dist/js/bootstrap.min'],
 		jqueryCookie : ['/components/jquery.cookie/jquery.cookie'],
 		jqueryValidate : ['/components/jquery-validation/dist/jquery.validate.min'],
-		lodash : ['/components/lodash/dist/lodash.min'],
-		fastclick : ['/components/fastclick/lib/fastclick'],
-		swiper : ['/components/swiper/dist/js/swiper.jquery'],
+		// lodash : ['/components/lodash/dist/lodash.min'],
+		// fastclick : ['/components/fastclick/lib/fastclick'],
+		// swiper : ['/components/swiper/dist/js/swiper.jquery'],
 		common : ['/javascripts/common'],
-		vue : ['https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min'],
-		videojs : ['http://vjs.zencdn.net/5.19.0/video'],
+		vue : ['/components/vue/dist/vue'],
+		//vue : ['https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.min'],
+		//videojs : ['http://vjs.zencdn.net/5.19.0/video'],
+		videojs : ['/javascripts/vendor/videojs'],
 		youtubejs : ['/static/javascripts/youtube.min']
 	},
 	shim: {
 		jqueryValidate : ['jquery'],
 		jqueryCookie : ['jquery'],
-		swiper : ['jquery'],
+		//swiper : ['jquery'],
 		videojs : ['jquery']
 	}
 });
