@@ -1,5 +1,157 @@
-#holdemclub{}
+@charset "UTF-8";
 
+
+
+// top part
+#top{
+  background: #ebebeb;
+  .inner_top{
+    margin: 0 auto;
+    position: relative;
+    width: $whole-width;
+    height: 35px;
+  }
+  a.btn_login, a.btn_signup{
+    color: #333;
+    font-size: 13px;
+    position: absolute;
+    top: 10px;
+  }
+  a.btn_login {
+    right: 90px;
+    font-family: $font-sansCJK;
+  }
+  a.btn_signup{
+    right: 10px;
+    font-family: $font-sansCJK;
+  }
+  span.split{
+    font-size: 11px;
+    color: #afafaf;
+    position: absolute;
+    top: 10px;
+    right: 70px;
+  }
+}
+
+#header{
+  background: #2b2b2b;
+  .inner_header{
+    margin: 0 auto;
+    width: $whole-width;
+    height: 95px;
+  }
+  .logo{
+    margin: 0;
+    padding: 0;
+    width: 168px;
+    float: left;
+    margin-top: 18px;
+  }
+}
+
+#nav_top {
+  float: right;
+  li.nav_list{
+    float: left;
+    list-style: none;
+    border-left: 1px solid #171717;
+  }
+  li.nav_list:last-child{
+    border-right: 1px solid #171717;
+  }
+  a.link_nav{
+    width: 150px;
+    height: 95px;
+    display: block;
+    font-size: 18px;
+    color: #6f6f6f;
+    font-family: $font-sansCJK;
+    line-height: 95px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  a.active{
+    background: url('/static/images/bg_top_nav.gif') repeat-x;
+    color: #fff;
+  }
+}
+
+#footer{
+  background: #f7f7f7;
+  border-top: 1px solid #e6e6e6;
+  .inner_footer{
+    margin:0 auto;
+    width: $whole-width;
+    height: 160px;
+    position: relative;
+  }
+
+  .logo{
+    float: left;
+    margin: 0;
+    padding: 0;
+    margin-top: 55px;
+  }
+
+  .info{
+    float: left;
+    margin-left: 60px;
+    margin-top: 25px;
+  }
+
+  .sns{
+    float: right;
+    margin-top: 57px;
+  }
+
+  address{
+    margin-top: 17px;
+    font-size: 14px;
+    font-family: $font-sansCJK;
+    line-height: 14px;
+    color: #888;
+  }
+  .info_email{
+    color: #888;
+  }
+
+}
+
+.nav_ft{
+  margin: 0;
+  padding: 0;
+  .ft_list{
+    float: left;
+    list-style: none;
+  }
+  .link_ft{
+    font-size: 15px;
+    color :#707070;
+    font-family: $font-sansCJK;
+  }
+  .split{
+    list-style: none;
+    font-size: 13px;
+    color :#aeaeae;
+    padding:0 17px;
+    float: left;
+    line-height: 21px;
+  }
+}
+
+#spot{
+  margin: 20px auto;
+  width: $whole-width;
+  height: 130px;
+  padding: 0;
+}
+
+
+
+
+// lagacy
 .sidebar-fixed{
   background: #fff;
   @media screen and (min-width: $width-size01) {
@@ -125,13 +277,7 @@ html, body{
 }
 
 
-#footer{
-  margin-top: 10px;
-  background: #fff;
-  padding: 10px;
-  text-align: center;
-  color : $main-font-color;
-}
+
 
 
 

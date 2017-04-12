@@ -1,19 +1,55 @@
-<div class="header">
-    <h1 class="logo_area">
-        <a href="/" class="btnLeftMenu"><i class="fa fa-bars" aria-hidden="true"></i></a>
-        <a href="/" class="logo">
-            <!-- 이미지로 변환할 것. -->
-            <img src="/static/images/img_logo.png" alt="홀덤클럽" width="30" height="30" class="img_logo" />
-            <span class="text-red">홀덤</span><span class="text-black">클럽</span>
-        </a>
-    </h1>
-
-    {{#if loggedIn}}
-        {{#unless (isEquals current_path 'PRIVATE')}}<a href="/private" class="btn-private btn btn-danger btn-md">마이페이지</a>{{/unless}}
-        {{!-- <span class="pull-right">nickname : {{loggedIn.nickname}} / username : {{loggedIn.username}} </span> --}}
-        <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
-    {{else}}
-        <a href="/login" class="btn_login btn btn-danger btn-md">로그인</a>
-        <a href="/signup" class="btn btn-default btn-md btn-signup">회원가입</a>
-    {{/if}}
+<div id="top">
+    <div class="inner_top">
+        {{#if loggedIn}}
+            {{!-- <span class="pull-right">nickname : {{loggedIn.nickname}} / username : {{loggedIn.username}} </span> --}}
+            {{#unless (isEquals current_path 'PRIVATE')}}<a href="/private" class="btn-private btn btn-danger btn-md">마이페이지</a>{{/unless}}
+            <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
+        {{else}}
+            <a href="/login" class="btn_login">로그인</a>
+            <span class="split">|</span>
+            <a href="/signup" class="btn_signup">회원가입</a>
+        {{/if}}
+    </div>
 </div>
+
+<div id="header">
+    <div class="inner_header clearfix">
+        <h1 class="logo">
+            <a href="/"><img src="/static/images/img_logo.png" alt="홀덤클럽로고" width="168" height="54" /></a>
+        </h1>
+        
+        <ol id="nav_top">
+            <li class="nav_list"><a href="/game" class="link_nav active">포커게임</a></li>
+            <li class="nav_list"><a href="/crew" class="link_nav">홀클 크루</a></li>
+            <li class="nav_list"><a href="/event" class="link_nav">이벤트</a></li>
+            <li class="nav_list"><a href="/#?" class="link_nav" target="_blank">커뮤니티</a></li>
+            <li class="nav_list"><a href="/partnership" class="link_nav">제휴 문의</a></li>
+        </ol>
+    </div>
+</div>
+
+<div id="spot">
+    <a href="/" target="_blank">
+        <img src="/static/images/banner_download.jpg" alt="홀덤클럽포 다운로드" width="1080" height="130" />
+    </a>
+</div>
+
+<!--<div class="header">-->
+    <!--<h1 class="logo_area">-->
+        <!--<a href="/" class="btnLeftMenu"><i class="fa fa-bars" aria-hidden="true"></i></a>-->
+        <!--<a href="/" class="logo">-->
+            <!--&lt;!&ndash; 이미지로 변환할 것. &ndash;&gt;-->
+            <!--<img src="/static/images/img_logo.png" alt="홀덤클럽" width="30" height="30" class="img_logo" />-->
+            <!--<span class="text-red">홀덤</span><span class="text-black">클럽</span>-->
+        <!--</a>-->
+    <!--</h1>-->
+
+    <!--{{#if loggedIn}}-->
+        <!--{{#unless (isEquals current_path 'PRIVATE')}}<a href="/private" class="btn-private btn btn-danger btn-md">마이페이지</a>{{/unless}}-->
+        <!--{{!-- <span class="pull-right">nickname : {{loggedIn.nickname}} / username : {{loggedIn.username}} </span> --}}-->
+        <!--<a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>-->
+    <!--{{else}}-->
+        <!--<a href="/login" class="btn_login btn btn-danger btn-md">로그인</a>-->
+        <!--<a href="/signup" class="btn btn-default btn-md btn-signup">회원가입</a>-->
+    <!--{{/if}}-->
+<!--</div>-->
