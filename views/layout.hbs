@@ -22,7 +22,7 @@
 <meta name="author" content="홀덤클럽티비" />
 <meta http-equiv="x-dns-prefetch-control" content="on" />
 <link rel="canonical" href="http://holdemclub.tv/" />
-<link rel='stylesheet' href='/static/stylesheets/styles.css?v={{version}}' />
+<link rel='stylesheet' href='/static/stylesheets/styles.css?v={{version}}' media="screen,handheld" />
 {{! DNS Prefetch setting for CDN }}
 <link rel="dns-prefetch" href="http://static.holdemclub.tv/" />
 <link rel="dns-prefetch" href="http://media.holdemclub.tv/" />
@@ -31,7 +31,7 @@
 <title>{{title}}</title>
 </head>
 
-<body class="open_nav">
+<body>
 {{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -53,14 +53,16 @@
         </div>
     </div>
 
-    {{! <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script> }}
-    <script src="/static/components/requirejs/require.js"></script>
-    <script src="/javascripts/app.js"></script>
-    {{#if (isEquals current_path 'login')}}<script src="/static/javascripts/login.js"></script>{{/if}}
-    {{#if (isEquals current_path 'SIGNUP')}}<script src="/static/javascripts/signup.js"></script>{{/if}}
-    {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/index.js"></script>{{/if}}
-    {{#if (isEquals current_path 'VIDEOLIST')}}<script src="/static/javascripts/video_list.js"></script>{{/if}}
-    {{#if (isEquals current_path 'VIDEOVIEW')}}<script src="/static/javascripts/video_view.js"></script>{{/if}}
+
+    {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/dist/index.js?v={{version}}"></script>{{/if}}
+    {{#if (isEquals current_path 'SIGNUP')}}<script src="/static/javascripts/dist/signup.js?v={{version}}"></script>{{/if}}
+    {{#if (isEquals current_path 'VIDEOLIST')}}<script src="/static/javascripts/dist/video_list.js?v={{version}}"></script>{{/if}}
+    {{#if (isEquals current_path 'VIDEOVIEW')}}
+        <script src="/static/javascripts/vendor/videojs.js?v={{version}}"></script>
+        <script src="/static/javascripts/vendor/youtube.min.js?v={{version}}"></script>
+        <script src="/static/javascripts/dist/video_view.js?v={{version}}"></script>
+    {{/if}}
+
     {{! Google Tag Manager }}
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

@@ -16,7 +16,8 @@
     "test": "mocha --debug",
     "webpack-watch": "webpack --config webpack.config.js -p -w",
     "nsp": "nsp check",
-    "npm": "npm outdated --depth 0 && npm update;"
+    "npm": "npm outdated --depth 0 && npm update;",
+    "build" : "wepback"
   },
   "dependencies": {
     "JSON": "^1.0.0",
@@ -65,6 +66,9 @@
     "errorhandler": "^1.5.0",
     "eslint": "^3.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^2.1.2",
     "karma": "^1.4.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
@@ -79,6 +83,7 @@
     "should": "^11.2.0",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.16.3",
+    "webpack-uglify-js-plugin": "^1.1.9",
     "yuicompressor": "^2.4.8"
   }
 }

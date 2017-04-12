@@ -62,7 +62,7 @@ describe('[API 2.0] API CHECK LIST', () => {
 		});
 	});
 
-
+/*
 	describe('Event', () => {
 		it('/event/list', (done) => {
 			request.get(`${HOST_API}event/list?offset=0&size=100`, (err, res, body) => {
@@ -131,7 +131,7 @@ describe('[API 2.0] API CHECK LIST', () => {
 			});
 		});
 	});
-
+*/
 
 	describe('Recent updated Video', () => {
 		it('/video/recent/list?offset=0&size=4', (done) => {
@@ -253,7 +253,7 @@ describe('[API 2.0] API CHECK LIST', () => {
 
 	describe('Get News List', () => {
 		it('/news/list', (done) => {
-			request.get(`${HOST_API}news/list`, (err, res, body) => {
+			request.get(`${HOST_API}news/list?size=4`, (err, res, body) => {
 				if(err){
 					console.error(err);
 					throw err;
@@ -269,6 +269,7 @@ describe('[API 2.0] API CHECK LIST', () => {
 		});
 	});
 
+	/*
 
 	describe('Get Reply List', () => {
 		it('/reply/list/:video_id', (done) => {
@@ -468,12 +469,18 @@ describe('[API 2.0] API CHECK LIST', () => {
 	});
 
 	// -- 덧글 혹은 답글 관련 테스트 종료
+*/
 
+	// get으로 데이터가 리턴되는 형태는 스트링이기 때문에 json으로 파싱을 해줘야 한다 파싱을 하지 않아도 자동으로 처리되는 옵션이 있는지 확인해보자.
 
-
-	
-	// todo get으로 데이터가 리턴되는 형태는 스트링이기 때문에 json으로 파싱을 해줘야 한다 파싱을 하지 않아도 자동으로 처리되는 옵션이 있는지 확인해보자.
-
+	// signup 관련 테스트 시작
+	/**
+	 * 아이디 중복 검사
+	 * 닉네임 중복 검사
+	 * 이메일 형식 검사
+	 * 비밀번호 형식 검사
+	 * ...
+	 */
 
 
 
