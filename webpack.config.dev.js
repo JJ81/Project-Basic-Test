@@ -2,9 +2,7 @@
  * Created by yijaejun on 01/02/2017.
  */
 const webpack = require('webpack');
-// const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const entryPoint = {
 	'js' : './public/javascripts/',
 	'componentsJs' : './public/components/',
@@ -12,14 +10,8 @@ const entryPoint = {
 	'css' : './public/stylesheets/'
 };
 
-
-// console.log( path.resolve(__dirname, '/public/javascripts/vendor/') );
-// const UglifyJsPlugin = require('webpack-uglify-js-plugin');
-
-//const MODULE_BUILD_CSS_DIR = path.resolve(__dirname, './public/stylesheets');
-
 module.exports = {
-	// devtool: 'inline-source-map'
+	// devtool: 'inline-source-map',
 	devtool : 'eval-source-map',
 	entry : {
 		// 'style' : `${entryPoint.css}styles.css`,
@@ -41,21 +33,9 @@ module.exports = {
 					presets: ['es2015']
 				}
 			},
-			// {
-			// 	test: /\.css$/,
-			// 	use: [
-			// 		{
-			// 			loader: 'css-loader',
-			// 			options: {
-			// 				sourceMap: true,
-			// 				minimize: true
-			// 			}
-			// 		}
-			// 	]
-			// }
 			{
 				test: /\.css$/,
-				loader: ExtractTextPlugin.extract("css-loader")
+				loader: ExtractTextPlugin.extract('css-loader')
 			}
 		]
 	},
@@ -68,5 +48,7 @@ module.exports = {
 			}
 		})
 		//,new ExtractTextPlugin('[name].min.css')
+		// todo css는 모듈 단위로 분리하여 압축을 진행하고 필요한 부분마다 import하는 형식으로 변경한다.
+		// todo 서드파티는 min로 제공되는 것을 사용하고 직접 작성한 부분만 웹팩으로 압축을 진행할 수 있도록 한다.
 	]
 };
