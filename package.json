@@ -16,7 +16,7 @@
     "test": "mocha --debug",
     "webpack-watch": "webpack --config webpack.config.js -p -w",
     "nsp": "nsp check",
-    "npm" : "npm outdated --depth 0 && npm update;"
+    "npm": "npm outdated --depth 0 && npm update;"
   },
   "dependencies": {
     "JSON": "^1.0.0",
@@ -62,6 +62,7 @@
     "css-compressor": "^1.0.0",
     "css-loader": "^0.26.1",
     "currency-formatter": "^1.0.6",
+    "errorhandler": "^1.5.0",
     "eslint": "^3.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "karma": "^1.4.0",

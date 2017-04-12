@@ -4,44 +4,39 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="Referrer" content="origin" />
-<!-- Open Graph -->
+{{! Open Graph }}
 <meta property="og:title" content="홀덤클럽티비" />
 <meta property="og:url" content="http://holdemclub.tv/" />
 <meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/holdemclubtv/static/logo_holdemclubtv.png" />
 <meta property="og:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠 토너먼트" />
-<!-- twitter -->
+{{! twitter }}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="홀덤클럽티비" />
 <meta name="twitter:url" content="http://holdemclub.tv/" />
 <meta name="twitter:image" content="https://s3.ap-northeast-2.amazonaws.com/holdemclubtv/static/logo_holdemclubtv.png" />
 <meta name="twitter:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
-<!-- common data -->
+{{! common data }}
 <meta name="naver-site-verification" content="a153f94a1cbbeecf0056394854faf2192600cbc5" />
 <meta name="description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
 <meta name="keyword" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
 <meta name="author" content="홀덤클럽티비" />
 <meta http-equiv="x-dns-prefetch-control" content="on" />
 <link rel="canonical" href="http://holdemclub.tv/" />
-
-{{!-- 스타일을 나눌 필요가 생길 경우 페이지에 필요할 때마다 요청할 수 있도록 설정한다. --}}
-<link rel='stylesheet' href='/static/stylesheets/styles.css?v=1' />
-
-{{!-- DNS Prefetch setting for CDN --}}
+<link rel='stylesheet' href='/static/stylesheets/styles.css?v={{version}}' />
+{{! DNS Prefetch setting for CDN }}
 <link rel="dns-prefetch" href="http://static.holdemclub.tv/" />
 <link rel="dns-prefetch" href="http://media.holdemclub.tv/" />
-
-{{!-- 페이지뷰가 낮을 경우 prefetch를 꺼버린다. --}}
-{{!-- <meta http-equiv="x-dns-prefetch-control" content="off" /> --}}
-
+{{! 페이지뷰가 낮을 경우 prefetch를 꺼버린다. }}
+{{! <meta http-equiv="x-dns-prefetch-control" content="off" /> }}
 <title>{{title}}</title>
 </head>
 
 <body class="open_nav">
-<!-- Google Tag Manager (noscript) -->
+{{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<!-- End Google Tag Manager (noscript) -->
+{{! End Google Tag Manager (noscript) }}
 
     <div id="holdemclub">
         {{> header}}
@@ -58,7 +53,7 @@
         </div>
     </div>
 
-    {{!-- <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script> --}}
+    {{! <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script> }}
     <script src="/static/components/requirejs/require.js"></script>
     <script src="/javascripts/app.js"></script>
     {{#if (isEquals current_path 'login')}}<script src="/static/javascripts/login.js"></script>{{/if}}
@@ -66,15 +61,15 @@
     {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/index.js"></script>{{/if}}
     {{#if (isEquals current_path 'VIDEOLIST')}}<script src="/static/javascripts/video_list.js"></script>{{/if}}
     {{#if (isEquals current_path 'VIDEOVIEW')}}<script src="/static/javascripts/video_view.js"></script>{{/if}}
-    <!-- Google Tag Manager -->
+    {{! Google Tag Manager }}
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
             j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KT2VT6');</script>
-    <!-- End Google Tag Manager -->
+    {{! End Google Tag Manager }}
 
-    <!-- 공통 (GA) -->
+    {{! GA }}
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -83,6 +78,6 @@
         ga('create', 'UA-83384040-1', 'auto');
         ga('send', 'pageview');
     </script>
-    <!-- // 공통 -->
+    {{! end GA }}
 </body>
 </html>
