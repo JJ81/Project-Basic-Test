@@ -2,22 +2,27 @@
  * Created by yijaejun on 01/02/2017.
  */
 const webpack = require('webpack');
-const path = require('path');
+// const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const entryPoint = {
 	'js' : './public/javascripts/',
 	'componentsJs' : './public/components/',
-	'vendor' : './public/javascripts/vendor/'
+	'vendor' : './public/javascripts/vendor/',
+	'css' : './public/stylesheets/'
 };
 
 
 // console.log( path.resolve(__dirname, '/public/javascripts/vendor/') );
 // const UglifyJsPlugin = require('webpack-uglify-js-plugin');
-//const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 //const MODULE_BUILD_CSS_DIR = path.resolve(__dirname, './public/stylesheets');
 
 module.exports = {
+	// devtool: 'inline-source-map'
 	devtool : 'eval-source-map',
 	entry : {
+		// 'style' : `${entryPoint.css}styles.css`,
 		'index' : `${entryPoint.js}index.js`,
 		'signup' : `${entryPoint.js}signup.js`,
 		'video_list' : `${entryPoint.js}video_list.js`,
@@ -35,19 +40,25 @@ module.exports = {
 				query: {
 					presets: ['es2015']
 				}
-				// include : path.resolve(__dirname, `${entryPoint.js}`),
-				// exclude: [/bower_components/, /node_modules/, /vendor/]
-
-				//,exclude: ['./public/javascripts/vendor/youtube.min.js']
-				// ,include: ['/public/javascripts/']
-				// include: [
-				// 	path.resolve(__dirname, `${entryPoint.js}`),
-				// 	path.resolve(__dirname, 'node_modules', 'vendor')
-				// ]
+			},
+			// {
+			// 	test: /\.css$/,
+			// 	use: [
+			// 		{
+			// 			loader: 'css-loader',
+			// 			options: {
+			// 				sourceMap: true,
+			// 				minimize: true
+			// 			}
+			// 		}
+			// 	]
+			// }
+			{
+				test: /\.css$/,
+				loader: ExtractTextPlugin.extract("css-loader")
 			}
 		]
 	},
-
 	plugins: [
 		new webpack.optimize.UglifyJsPlugin({
 			minimize: true,
@@ -55,7 +66,7 @@ module.exports = {
 			mangle: {
 				except: ['$', 'jQuery', 'videojs']
 			}
-			// target을 어떻게 잡아야 하는가?
 		})
+		//,new ExtractTextPlugin('[name].min.css')
 	]
 };
