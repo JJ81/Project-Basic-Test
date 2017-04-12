@@ -10,5 +10,5 @@
 /public/stylesheets/_bak
 /service/_bak
 /sql
-/database
+/database/query.js
 /public/test
