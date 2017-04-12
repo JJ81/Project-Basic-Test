@@ -1,12 +1,7 @@
 @charset "UTF-8";
+@import 'scss/variables';
 @import '../components/bootstrap/dist/css/bootstrap.min.css';
-@import 'variables';
-@import 'common';
-@import 'layout';
-//@import 'main_channel';
-//@import 'main_recom';
-@import 'main_community';
-//@import '../components/swiper/dist/css/swiper.min.css';
-//@import 'swiper';
-@import '../stylesheets/_ps.ui.estate';
-@import './videojs';
+@import 'scss/common';
+@import 'scss/layout';
+@import 'scss/ps.ui.estate';
+@import 'scss/video-player';
