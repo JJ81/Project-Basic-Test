@@ -157,9 +157,8 @@ html, body {
     line-height: 21px; }
 
 #spot {
-  margin: 20px auto;
+  margin: 10px auto 20px auto;
   width: 1080px;
-  height: 130px;
   padding: 0; }
 
 .inner_content {
@@ -478,8 +477,7 @@ div.ps-ui-slide-out-menu + div {
   position: relative;
   height: 300px;
   display: block;
-  overflow: hidden;
-  margin: 25px 20px 0 25px; }
+  overflow: hidden; }
 
 .story-rotator .item {
   margin: 0;

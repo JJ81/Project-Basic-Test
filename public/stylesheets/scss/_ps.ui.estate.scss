@@ -416,12 +416,14 @@ div.ps-ui-slide-out-menu + div      {right:0;}
   height: 300px;
   z-index:1;
 }
+
+// main frame
 .story-rotator {
   position: relative;
   height: 300px;
   display: block;
   overflow: hidden;
-  margin: 25px 20px 0 25px;
+  // margin: 25px 20px 0 25px;
 }
 .story-rotator .item {
   margin: 0;

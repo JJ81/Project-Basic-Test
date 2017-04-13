@@ -2,9 +2,9 @@
     <div class="inner_top clearfix">
         {{#if loggedIn}}
         <ul class="local_nav clearfix">
-            <li class="local_nav_list">
-                <span class="nickname">{{loggedIn.nickname}}</span>
-            </li>
+            <!--<li class="local_nav_list">-->
+                <!--<span class="nickname">{{loggedIn.nickname}}</span>-->
+            <!--</li>-->
             {{#unless (isEquals current_path 'PRIVATE')}}<li class="local_nav_list"><a href="/private" class="btn_mypage">마이페이지</a></li>{{/unless}}
             <li class="local_nav_list"><a href="/logout" class="btn_logout">로그아웃</a></li>
         </ul>
