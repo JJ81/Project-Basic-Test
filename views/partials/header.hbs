@@ -1,7 +1,7 @@
 <div id="top">
     <div class="inner_top">
         {{#if loggedIn}}
-            {{!-- <span class="pull-right">nickname : {{loggedIn.nickname}} / username : {{loggedIn.username}} </span> --}}
+            <span class="pull-right">{{loggedIn.nickname}}</span>
             {{#unless (isEquals current_path 'PRIVATE')}}<a href="/private" class="btn-private btn btn-danger btn-md">마이페이지</a>{{/unless}}
             <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
         {{else}}
