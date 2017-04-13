@@ -1,9 +1,18 @@
 <div id="top">
-    <div class="inner_top">
+    <div class="inner_top clearfix">
         {{#if loggedIn}}
-            <span class="pull-right">{{loggedIn.nickname}}</span>
-            {{#unless (isEquals current_path 'PRIVATE')}}<a href="/private" class="btn-private btn btn-danger btn-md">마이페이지</a>{{/unless}}
-            <a href="/logout" class="btn_login btn btn-default btn-md">로그아웃</a>
+        <ul class="local_nav clearfix">
+            <li class="local_nav_list">
+                <span class="nickname">{{loggedIn.nickname}}</span>
+            </li>
+            {{#unless (isEquals current_path 'PRIVATE')}}<li class="local_nav_list"><a href="/private" class="btn_mypage">마이페이지</a></li>{{/unless}}
+            <li class="local_nav_list"><a href="/logout" class="btn_logout">로그아웃</a></li>
+        </ul>
+            <!--<span class="nickname">{{loggedIn.nickname}}</span>-->
+            <!--{{#unless (isEquals current_path 'PRIVATE')}}-->
+            <!--<a href="/private" class="btn_mypage">마이페이지</a>-->
+            <!--{{/unless}}-->
+            <!--<a href="/logout" class="btn_logout">로그아웃</a>-->
         {{else}}
             <a href="/login" class="btn_login">로그인</a>
             <span class="split">|</span>
@@ -26,12 +35,6 @@
             <li class="nav_list"><a href="/partnership" class="link_nav">제휴 문의</a></li>
         </ol>
     </div>
-</div>
-
-<div id="spot">
-    <a href="/" target="_blank">
-        <img src="/static/images/banner_download.jpg" alt="홀덤클럽포 다운로드" width="1080" height="130" />
-    </a>
 </div>
 
 <!--<div class="header">-->

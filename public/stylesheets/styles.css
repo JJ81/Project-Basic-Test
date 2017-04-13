@@ -31,6 +31,9 @@
 legend, caption {
   display: none; }
 
+html, body {
+  overflow-x: hidden; }
+
 #top {
   background: #ebebeb; }
   #top .inner_top {
@@ -55,6 +58,21 @@ legend, caption {
     position: absolute;
     top: 10px;
     right: 70px; }
+
+.local_nav {
+  float: right; }
+  .local_nav .local_nav_list {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+    position: relative;
+    top: 9px; }
+  .local_nav .nickname,
+  .local_nav .btn_mypage,
+  .local_nav .btn_logout {
+    font-family: "Noto Sans CJK KR";
+    color: #333 !important;
+    font-size: 13px; }
 
 #header {
   background: #2b2b2b; }
@@ -144,73 +162,25 @@ legend, caption {
   height: 130px;
   padding: 0; }
 
+.inner_content {
+  position: relative;
+  margin: 0 auto;
+  width: 1080px; }
+
 .sidebar-fixed {
-  background: #fff;
-  position: absolute;
-  top: 0;
-  left: 0; }
-  @media screen and (min-width: 1050px) {
-    .sidebar-fixed {
-      width: 230px;
-      height: 100%; } }
-  @media screen and (max-width: 1050px) {
-    .sidebar-fixed {
-      width: 0;
-      height: 0;
-      display: none; } }
-  .sidebar-fixed .title {
-    font-size: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px; }
-  .sidebar-fixed .inner-sidebar {
-    padding: 10px; }
+  float: left;
+  width: 210px; }
+  .sidebar-fixed ul, .sidebar-fixed ol {
+    padding: 0; }
   .sidebar-fixed li.nav_list {
     list-style: none;
     margin-bottom: 8px;
     width: 210px; }
-    .sidebar-fixed li.nav_list a.linkNav {
-      color: #333;
-      font-size: 14px; }
-    .sidebar-fixed li.nav_list a.linkNav:hover {
-      color: #c30000; }
 
-.recomList,
-.channelList {
-  padding-left: 0; }
-
-@media screen and (min-width: 1050px) {
-  .content_area {
-    padding-left: 230px; } }
-@media screen and (max-width: 1050px) {
-  .content_area {
-    padding-left: 0; } }
-
-.content_wrapper {
-  position: relative;
-  background: #eee;
-  padding: 10px; }
-
-.inner_content {
-  max-width: 1200px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 10px; }
-
-html, body {
-  overflow-x: hidden; }
-
-.header {
-  border-bottom: 1px solid #eee;
-  position: relative; }
-  .header .btnLeftMenu {
-    color: #b7b7b7;
-    font-size: 20px; }
-  .header .btnLeftMenu:hover {
-    color: #c30000; }
-  .header .text-red {
-    color: #c30000; }
-  .header .text-black {
-    color: #333; }
+.main_area {
+  float: left;
+  width: 850px;
+  margin-left: 20px; }
 
 .logo_area {
   font-size: 26px;
@@ -313,11 +283,6 @@ html, body {
 
 .sub_list {
   display: none; }
-
-.btn-private {
-  position: absolute;
-  right: 100px;
-  top: 15px; }
 
 /* --- Reset --- */
 /* --- Font --- */

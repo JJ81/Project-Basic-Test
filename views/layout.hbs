@@ -41,22 +41,27 @@
     <div id="holdemclub">
         {{> header}}
 
-        
+        {{! start content }}
+        <div id="content">
+            <div class="inner_content clearfix">
+                {{> left_nav}}
+                <div class="main_area">
+                    <div id="spot">
+                        <a href="/" target="_blank">
+                            <img src="/static/images/banner_download.jpg" alt="홀덤클럽포 다운로드" width="850" />
+                        </a>
+                    </div>
 
-
-        <div class="content_wrapper">
-            {{> left_nav}}
-            <div class="content_area">
-                <div class="inner_content">
-                    <!-- content -->
-                    {{{body}}}
-                    <!-- // content -->
+                    <div class="content_body">
+                        {{{body}}}
+                    </div>
                 </div>
             </div>
         </div>
+        {{! // end content }}
+
         {{> footer}}
     </div>
-
 
     {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/dist/index.js?v={{version}}"></script>{{/if}}
     {{#if (isEquals current_path 'SIGNUP')}}<script src="/static/javascripts/dist/signup.js?v={{version}}"></script>{{/if}}
