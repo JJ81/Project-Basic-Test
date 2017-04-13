@@ -1563,9 +1563,9 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 				UserService.UserWithUserIdAndEmail(_info, (err, result) => {
 					if(!err){
 
-						console.log('result');
-						console.info(result);
-
+						// console.log('result');
+						// console.info(result);
+						// todo 만약 result에 데이터가 없다면, 비어 있다면??
 						done(null, result);
 					}else{
 						req.flash('error', MSG.SERVER_ERROR);
@@ -1588,6 +1588,7 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 				});
 			},
 			(result, token, done) => { // 정보를 레디스에 캐시
+				// todo 여기서 result가 비어 있을 경우 문제가 된다.
 				var _value = {
 					user_id : result[0].user_id,
 					email : result[0].email,
