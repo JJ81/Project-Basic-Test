@@ -16,7 +16,7 @@
   margin-right: 5px;
   border: 1px solid #686868; }
 
-.ellipsis, .inner-sidebar .linkNav, .recent_update .update_link, .recent_update .title {
+.ellipsis, .inner-sidebar .linkNav, .recent_update .update_link, .recent_update .title, .sub_list_nav .tit {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
@@ -94,6 +94,7 @@ html, body {
 #nav_top {
   float: right; }
   #nav_top li.nav_list {
+    position: relative;
     float: left;
     list-style: none;
     border-left: 1px solid #171717; }
@@ -178,8 +179,11 @@ html, body {
   .sidebar-fixed ul, .sidebar-fixed ol {
     padding: 0; }
   .sidebar-fixed li.nav_list {
+    position: relative;
     list-style: none;
     border-bottom: 1px solid #000; }
+  .sidebar-fixed li.nav_list:hover .sub_nav {
+    display: block; }
   .sidebar-fixed li.nav_list:last-child {
     border-bottom: none; }
 
@@ -264,6 +268,53 @@ html, body {
     margin-right: 0; }
   .channel_type .channel_link {
     display: inline-block; }
+
+.sub_nav {
+  position: absolute;
+  top: 0;
+  left: 214px;
+  z-index: 999999;
+  display: none; }
+  .sub_nav .inner_sub {
+    width: 830px;
+    padding: 15px 30px;
+    display: inline-block;
+    background: #2b2b2b;
+    border: 3px solid #940101; }
+  .sub_nav .channel_info {
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #444;
+    color: #f5f4f4;
+    font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+    font-size: 18px;
+    padding-bottom: 8px; }
+  .sub_nav .img_logo {
+    border: none; }
+
+.sub_list_nav .sub_list {
+  list-style: none;
+  float: left;
+  margin-right: 7px;
+  margin-bottom: 10px; }
+.sub_list_nav .sub_list:last-child {
+  margin-right: 0; }
+.sub_list_nav .sub_link {
+  width: 145px;
+  text-decoration: none; }
+.sub_list_nav .tit {
+  font-size: 13px;
+  color: #999;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  margin-top: 7px;
+  display: block;
+  width: 145px; }
+.sub_list_nav .tit:hover {
+  text-decoration: underline; }
+.sub_list_nav .img_thumbnail {
+  width: 145px;
+  height: 181px; }
+.sub_list_nav .img_thumbnail:hover {
+  border: 2px solid #940101; }
 
 .logo_area {
   font-size: 26px;
@@ -363,9 +414,6 @@ html, body {
   position: relative;
   top: 0;
   left: 0; }
-
-.sub_list {
-  display: none; }
 
 /* --- Reset --- */
 /* --- Font --- */

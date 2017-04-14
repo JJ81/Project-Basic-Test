@@ -87,10 +87,12 @@ html, body{
 #nav_top {
   float: right;
   li.nav_list{
+    position: relative;
     float: left;
     list-style: none;
     border-left: 1px solid #171717;
   }
+
   li.nav_list:last-child{
     border-right: 1px solid #171717;
   }
@@ -203,8 +205,15 @@ html, body{
   }
 
   li.nav_list{
+    position: relative;
     list-style: none;
     border-bottom: 1px solid #000;
+  }
+
+  li.nav_list:hover{
+    .sub_nav{
+      display: block;
+    }
   }
 
   li.nav_list:last-child{
@@ -331,105 +340,78 @@ html, body{
 
 }
 
-//////////////////////////////////////////
-//// lagacy
-//.sidebar-fixed{
-//  background: #fff;
-//  @media screen and (min-width: $width-size01) {
-//    width: 230px;
-//    height: 100%;
-//  }
-//
-//  @media screen and (max-width: $width-size01) {
-//    width: 0;
-//    height: 0;
-//    display: none;
-//  }
-//
-//  //border: 1px solid #f00;
-//  position: absolute;
-//  top: 0;
-//  left: 0;
-//
-//  .title{
-//    font-size: 20px;
-//    border-bottom: 1px solid #eee;
-//    padding-bottom: 10px;
-//  }
-//
-//  .inner-sidebar{
-//    padding: 10px;
-//  }
-//
-//  li.nav_list{
-//    list-style: none;
-//    margin-bottom: 8px;
-//    // border: 1px solid #f00;
-//    width: 210px;
-//    @extend .ellipsis;
-//    a.linkNav{
-//      color : $main-font-color;
-//      font-size: 14px;
-//    }
-//    a.linkNav:hover{
-//      color: $main-color;
-//    }
-//  }
-//}
 
+.sub_nav{
+  position: absolute;
+  top: 0;
+  left: 214px;
+  z-index: 999999;
+  display: none;
+  .inner_sub{
+    width: 830px;
+    //max-width: 830px;
+    //min-width: 400px;
+    padding: 15px 30px;
+    display: inline-block;
+    background: #2b2b2b;
+    border: 3px solid #940101;
+  }
+  .channel_info{
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #444;
+    color: #f5f4f4;
+    font-family: $font-common;
+    font-size: 18px;
+    padding-bottom: 8px;
+  }
+  .img_logo{
+    border: none;
+  }
+}
 
-//.recomList,
-//.channelList{
-//  padding-left: 0;
-//}
-//
-//
-//.content_area{
-//  // border: 1px solid #f00;
-//  @media screen and (min-width: $width-size01) {
-//    padding-left: 230px;
-//  }
-//
-//  @media screen and (max-width: $width-size01) {
-//    padding-left: 0;
-//  }
-//}
+.sub_list_nav{
+  .sub_list{
+    list-style: none;
+    float: left;
+    margin-right: 7px;
+    margin-bottom: 10px;
+  }
 
+  .sub_list:last-child{
+    margin-right: 0;
+  }
 
-//.content_wrapper{
-//  position: relative;
-//  background :#eee;
-//  padding: 10px;
-//}
+  .sub_link{
+    width: 145px;
+    text-decoration: none;
+  }
 
-//.inner_content{
-//  max-width: $content-max-width;
-//  margin: 0 auto;
-//  background :#fff;
-//  padding: 10px;
-//}
+  .tit{
+    font-size: 13px;
+    color: #999;
+    font-family: $font-common;
+    margin-top: 7px;
+    display: block;
+    width: 145px;
+    @extend .ellipsis;
+  }
 
+  .tit:hover{
+    text-decoration: underline;
+  }
 
+  .img_thumbnail{
+    width: 145px;
+    height: 181px;
+  }
 
-//.header{
-//  border-bottom: 1px solid #eee;
-//  position: relative;
-//  .btnLeftMenu{
-//    color : #b7b7b7;
-//    font-size: 20px;
-//  }
-//
-//  .btnLeftMenu:hover{
-//    color: $main-color;
-//  }
-//
-//  .text-red{
-//    color: $main-color;
-//  }
-//  .text-black {
-//    color: $main-font-color;
-//  }
-//}
+  .img_thumbnail:hover{
+    border: 2px solid #940101;
+  }
+}
+//////////////////////////////////////////////////////
+//////////////////// lagacy //////////////////////////
+//////////////////////////////////////////////////////
 
 .logo_area{
   font-size: 26px;
@@ -454,10 +436,6 @@ html, body{
   right: 20px;
   top: 16px;
 }
-
-
-
-
 
 
 .video_list{
@@ -569,14 +547,3 @@ html, body{
   top: 0;
   left: 0;
 }
-
-
-.sub_list{
-  display: none;
-}
-
-//.btn-private{
-//  position: absolute;
-//  right: 100px;
-//  top: 15px;
-//}
