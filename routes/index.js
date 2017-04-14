@@ -808,17 +808,28 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 						console.error(err);
 					}
 				});
+			},
+			// /channel/:channel_id/information
+			(cb) => {
+				request.get(`${HOST}/channel/${_channel_id}/information`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[channel_info] success status is false');
+							cb(null, null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
 			}
 		],
 		(err, result) => {
 			if(!err){
-
-				// 현재 어느 채널에 있는지 그리고 해당 채널 정보를 가져온다.
-				// result[1].result에서 일치하는 것을 찾아본다.
-				var current_channel = util.getDataByChannelId(result[1].result, _channel_id);
-				console.log(current_channel);
-
-
 				res.render('video_list', {
 					current_path: 'VIDEOLIST',
 					static : STATIC_URL,
@@ -828,7 +839,7 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 					channels : result[1].result,
 					recom : result[2].result,
 					live : result[3].result,
-					current_channel
+					current_channel : result[4].result
 				});
 			}else{
 				console.error(err);

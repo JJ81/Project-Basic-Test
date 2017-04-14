@@ -1,7 +1,9 @@
 <div id="list-video">
     <h4 class="channel_head">
-        <img src="http://static.holdemclub.tv/channel/{{current_channel.super_channel}}/logo" class="img_round" width="48" height="48" alt="">
-        {{current_channel.super_title}}
+        {{#each current_channel}}
+            <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="48" height="48" alt="">
+            {{title}}
+        {{/each}}
 
         <span class="pull-right">
             <a href="javascript:void(0);" class="btn btn-primary" v-on:click="desending">최신순</a>
