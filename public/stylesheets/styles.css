@@ -456,6 +456,33 @@ html, body {
   top: 0;
   left: 0; }
 
+.affiliate {
+  width: 1080px;
+  margin: 30px auto 0 auto;
+  text-align: center; }
+  .affiliate .banner {
+    margin-bottom: 20px; }
+  .affiliate .info {
+    color: #6f6f6f;
+    font-size: 18px;
+    font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    line-height: 30px; }
+  .affiliate .mail {
+    color: #b31515;
+    text-decoration: underline; }
+
+.affiliate_category {
+  padding: 0; }
+  .affiliate_category .affiliate_list {
+    float: left;
+    margin-right: 30px;
+    list-style: none; }
+  .affiliate_category .affiliate_list:last-child {
+    margin-right: 0; }
+
 /* --- Reset --- */
 /* --- Font --- */
 /*h1, h2, h3, h4 {font-family:'Roboto Condensed', Arial, Helvetica, sans-serif; font-style: normal; font-weight:400;}

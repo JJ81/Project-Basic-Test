@@ -619,26 +619,36 @@ router.get('/event', (req, res) => {
 	'use strict';
 
 	// 임시로 100개의 이벤트 리스트를 가져온다.
-	request.get(`${HOST}/event/list?offset=0&size=100`, (err, response, body) => {
-		let _body  = JSON.parse(body);
-		if(!err && response.statusCode == 200){
-			if(_body.success){
-				res.render('event', {
-					current_path: 'EVENT',
-					static : STATIC_URL,
-					title: PROJ_TITLE,
-					loggedIn: req.user,
-					list : _body.result
-				});
-			}else{
-				console.error(err);
-				throw new Error(err);
-			}
-		}else{
-			console.error(err);
-			throw new Error(err);
-		}
+	// request.get(`${HOST}/event/list?offset=0&size=100`, (err, response, body) => {
+	// 	let _body  = JSON.parse(body);
+	// 	if(!err && response.statusCode == 200){
+	// 		if(_body.success){
+	// 			res.render('event', {
+	// 				current_path: 'EVENT',
+	// 				static : STATIC_URL,
+	// 				title: PROJ_TITLE,
+	// 				loggedIn: req.user,
+	// 				list : _body.result
+	// 			});
+	// 		}else{
+	// 			console.error(err);
+	// 			throw new Error(err);
+	// 		}
+	// 	}else{
+	// 		console.error(err);
+	// 		throw new Error(err);
+	// 	}
+	// });
+
+	res.render('event', {
+		current_path: 'EVENT',
+		static : STATIC_URL,
+		title: PROJ_TITLE,
+		loggedIn: req.user
+		//,list : _body.result
 	});
+
+
 });
 
 // 이벤트 결과 페이지
@@ -1804,5 +1814,41 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 });
 
 
+router.get('/partnership', (req, res)=> {
+	res.render('partnership', {
+		current_path: 'PARTNERSHIP',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 제휴문의',
+		loggedIn: req.user
+	});
+});
+
+router.get('/community', (req, res)=> {
+	res.render('community', {
+		current_path: 'COMMUNITY',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 커뮤니티',
+		loggedIn: req.user
+	});
+});
+
+router.get('/game', (req, res)=> {
+	res.render('game', {
+		current_path: 'GAME',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 포커게임',
+		loggedIn: req.user
+	});
+});
+
+router.get('/crew', (req, res)=> {
+
+	res.render('crew', {
+		current_path: 'CREW',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 크루',
+		loggedIn: req.user
+	});
+});
 
 module.exports = router;

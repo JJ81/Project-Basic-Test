@@ -42,6 +42,32 @@
     <div id="holdemclub">
         {{> header}}
 
+        {{#if (isEquals current_path 'GAME')}}
+        <div class="content_body">
+            {{{body}}}
+        </div>
+
+        {{else if (isEquals current_path 'CREW')}}
+        <div class="content_body">
+            {{{body}}}
+        </div>
+
+        {{else if (isEquals current_path 'EVENT')}}
+        <div class="content_body">
+            {{{body}}}
+        </div>
+
+        {{else if (isEquals current_path 'COMMUNITY')}}
+        <div class="content_body">
+            {{{body}}}
+        </div>
+
+        {{else if (isEquals current_path 'PARTNERSHIP')}}
+        <div class="content_body">
+            {{{body}}}
+        </div>
+
+        {{else}}
         {{! start content }}
         <div id="content">
             <div class="inner_content clearfix">
@@ -60,6 +86,7 @@
             </div>
         </div>
         {{! // end content }}
+        {{/if}}
 
         {{> footer}}
     </div>

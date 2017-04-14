@@ -606,3 +606,41 @@ html, body{
   top: 0;
   left: 0;
 }
+
+
+
+
+.affiliate{
+  width: $whole-width;
+  margin: 30px auto 0 auto;
+  text-align: center;
+  .banner{
+    margin-bottom: 20px;
+  }
+  .info{
+    color: #6f6f6f;
+    font-size: 18px;
+    font-family: $font-common;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    line-height: 30px;
+  }
+  .mail{
+    color: #b31515;
+    text-decoration: underline;
+  }
+
+}
+
+.affiliate_category{
+  padding: 0;
+  .affiliate_list{
+    float: left;
+    margin-right: 30px;
+    list-style: none;
+  }
+  .affiliate_list:last-child{
+    margin-right: 0;
+  }
+}
