@@ -2,7 +2,19 @@
 
 $font-sansCJK : 'Noto Sans CJK KR';
 $font-shs : 'SpoqaHanSans';
-//$font-family01 : 'Noto Sans CJK KR', 'Malgun Gothic', '맑은 고딕', 'Sans-serif';
+
+
+@font-face {
+  font-family: $font-sansCJK;
+  src: url('http://static.holdemclub.tv/assets/fonts/NotoSansCJKkr-Regular.otf');
+}
+
+@font-face {
+  font-family: $font-shs;
+  src: url('http://static.holdemclub.tv/assets/fonts/Spoqa+Han+Sans+Regular.ttf');
+}
+
+
 $whole-width : 1080px;
 
 

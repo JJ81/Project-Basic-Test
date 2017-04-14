@@ -1,4 +1,10 @@
 @import url(../components/bootstrap/dist/css/bootstrap.min.css);
+@font-face {
+  font-family: "Noto Sans CJK KR";
+  src: url("http://static.holdemclub.tv/assets/fonts/NotoSansCJKkr-Regular.otf"); }
+@font-face {
+  font-family: "SpoqaHanSans";
+  src: url("http://static.holdemclub.tv/assets/fonts/Spoqa+Han+Sans+Regular.ttf"); }
 .blind {
   display: none !important; }
 
