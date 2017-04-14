@@ -22,11 +22,11 @@ html, body{
   }
   a.btn_login {
     right: 90px;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
   }
   a.btn_signup{
     right: 10px;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
   }
   span.split{
     font-size: 11px;
@@ -62,7 +62,7 @@ html, body{
   .nickname,
   .btn_mypage,
   .btn_logout{
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     color: #333 !important;
     font-size: 13px;
   }
@@ -100,7 +100,7 @@ html, body{
     display: block;
     font-size: 18px;
     color: #6f6f6f;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     line-height: 67px;
     text-align: center;
     text-decoration: none;
@@ -147,7 +147,7 @@ html, body{
   address{
     margin-top: 17px;
     font-size: 14px;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     line-height: 14px;
     color: #888;
   }
@@ -167,7 +167,7 @@ html, body{
   .link_ft{
     font-size: 15px;
     color :#707070;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
   }
   .split{
     list-style: none;
@@ -230,7 +230,7 @@ html, body{
     text-align: center;
     font-size: 22px;
     color: #ffe1e1;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     line-height: 71px;
     margin: 20px 0 0 0;
   }
@@ -240,7 +240,7 @@ html, body{
     height: 44px;
     color: #999;
     font-size: 14px;
-    font-family: $font-shs;
+    font-family: $font-common;
     @extend .ellipsis;
     padding: 0 10px;
     line-height: 44px;
@@ -274,14 +274,14 @@ html, body{
   }
 
   .update_link{
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     @extend .ellipsis;
     display: block;
     text-decoration: none;
   }
   .title{
     margin: 10px 0;
-    font-family: $font-sansCJK;
+    font-family: $font-common;
     display: block;
     font-size: 15px;
     color: #333;
@@ -293,7 +293,7 @@ html, body{
   }
 
   .hits,.date{
-    font-family: $font-shs;
+    font-family: $font-common;
     color: #999;
     font-size: 13px;
   }

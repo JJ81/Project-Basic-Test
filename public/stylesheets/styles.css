@@ -206,7 +206,7 @@ html, body {
   height: 44px;
   color: #999;
   font-size: 14px;
-  font-family: sans-serif, AppleSDGothicNeo;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
   padding: 0 10px;
   line-height: 44px;
   text-decoration: none; }
@@ -239,7 +239,7 @@ html, body {
   .recent_update .title:hover {
     text-decoration: underline; }
   .recent_update .hits, .recent_update .date {
-    font-family: sans-serif, AppleSDGothicNeo;
+    font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
     color: #999;
     font-size: 13px; }
   .recent_update .split {
