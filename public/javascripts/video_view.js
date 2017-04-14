@@ -23,6 +23,12 @@ var adTimeCount = 1; // 광고를 시작한 시간으로부터 몇 초가 지났
 var first_ad_timer = $('.first_ad_timer');
 
 var adPlayer = videojs('really-cool-video', {/* Options */}, function () {
+	this.volume(0.2);
+
+	this.on('error', () => {
+		console.log('error');
+	});
+
 	this.on('ready', function () {
 		// 모바일의 경우만 이 버튼을 노출시킬 수 있도록 한다 그리고 poster 기능을 사용할 경우에만 해당한다.
 		$('.btn-ad-play').bind('click', function () {
@@ -57,6 +63,8 @@ $('.btn_ad_skip_a').bind('click', function () {
 });
 
 var player = videojs('main-video', {}, function () {
+	this.volume(0.5);
+
 	this.on('ready', function () {
 		// console.log('main contents ready');
 	});

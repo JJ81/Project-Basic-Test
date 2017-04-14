@@ -520,12 +520,10 @@ html, body{
   top: 0;
   left: 0;
 
-  .vjs-progress-control {
-    visibility: hidden !important;
-    display: none !important;
-  }
-
-  .vjs-play-control {
+  .vjs-fullscreen-control,
+  .vjs-remaining-time-display,
+  .vjs-play-control,
+  .vjs-progress-control{
     visibility: hidden !important;
     display: none !important;
   }
