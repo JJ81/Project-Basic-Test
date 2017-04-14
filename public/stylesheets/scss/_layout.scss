@@ -446,6 +446,24 @@ html, body{
   margin: 30px 0;
 }
 
+
+.video_info_box{
+  .video_title{
+    font-size: 30px;
+    color: #333;
+    font-family: $font-common;
+  }
+
+  .hits{
+    font-size: 16px;
+    color: #757c7f;
+    font-family: $font-common;
+    margin-top: 10px;
+    margin-left: 58px;
+  }
+
+}
+
 //////////////////////////////////////////////////////
 //////////////////// lagacy //////////////////////////
 //////////////////////////////////////////////////////

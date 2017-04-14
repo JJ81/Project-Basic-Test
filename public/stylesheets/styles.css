@@ -341,6 +341,17 @@ html, body {
 .channel_head {
   margin: 30px 0; }
 
+.video_info_box .video_title {
+  font-size: 30px;
+  color: #333;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc; }
+.video_info_box .hits {
+  font-size: 16px;
+  color: #757c7f;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  margin-top: 10px;
+  margin-left: 58px; }
+
 .logo_area {
   font-size: 26px;
   position: relative;

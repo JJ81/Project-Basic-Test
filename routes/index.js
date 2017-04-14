@@ -858,13 +858,17 @@ var isMobile = require('is-mobile');
  */
 router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 	'use strict';
+
+	let _channel_id = sanitize(req.params.channel_id.trim());
+	let _video_id = sanitize(req.params.video_id.trim());
+
 	async.parallel(
 		[
 			// 달려 있는 댓글과 답글 가져오기 --> 답글 체제로만 유지할 것. 일단 스펙 아웃
 			// 영상 위에 배너 광고는 항상 홀덤천국만일 것이며 이것 또한 관리자 페이지에서 수정이나 추가가 될 수 있도록 한다.
 			// 채널 타이틀 가져와야
 			(cb) => { // 비디오 리스트 가져오기
-				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
+				axios.get(`${HOST}/video/list/${_channel_id}`)
 					.then((response)=>{
 						cb(null, response);
 						//console.log(response);
@@ -874,7 +878,7 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 					});
 			},
 			(cb) => { // 비디오 가져오기
-				axios.get(`${HOST}/video/${req.params.video_id}/information`)
+				axios.get(`${HOST}/video/${_video_id}/information`)
 					.then((response)=>{
 						cb(null, response);
 						//console.log(response);
@@ -950,7 +954,7 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 					static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
-					videos : result[0].data.result,
+					videos : JSON.stringify(result[0].data.result),
 					video_lists : JSON.stringify(result[0].data.result),
 					video : result[1].data.result,
 					prevVideo : _video_info.prev,
