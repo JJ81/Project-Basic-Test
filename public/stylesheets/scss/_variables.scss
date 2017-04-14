@@ -1,18 +1,11 @@
 @charset "UTF-8";
 
-$font-sansCJK : 'Noto Sans CJK KR';
-$font-shs : 'SpoqaHanSans';
+//$font-sansCJK : 'Noto Sans CJK KR';
+//$font-shs : 'SpoqaHanSans';
 
+$font-sansCJK : sans-serif, AppleSDGothicNeo;
+$font-shs : sans-serif, AppleSDGothicNeo;
 
-@font-face {
-  font-family: $font-sansCJK;
-  src: url('http://static.holdemclub.tv/assets/fonts/NotoSansCJKkr-Regular.otf');
-}
-
-@font-face {
-  font-family: $font-shs;
-  src: url('http://static.holdemclub.tv/assets/fonts/SpoqaHanSansRegular.ttf');
-}
 
 $whole-width : 1080px;
 

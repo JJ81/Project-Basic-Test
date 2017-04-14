@@ -1,10 +1,4 @@
 @import url(../components/bootstrap/dist/css/bootstrap.min.css);
-@font-face {
-  font-family: "Noto Sans CJK KR";
-  src: url("http://static.holdemclub.tv/assets/fonts/NotoSansCJKkr-Regular.otf"); }
-@font-face {
-  font-family: "SpoqaHanSans";
-  src: url("http://static.holdemclub.tv/assets/fonts/SpoqaHanSansRegular.ttf"); }
 .blind {
   display: none !important; }
 
@@ -50,10 +44,10 @@ html, body {
     top: 10px; }
   #top a.btn_login {
     right: 90px;
-    font-family: "Noto Sans CJK KR"; }
+    font-family: sans-serif, AppleSDGothicNeo; }
   #top a.btn_signup {
     right: 10px;
-    font-family: "Noto Sans CJK KR"; }
+    font-family: sans-serif, AppleSDGothicNeo; }
   #top span.split {
     font-size: 11px;
     color: #afafaf;
@@ -80,7 +74,7 @@ html, body {
   .local_nav .nickname,
   .local_nav .btn_mypage,
   .local_nav .btn_logout {
-    font-family: "Noto Sans CJK KR";
+    font-family: sans-serif, AppleSDGothicNeo;
     color: #333 !important;
     font-size: 13px; }
 
@@ -111,7 +105,7 @@ html, body {
     display: block;
     font-size: 18px;
     color: #6f6f6f;
-    font-family: "Noto Sans CJK KR";
+    font-family: sans-serif, AppleSDGothicNeo;
     line-height: 67px;
     text-align: center;
     text-decoration: none; }
@@ -144,7 +138,7 @@ html, body {
   #footer address {
     margin-top: 17px;
     font-size: 14px;
-    font-family: "Noto Sans CJK KR";
+    font-family: sans-serif, AppleSDGothicNeo;
     line-height: 14px;
     color: #888; }
   #footer .info_email {
@@ -159,7 +153,7 @@ html, body {
   .nav_ft .link_ft {
     font-size: 15px;
     color: #707070;
-    font-family: "Noto Sans CJK KR"; }
+    font-family: sans-serif, AppleSDGothicNeo; }
   .nav_ft .split {
     list-style: none;
     font-size: 13px;
@@ -204,7 +198,7 @@ html, body {
   text-align: center;
   font-size: 22px;
   color: #ffe1e1;
-  font-family: "Noto Sans CJK KR";
+  font-family: sans-serif, AppleSDGothicNeo;
   line-height: 71px;
   margin: 20px 0 0 0; }
 .inner-sidebar .linkNav {
@@ -212,7 +206,7 @@ html, body {
   height: 44px;
   color: #999;
   font-size: 14px;
-  font-family: "SpoqaHanSans";
+  font-family: sans-serif, AppleSDGothicNeo;
   padding: 0 10px;
   line-height: 44px;
   text-decoration: none; }
@@ -232,12 +226,12 @@ html, body {
   .recent_update .update_list:last-child {
     margin-right: 0; }
   .recent_update .update_link {
-    font-family: "Noto Sans CJK KR";
+    font-family: sans-serif, AppleSDGothicNeo;
     display: block;
     text-decoration: none; }
   .recent_update .title {
     margin: 10px 0;
-    font-family: "Noto Sans CJK KR";
+    font-family: sans-serif, AppleSDGothicNeo;
     display: block;
     font-size: 15px;
     color: #333;
@@ -245,7 +239,7 @@ html, body {
   .recent_update .title:hover {
     text-decoration: underline; }
   .recent_update .hits, .recent_update .date {
-    font-family: "SpoqaHanSans";
+    font-family: sans-serif, AppleSDGothicNeo;
     color: #999;
     font-size: 13px; }
   .recent_update .split {
