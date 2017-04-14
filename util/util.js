@@ -30,4 +30,13 @@ util.checkHttpsWithRef = (ref) => {
 	return new RegExp('^(https)://', 'i').test(ref);
 };
 
+
+util.getDataByChannelId = (data, channel_id) =>{
+	for(var i=0,size=data.length;i<size;i++){
+		if(data[i].super_channel === channel_id){
+			return data[i];
+		}
+	}
+	return null;
+};
 module.exports = util;

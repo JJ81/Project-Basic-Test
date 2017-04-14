@@ -1,16 +1,22 @@
 <div id="list-video">
-    <a href="#" class="btn btn-primary" v-on:click="desending">최신순</a>
-    <a href="#" class="btn btn-primary" v-on:click="asending">날짜순</a>
+    <h4 class="channel_head">
+        <img src="http://static.holdemclub.tv/channel/{{current_channel.super_channel}}/logo" class="img_round" width="48" height="48" alt="">
+        {{current_channel.super_title}}
 
-    <br /><br />
+        <span class="pull-right">
+            <a href="javascript:void(0);" class="btn btn-primary" v-on:click="desending">최신순</a>
+            <a href="javascript:void(0);" class="btn btn-primary" v-on:click="asending">날짜순</a>
+        </span>
 
-    <ol class="clearfix video_list">
-        <li v-for="list in video_list" class="col-md-3">
-            <a v-bind:href="makeUrl(list)" v-cloak>
-                <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="260" /><br />
-                <strong><% list.title %></strong><br />
-                <span>조회수 : <% list.hits %></span><br />
-                <span><% list.created_dt %></span>
+    </h4>
+    <ol class="clearfix video_list clearfix">
+        <li v-for="list in video_list">
+            <a v-bind:href="makeUrl(list)" v-cloak class="video_link">
+                <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="194" height="110" />
+                <strong class="title">{ list.title }</strong>
+                <span class="date">{ list.created_dt }</span>
+                <span class="split">·</span>
+                <span class="hits">조회수 : { list.hits }</span>
             </a>
         </li>
     </ol>

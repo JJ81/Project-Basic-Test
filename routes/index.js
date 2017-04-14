@@ -736,10 +736,17 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 	// todo connection 자체에서 제공하고 있는 기능에 대해서도 조사를 해보자.
 	'use strict';
 
+	let _channel_id = sanitize(req.params.channel_id.trim());
+
+	if(_channel_id === ''){
+		throw new Error(MSG.WRONG_ACCESS);
+	}
+
+
 	async.parallel(
 		[
-			(cb) => {
-				axios.get(`${HOST}/video/list/${req.params.channel_id}`)
+			(cb) => { // 비디오 리스트
+				axios.get(`${HOST}/video/list/${_channel_id}`)
 					.then((response)=>{
 						cb(null, response);
 						//console.log(response);
@@ -805,6 +812,13 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 		],
 		(err, result) => {
 			if(!err){
+
+				// 현재 어느 채널에 있는지 그리고 해당 채널 정보를 가져온다.
+				// result[1].result에서 일치하는 것을 찾아본다.
+				var current_channel = util.getDataByChannelId(result[1].result, _channel_id);
+				console.log(current_channel);
+
+
 				res.render('video_list', {
 					current_path: 'VIDEOLIST',
 					static : STATIC_URL,
@@ -813,7 +827,8 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 					videos : JSON.stringify(result[0].data.result),
 					channels : result[1].result,
 					recom : result[2].result,
-					live : result[3].result
+					live : result[3].result,
+					current_channel
 				});
 			}else{
 				console.error(err);
@@ -821,6 +836,7 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 			}
 		});
 });
+
 
 
 // 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.

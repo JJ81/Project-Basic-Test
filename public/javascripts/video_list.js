@@ -20,9 +20,9 @@ var _data;
 	}
 })();
 
-
 new Vue({
-	delimiters : ['<%', '%>'],
+	// <% %>와 같이 바인딩을 할 경우 IE9에서는 바인딩에 문제가 생긴다.
+	delimiters : ['{', '}'],
 	el : '#list-video',
 	data : {
 		imageUrl : $('#static-url').val(),
@@ -73,20 +73,3 @@ new Vue({
 		}
 	}
 });
-
-
-
-//
-// requirejs(
-// 	[
-// 		'jquery',
-// 		'vue',
-// 		'common'
-// 	],
-// 	function ($, Vue, utils) {
-//
-//
-//
-// 	}); // end of func
-//
-

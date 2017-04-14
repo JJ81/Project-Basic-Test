@@ -16,7 +16,7 @@
   margin-right: 5px;
   border: 1px solid #686868; }
 
-.ellipsis, .inner-sidebar .linkNav, .recent_update .update_link, .recent_update .title, .sub_list_nav .tit {
+.ellipsis, .inner-sidebar .linkNav, .recent_update .update_link, .recent_update .title, .sub_list_nav .tit, .video_link .title {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
@@ -26,6 +26,9 @@
 
 legend, caption {
   display: none; }
+
+.img_round {
+  border-radius: 50%; }
 
 html, body {
   overflow-x: hidden; }
@@ -316,6 +319,27 @@ html, body {
 .sub_list_nav .img_thumbnail:hover {
   border: 2px solid #940101; }
 
+.video_link {
+  width: 194px; }
+  .video_link .title {
+    margin: 15px 0;
+    font-size: 15px;
+    color: #333;
+    font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+    width: 194px;
+    display: block; }
+  .video_link .title:hover {
+    text-decoration: underline; }
+  .video_link .date, .video_link .hits, .video_link .split {
+    font-size: 13px;
+    color: #999; }
+
+.video_link:hover {
+  text-decoration: none; }
+
+.channel_head {
+  margin: 30px 0; }
+
 .logo_area {
   font-size: 26px;
   position: relative;
@@ -338,7 +362,11 @@ html, body {
   padding: 0; }
   .video_list li {
     list-style: none;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    float: left;
+    margin-right: 20px; }
+  .video_list li:nth-child(4n) {
+    margin-right: 0; }
 
 .btn-signup {
   position: absolute;

@@ -409,6 +409,42 @@ html, body{
     border: 2px solid #940101;
   }
 }
+
+
+#list-video{
+
+}
+
+.video_link{
+  width: 194px;
+  .title{
+    margin: 15px 0;
+    font-size: 15px;
+    color :#333;
+    font-family: $font-common;
+    width: 194px;
+    @extend .ellipsis;
+    display: block;
+  }
+
+  .title:hover{
+    text-decoration: underline;
+  }
+
+  .date,.hits,.split{
+    font-size: 13px;
+    color :#999;
+  }
+}
+
+.video_link:hover{
+  text-decoration: none;
+}
+
+.channel_head{
+  margin: 30px 0;
+}
+
 //////////////////////////////////////////////////////
 //////////////////// lagacy //////////////////////////
 //////////////////////////////////////////////////////
@@ -443,6 +479,11 @@ html, body{
   li{
     list-style: none;
     margin-bottom: 20px;
+    float: left;
+    margin-right: 20px;
+  }
+  li:nth-child(4n){
+    margin-right: 0;
   }
 }
 
