@@ -48,6 +48,17 @@ html, body{
     top: 9px;
   }
 
+  .split{
+    list-style: none;
+    font-size: 11px;
+    float: left;
+    padding: 0 10px 0 0;
+    position: relative;
+    top: 11px;
+    color: #afafaf;
+  }
+
+
   .nickname,
   .btn_mypage,
   .btn_logout{
@@ -62,14 +73,14 @@ html, body{
   .inner_header{
     margin: 0 auto;
     width: $whole-width;
-    height: 95px;
+    height: 67px;
   }
   .logo{
     margin: 0;
     padding: 0;
     width: 168px;
     float: left;
-    margin-top: 18px;
+    margin-top: 7px;
   }
 }
 
@@ -85,14 +96,18 @@ html, body{
   }
   a.link_nav{
     width: 150px;
-    height: 95px;
+    height: 67px;
     display: block;
     font-size: 18px;
     color: #6f6f6f;
     font-family: $font-sansCJK;
-    line-height: 95px;
+    line-height: 67px;
     text-align: center;
     text-decoration: none;
+  }
+
+  a.link_nav:hover{
+    color: #fff;
   }
 
   a.active{
@@ -181,7 +196,7 @@ html, body{
 
 .sidebar-fixed{
   float: left;
-  width: 210px;
+  width: 215px;
 
   ul,ol{
     padding: 0;
@@ -189,19 +204,131 @@ html, body{
 
   li.nav_list{
     list-style: none;
-    margin-bottom: 8px;
+    border-bottom: 1px solid #000;
+  }
 
-    width: 210px;
-    @extend .ellipsis;
-
-
+  li.nav_list:last-child{
+    border-bottom: none;
   }
 }
 
 .main_area{
   float: left;
-  width: 850px;
-  margin-left: 20px;
+  width: 840px;
+  margin-left: 25px;
+}
+
+.sig_broadcast{
+  margin-top: 20px;
+}
+
+.inner-sidebar{
+  .title{
+    width: 215px;
+    height: 71px;
+    background: url('/static/images/bg_channel.jpg') no-repeat 0 0;
+    text-align: center;
+    font-size: 22px;
+    color: #ffe1e1;
+    font-family: $font-sansCJK;
+    line-height: 71px;
+    margin: 20px 0 0 0;
+  }
+
+  .linkNav{
+    display: block;
+    height: 44px;
+    color: #999;
+    font-size: 14px;
+    font-family: $font-shs;
+    @extend .ellipsis;
+    padding: 0 10px;
+    line-height: 44px;
+    text-decoration: none;
+  }
+
+  .linkNav:hover{
+    color: #fff;
+    font-weight: bold;
+  }
+
+}
+
+.recomList,.channelList{
+  background: #2b2b2b;
+}
+
+
+// 비디오 썸네일 리스트 유형
+.recent_update{
+  padding: 0 0 15px 0;
+
+  .update_list{
+    list-style: none;
+    float: left;
+    margin-right: 21px;
+  }
+
+  .update_list:last-child{
+    margin-right: 0;
+  }
+
+  .update_link{
+    font-family: $font-sansCJK;
+    @extend .ellipsis;
+    display: block;
+    text-decoration: none;
+  }
+  .title{
+    margin: 10px 0;
+    font-family: $font-sansCJK;
+    display: block;
+    font-size: 15px;
+    color: #333;
+    width: 194px;
+    @extend .ellipsis;
+  }
+  .title:hover{
+    text-decoration: underline;
+  }
+
+  .hits,.date{
+    font-family: $font-shs;
+    color: #999;
+    font-size: 13px;
+  }
+  .split{
+    color: #999;
+    font-size: 13px;
+  }
+  .img_thumbnail{
+    border: 1px solid #151515;
+  }
+}
+
+
+.btm-brd{
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.spacer{
+  height: 100px;
+}
+
+.channel_type{
+  padding: 0 0 30px 0;
+  .channel_list{
+    list-style: none;
+    float: left;
+    margin-right: 21px;
+  }
+  .channel_list:last-child{
+    margin-right: 0;
+  }
+  .channel_link{
+    display: inline-block;
+  }
+
 }
 
 //////////////////////////////////////////

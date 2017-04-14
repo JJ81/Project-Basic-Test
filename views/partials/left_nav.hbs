@@ -1,15 +1,15 @@
 <div class="sidebar-fixed">
     <div class="inner-sidebar">
         {{#if live}}
-        <h3>
-        {{#each live}}
-            {{#if (isEquals status 1)}}
-            <a href="{{link}}" target="_blank">
-                방송중 <small>({{id}})</small>
-            </a>
-            {{/if}}
-        {{/each}}
-        </h3>
+            <div class="sig_broadcast">
+            {{#each live}}
+                {{#if (isEquals status 1)}}
+                <a href="{{link}}" target="_blank" title="생방송중">
+                    <img src="/static/images/btn_broadcast.jpg" alt="방송중" width="215" height="105" />
+                </a>
+                {{/if}}
+            {{/each}}
+            </div>
         {{/if}}
 
         {{#if recom}}
@@ -58,6 +58,7 @@
             {{/each}}
         </ul>
         {{/if}}
+
         {{#if channels}}
         <h3 class="title">홀클.tv 컨텐츠</h3>
         <ul class="channelList">

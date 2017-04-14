@@ -10,9 +10,9 @@ hbs.registerHelper('isEmpty', function (a) {
   return (a === '' || a === null);
 });
 
-hbs.registerHelper('totalCredit', function (credit, debit) {
-  return parseInt(credit) - parseInt(debit);
-});
+// hbs.registerHelper('totalCredit', function (credit, debit) {
+//   return parseInt(credit) - parseInt(debit);
+// });
 
 hbs.registerHelper('comma-number', function (num) {
   if (num === null || isNaN(num)) {
@@ -36,7 +36,7 @@ hbs.registerHelper('checkMinus', function (num) {
   return false;
 });
 
-hbs.registerHelper('time', function (date) {
+hbs.registerHelper('date', function (date) {
 	if (date !== null && date !== undefined && date !== '') {
 		return dateFormat(date, 'yyyy-mm-dd');
 	}

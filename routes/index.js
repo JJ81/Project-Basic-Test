@@ -969,7 +969,6 @@ function getCurrentVideoIndex(arr, target){
 
 /**
  * 회원가입 뷰
- * todo https로 처리할 것.
  */
 router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 	if(req.user != null){

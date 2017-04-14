@@ -3,24 +3,20 @@
   display: none !important; }
 
 .heading {
-  color: #444;
-  font-size: 20px;
-  border-bottom: 1px solid #eee;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 10px; }
-  .heading a.title {
-    color: #444; }
+  color: #333;
+  font-size: 30px;
+  pading: 0;
+  margin-top: 30px;
+  margin-bottom: 30px; }
 
 .img_logo {
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  margin-right: 5px; }
+  margin-right: 5px;
+  border: 1px solid #686868; }
 
-.ellipsis, .sidebar-fixed li.nav_list {
+.ellipsis, .inner-sidebar .linkNav, .recent_update .update_link, .recent_update .title {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden; }
@@ -67,6 +63,14 @@ html, body {
     margin-right: 10px;
     position: relative;
     top: 9px; }
+  .local_nav .split {
+    list-style: none;
+    font-size: 11px;
+    float: left;
+    padding: 0 10px 0 0;
+    position: relative;
+    top: 11px;
+    color: #afafaf; }
   .local_nav .nickname,
   .local_nav .btn_mypage,
   .local_nav .btn_logout {
@@ -79,13 +83,13 @@ html, body {
   #header .inner_header {
     margin: 0 auto;
     width: 1080px;
-    height: 95px; }
+    height: 67px; }
   #header .logo {
     margin: 0;
     padding: 0;
     width: 168px;
     float: left;
-    margin-top: 18px; }
+    margin-top: 7px; }
 
 #nav_top {
   float: right; }
@@ -97,14 +101,16 @@ html, body {
     border-right: 1px solid #171717; }
   #nav_top a.link_nav {
     width: 150px;
-    height: 95px;
+    height: 67px;
     display: block;
     font-size: 18px;
     color: #6f6f6f;
     font-family: "Noto Sans CJK KR";
-    line-height: 95px;
+    line-height: 67px;
     text-align: center;
     text-decoration: none; }
+  #nav_top a.link_nav:hover {
+    color: #fff; }
   #nav_top a.active {
     background: url("/static/images/bg_top_nav.gif") repeat-x;
     color: #fff; }
@@ -168,18 +174,96 @@ html, body {
 
 .sidebar-fixed {
   float: left;
-  width: 210px; }
+  width: 215px; }
   .sidebar-fixed ul, .sidebar-fixed ol {
     padding: 0; }
   .sidebar-fixed li.nav_list {
     list-style: none;
-    margin-bottom: 8px;
-    width: 210px; }
+    border-bottom: 1px solid #000; }
+  .sidebar-fixed li.nav_list:last-child {
+    border-bottom: none; }
 
 .main_area {
   float: left;
-  width: 850px;
-  margin-left: 20px; }
+  width: 840px;
+  margin-left: 25px; }
+
+.sig_broadcast {
+  margin-top: 20px; }
+
+.inner-sidebar .title {
+  width: 215px;
+  height: 71px;
+  background: url("/static/images/bg_channel.jpg") no-repeat 0 0;
+  text-align: center;
+  font-size: 22px;
+  color: #ffe1e1;
+  font-family: "Noto Sans CJK KR";
+  line-height: 71px;
+  margin: 20px 0 0 0; }
+.inner-sidebar .linkNav {
+  display: block;
+  height: 44px;
+  color: #999;
+  font-size: 14px;
+  font-family: "SpoqaHanSans";
+  padding: 0 10px;
+  line-height: 44px;
+  text-decoration: none; }
+.inner-sidebar .linkNav:hover {
+  color: #fff;
+  font-weight: bold; }
+
+.recomList, .channelList {
+  background: #2b2b2b; }
+
+.recent_update {
+  padding: 0 0 15px 0; }
+  .recent_update .update_list {
+    list-style: none;
+    float: left;
+    margin-right: 21px; }
+  .recent_update .update_list:last-child {
+    margin-right: 0; }
+  .recent_update .update_link {
+    font-family: "Noto Sans CJK KR";
+    display: block;
+    text-decoration: none; }
+  .recent_update .title {
+    margin: 10px 0;
+    font-family: "Noto Sans CJK KR";
+    display: block;
+    font-size: 15px;
+    color: #333;
+    width: 194px; }
+  .recent_update .title:hover {
+    text-decoration: underline; }
+  .recent_update .hits, .recent_update .date {
+    font-family: "SpoqaHanSans";
+    color: #999;
+    font-size: 13px; }
+  .recent_update .split {
+    color: #999;
+    font-size: 13px; }
+  .recent_update .img_thumbnail {
+    border: 1px solid #151515; }
+
+.btm-brd {
+  border-bottom: 1px solid #e5e5e5; }
+
+.spacer {
+  height: 100px; }
+
+.channel_type {
+  padding: 0 0 30px 0; }
+  .channel_type .channel_list {
+    list-style: none;
+    float: left;
+    margin-right: 21px; }
+  .channel_type .channel_list:last-child {
+    margin-right: 0; }
+  .channel_type .channel_link {
+    display: inline-block; }
 
 .logo_area {
   font-size: 26px;
