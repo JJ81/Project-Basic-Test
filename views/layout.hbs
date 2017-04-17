@@ -2,8 +2,12 @@
 <html>
 <head>
 <meta charset="utf-8" />
-{{! <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" /> }}
+{{! todo 로그인 회원가입 아이디찾기 비번찾기 로그인 등에서 모바일에서 접근할 경우와 PC에서 접근할 경우 별도의 뷰포트를 적용할 수 있도록 한다.  }}
+{{#if (isEquals isMobile 1 )}}
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+{{else}}
 <meta name="viewport" content="width=1100" />
+{{/if}}
 <meta name="Referrer" content="origin" />
 {{! Open Graph }}
 <meta property="og:title" content="홀덤클럽티비" />
@@ -32,64 +36,79 @@
 <title>{{title}}</title>
 </head>
 
-<body>
+<body {{#if (isEquals current_path 'login')}}class="secure_page"{{else if (isEquals current_path 'SIGNUP')}}class="secure_page"{{/if}}>
 {{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 {{! End Google Tag Manager (noscript) }}
 
+
+{{#if (isEquals current_path 'login')}}
+    <div id="holdemclub">
+        {{>header_simple}}
+        {{{body}}}
+        {{>footer_simple}}
+    </div>
+{{else if (isEquals current_path 'SIGNUP')}}
+    <div id="holdemclub">
+        {{>header_simple}}
+        {{{body}}}
+        {{>footer_simple}}
+    </div>
+{{else}}
     <div id="holdemclub">
         {{> header}}
 
         {{#if (isEquals current_path 'GAME')}}
-        <div class="content_body">
-            {{{body}}}
-        </div>
+            <div class="content_body">
+                {{{body}}}
+            </div>
 
         {{else if (isEquals current_path 'CREW')}}
-        <div class="content_body">
-            {{{body}}}
-        </div>
+            <div class="content_body">
+                {{{body}}}
+            </div>
 
         {{else if (isEquals current_path 'EVENT')}}
-        <div class="content_body">
-            {{{body}}}
-        </div>
+            <div class="content_body">
+                {{{body}}}
+            </div>
 
         {{else if (isEquals current_path 'COMMUNITY')}}
-        <div class="content_body">
-            {{{body}}}
-        </div>
+            <div class="content_body">
+                {{{body}}}
+            </div>
 
         {{else if (isEquals current_path 'PARTNERSHIP')}}
-        <div class="content_body">
-            {{{body}}}
-        </div>
+            <div class="content_body">
+                {{{body}}}
+            </div>
 
         {{else}}
         {{! start content }}
-        <div id="content">
-            <div class="inner_content clearfix">
-                {{> left_nav}}
-                <div class="main_area">
-                    <div id="spot">
-                        <a href="/" target="_blank">
-                            <img src="/static/images/banner_download.jpg" alt="홀덤클럽포 다운로드" width="840" />
-                        </a>
-                    </div>
+            <div id="content">
+                <div class="inner_content clearfix">
+                    {{> left_nav}}
+                    <div class="main_area">
+                        <div id="spot">
+                            <a href="/" target="_blank">
+                                <img src="/static/images/banner_download.jpg" alt="홀덤클럽포 다운로드" width="840" />
+                            </a>
+                        </div>
 
-                    <div class="content_body">
-                        {{{body}}}
+                        <div class="content_body">
+                            {{{body}}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {{! // end content }}
         {{/if}}
 
         {{> footer}}
     </div>
+{{/if}}
 
     {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/dist/index.js?v={{version}}"></script>{{/if}}
     {{#if (isEquals current_path 'SIGNUP')}}<script src="/static/javascripts/dist/signup.js?v={{version}}"></script>{{/if}}

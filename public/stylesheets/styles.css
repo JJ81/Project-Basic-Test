@@ -30,6 +30,14 @@ legend, caption {
 .img_round {
   border-radius: 50%; }
 
+.txt_input, #signup .txt_input {
+  border: 1px solid #ddd;
+  border-radius: 0;
+  font-size: 15px;
+  color: #333;
+  background: #fff;
+  height: 50px; }
+
 html, body {
   overflow-x: hidden; }
 
@@ -502,6 +510,127 @@ html, body {
 
 .community {
   margin-bottom: 100px; }
+
+.login-box, #signup {
+  max-width: 535px;
+  min-width: 300px;
+  margin: 0 auto;
+  padding: 0 10px; }
+
+.header_s .logo {
+  text-align: center; }
+
+.heading-s {
+  padding: 40px 10px;
+  margin: 0;
+  text-align: center;
+  font-size: 30px;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  font-weight: bold; }
+
+.footer_s {
+  text-align: center;
+  padding: 70px 0 50px 0; }
+  .footer_s .addr {
+    color: #333;
+    font-size: 12px;
+    padding-bottom: 10px;
+    margin: 0; }
+  .footer_s .btn-usage,
+  .footer_s .btn-privacy {
+    font-size: 15px;
+    color: #707070; }
+  .footer_s .split {
+    color: #aeaeae;
+    display: inline-block;
+    padding: 0 15px;
+    font-size: 10px;
+    position: relative;
+    top: -2px; }
+
+.secure_page {
+  background: #fbfbfb; }
+
+.login-box .form-control-feedback, #signup .form-control-feedback {
+  top: 9px; }
+.login-box .txt_input:focus, #signup .txt_input:focus {
+  border-color: #b31515; }
+.login-box .btnLogin, #signup .btnLogin {
+  background: #b31515;
+  border: none;
+  font-size: 16px;
+  padding: 15px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold; }
+.login-box .btnLogin:hover, #signup .btnLogin:hover {
+  background: #b31515; }
+.login-box .btnSignUp, #signup .btnSignUp {
+  padding: 5px 10px !important;
+  text-align: center;
+  display: inline-block;
+  color: #fff !important;
+  background: #626262;
+  border-radius: 5px; }
+.login-box .btnSignUp:hover, #signup .btnSignUp:hover {
+  text-decoration: none; }
+.login-box .btnLoginArea, #signup .btnLoginArea {
+  font-size: 15px;
+  color: #626262;
+  padding: 5px; }
+.login-box .btnArea, #signup .btnArea {
+  margin-top: 20px; }
+.login-box .has-error, #signup .has-error {
+  color: #f00;
+  font-size: 15px;
+  padding-bottom: 10px; }
+
+#signup small {
+  font-size: 12px;
+  color: #999; }
+#signup label {
+  font-size: 17px;
+  color: #333;
+  margin-top: 5px; }
+#signup .txt_input {
+  margin-bottom: 10px; }
+#signup .agreement {
+  margin-top: 20px;
+  text-align: center; }
+  #signup .agreement .txt {
+    color: #494848;
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 15px; }
+  #signup .agreement span {
+    color: #494848;
+    font-size: 16px;
+    font-weight: bold;
+    position: relative;
+    top: -2px; }
+#signup .btnArea {
+  margin-top: 40px; }
+  #signup .btnArea .btn-register {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  #signup .btnArea .btn-home {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: -4px;
+    padding: 15px;
+    font-size: 15px; }
+#signup .msg {
+  font-size: 13px;
+  color: #f00; }
 
 /* --- Reset --- */
 /* --- Font --- */

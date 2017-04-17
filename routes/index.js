@@ -35,6 +35,9 @@ const sanitize = require('sanitize-html');
 const MSG = require('../commons/message');
 const crypto = require('crypto');
 const RedisDAO = require('../RedisDAO/RedisDAO');
+// 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.
+const isMobile = require('is-mobile');
+
 
 passport.serializeUser((user, done) => {
 	//console.log('Serialize');
@@ -66,18 +69,18 @@ passport.use(new LocalStrategy({
 	connection.query(QUERY.USER.Login, [user], (err, data) => {
 		if (err) {
 			console.error(err);
-			return done(null, false);
+			return done(null, false, {'message' : MSG.SERVER_ERROR});
 		} else {
 
 			if(data.length === 0){
 				console.error('Username is not exist.');
-				return done(null, null, {'message' : '아이디가 존재하지 않습니다.'});
+				return done(null, null, {'message' : MSG.NO_ACCOUNT});
 			}
 
 			if (data.length === 1) {
 				if (!bcrypt.compareSync(password, data[0].password)) {
 					console.error('password is not matched.');
-					return done(null, false, {'message' : '비밀번호가 일치하지 않습니다.'});
+					return done(null, false, {'message' : MSG.INCORRECT_PW});
 				} else {
 
 					// 로그인시 날짜를 해당 컬럼에 기록할 수 있어야 한다
@@ -96,7 +99,7 @@ passport.use(new LocalStrategy({
 				}
 			} else {
 				console.log('Account is duplicated : ' + user);
-				return done(null, false, {message : '당신의 계정에 문제가 있습니다. info@holdemclub.tv로 문의주세요.'});
+				return done(null, false, {message : MSG.WRONG_INFO});
 			}
 		}
 	});
@@ -138,7 +141,6 @@ router.get('/login', httpToHttps, function (req, res) {
 		msg = '',
 		flash_msg = req.flash(); // 캐싱을 해두지 않으면 조건에 따라서 플래시 모듈에 저장된 메시지가 사라진다.
 
-	// todo length 관련 에러 로그가 찍히는 것을 수정할 것.
 	try{
 		if(flash_msg.error){
 			// console.log('message');
@@ -151,6 +153,7 @@ router.get('/login', httpToHttps, function (req, res) {
 
 	if (req.user == null) {
 		res.render('login', {
+			isMobile: (isMobile(req) == 1) ? 1 : 0,
 			current_path: 'login',
 			title: PROJ_TITLE + ', 로그인',
 			msg
@@ -860,8 +863,7 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 
 
 
-// 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.
-var isMobile = require('is-mobile');
+
 
 /**
  * 비디오 뷰
@@ -1019,7 +1021,7 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 	// 하나의 객체로 묶어서 메모리에 보낼 경우 출력에 문제가 발생한다 (connect-flash)
 
 	res.render('signup', {
-		// layout : false
+		isMobile: (isMobile(req) == 1) ? 1 : 0,
 		current_path: 'SIGNUP',
 		title : PROJ_TITLE + ', 회원가입',
 		csrfToken : req.csrfToken(),
@@ -1128,7 +1130,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 
 			// 아이디 중복 검사
 			if(!result[0].data.valid){
-				req.flash('username', '중복된 아이디입니다.'); // todo 같은 키에 여러개의 값을 할당하면 컴마로 구분을 해서 입력이 되는 것을 볼 수 있다.
+				req.flash('username', '중복된 아이디입니다.');
 				isPass = false;
 			}
 
