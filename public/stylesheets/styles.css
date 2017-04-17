@@ -186,6 +186,9 @@ html, body {
     position: relative;
     list-style: none;
     border-bottom: 1px solid #000; }
+  .sidebar-fixed li.nav_list:hover .linkNav {
+    color: #fff;
+    font-weight: bold; }
   .sidebar-fixed li.nav_list:hover .sub_nav {
     display: block; }
   .sidebar-fixed li.nav_list:last-child {
@@ -482,6 +485,20 @@ html, body {
     list-style: none; }
   .affiliate_category .affiliate_list:last-child {
     margin-right: 0; }
+
+.crew {
+  width: 1080px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  margin: 0 auto; }
+  .crew .list_crew {
+    padding: 0;
+    width: 670px;
+    margin: 20px auto 0 auto; }
+    .crew .list_crew li {
+      list-style: none;
+      margin-bottom: 20px; }
 
 /* --- Reset --- */
 /* --- Font --- */

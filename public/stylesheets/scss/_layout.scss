@@ -212,6 +212,11 @@ html, body{
   }
 
   li.nav_list:hover{
+    .linkNav{
+      color: #fff;
+      font-weight: bold;
+    }
+
     .sub_nav{
       display: block;
     }
@@ -642,5 +647,24 @@ html, body{
   }
   .affiliate_list:last-child{
     margin-right: 0;
+  }
+}
+
+
+.crew{
+  width: $whole-width;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  margin:0 auto;
+
+  .list_crew{
+    padding: 0;
+    width: 670px;
+    margin:20px auto 0 auto;
+    li{
+      list-style: none;
+      margin-bottom: 20px;
+    }
   }
 }
