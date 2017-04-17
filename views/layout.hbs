@@ -4,10 +4,26 @@
 <meta charset="utf-8" />
 {{! todo 로그인 회원가입 아이디찾기 비번찾기 로그인 등에서 모바일에서 접근할 경우와 PC에서 접근할 경우 별도의 뷰포트를 적용할 수 있도록 한다.  }}
 {{#if (isEquals isMobile 1 )}}
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-{{else}}
-<meta name="viewport" content="width=1100" />
+    {{#if (isEquals current_path 'INDEX')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'VIDEOLIST')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'VIDEOVIEW')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'GAME')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'CREW')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'COMMUNITY')}}
+    <meta name="viewport" content="width=1100" />
+    {{else if (isEquals current_path 'PARTNERSHIP')}}
+    <meta name="viewport" content="width=1100" />
+    {{else}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    {{/if}}
+    {{! 메인, 채널 리스트, 비디오 뷰 페이지를 제외하고 모바일 환경을 적용한다. }}
 {{/if}}
+
 <meta name="Referrer" content="origin" />
 {{! Open Graph }}
 <meta property="og:title" content="홀덤클럽티비" />

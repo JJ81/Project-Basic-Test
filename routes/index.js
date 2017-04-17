@@ -35,8 +35,8 @@ const sanitize = require('sanitize-html');
 const MSG = require('../commons/message');
 const crypto = require('crypto');
 const RedisDAO = require('../RedisDAO/RedisDAO');
-// 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.
-const isMobile = require('is-mobile');
+
+// todo 모바일 환경인지에 따라서 비디오 플레이어 처리가 별도로 되어야 한다.
 
 
 passport.serializeUser((user, done) => {
@@ -153,7 +153,6 @@ router.get('/login', httpToHttps, function (req, res) {
 
 	if (req.user == null) {
 		res.render('login', {
-			isMobile: (isMobile(req) == 1) ? 1 : 0,
 			current_path: 'login',
 			title: PROJ_TITLE + ', 로그인',
 			msg
@@ -972,7 +971,6 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 					prevVideo : _video_info.prev,
 					nextVideo : _video_info.next,
 					currentVideoId : result[1].data.result[0].video_id,
-					isMobile: (isMobile(req) == 1) ? 1 : 0,
 					channels : result[2].result,
 					recom : result[3].result,
 					live : result[4].result
@@ -1021,7 +1019,6 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 	// 하나의 객체로 묶어서 메모리에 보낼 경우 출력에 문제가 발생한다 (connect-flash)
 
 	res.render('signup', {
-		isMobile: (isMobile(req) == 1) ? 1 : 0,
 		current_path: 'SIGNUP',
 		title : PROJ_TITLE + ', 회원가입',
 		csrfToken : req.csrfToken(),

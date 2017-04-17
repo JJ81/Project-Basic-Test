@@ -49,7 +49,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(logger('combined'));
+app.use(logger('combined')); // 로그 시간을 기준으로 +9시간을 더하면 로컬시간이다.
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -68,9 +68,11 @@ app.enable('trust proxy');
 
 global.PROJ_TITLE = '홀덤클럽티비';
 
+const isMobile = require('is-mobile');
 
 app.use((req, res, next) => {
 	res.locals.version  = '2.0.0';
+	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
 	next();
 });
 
