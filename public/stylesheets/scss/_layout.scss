@@ -848,3 +848,270 @@ html, body{
     color: #f00;
   }
 }
+
+
+.find_id_page{
+  @extend .login-box;
+
+  .info{
+    font-size: 17px;
+    color: #666;
+    font-family: $font-common;
+    margin: 40px 0;
+  }
+
+  .mail{
+    color: #ff5d5d;
+  }
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-find-id{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-home{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+
+}
+
+.find-pw-page{
+  @extend .login-box;
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-find-pw{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-home{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+
+  .info{
+    font-size: 17px;
+    color: #666;
+    font-family: $font-common;
+    margin: 40px 0;
+  }
+
+  .mail{
+    color: #ff5d5d;
+  }
+
+}
+
+.result_find_id{
+  @extend .login-box;
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-login{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-home{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+
+  .info{
+    font-size: 17px;
+    color: #666;
+    font-family: $font-common;
+    margin: 40px 0;
+  }
+
+  .result_user{
+    color: #ff5d5d;
+    font-size: 18px;
+  }
+}
+
+.reset-pw{
+  @extend .login-box;
+  .btnArea{
+    margin-top: 40px;
+    .btn-reset-pw{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-login{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+
+}
+
+.private{
+  @extend .login-box;
+}
+
+
+.modify-email{
+  @extend .login-box;
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-modify-email{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-private{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+}
+
+.private-modify-pw{
+  @extend .login-box;
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-modify-pw{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-private{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+}
+
+.insert-market-code{
+  @extend .login-box;
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+
+  .btnArea{
+    margin-top: 40px;
+    .btn-insert-code{
+      float:left;
+      width: 49%;
+      margin-right: 1%;
+      background: #b31515;
+      color :#fff;
+      border-color :#b31515;
+      padding: 15px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .btn-private{
+      float:left;
+      width: 49%;
+      margin-left: 1%;
+      position: relative;
+      top: 0;
+      padding: 15px;
+      font-size: 15px;
+    }
+  }
+  .error{
+    font-size: 13px;
+    color: #f00;
+  }
+}

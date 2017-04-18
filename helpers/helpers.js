@@ -2,17 +2,30 @@ var hbs = require('hbs');
 var currencyFormatter = require('currency-formatter');
 var dateFormat = require('dateformat');
 
+
+hbs.registerHelper('isEqualsInArray', function () {
+	var
+		current = arguments[0],
+		size = arguments.length-1, i = 1;
+
+	for(;i<size;i++){
+		if(current === arguments[i]){
+			console.log(arguments[i]);
+			return true;
+		}
+	}
+
+	return false;
+});
+
 hbs.registerHelper('isEquals', function (a, b) {
-  return (a === b);
+	return (a === b);
 });
 
 hbs.registerHelper('isEmpty', function (a) {
-  return (a === '' || a === null);
+	return (a === '' || a === null);
 });
 
-// hbs.registerHelper('totalCredit', function (credit, debit) {
-//   return parseInt(credit) - parseInt(debit);
-// });
 
 hbs.registerHelper('comma-number', function (num) {
   if (num === null || isNaN(num)) {

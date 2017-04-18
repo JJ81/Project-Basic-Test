@@ -9,5 +9,5 @@ module.exports = {
 	WRONG_INFO : '잘못된 정보입니다. 다시 입력해주세요.',
 	NO_ACCOUNT: '등록되지 않은 아이디입니다.',
 	INCORRECT_PW : '비밀번호가 맞지 않습니다.',
-	WRONG_INFO : '고객님의 계정에 문제가 있습니다. info@holdemclub.tv로 문의주세요.'
+	WRONG_INFO : '만약 고객님의 계정에 문제가 있다면, info@holdemclub.tv로 문의주세요. 다시 정확히 입력해주세요.'
 };

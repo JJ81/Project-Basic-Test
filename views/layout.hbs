@@ -52,21 +52,14 @@
 <title>{{title}}</title>
 </head>
 
-<body {{#if (isEquals current_path 'login')}}class="secure_page"{{else if (isEquals current_path 'SIGNUP')}}class="secure_page"{{/if}}>
+<body {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE')}}class="secure_page"{{/if}}>
 {{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 {{! End Google Tag Manager (noscript) }}
 
-
-{{#if (isEquals current_path 'login')}}
-    <div id="holdemclub">
-        {{>header_simple}}
-        {{{body}}}
-        {{>footer_simple}}
-    </div>
-{{else if (isEquals current_path 'SIGNUP')}}
+{{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE')}}
     <div id="holdemclub">
         {{>header_simple}}
         {{{body}}}
@@ -76,31 +69,10 @@
     <div id="holdemclub">
         {{> header}}
 
-        {{#if (isEquals current_path 'GAME')}}
+        {{#if (isEqualsInArray current_path 'GAME' 'CREW' 'EVENT' 'COMMUNITY' 'PARTNERSHIP')}}
             <div class="content_body">
                 {{{body}}}
             </div>
-
-        {{else if (isEquals current_path 'CREW')}}
-            <div class="content_body">
-                {{{body}}}
-            </div>
-
-        {{else if (isEquals current_path 'EVENT')}}
-            <div class="content_body">
-                {{{body}}}
-            </div>
-
-        {{else if (isEquals current_path 'COMMUNITY')}}
-            <div class="content_body">
-                {{{body}}}
-            </div>
-
-        {{else if (isEquals current_path 'PARTNERSHIP')}}
-            <div class="content_body">
-                {{{body}}}
-            </div>
-
         {{else}}
         {{! start content }}
             <div id="content">

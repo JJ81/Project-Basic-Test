@@ -1207,7 +1207,6 @@ router.get('/private', httpToHttps, isAuthenticated, (req, res) => {
 				result[0].password = '******';
 
 				res.render('private' , {
-					// layout : false,
 					current_path: 'PRIVATE',
 					static : STATIC_URL,
 					title: PROJ_TITLE + ', 개인정보',
@@ -1337,8 +1336,6 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
  * 비밀번호 수정 페이지
  */
 router.get('/private/password', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
-	// todo 타당성 검사 결과 메시지 전달 처리
-
 	res.render('private-password', {
 		current_path: 'PRIVATE-PASSWORD',
 		static : STATIC_URL,
@@ -1421,7 +1418,7 @@ router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtecti
 							}
 						}else{
 							console.error(err);
-							req.flash('error', '서버상에 에러가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+							req.flash('error', MSG.SERVER_ERROR);
 							res.redirect('/private/password');
 						}
 					});
@@ -1431,12 +1428,12 @@ router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtecti
 
 			}else{
 				console.error('password is not matched.');
-				req.flash('msg_old_password', '입력한 비밀번호는 맞지 않습니다.');
+				req.flash('msg_old_password', MSG.INCORRECT_PW);
 				res.redirect('/private/password');
 			}
 		}else{
 			console.error(err);
-			req.flash('error', '서버상에 문제가 있습니다. 잠시 후에 다시 시도해주세요.');
+			req.flash('error', MSG.SERVER_ERROR);
 			res.redirect('/private/password');
 		}
 	});
@@ -1543,7 +1540,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 						static : STATIC_URL,
 						title: PROJ_TITLE + ', 아이디 찾기 결과',
 						loggedIn: req.user,
-						user_id : result[0].user_id
+						user_id : util.hiddenCharacter(result[0].user_id)
 					});
 				}else{
 					req.flash('error', MSG.THIRDPARTY_LOGIN);
@@ -1564,7 +1561,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 /**
  * 아이디 & 이메일 입력
  */
-router.get('/find/password', httpToHttps, csrfProtection, (req, res) => {
+router.get('/find/pw', httpToHttps, csrfProtection, (req, res) => {
 	res.render('find_pw', {
 		current_path: 'FINDPW',
 		static : STATIC_URL,
@@ -1628,6 +1625,7 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 			},
 			(result, token, done) => { // 정보를 레디스에 캐시
 				// todo 여기서 result가 비어 있을 경우 문제가 된다.
+
 				var _value = {
 					user_id : result[0].user_id,
 					email : result[0].email,

@@ -511,7 +511,7 @@ html, body {
 .community {
   margin-bottom: 100px; }
 
-.login-box, #signup {
+.login-box, #signup, .find_id_page, .find-pw-page, .result_find_id, .reset-pw, .private, .modify-email, .private-modify-pw, .insert-market-code {
   max-width: 535px;
   min-width: 300px;
   margin: 0 auto;
@@ -551,11 +551,11 @@ html, body {
 .secure_page {
   background: #fbfbfb; }
 
-.login-box .form-control-feedback, #signup .form-control-feedback {
+.login-box .form-control-feedback, #signup .form-control-feedback, .find_id_page .form-control-feedback, .find-pw-page .form-control-feedback, .result_find_id .form-control-feedback, .reset-pw .form-control-feedback, .private .form-control-feedback, .modify-email .form-control-feedback, .private-modify-pw .form-control-feedback, .insert-market-code .form-control-feedback {
   top: 9px; }
-.login-box .txt_input:focus, #signup .txt_input:focus {
+.login-box .txt_input:focus, .find_id_page .txt_input:focus, .find-pw-page .txt_input:focus, .result_find_id .txt_input:focus, .reset-pw .txt_input:focus, .private .txt_input:focus, .modify-email .txt_input:focus, .private-modify-pw .txt_input:focus, .insert-market-code .txt_input:focus, #signup .txt_input:focus {
   border-color: #b31515; }
-.login-box .btnLogin, #signup .btnLogin {
+.login-box .btnLogin, #signup .btnLogin, .find_id_page .btnLogin, .find-pw-page .btnLogin, .result_find_id .btnLogin, .reset-pw .btnLogin, .private .btnLogin, .modify-email .btnLogin, .private-modify-pw .btnLogin, .insert-market-code .btnLogin {
   background: #b31515;
   border: none;
   font-size: 16px;
@@ -563,24 +563,24 @@ html, body {
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold; }
-.login-box .btnLogin:hover, #signup .btnLogin:hover {
+.login-box .btnLogin:hover, #signup .btnLogin:hover, .find_id_page .btnLogin:hover, .find-pw-page .btnLogin:hover, .result_find_id .btnLogin:hover, .reset-pw .btnLogin:hover, .private .btnLogin:hover, .modify-email .btnLogin:hover, .private-modify-pw .btnLogin:hover, .insert-market-code .btnLogin:hover {
   background: #b31515; }
-.login-box .btnSignUp, #signup .btnSignUp {
+.login-box .btnSignUp, #signup .btnSignUp, .find_id_page .btnSignUp, .find-pw-page .btnSignUp, .result_find_id .btnSignUp, .reset-pw .btnSignUp, .private .btnSignUp, .modify-email .btnSignUp, .private-modify-pw .btnSignUp, .insert-market-code .btnSignUp {
   padding: 5px 10px !important;
   text-align: center;
   display: inline-block;
   color: #fff !important;
   background: #626262;
   border-radius: 5px; }
-.login-box .btnSignUp:hover, #signup .btnSignUp:hover {
+.login-box .btnSignUp:hover, #signup .btnSignUp:hover, .find_id_page .btnSignUp:hover, .find-pw-page .btnSignUp:hover, .result_find_id .btnSignUp:hover, .reset-pw .btnSignUp:hover, .private .btnSignUp:hover, .modify-email .btnSignUp:hover, .private-modify-pw .btnSignUp:hover, .insert-market-code .btnSignUp:hover {
   text-decoration: none; }
-.login-box .btnLoginArea, #signup .btnLoginArea {
+.login-box .btnLoginArea, #signup .btnLoginArea, .find_id_page .btnLoginArea, .find-pw-page .btnLoginArea, .result_find_id .btnLoginArea, .reset-pw .btnLoginArea, .private .btnLoginArea, .modify-email .btnLoginArea, .private-modify-pw .btnLoginArea, .insert-market-code .btnLoginArea {
   font-size: 15px;
   color: #626262;
   padding: 5px; }
-.login-box .btnArea, #signup .btnArea {
+.login-box .btnArea, #signup .btnArea, .find_id_page .btnArea, .find-pw-page .btnArea, .result_find_id .btnArea, .reset-pw .btnArea, .private .btnArea, .modify-email .btnArea, .private-modify-pw .btnArea, .insert-market-code .btnArea {
   margin-top: 20px; }
-.login-box .has-error, #signup .has-error {
+.login-box .has-error, #signup .has-error, .find_id_page .has-error, .find-pw-page .has-error, .result_find_id .has-error, .reset-pw .has-error, .private .has-error, .modify-email .has-error, .private-modify-pw .has-error, .insert-market-code .has-error {
   color: #f00;
   font-size: 15px;
   padding-bottom: 10px; }
@@ -629,6 +629,196 @@ html, body {
     padding: 15px;
     font-size: 15px; }
 #signup .msg {
+  font-size: 13px;
+  color: #f00; }
+
+.find_id_page .info {
+  font-size: 17px;
+  color: #666;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  margin: 40px 0; }
+.find_id_page .mail {
+  color: #ff5d5d; }
+.find_id_page .btnArea {
+  margin-top: 40px; }
+  .find_id_page .btnArea .btn-find-id {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .find_id_page .btnArea .btn-home {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.find_id_page .error {
+  font-size: 13px;
+  color: #f00; }
+
+.find-pw-page .error {
+  font-size: 13px;
+  color: #f00; }
+.find-pw-page .btnArea {
+  margin-top: 40px; }
+  .find-pw-page .btnArea .btn-find-pw {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .find-pw-page .btnArea .btn-home {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.find-pw-page .info {
+  font-size: 17px;
+  color: #666;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  margin: 40px 0; }
+.find-pw-page .mail {
+  color: #ff5d5d; }
+
+.result_find_id .btnArea {
+  margin-top: 40px; }
+  .result_find_id .btnArea .btn-login {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .result_find_id .btnArea .btn-home {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.result_find_id .info {
+  font-size: 17px;
+  color: #666;
+  font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
+  margin: 40px 0; }
+.result_find_id .result_user {
+  color: #ff5d5d;
+  font-size: 18px; }
+
+.reset-pw .btnArea {
+  margin-top: 40px; }
+  .reset-pw .btnArea .btn-reset-pw {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .reset-pw .btnArea .btn-login {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.reset-pw .error {
+  font-size: 13px;
+  color: #f00; }
+
+.modify-email .btnArea {
+  margin-top: 40px; }
+  .modify-email .btnArea .btn-modify-email {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .modify-email .btnArea .btn-private {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.modify-email .error {
+  font-size: 13px;
+  color: #f00; }
+
+.private-modify-pw .btnArea {
+  margin-top: 40px; }
+  .private-modify-pw .btnArea .btn-modify-pw {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .private-modify-pw .btnArea .btn-private {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.private-modify-pw .error {
+  font-size: 13px;
+  color: #f00; }
+
+.insert-market-code .error {
+  font-size: 13px;
+  color: #f00; }
+.insert-market-code .btnArea {
+  margin-top: 40px; }
+  .insert-market-code .btnArea .btn-insert-code {
+    float: left;
+    width: 49%;
+    margin-right: 1%;
+    background: #b31515;
+    color: #fff;
+    border-color: #b31515;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: bold; }
+  .insert-market-code .btnArea .btn-private {
+    float: left;
+    width: 49%;
+    margin-left: 1%;
+    position: relative;
+    top: 0;
+    padding: 15px;
+    font-size: 15px; }
+.insert-market-code .error {
   font-size: 13px;
   color: #f00; }
 

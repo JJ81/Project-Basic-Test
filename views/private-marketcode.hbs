@@ -1,12 +1,22 @@
-<h3>마케팅 코드 입력</h3>
-{{#if error}}<div class="error">{{error}}</div>{{/if}}
-<form action="/private/market-code/modify" method="post" class="form">
-    <legend>마케팅 코드 수정 페이지</legend>
-    <fieldset>
-        <input type="text" name="market_code" class="form-control" autocomplete="off" required autofocus placeholder="마케팅코드를 입력해주세요." />
-        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-        <hr />
-        <button type="submit" class="btn btn-primary">입력하기</button>
-        <a href="/private" class="btn btn-default">돌아가기</a>
-    </fieldset>
-</form>
+<h2 class="heading-s">마케팅 코드 입력</h2>
+
+<div class="insert-market-code">
+    <form action="/private/market-code/modify" method="post" class="form">
+        <legend>마케팅 코드 수정 페이지</legend>
+        <fieldset>
+            <div class="form-group">
+                <input type="text" name="market_code" class="form-control txt_input" autocomplete="off" required autofocus placeholder="마케팅코드를 입력해주세요." />
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+            {{#if error}}<div class="error">{{error}}</div>{{/if}}
+
+            <div class="btnArea clearfix">
+                <button type="submit" class="btn btn-primary btn-insert-code">입력하기</button>
+                <a href="/private" class="btn btn-default btn-private">돌아가기</a>
+            </div>
+
+        </fieldset>
+    </form>
+</div>

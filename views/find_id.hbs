@@ -1,20 +1,31 @@
-<h3>아이디 찾기</h3>
-{{#if error}}<div class="error">{{error}}</div>{{/if}}
-<form action="/find/id/result" method="post" class="form">
-    <legend>아이디 찾기 페이지</legend>
-    <fieldset>
-        <input type="text" name="nickname" class="form-control" autocomplete="off" required placeholder="닉네임을 입력해주세요." autofocus />
+<h2 class="heading-s">아이디 찾기</h2>
 
-        <input type="email" name="email" class="form-control" autocomplete="off" required placeholder="이메일을 입력해주세요." />
+<div class="find_id_page">
+    <form action="/find/id/result" method="post" class="form">
+        <legend>아이디 찾기 페이지</legend>
+        <fieldset>
+            <div class="form-group">
+                <input type="text" name="nickname" class="form-control txt_input" autocomplete="off" required placeholder="닉네임을 입력해주세요." autofocus />
+            </div>
 
-        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-        <br />
-        <p>도움이 필요하시다면, <a href="mailto:info@holdemclub.tv">info@holdemclub.tv</a>로 문의 주세요.</p>
-        <hr />
+            <div class="form-group">
+                <input type="email" name="email" class="form-control txt_input" autocomplete="off" required placeholder="이메일을 입력해주세요." />
+            </div>
 
-        <button type="submit" class="btn btn-primary">아이디 찾기</button>
-        <a href="/private" class="btn btn-default">돌아가기</a>
-    </fieldset>
-</form>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+
+            {{#if error}}<div class="error">{{error}}</div>{{/if}}
+            <p class="text-center info">도움이 필요하시다면, <a href="mailto:info@holdemclub.tv" class="mail">info@holdemclub.tv</a>로 문의 주세요.</p>
+
+
+            <div class="btnArea clearfix">
+                <button type="submit" class="btn btn-primary btn-find-id">아이디 찾기</button>
+                <a href="/private" class="btn btn-default btn-home">돌아가기</a>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+
 
 

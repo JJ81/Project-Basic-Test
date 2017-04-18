@@ -9,13 +9,17 @@ util.checkDigit = (num) => {
 	return (num.match(/\d+/g) != null);
 };
 
+
+// todo 옵셥을 몇 가지 더 추가하자
+// 뒤에서부터 숨기기, 앞에서부터 숨기기
+// 대치 문자 입력 받아서 적용하기 등
 util.hiddenCharacter = (character, digit) => {
 	var
 		size = character.length,
 		arr = character.split(''),
 		hiddenSize = digit || Math.ceil(size/2);
 	for(var i=0;i<size;i++){
-		if(i < hiddenSize){
+		if(i > hiddenSize){
 			arr[i] = '*';
 		}
 	}
