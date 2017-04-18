@@ -4,19 +4,7 @@
 <meta charset="utf-8" />
 {{! todo 로그인 회원가입 아이디찾기 비번찾기 로그인 등에서 모바일에서 접근할 경우와 PC에서 접근할 경우 별도의 뷰포트를 적용할 수 있도록 한다.  }}
 {{#if (isEquals isMobile 1 )}}
-    {{#if (isEquals current_path 'INDEX')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'VIDEOLIST')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'VIDEOVIEW')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'GAME')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'CREW')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'COMMUNITY')}}
-    <meta name="viewport" content="width=1100" />
-    {{else if (isEquals current_path 'PARTNERSHIP')}}
+    {{#if (isEqualsInArray current_path 'INDEX' 'VIDEOLIST' 'VIDEOVIEW' 'GAME' 'CREW' 'COMMUNITY' 'PARTNERSHIP' )}}
     <meta name="viewport" content="width=1100" />
     {{else}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
@@ -52,14 +40,14 @@
 <title>{{title}}</title>
 </head>
 
-<body {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE')}}class="secure_page"{{/if}}>
+<body {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}class="secure_page"{{/if}}>
 {{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 {{! End Google Tag Manager (noscript) }}
 
-{{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE')}}
+{{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}
     <div id="holdemclub">
         {{>header_simple}}
         {{{body}}}

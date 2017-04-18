@@ -186,10 +186,6 @@ const KakaoStrategy = require('passport-kakao').Strategy;
  * 서드파티로 로그인할 경우 이 함수를 통해서 회원가입을 진행시키고 로그인을 자동처리해준다.
  * @param info : 서드 파티로 부터 받은 유저 정보
  * @param done : passport로부터 받은 콜백
- * TODO 유저아이디와 닉네임을 수정할 수 있도록 고지를 해준다 대신 개인 정보를 볼 수 있고 수정할 수 있는 페이지가 필요하다.
- * todo 회원가입시 guid를 통해서 유저아이디와 닉네임을 임시로 사용할 수 있도록 한다. 8자리 숫자로 조합하는 형태
- * todo 세션에서 그리고 컬럼에서 닉네임 등을 설정하지 않을 것을 확인하고 페이지를 이동할 때마다 알려준다. user_fed에 컬럼 추가할 것 boolean
- * todo 중복 에러처리를 하나의 메서드로 만든다.
  */
 function loginByThirdparty(info, done) {
 	console.log('process : ' + info.auth_type);
@@ -222,15 +218,6 @@ function loginByThirdparty(info, done) {
 						// 신규 ->  기존 데이터와 비교하여 중복 확인할 것 -> 중복시 임의의 user_id, nickname을 생성하고 -> 회원가입 후 로그인 시킬 것.
 						console.log('New User');
 
-
-						/**
-						 * TODO 이곳은 서드파티 첫로그인(회원 가입)시키는 구간이다
-						 * TODO 1. user table에  서드파티 로그인 회원정보 저장 (user_id = auth_id를 입력(중복 제거, 로그인 이후 별도의 페이지에서 최초1회 수정하게해야됨(게임로그인을 위한 설정)), 최초 로그인 판단 칼럼 추가, auth_id 칼럼추가 FK 지정 )
-						 * TODO 2. user_federation table에 서드파티 로그인 유저 정보를 저장시킨다.
-						 * TODO 3. myhome 페이지에서 서드파티 로그인 유저만 아아디/닉네음을 1회만 수정가능하게 설정한다.
-						 * TODO 4. 서드파티 로그인 유저 판단 로직은? (user_id = auth.id, ???)
-						 *
-						 * */
 
 						var stmt_reg_new_user = 'insert into `user` set `user_id`=?, `nickname`=?, `email`=?, `last_login_dt`=?, `signup_dt`=?, `auth_id`=? ;';
 						var stmt_add_user_fed = 'insert into `user_federation` set `user_id`=?, `auth_type`=?, `auth_id`=?, `auth_name`=? ';
@@ -403,6 +390,7 @@ router.get('/auth/login/facebook/callback',
 
 
 /**
+ * TODO swagger
  * API-DOCS
  */
 router.get('/api-doc', (req, res) => {
@@ -434,21 +422,12 @@ var httpsToHttp = function (req, res, next) {
 };
 
 
-/**
- * 메인 페이지
- */
-
-// todo config 파일로 이동시키고 서버실행시 변경이 될 수 있도록 설정한다.
-const HOST_INFO = {
-	LOCAL : 'http://localhost:3002/api/',
-	VERSION : 'v2'
-};
-
-const HOST = `${HOST_INFO.LOCAL}${HOST_INFO.VERSION}`;
+const
+	HOST_INFO = require('../secret/config').API_INFO,
+	HOST = `${HOST_INFO.PATH}${HOST_INFO.VERSION}`;
 
 /**
  * landing page
- *
  */
 router.get('/', httpsToHttp, (req, res) => {
 	'use strict';
@@ -614,9 +593,8 @@ router.get('/', httpsToHttp, (req, res) => {
 	});
 });
 
-// TODO 모든 라우터에서 항상 추춴방송, 전체 채널, 방송 여부에 대한 데이터를 항상 데이터를 가져와야 한다
 
-
+// @Deprecated
 router.get('/event', (req, res) => {
 	'use strict';
 
@@ -653,7 +631,11 @@ router.get('/event', (req, res) => {
 
 });
 
-// 이벤트 결과 페이지
+/**
+ * @Deprecated
+ * 이벤트 결과 페이지
+ */
+
 router.get('/event/:id/result', (req, res) => {
 	'use strict';
 
@@ -680,9 +662,10 @@ router.get('/event/:id/result', (req, res) => {
 });
 
 /**
+ * @Deprecated
  * 진행중인 혹은 진행이 되기 전 이벤트에 대한 정보 페이지
+ * // todo ref_id 관련 수정이 필요할지도
  */
-// todo ref_id 관련 수정이 필요할지도
 router.get('/event/:ref_id/information', (req, res) => {
 	'use strict';
 
@@ -742,10 +725,6 @@ router.get('/event/:ref_id/information', (req, res) => {
  * 비디오 리스트 뷰
  */
 router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
-	// todo get을 통해서 데이터를 받는 부분에 대한 검증이 이루어지고
-	// todo 해당 데이터를 리턴받을 수 있는 유틸을 만들어보자.
-	// todo 어떤 모듈을 이용해야 하는지 조사하고 한 곳에서 반영해보자
-	// todo connection 자체에서 제공하고 있는 기능에 대해서도 조사를 해보자.
 	'use strict';
 
 	let _channel_id = sanitize(req.params.channel_id.trim());
@@ -753,7 +732,6 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 	if(_channel_id === ''){
 		throw new Error(MSG.WRONG_ACCESS);
 	}
-
 
 	async.parallel(
 		[
@@ -1036,12 +1014,8 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 });
 
 
-
-
-
 /**
  * 회원가입 처리
- * todo https로 처리할 것
  * http로 진입이 되었을 경우 에러 처리
  */
 router.post('/signup', parseForm, csrfProtection, (req, res) => {
@@ -1127,42 +1101,42 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 
 			// 아이디 중복 검사
 			if(!result[0].data.valid){
-				req.flash('username', '중복된 아이디입니다.');
+				req.flash('username', MSG.DUPLICATED_ID);
 				isPass = false;
 			}
 
 			// 닉네임 중복검사
 			if(!result[1].data.valid){
-				req.flash('nickname', '중복된 닉네임입니다.');
+				req.flash('nickname', MSG.DUPLICATED_NICKNAME);
 				isPass = false;
 			}
 
 			// 이메일 중복 검사
 			if(!result[2].data.valid){
-				req.flash('email', '중복된 이메일입니다.');
+				req.flash('email', MSG.DUPLICATED_EMAIL);
 				isPass = false;
 			}
 
 			if(_info.password !== _info.re_password){
-				req.flash('password', '입력한 비밀번호가 일치하지 않습니다. ');
-				req.flash('re_password', '입력한 비밀번호가 일치하지 않습니다. ');
+				req.flash('password', MSG.NO_CORRECT_PW);
+				req.flash('re_password', MSG.NO_CORRECT_PW);
 				isPass = false;
 			}
 
 			if(_info.password.length < 8 || _info.re_password.length < 8){
-				req.flash('password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
-				req.flash('re_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+				req.flash('password', MSG.PW_NEEDED);
+				req.flash('re_password', MSG.PW_NEEDED);
 				isPass = false;
 			}
 
 			if(!util.checkDigit(_info.password) || !util.checkDigit(_info.re_password)){
-				req.flash('password', '숫자가 포함되어야 합니다.');
-				req.flash('re_password', '숫자가 포함되어야 합니다.');
+				req.flash('password', MSG.DIGIT_NEEDED);
+				req.flash('re_password', MSG.DIGIT_NEEDED);
 				isPass = false;
 			}
 
 			if(!util.checkIsEmail(_info.email)){
-				req.flash('email', '이메일 형식이 맞지 않습니다.');
+				req.flash('email', MSG.NO_FORMET_EMAIL);
 				isPass = false;
 			}
 
@@ -1170,12 +1144,11 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 				axios.post(`${HOST}/signup`, _info)
 					.then((response)=>{
 						if(response.data.success){
-							// todo 로그인 화면으로 넘어가기 전에 메모리를 비워주거나 비워주는 설정이 필요하다? 자연스럽게 사라지는 것이 기본 세팅인 듯하다.
 							res.redirect('/login');
 						}
 					}).catch((error)=>{
 						console.error(error);
-						req.flash('error', '서버에 문제가 생겼습니다. 잠시 후에 다시 시도해주세요.');
+						req.flash('error', MSG.SERVER_ERROR);
 						res.redirect('signup');
 					});
 			}else{
@@ -1183,7 +1156,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 			}
 		}else{
 			console.error(err);
-			req.flash('error', '서버에 문제가 생겼습니다. 잠시 후에 다시 시도해주세요.');
+			req.flash('error', MSG.SERVER_ERROR);
 			res.redirect('/signup');
 		}
 	});
@@ -1255,12 +1228,12 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 
 	// 빈 값 처리
 	if(_info.email === '' || _info.password === ''){
-		req.flash('error', '정상적인 접근이 아닙니다. 다시 시도해주세요.');
+		req.flash('error', MSG.WRONG_ACCESS);
 		res.redirect('/private/email');
 	}
 
 	if(!util.checkIsEmail(_info.email)){
-		req.flash('email', '이메일 형식이 올바르지 않습니다.');
+		req.flash('email', MSG.NO_FORMET_EMAIL);
 		res.redirect('/private/email');
 	}
 
@@ -1296,13 +1269,13 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 		if(!err){
 
 			if(!result[0].valid){
-				req.flash('msg_email', '중복된 이메일입니다.');
+				req.flash('msg_email', MSG.DUPLICATED_EMAIL);
 			}else{
 				req.flash('email', _info.email);
 			}
 
 			if(!result[1].valid){
-				req.flash('msg_password', '비밀번호가 맞지 않습니다.');
+				req.flash('msg_password', MSG.INCORRECT_PW);
 			}
 
 			if(result[0].valid && result[1].valid){
@@ -1316,7 +1289,7 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 						req.flash('email', null);
 						res.redirect('/private');
 					}else{
-						req.flash('error', '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+						req.flash('error', MSG.SERVER_ERROR);
 						res.redirect('/private/email');
 					}
 				});
@@ -1325,7 +1298,7 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 			}
 
 		}else{
-			req.flash('error', '서버에 문제가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+			req.flash('error', MSG.SERVER_ERROR);
 			console.error(err);
 			res.redirect('/private/email');
 		}
@@ -1374,20 +1347,20 @@ router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtecti
 
 	// 입력한 비밀번호 일치 여부
 	if(_info.new_password !== _info.re_password){
-		req.flash('msg_new_password', '입력한 비밀번호가 일치하지 않습니다.');
-		req.flash('msg_re_password', '입력한 비밀번호가 일치하지 않습니다.');
+		req.flash('msg_new_password', MSG.INCORRECT_PW);
+		req.flash('msg_re_password', MSG.INCORRECT_PW);
 		isPass = false;
 	}
 
 	if(_info.new_password.length < 8 || _info.re_password.length < 8){
-		req.flash('msg_new_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
-		req.flash('msg_re_password', '문자와 숫자를 포함하여 8자 이상 입력해야 합니다. ');
+		req.flash('msg_new_password', MSG.PW_NEEDED);
+		req.flash('msg_re_password', MSG.PW_NEEDED);
 		isPass = false;
 	}
 
 	if(!util.checkDigit(_info.new_password) || !util.checkDigit(_info.re_password)){
-		req.flash('msg_new_password', '숫자가 포함되어야 합니다.');
-		req.flash('msg_re_password', '숫자가 포함되어야 합니다.');
+		req.flash('msg_new_password', MSG.DIGIT_NEEDED);
+		req.flash('msg_re_password', MSG.DIGIT_NEEDED);
 		isPass = false;
 	}
 
@@ -1468,7 +1441,7 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
 
 	// 빈값 등을 처리
 	if(_info.market_code === ''){
-		req.flash('market_code', '잘못된 접근입니다.');
+		req.flash('market_code', MSG.WRONG_ACCESS);
 		res.redirect('/private/market-code');
 	}
 
@@ -1480,18 +1453,18 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
 					if(!err){
 						res.redirect('/private');
 					}else{
-						req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 대시 시도해주세요.');
+						req.flash('error', MSG.SERVER_ERROR);
 						res.redirect('/private/market-code');
 					}
 				});
 			}else{
-				console.error('에러가 발생했다.');
-				req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+				console.error('This user has already one.');
+				req.flash('error', MSG.SERVER_ERROR);
 				res.redirect('/private/market_code');
 			}
 		}else{
 			console.error(err);
-			req.flash('error', '서버상의 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.');
+			req.flash('error', MSG.SERVER_ERROR);
 			res.redirect('/private/market_code');
 		}
 	});
@@ -1748,22 +1721,22 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 	// todo 위의 두 블록코드는 외부 모듈로 분리하여 공통으로 사용할 수 있도록 변경할 것
 
 	if(_info.password !== _info.re_password){
-		req.flash('msg_password', '비밀번호가 일치하지 않습니다.');
+		req.flash('msg_password', MSG.INCORRECT_PW);
 		isPass = false;
 	}
 
 	if(!util.checkContainLetter(_info.password)){
-		req.flash('msg_password', '비밀번호에 문자가 포함되어 있지 않습니다.');
+		req.flash('msg_password', MSG.LETTER_NEEDED);
 		isPass = false;
 	}
 
 	if(!util.checkDigit(_info.password)){
-		req.flash('msg_password', '비밀번호에 숫자가 포함되어 있지 않습니다.');
+		req.flash('msg_password', MSG.DIGIT_NEEDED);
 		isPass = false;
 	}
 
 	if(_info.password.length < 8){
-		req.flash('msg_password', '비밀번호는 보안을 위해서 8자 이상 입력을 해야합니다.');
+		req.flash('msg_password', MSG.NEED_EIGHT_LETTER);
 		isPass = false;
 	}
 
@@ -1810,8 +1783,8 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 	}
 });
 
-
-router.get('/partnership', (req, res)=> {
+// todo https -> http
+router.get('/partnership', httpsToHttp, (req, res)=> {
 	res.render('partnership', {
 		current_path: 'PARTNERSHIP',
 		static : STATIC_URL,
@@ -1820,7 +1793,7 @@ router.get('/partnership', (req, res)=> {
 	});
 });
 
-router.get('/community', (req, res)=> {
+router.get('/community', httpsToHttp, (req, res)=> {
 	res.render('community', {
 		current_path: 'COMMUNITY',
 		static : STATIC_URL,
@@ -1829,7 +1802,7 @@ router.get('/community', (req, res)=> {
 	});
 });
 
-router.get('/game', (req, res)=> {
+router.get('/game', httpsToHttp, (req, res)=> {
 	res.render('game', {
 		current_path: 'GAME',
 		static : STATIC_URL,
@@ -1838,12 +1811,29 @@ router.get('/game', (req, res)=> {
 	});
 });
 
-router.get('/crew', (req, res)=> {
-
+router.get('/crew', httpsToHttp, (req, res)=> {
 	res.render('crew', {
 		current_path: 'CREW',
 		static : STATIC_URL,
 		title: PROJ_TITLE + ', 크루',
+		loggedIn: req.user
+	});
+});
+
+router.get('/usage', httpsToHttp, (req, res)=> {
+	res.render('usage', {
+		current_path: 'USAGE',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 이용약관',
+		loggedIn: req.user
+	});
+});
+
+router.get('/privacy', httpsToHttp, (req, res)=> {
+	res.render('privacy', {
+		current_path: 'PRIVACY',
+		static : STATIC_URL,
+		title: PROJ_TITLE + ', 개인정보취급방침',
 		loggedIn: req.user
 	});
 });

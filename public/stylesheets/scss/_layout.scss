@@ -369,6 +369,7 @@ html, body{
     font-family: $font-common;
     font-size: 18px;
     padding-bottom: 8px;
+    position: relative;
   }
   .img_logo{
     border: none;
@@ -1115,3 +1116,31 @@ html, body{
     color: #f00;
   }
 }
+
+.btnCloseNav{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.usage,
+.privacy{
+  @extend .login-box;
+  max-width: $whole-width;
+  text-align: justify;
+}
+
+.game{
+  text-align: center;
+  .bg01{
+    background: #070707;
+  }
+
+  .bg02{
+    background: #fafafa;
+  }
+}
+
+
+
+

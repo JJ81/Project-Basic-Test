@@ -302,7 +302,8 @@ html, body {
     color: #f5f4f4;
     font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc;
     font-size: 18px;
-    padding-bottom: 8px; }
+    padding-bottom: 8px;
+    position: relative; }
   .sub_nav .img_logo {
     border: none; }
 
@@ -511,7 +512,8 @@ html, body {
 .community {
   margin-bottom: 100px; }
 
-.login-box, #signup, .find_id_page, .find-pw-page, .result_find_id, .reset-pw, .private, .modify-email, .private-modify-pw, .insert-market-code {
+.login-box, #signup, .find_id_page, .find-pw-page, .result_find_id, .reset-pw, .private, .modify-email, .private-modify-pw, .insert-market-code, .usage,
+.privacy {
   max-width: 535px;
   min-width: 300px;
   margin: 0 auto;
@@ -551,11 +553,14 @@ html, body {
 .secure_page {
   background: #fbfbfb; }
 
-.login-box .form-control-feedback, #signup .form-control-feedback, .find_id_page .form-control-feedback, .find-pw-page .form-control-feedback, .result_find_id .form-control-feedback, .reset-pw .form-control-feedback, .private .form-control-feedback, .modify-email .form-control-feedback, .private-modify-pw .form-control-feedback, .insert-market-code .form-control-feedback {
+.login-box .form-control-feedback, #signup .form-control-feedback, .find_id_page .form-control-feedback, .find-pw-page .form-control-feedback, .result_find_id .form-control-feedback, .reset-pw .form-control-feedback, .private .form-control-feedback, .modify-email .form-control-feedback, .private-modify-pw .form-control-feedback, .insert-market-code .form-control-feedback, .usage .form-control-feedback,
+.privacy .form-control-feedback {
   top: 9px; }
-.login-box .txt_input:focus, .find_id_page .txt_input:focus, .find-pw-page .txt_input:focus, .result_find_id .txt_input:focus, .reset-pw .txt_input:focus, .private .txt_input:focus, .modify-email .txt_input:focus, .private-modify-pw .txt_input:focus, .insert-market-code .txt_input:focus, #signup .txt_input:focus {
+.login-box .txt_input:focus, .find_id_page .txt_input:focus, .find-pw-page .txt_input:focus, .result_find_id .txt_input:focus, .reset-pw .txt_input:focus, .private .txt_input:focus, .modify-email .txt_input:focus, .private-modify-pw .txt_input:focus, .insert-market-code .txt_input:focus, .usage .txt_input:focus,
+.privacy .txt_input:focus, #signup .txt_input:focus {
   border-color: #b31515; }
-.login-box .btnLogin, #signup .btnLogin, .find_id_page .btnLogin, .find-pw-page .btnLogin, .result_find_id .btnLogin, .reset-pw .btnLogin, .private .btnLogin, .modify-email .btnLogin, .private-modify-pw .btnLogin, .insert-market-code .btnLogin {
+.login-box .btnLogin, #signup .btnLogin, .find_id_page .btnLogin, .find-pw-page .btnLogin, .result_find_id .btnLogin, .reset-pw .btnLogin, .private .btnLogin, .modify-email .btnLogin, .private-modify-pw .btnLogin, .insert-market-code .btnLogin, .usage .btnLogin,
+.privacy .btnLogin {
   background: #b31515;
   border: none;
   font-size: 16px;
@@ -563,24 +568,30 @@ html, body {
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold; }
-.login-box .btnLogin:hover, #signup .btnLogin:hover, .find_id_page .btnLogin:hover, .find-pw-page .btnLogin:hover, .result_find_id .btnLogin:hover, .reset-pw .btnLogin:hover, .private .btnLogin:hover, .modify-email .btnLogin:hover, .private-modify-pw .btnLogin:hover, .insert-market-code .btnLogin:hover {
+.login-box .btnLogin:hover, #signup .btnLogin:hover, .find_id_page .btnLogin:hover, .find-pw-page .btnLogin:hover, .result_find_id .btnLogin:hover, .reset-pw .btnLogin:hover, .private .btnLogin:hover, .modify-email .btnLogin:hover, .private-modify-pw .btnLogin:hover, .insert-market-code .btnLogin:hover, .usage .btnLogin:hover,
+.privacy .btnLogin:hover {
   background: #b31515; }
-.login-box .btnSignUp, #signup .btnSignUp, .find_id_page .btnSignUp, .find-pw-page .btnSignUp, .result_find_id .btnSignUp, .reset-pw .btnSignUp, .private .btnSignUp, .modify-email .btnSignUp, .private-modify-pw .btnSignUp, .insert-market-code .btnSignUp {
+.login-box .btnSignUp, #signup .btnSignUp, .find_id_page .btnSignUp, .find-pw-page .btnSignUp, .result_find_id .btnSignUp, .reset-pw .btnSignUp, .private .btnSignUp, .modify-email .btnSignUp, .private-modify-pw .btnSignUp, .insert-market-code .btnSignUp, .usage .btnSignUp,
+.privacy .btnSignUp {
   padding: 5px 10px !important;
   text-align: center;
   display: inline-block;
   color: #fff !important;
   background: #626262;
   border-radius: 5px; }
-.login-box .btnSignUp:hover, #signup .btnSignUp:hover, .find_id_page .btnSignUp:hover, .find-pw-page .btnSignUp:hover, .result_find_id .btnSignUp:hover, .reset-pw .btnSignUp:hover, .private .btnSignUp:hover, .modify-email .btnSignUp:hover, .private-modify-pw .btnSignUp:hover, .insert-market-code .btnSignUp:hover {
+.login-box .btnSignUp:hover, #signup .btnSignUp:hover, .find_id_page .btnSignUp:hover, .find-pw-page .btnSignUp:hover, .result_find_id .btnSignUp:hover, .reset-pw .btnSignUp:hover, .private .btnSignUp:hover, .modify-email .btnSignUp:hover, .private-modify-pw .btnSignUp:hover, .insert-market-code .btnSignUp:hover, .usage .btnSignUp:hover,
+.privacy .btnSignUp:hover {
   text-decoration: none; }
-.login-box .btnLoginArea, #signup .btnLoginArea, .find_id_page .btnLoginArea, .find-pw-page .btnLoginArea, .result_find_id .btnLoginArea, .reset-pw .btnLoginArea, .private .btnLoginArea, .modify-email .btnLoginArea, .private-modify-pw .btnLoginArea, .insert-market-code .btnLoginArea {
+.login-box .btnLoginArea, #signup .btnLoginArea, .find_id_page .btnLoginArea, .find-pw-page .btnLoginArea, .result_find_id .btnLoginArea, .reset-pw .btnLoginArea, .private .btnLoginArea, .modify-email .btnLoginArea, .private-modify-pw .btnLoginArea, .insert-market-code .btnLoginArea, .usage .btnLoginArea,
+.privacy .btnLoginArea {
   font-size: 15px;
   color: #626262;
   padding: 5px; }
-.login-box .btnArea, #signup .btnArea, .find_id_page .btnArea, .find-pw-page .btnArea, .result_find_id .btnArea, .reset-pw .btnArea, .private .btnArea, .modify-email .btnArea, .private-modify-pw .btnArea, .insert-market-code .btnArea {
+.login-box .btnArea, #signup .btnArea, .find_id_page .btnArea, .find-pw-page .btnArea, .result_find_id .btnArea, .reset-pw .btnArea, .private .btnArea, .modify-email .btnArea, .private-modify-pw .btnArea, .insert-market-code .btnArea, .usage .btnArea,
+.privacy .btnArea {
   margin-top: 20px; }
-.login-box .has-error, #signup .has-error, .find_id_page .has-error, .find-pw-page .has-error, .result_find_id .has-error, .reset-pw .has-error, .private .has-error, .modify-email .has-error, .private-modify-pw .has-error, .insert-market-code .has-error {
+.login-box .has-error, #signup .has-error, .find_id_page .has-error, .find-pw-page .has-error, .result_find_id .has-error, .reset-pw .has-error, .private .has-error, .modify-email .has-error, .private-modify-pw .has-error, .insert-market-code .has-error, .usage .has-error,
+.privacy .has-error {
   color: #f00;
   font-size: 15px;
   padding-bottom: 10px; }
@@ -821,6 +832,23 @@ html, body {
 .insert-market-code .error {
   font-size: 13px;
   color: #f00; }
+
+.btnCloseNav {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.usage,
+.privacy {
+  max-width: 1080px;
+  text-align: justify; }
+
+.game {
+  text-align: center; }
+  .game .bg01 {
+    background: #070707; }
+  .game .bg02 {
+    background: #fafafa; }
 
 /* --- Reset --- */
 /* --- Font --- */

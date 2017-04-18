@@ -2,6 +2,7 @@
  * Created by yijaejun on 14/12/2016.
  */
 'use strict';
+import $ from '../components/jquery/dist/jquery.min';
 
 let utils = {};
 
@@ -40,5 +41,27 @@ utils.isMobile = () => {
 		return false;
 	}
 };
+
+(function (){
+	// left nav controller
+
+	var
+		leftNavClose = $('.btnCloseNav'),
+		sub_nav = $('.sub_nav'),
+		nav_list = $('.nav_list');
+
+	nav_list.bind('mouseenter', () => {
+		sub_nav.removeClass('blind');
+		return false;
+	});
+
+
+	leftNavClose.bind('click', () => {
+		sub_nav.addClass('blind');
+		return false;
+	});
+
+
+}());
 
 export default utils;

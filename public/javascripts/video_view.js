@@ -7,12 +7,7 @@
 'use strict';
 
 import $ from '../components/jquery/dist/jquery.min';
-
-// todo [bug] 아래 두 파일은 compile & uglify에서 제외시킨다.
-//import videojs from './vendor/videojs';
-//import youtubejs from './vendor/youtube.min';
-
-// import utils from './utils';
+import utils from './utils';
 
 
 var clearVideoId = null; // 비디오가 시작된 시간으로부터 카운트 ID
