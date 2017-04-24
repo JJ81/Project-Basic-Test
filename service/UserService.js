@@ -261,4 +261,77 @@ UserService.StoreNewPassword= (user_info, callback) => {
 		});
 };
 
+/////////////////////////////////////
+//////// 여기서부터 로그인 API관련 ////////
+/////////////////////////////////////
+
+/**
+ *
+ * @param connection
+ * @param user_id
+ * @param callback
+ * @constructor
+ */
+UserService.DoLogin = (user_id, callback) => {
+	connection.query(QUERY.USER.Login, user_id, (err, result) => {
+		if (!err) {
+			callback(null, result);
+		}else{
+			console.error(err);
+			callback(err, null);
+		}
+	});
+};
+
+/**
+ *
+ * @param user_id
+ * @param callback
+ * @constructor
+ */
+UserService.AddLoginFailedCount = (user_id, callback) => {
+	connection.query(QUERY.USER.FailToLogin, user_id, (err, result) => {
+		if (!err) {
+			callback(null, result);
+		}else{
+			console.error(err);
+			callback(err, null);
+		}
+	});
+};
+
+/**
+ *
+ * @param connection
+ * @param user_id
+ * @param callback
+ */
+UserService.ClearFailedCount = (user_id, callback) => {
+	connection.query(QUERY.USER.ClearFailedCount, user_id, (err, result) => {
+		if (!err) {
+			callback(null, result);
+		} else {
+			console.error(err);
+			callback(err, null);
+		}
+	});
+};
+
+/**
+ *
+ * @param connection
+ * @param user_id
+ * @param callback
+ */
+UserService.UpdateGameLog = (user_id, callback) => {
+	connection.query(QUERY.USER.UpdateGameLog, user_id, (err, result) => {
+		if (!err) {
+			callback(null, result);
+		} else {
+			console.error(err);
+			callback(err, null);
+		}
+	});
+};
+
 module.exports = UserService;
