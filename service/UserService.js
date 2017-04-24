@@ -273,7 +273,7 @@ UserService.StoreNewPassword= (user_info, callback) => {
  * @constructor
  */
 UserService.DoLogin = (user_id, callback) => {
-	connection.query(QUERY.USER.Login, user_id, (err, result) => {
+	connection.query(QUERY.USER.Login, [user_id], (err, result) => {
 		if (!err) {
 			callback(null, result);
 		}else{
@@ -290,7 +290,7 @@ UserService.DoLogin = (user_id, callback) => {
  * @constructor
  */
 UserService.AddLoginFailedCount = (user_id, callback) => {
-	connection.query(QUERY.USER.FailToLogin, user_id, (err, result) => {
+	connection.query(QUERY.USER.FailToLogin, [user_id], (err, result) => {
 		if (!err) {
 			callback(null, result);
 		}else{
@@ -307,7 +307,7 @@ UserService.AddLoginFailedCount = (user_id, callback) => {
  * @param callback
  */
 UserService.ClearFailedCount = (user_id, callback) => {
-	connection.query(QUERY.USER.ClearFailedCount, user_id, (err, result) => {
+	connection.query(QUERY.USER.ClearFailedCount, [user_id], (err, result) => {
 		if (!err) {
 			callback(null, result);
 		} else {
@@ -324,7 +324,18 @@ UserService.ClearFailedCount = (user_id, callback) => {
  * @param callback
  */
 UserService.UpdateGameLog = (user_id, callback) => {
-	connection.query(QUERY.USER.UpdateGameLog, user_id, (err, result) => {
+	connection.query(QUERY.USER.UpdateGameLog, [user_id], (err, result) => {
+		if (!err) {
+			callback(null, result);
+		} else {
+			console.error(err);
+			callback(err, null);
+		}
+	});
+};
+
+UserService.UpdateLoginDate = (user_id, callback) => {
+	connection.query(QUERY.USER.UpdateLoginDate, [user_id], (err, result) => {
 		if (!err) {
 			callback(null, result);
 		} else {

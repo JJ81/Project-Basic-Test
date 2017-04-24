@@ -11,8 +11,8 @@ const
 	UTIL = require('../util/util'),
 	UserService = require('../service/UserService'),
 	Reply = require('../service/ReplyService'),
-	ReReply = require('../service/ReRelyService');
-
+	ReReply = require('../service/ReRelyService'),
+	sanitize = require('sanitize-html');
 
 /**
  * 회원가입
@@ -811,8 +811,8 @@ router.post('/login', (req, res) => {
 	'use strict';
 
 	let
-		user_id = req.body.user_id,
-		password = req.body.password;
+		user_id = sanitize(req.body.user_id.trim()),
+		password = sanitize(req.body.password.trim());
 
 	// 입력값에 대한 검사
 	if(user_id === '' || password === ''){
@@ -905,7 +905,7 @@ router.post('/login', (req, res) => {
 							// 암호가 일치할 경우
 							async.parallel(
 								[
-									// 로그인 실패 횟수를 0로 변경한다.
+									// // 로그인 실패 횟수를 0로 변경한다.
 									function (cb) {
 										UserService.ClearFailedCount(user_id, (err, rows) => {
 											if(!err){
@@ -916,7 +916,7 @@ router.post('/login', (req, res) => {
 											}
 										});
 									},
-									// 이곳에서 로그인을 한 시간 기록을 할 수 있도록 한다.
+									// // 이곳에서 로그인을 한 시간을 기록할 수 있도록 한다.
 									function (cb) {
 										UserService.UpdateGameLog(user_id, (err, rows) => {
 											if(!err){
@@ -926,22 +926,35 @@ router.post('/login', (req, res) => {
 												cb(err, null);
 											}
 										});
+									},
+
+									function (cb) {
+										UserService.UpdateLoginDate(user_id, (err, rows) => {
+											if(!err){
+												cb(null, rows);
+											}else{
+												console.error(err);
+												cb(err, null);
+											}
+										});
 									}
 								], (err, result) => {
-									if(err){
-										console.error(`[${user_id} / error on the result] ${result} (login part)`);
-									}
+								if(err){
+									console.error(`[${user_id} / error on the result] ${result} (login part)`);
+									console.error(err);
+								}
 
-									console.info(`[User : ${user_id}] This account is loggined successfully.`);
-									res.status(200);
-									res.json({
-										'status': res.statusCode,
-										'success': true,
-										'msg': '로그인에 성공했습니다.',
-										'result': LOGIN_ERROR_RESULT.LOGIN_SUCCESS,
-										'data': data
-									});
+								console.info(`[User : ${user_id}] This account is loggined successfully.`);
+
+								res.status(200);
+								res.json({
+									'status': res.statusCode,
+									'success': true,
+									'msg': '로그인에 성공했습니다.',
+									'result': LOGIN_ERROR_RESULT.LOGIN_SUCCESS,
+									'data': data
 								});
+							});
 						}
 					}
 				}
