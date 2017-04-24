@@ -70,16 +70,18 @@ global.PROJ_TITLE = '홀덤클럽티비';
 
 const isMobile = require('is-mobile');
 
-app.use((req, res, next) => {
-	res.locals.version  = '2.0.0';
-	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
-	next();
-});
+// app.use((req, res, next) => {
+// 	res.locals.version  = '2.0.0';
+// 	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
+// 	next();
+// });
 
-app.use('/', routes);
-app.use('/api/v1/', api);
-app.use('/api/v2/', api);
+// app.use('/', routes);
+// app.use('/api/v1/', api);
+// app.use('/api/v2/', api);
 
+
+app.use('/', api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
