@@ -68,7 +68,7 @@ app.enable('trust proxy');
 
 global.PROJ_TITLE = '홀덤클럽티비';
 
-const isMobile = require('is-mobile');
+// const isMobile = require('is-mobile');
 
 // app.use((req, res, next) => {
 // 	res.locals.version  = '2.0.0';
@@ -80,17 +80,18 @@ const isMobile = require('is-mobile');
 // app.use('/api/v1/', api);
 // app.use('/api/v2/', api);
 
-
+// api
 app.use('/', api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
 	res.status(404);
-	res.render('404', {
-		current_path: '404 Error Page',
-		title: PROJ_TITLE + 'ERROR PAGE',
-		loggedIn: req.user
-	});
+	res.send('Holdemclubtv v2.0 (404)');
+	// res.render('404', {
+	// 	current_path: '404 Error Page',
+	// 	title: PROJ_TITLE + 'ERROR PAGE',
+	// 	loggedIn: req.user
+	// });
 });
 
 // error handlers
@@ -122,11 +123,12 @@ if(app.get('env') === 'production'){
 
 		// todo log@holdemclub.tv로 받을 수 있도록 한다.
 		console.error(err.stack);
+		res.send('Holdemclubtv v2.0 (500)');
+		// res.render('500', {
+		// 	current_path: '500 Error Page',
+		// 	title: PROJ_TITLE + 'ERROR PAGE'
+		// });
 
-		res.render('500', {
-			current_path: '500 Error Page',
-			title: PROJ_TITLE + 'ERROR PAGE'
-		});
 	});
 }
 
