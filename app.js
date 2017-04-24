@@ -81,7 +81,8 @@ global.PROJ_TITLE = '홀덤클럽티비';
 // app.use('/api/v2/', api);
 
 // api
-app.use('/', api);
+app.use('/v1', api);
+app.use('/v2', api);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
