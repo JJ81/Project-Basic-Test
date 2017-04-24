@@ -9,11 +9,9 @@
             </a>
             <div class="caption full">
                 <strong><a href="#">{{title}}</a></strong>
-                <!--<p><a href="/en/tv/channels/2017/02/pokerstars-top-5---most-controversial-poker-hands.shtml">Poker is a game that is typically played in good spirits with a keen sense of fairness and etiquette...but sometimes all hell breaks loose!</a></p>-->
             </div>
             <div class="caption small">
                 <strong><a href="#">{{sub_title}}</a></strong>
-                <!--<p><a href="/en/tv/channels/2017/02/pokerstars-top-5---most-controversial-poker-hands.shtml">Controversies </a></p>-->
             </div>
         </div>
         {{/each}}
@@ -69,36 +67,23 @@
 </ul>
 {{/if}}
 
+
+
+{{#if summary}}
+<h4 class="heading">포커 요약 콘텐츠</h4>
+<ul class="recent_update clearfix">
+    {{#each summary}}
+    <li class="update_list">
+        <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
+            <span class="title">{{title}}</span>
+            <span class="date">{{date created_dt}}</span>
+            <span class="split">·</span>
+            <span class="hits">조회수 {{comma-number hits}}</span>
+        </a>
+    </li>
+    {{/each}}
+</ul>
+{{/if}}
+
 <div class="spacer"></div>
-
-<!--{{#if summary}}-->
-<!--<h4 class="heading">포커 요약 콘텐츠</h4>-->
-<!--<ul>-->
-    <!--{{#each summary}}-->
-    <!--<li>-->
-        <!--<a href="/channel/{{channel_id}}/video/{{video_id}}">-->
-            <!--<img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" /><br />-->
-            <!--{{title}}-->
-        <!--</a>-->
-    <!--</li>-->
-    <!--{{/each}}-->
-<!--</ul>-->
-<!--{{/if}}-->
-
-
-<!-- Community -->
-<!--<article class="community">-->
-    <!--<h4 class="heading">제휴 커뮤니티</h4>-->
-    <!--<div class="row">-->
-        <!--<div class="col-xs-12 col-sm-6 text-center">-->
-            <!--<a href="#" target="_blank" class="btn_commnity">-->
-                <!--<img src="/static/images/img_facebook.jpg" alt="" class="img_community" />-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="col-xs-12 col-sm-6 text-center">-->
-            <!--<a href="#" target="_blank" class="btn_commnity">-->
-                <!--<img src="/static/images/img_facebook.jpg" alt="" class="img_community" />-->
-            <!--</a>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</article>-->
