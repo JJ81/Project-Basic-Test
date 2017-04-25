@@ -10,7 +10,7 @@ const async = require('async');
 const QUERY = require('../database/query');
 const JSON = require('JSON');
 const fs = require('fs');
-const secret_config = require('../secret/federation');
+// const secret_config = require('../secret/federation');
 
 if(express().get('env') === 'production'){
 	require('../database/redis')(router, 'real');
