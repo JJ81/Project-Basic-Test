@@ -18,7 +18,7 @@ const errorHandler = require('errorhandler');
 const cookieSession = require('cookie-session');
 const helmet = require('helmet');
 /*routes*/
-const routes = require('./routes/index');
+// const routes = require('./routes/index');
 const api = require('./api/api');
 
 // view engine setup

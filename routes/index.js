@@ -288,104 +288,104 @@ function loginByThirdparty(info, done) {
 
 
 // naver login
-passport.use(new NaverStrategy({
-		clientID: secret_config.naver.client_id,
-		clientSecret: secret_config.naver.secret_id,
-		callbackURL: secret_config.naver.callback_url
-	},
-	function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-
-		console.log('Naver login info');
-		console.info(_profile);
-
-		loginByThirdparty({
-			'auth_type': 'naver',
-			'auth_id': _profile.id,
-			'auth_name': _profile.nickname,
-			'auth_email': _profile.email
-		}, done);
-
-	}
-));
+// passport.use(new NaverStrategy({
+// 		clientID: secret_config.naver.client_id,
+// 		clientSecret: secret_config.naver.secret_id,
+// 		callbackURL: secret_config.naver.callback_url
+// 	},
+// 	function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+//
+// 		console.log('Naver login info');
+// 		console.info(_profile);
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'naver',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.nickname,
+// 			'auth_email': _profile.email
+// 		}, done);
+//
+// 	}
+// ));
 
 // 페이스북으로 로그인 처리
-passport.use(new FacebookStrategy({
-		clientID: secret_config.facebook.client_id,
-		clientSecret: secret_config.facebook.secret_id,
-		callbackURL: secret_config.facebook.callback_url,
-		profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone',
-			'updated_time', 'verified', 'displayName']
-	}, function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-
-		console.log('Facebook login info');
-		console.info(_profile);
-
-		loginByThirdparty({
-			'auth_type': 'facebook',
-			'auth_id': _profile.id,
-			'auth_name': _profile.name,
-			'auth_email': _profile.id
-		}, done);
-	}
-));
+// passport.use(new FacebookStrategy({
+// 		clientID: secret_config.facebook.client_id,
+// 		clientSecret: secret_config.facebook.secret_id,
+// 		callbackURL: secret_config.facebook.callback_url,
+// 		profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone',
+// 			'updated_time', 'verified', 'displayName']
+// 	}, function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+//
+// 		console.log('Facebook login info');
+// 		console.info(_profile);
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'facebook',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.name,
+// 			'auth_email': _profile.id
+// 		}, done);
+// 	}
+// ));
 
 // kakao로 로그인
-passport.use(new KakaoStrategy({
-		clientID: secret_config.kakao.client_id,
-		callbackURL: secret_config.kakao.callback_url
-	},
-	function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-		console.log('Kakao login info');
-		console.info(_profile);
-		// todo 유저 정보와 done을 공통 함수에 던지고 해당 함수에서 공통으로 회원가입 절차를 진행할 수 있도록 한다.
+// passport.use(new KakaoStrategy({
+// 		clientID: secret_config.kakao.client_id,
+// 		callbackURL: secret_config.kakao.callback_url
+// 	},
+// 	function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+// 		console.log('Kakao login info');
+// 		console.info(_profile);
+// 		// todo 유저 정보와 done을 공통 함수에 던지고 해당 함수에서 공통으로 회원가입 절차를 진행할 수 있도록 한다.
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'kakao',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.properties.nickname,
+// 			'auth_email': _profile.id
+// 		}, done);
+// 	}
+// ));
 
-		loginByThirdparty({
-			'auth_type': 'kakao',
-			'auth_id': _profile.id,
-			'auth_name': _profile.properties.nickname,
-			'auth_email': _profile.id
-		}, done);
-	}
-));
-
-// naver 로그인
-router.get('/auth/login/naver',
-	passport.authenticate('naver')
-);
-// naver 로그인 연동 콜백
-router.get('/auth/login/naver/callback',
-	passport.authenticate('naver', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
-
-// kakao 로그인
-router.get('/auth/login/kakao',
-	passport.authenticate('kakao')
-);
-// kakao 로그인 연동 콜백
-router.get('/auth/login/kakao/callback',
-	passport.authenticate('kakao', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
-
-// facebook 로그인
-router.get('/auth/login/facebook',
-	passport.authenticate('facebook')
-);
-// facebook 로그인 연동 콜백
-router.get('/auth/login/facebook/callback',
-	passport.authenticate('facebook', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// // naver 로그인
+// router.get('/auth/login/naver',
+// 	passport.authenticate('naver')
+// );
+// // naver 로그인 연동 콜백
+// router.get('/auth/login/naver/callback',
+// 	passport.authenticate('naver', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
+//
+// // kakao 로그인
+// router.get('/auth/login/kakao',
+// 	passport.authenticate('kakao')
+// );
+// // kakao 로그인 연동 콜백
+// router.get('/auth/login/kakao/callback',
+// 	passport.authenticate('kakao', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
+//
+// // facebook 로그인
+// router.get('/auth/login/facebook',
+// 	passport.authenticate('facebook')
+// );
+// // facebook 로그인 연동 콜백
+// router.get('/auth/login/facebook/callback',
+// 	passport.authenticate('facebook', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
 
 
 
@@ -393,17 +393,17 @@ router.get('/auth/login/facebook/callback',
  * TODO swagger
  * API-DOCS
  */
-router.get('/api-doc', (req, res) => {
-	fs.readFile('swagger/api.json', 'utf8', (err, data) => {
-		if(!err){
-			console.info(data);
-			res.json(JSON.parse(data));
-		}else{
-			console.error(err);
-			res.json({});
-		}
-	});
-});
+// router.get('/api-doc', (req, res) => {
+// 	fs.readFile('swagger/api.json', 'utf8', (err, data) => {
+// 		if(!err){
+// 			console.info(data);
+// 			res.json(JSON.parse(data));
+// 		}else{
+// 			console.error(err);
+// 			res.json({});
+// 		}
+// 	});
+// });
 
 
 var httpsToHttp = function (req, res, next) {
