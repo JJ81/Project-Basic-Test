@@ -55,11 +55,13 @@
     </div>
 {{else}}
     <div id="holdemclub">
-        {{> header}}
+        {{>header}}
 
         {{#if (isEqualsInArray current_path 'GAME' 'CREW' 'EVENT' 'COMMUNITY' 'PARTNERSHIP')}}
-            <div class="content_body">
+            <div id="content">
+
                 {{{body}}}
+
             </div>
         {{else}}
         {{! start content }}

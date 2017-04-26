@@ -10,7 +10,7 @@ const async = require('async');
 const QUERY = require('../database/query');
 const JSON = require('JSON');
 const fs = require('fs');
-const secret_config = require('../secret/federation');
+// const secret_config = require('../secret/federation');
 
 if(express().get('env') === 'production'){
 	require('../database/redis')(router, 'real');
@@ -22,7 +22,13 @@ require('../helpers/helpers');
 
 const axios = require('axios');
 const request = require('request');
-const STATIC_URL = 'http://static.holdemclub.tv/';
+
+//const STATIC_URL = 'http://static.holdemclub.tv/';
+var STATIC_URL = null;
+
+
+
+
 
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
@@ -288,104 +294,104 @@ function loginByThirdparty(info, done) {
 
 
 // naver login
-passport.use(new NaverStrategy({
-		clientID: secret_config.naver.client_id,
-		clientSecret: secret_config.naver.secret_id,
-		callbackURL: secret_config.naver.callback_url
-	},
-	function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-
-		console.log('Naver login info');
-		console.info(_profile);
-
-		loginByThirdparty({
-			'auth_type': 'naver',
-			'auth_id': _profile.id,
-			'auth_name': _profile.nickname,
-			'auth_email': _profile.email
-		}, done);
-
-	}
-));
+// passport.use(new NaverStrategy({
+// 		clientID: secret_config.naver.client_id,
+// 		clientSecret: secret_config.naver.secret_id,
+// 		callbackURL: secret_config.naver.callback_url
+// 	},
+// 	function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+//
+// 		console.log('Naver login info');
+// 		console.info(_profile);
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'naver',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.nickname,
+// 			'auth_email': _profile.email
+// 		}, done);
+//
+// 	}
+// ));
 
 // 페이스북으로 로그인 처리
-passport.use(new FacebookStrategy({
-		clientID: secret_config.facebook.client_id,
-		clientSecret: secret_config.facebook.secret_id,
-		callbackURL: secret_config.facebook.callback_url,
-		profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone',
-			'updated_time', 'verified', 'displayName']
-	}, function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-
-		console.log('Facebook login info');
-		console.info(_profile);
-
-		loginByThirdparty({
-			'auth_type': 'facebook',
-			'auth_id': _profile.id,
-			'auth_name': _profile.name,
-			'auth_email': _profile.id
-		}, done);
-	}
-));
+// passport.use(new FacebookStrategy({
+// 		clientID: secret_config.facebook.client_id,
+// 		clientSecret: secret_config.facebook.secret_id,
+// 		callbackURL: secret_config.facebook.callback_url,
+// 		profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone',
+// 			'updated_time', 'verified', 'displayName']
+// 	}, function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+//
+// 		console.log('Facebook login info');
+// 		console.info(_profile);
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'facebook',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.name,
+// 			'auth_email': _profile.id
+// 		}, done);
+// 	}
+// ));
 
 // kakao로 로그인
-passport.use(new KakaoStrategy({
-		clientID: secret_config.kakao.client_id,
-		callbackURL: secret_config.kakao.callback_url
-	},
-	function (accessToken, refreshToken, profile, done) {
-		var _profile = profile._json;
-		console.log('Kakao login info');
-		console.info(_profile);
-		// todo 유저 정보와 done을 공통 함수에 던지고 해당 함수에서 공통으로 회원가입 절차를 진행할 수 있도록 한다.
-
-		loginByThirdparty({
-			'auth_type': 'kakao',
-			'auth_id': _profile.id,
-			'auth_name': _profile.properties.nickname,
-			'auth_email': _profile.id
-		}, done);
-	}
-));
+// passport.use(new KakaoStrategy({
+// 		clientID: secret_config.kakao.client_id,
+// 		callbackURL: secret_config.kakao.callback_url
+// 	},
+// 	function (accessToken, refreshToken, profile, done) {
+// 		var _profile = profile._json;
+// 		console.log('Kakao login info');
+// 		console.info(_profile);
+// 		// todo 유저 정보와 done을 공통 함수에 던지고 해당 함수에서 공통으로 회원가입 절차를 진행할 수 있도록 한다.
+//
+// 		loginByThirdparty({
+// 			'auth_type': 'kakao',
+// 			'auth_id': _profile.id,
+// 			'auth_name': _profile.properties.nickname,
+// 			'auth_email': _profile.id
+// 		}, done);
+// 	}
+// ));
 
 // naver 로그인
-router.get('/auth/login/naver',
-	passport.authenticate('naver')
-);
+// router.get('/auth/login/naver',
+// 	passport.authenticate('naver')
+// );
 // naver 로그인 연동 콜백
-router.get('/auth/login/naver/callback',
-	passport.authenticate('naver', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// router.get('/auth/login/naver/callback',
+// 	passport.authenticate('naver', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
 
 // kakao 로그인
-router.get('/auth/login/kakao',
-	passport.authenticate('kakao')
-);
+// router.get('/auth/login/kakao',
+// 	passport.authenticate('kakao')
+// );
 // kakao 로그인 연동 콜백
-router.get('/auth/login/kakao/callback',
-	passport.authenticate('kakao', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// router.get('/auth/login/kakao/callback',
+// 	passport.authenticate('kakao', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
 
 // facebook 로그인
-router.get('/auth/login/facebook',
-	passport.authenticate('facebook')
-);
+// router.get('/auth/login/facebook',
+// 	passport.authenticate('facebook')
+// );
 // facebook 로그인 연동 콜백
-router.get('/auth/login/facebook/callback',
-	passport.authenticate('facebook', {
-		successRedirect: '/',
-		failureRedirect: '/login'
-	})
-);
+// router.get('/auth/login/facebook/callback',
+// 	passport.authenticate('facebook', {
+// 		successRedirect: '/',
+// 		failureRedirect: '/login'
+// 	})
+// );
 
 
 
@@ -393,17 +399,17 @@ router.get('/auth/login/facebook/callback',
  * TODO swagger
  * API-DOCS
  */
-router.get('/api-doc', (req, res) => {
-	fs.readFile('swagger/api.json', 'utf8', (err, data) => {
-		if(!err){
-			console.info(data);
-			res.json(JSON.parse(data));
-		}else{
-			console.error(err);
-			res.json({});
-		}
-	});
-});
+// router.get('/api-doc', (req, res) => {
+// 	fs.readFile('swagger/api.json', 'utf8', (err, data) => {
+// 		if(!err){
+// 			console.info(data);
+// 			res.json(JSON.parse(data));
+// 		}else{
+// 			console.error(err);
+// 			res.json({});
+// 		}
+// 	});
+// });
 
 
 var httpsToHttp = function (req, res, next) {
@@ -574,7 +580,6 @@ router.get('/', httpsToHttp, (req, res) => {
 		if (!err) {
 			res.render('index', {
 				current_path: 'INDEX',
-				static : STATIC_URL,
 				title: PROJ_TITLE,
 				loggedIn: req.user,
 				live : result[0].result,
@@ -622,7 +627,7 @@ router.get('/event', (req, res) => {
 
 	res.render('event', {
 		current_path: 'EVENT',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE,
 		loggedIn: req.user
 		//,list : _body.result
@@ -645,7 +650,7 @@ router.get('/event/:id/result', (req, res) => {
 			if(_body.success){
 				res.render('event_result', {
 					current_path: 'EVENT',
-					static : STATIC_URL,
+					// static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
 					result : _body.result
@@ -708,7 +713,7 @@ router.get('/event/:ref_id/information', (req, res) => {
 			if (!err) {
 				res.render('event_details', {
 					current_path: 'EVENT',
-					static : STATIC_URL,
+					// static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
 					question : result[0].result,
@@ -822,7 +827,7 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 			if(!err){
 				res.render('video_list', {
 					current_path: 'VIDEOLIST',
-					static : STATIC_URL,
+					//static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
 					videos : JSON.stringify(result[0].data.result),
@@ -940,7 +945,7 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 
 				res.render('video_view', {
 					current_path: 'VIDEOVIEW',
-					static : STATIC_URL,
+					//static : STATIC_URL,
 					title: PROJ_TITLE,
 					loggedIn: req.user,
 					videos : JSON.stringify(result[0].data.result),
@@ -1181,7 +1186,7 @@ router.get('/private', httpToHttps, isAuthenticated, (req, res) => {
 
 				res.render('private' , {
 					current_path: 'PRIVATE',
-					static : STATIC_URL,
+					// static : STATIC_URL,
 					title: PROJ_TITLE + ', 개인정보',
 					loggedIn: req.user,
 					info : result
@@ -1204,7 +1209,7 @@ router.get('/private', httpToHttps, isAuthenticated, (req, res) => {
 router.get('/private/email', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-email', {
 		current_path: 'PRIVATE-EMAIL',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 이메일 수정',
 		loggedIn: req.user,
 		csrfToken : req.csrfToken(),
@@ -1311,7 +1316,7 @@ router.post('/private/email/modify', isAuthenticated, parseForm, csrfProtection,
 router.get('/private/password', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-password', {
 		current_path: 'PRIVATE-PASSWORD',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 비밀번호 수정',
 		loggedIn: req.user,
 		csrfToken : req.csrfToken(),
@@ -1418,7 +1423,7 @@ router.post('/private/password/modify', isAuthenticated, parseForm, csrfProtecti
 router.get('/private/market-code', httpToHttps, isAuthenticated, csrfProtection, (req, res) => {
 	res.render('private-marketcode', {
 		current_path: 'PRIVATE-MARKETCODE',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 마케팅코드 수정',
 		loggedIn: req.user,
 		csrfToken : req.csrfToken(),
@@ -1477,7 +1482,7 @@ router.post('/private/market-code/modify', isAuthenticated, parseForm, csrfProte
 router.get('/find/id', httpToHttps, csrfProtection, (req, res) => {
 	res.render('find_id', {
 		current_path: 'FINDID',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 아이디 찾기',
 		loggedIn: req.user,
 		csrfToken : req.csrfToken(),
@@ -1510,7 +1515,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 				if(result[0].auth_id == null && result[0].password !== null){
 					res.render('find_id_result', {
 						current_path: 'FINDIDRESULT',
-						static : STATIC_URL,
+						// static : STATIC_URL,
 						title: PROJ_TITLE + ', 아이디 찾기 결과',
 						loggedIn: req.user,
 						user_id : util.hiddenCharacter(result[0].user_id)
@@ -1537,7 +1542,7 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 router.get('/find/pw', httpToHttps, csrfProtection, (req, res) => {
 	res.render('find_pw', {
 		current_path: 'FINDPW',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 비밀번호 찾기',
 		loggedIn: req.user,
 		csrfToken : req.csrfToken(),
@@ -1670,7 +1675,7 @@ router.get('/reset/password', httpToHttps, csrfProtection, (req, res) => {
 
 				res.render('reset_pw', {
 					current_path: 'RESETPW',
-					static : STATIC_URL,
+					// static : STATIC_URL,
 					title: PROJ_TITLE + ', 비밀번호 설정',
 					loggedIn: req.user,
 					csrfToken : req.csrfToken(),
@@ -1787,7 +1792,7 @@ router.post('/reset/password/result', parseForm, csrfProtection, (req, res) => {
 router.get('/partnership', httpsToHttp, (req, res)=> {
 	res.render('partnership', {
 		current_path: 'PARTNERSHIP',
-		static : STATIC_URL,
+		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 제휴문의',
 		loggedIn: req.user
 	});
@@ -1796,7 +1801,7 @@ router.get('/partnership', httpsToHttp, (req, res)=> {
 router.get('/community', httpsToHttp, (req, res)=> {
 	res.render('community', {
 		current_path: 'COMMUNITY',
-		static : STATIC_URL,
+		// static : STATIC_URL,
 		title: PROJ_TITLE + ', 커뮤니티',
 		loggedIn: req.user
 	});
@@ -1805,7 +1810,7 @@ router.get('/community', httpsToHttp, (req, res)=> {
 router.get('/game', httpsToHttp, (req, res)=> {
 	res.render('game', {
 		current_path: 'GAME',
-		static : STATIC_URL,
+		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 포커게임',
 		loggedIn: req.user
 	});
@@ -1814,7 +1819,7 @@ router.get('/game', httpsToHttp, (req, res)=> {
 router.get('/crew', httpsToHttp, (req, res)=> {
 	res.render('crew', {
 		current_path: 'CREW',
-		static : STATIC_URL,
+		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 크루',
 		loggedIn: req.user
 	});
@@ -1823,7 +1828,7 @@ router.get('/crew', httpsToHttp, (req, res)=> {
 router.get('/usage', httpsToHttp, (req, res)=> {
 	res.render('usage', {
 		current_path: 'USAGE',
-		static : STATIC_URL,
+		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 이용약관',
 		loggedIn: req.user
 	});
@@ -1832,7 +1837,7 @@ router.get('/usage', httpsToHttp, (req, res)=> {
 router.get('/privacy', httpsToHttp, (req, res)=> {
 	res.render('privacy', {
 		current_path: 'PRIVACY',
-		static : STATIC_URL,
+		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 개인정보취급방침',
 		loggedIn: req.user
 	});

@@ -68,13 +68,19 @@ html, body{
   }
 }
 
+
 #header{
   background: #2b2b2b;
+  height: 67px;
+  overflow: hidden;
+
+
   .inner_header{
     margin: 0 auto;
     width: $whole-width;
     height: 67px;
   }
+
   .logo{
     margin: 0;
     padding: 0;
@@ -84,8 +90,12 @@ html, body{
   }
 }
 
+
+
 #nav_top {
+  padding: 0;
   float: right;
+
   li.nav_list{
     position: relative;
     float: left;
@@ -231,6 +241,7 @@ html, body{
   float: left;
   width: 840px;
   margin-left: 25px;
+  margin-top: 10px;
 }
 
 .sig_broadcast{
@@ -655,19 +666,34 @@ html, body{
 .crew{
   width: $whole-width;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 100px;
   text-align: center;
   margin:0 auto;
 
   .list_crew{
     padding: 0;
-    width: 670px;
-    margin:20px auto 0 auto;
-    li{
-      list-style: none;
-      margin-bottom: 20px;
-    }
   }
+
+  .list_info{
+    float: left;
+    width: 500px;
+    height: 790px;
+    list-style: none;
+    display: inline-block;
+    position: relative;
+    padding-top: 90px;
+  }
+
+  .list_info:nth-child(2n){
+    margin-left: 79px;
+  }
+
+  .go_broadcast{
+    position: absolute;
+    bottom:0;
+    left: 37px;
+  }
+
 }
 
 .community{
@@ -1132,6 +1158,7 @@ html, body{
 
 .game{
   text-align: center;
+
   .bg01{
     background: #070707;
   }
@@ -1139,8 +1166,10 @@ html, body{
   .bg02{
     background: #fafafa;
   }
+
+  .banner_game_info{
+    height: 349px;
+  }
+
 }
-
-
-
 

@@ -90,7 +90,9 @@ html, body {
     font-size: 13px; }
 
 #header {
-  background: #2b2b2b; }
+  background: #2b2b2b;
+  height: 67px;
+  overflow: hidden; }
   #header .inner_header {
     margin: 0 auto;
     width: 1080px;
@@ -103,6 +105,7 @@ html, body {
     margin-top: 7px; }
 
 #nav_top {
+  padding: 0;
   float: right; }
   #nav_top li.nav_list {
     position: relative;
@@ -205,7 +208,8 @@ html, body {
 .main_area {
   float: left;
   width: 840px;
-  margin-left: 25px; }
+  margin-left: 25px;
+  margin-top: 10px; }
 
 .sig_broadcast {
   margin-top: 20px; }
@@ -498,16 +502,25 @@ html, body {
 .crew {
   width: 1080px;
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 100px;
   text-align: center;
   margin: 0 auto; }
   .crew .list_crew {
-    padding: 0;
-    width: 670px;
-    margin: 20px auto 0 auto; }
-    .crew .list_crew li {
-      list-style: none;
-      margin-bottom: 20px; }
+    padding: 0; }
+  .crew .list_info {
+    float: left;
+    width: 500px;
+    height: 790px;
+    list-style: none;
+    display: inline-block;
+    position: relative;
+    padding-top: 90px; }
+  .crew .list_info:nth-child(2n) {
+    margin-left: 79px; }
+  .crew .go_broadcast {
+    position: absolute;
+    bottom: 0;
+    left: 37px; }
 
 .community {
   margin-bottom: 100px; }
@@ -849,6 +862,8 @@ html, body {
     background: #070707; }
   .game .bg02 {
     background: #fafafa; }
+  .game .banner_game_info {
+    height: 349px; }
 
 /* --- Reset --- */
 /* --- Font --- */
