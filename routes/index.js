@@ -23,12 +23,6 @@ require('../helpers/helpers');
 const axios = require('axios');
 const request = require('request');
 
-//const STATIC_URL = 'http://static.holdemclub.tv/';
-var STATIC_URL = null;
-
-
-
-
 
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });

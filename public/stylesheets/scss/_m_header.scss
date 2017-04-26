@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.m_download_spot{
+  text-align: center;
+  background: #000814;
+}
+
+.m_banner_download{
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px;
+}
+
+.m_top_nav{
+  height: 65px;
+  position: relative;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background: #2b2b2b;
+
+  .logo{
+    text-align: center;
+    display: inline-block;
+  }
+
+  .btn-lg{
+    display: inline-block;
+  }
+
+  .btn-channel-list,
+  .btn-nav-list{
+    position: absolute;
+    top: 20px;
+  }
+
+  .btn-channel-list{
+    left: 15px;
+  }
+
+  .btn-nav-list{
+    right: 15px;
+  }
+
+}

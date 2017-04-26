@@ -1,16 +1,22 @@
-<div class="affiliate">
-    <div class="banner">
-        <img src="/static/images/banner_affiliate.jpg" alt="제휴문의" />
+{{#if (isEquals isMobile 1 )}}
+    <div class="m_content m_partnership">
+        제휴문의 모바일
     </div>
+{{else}}
+    <div class="affiliate">
+        <div class="banner">
+            <img src="/static/images/banner_affiliate.jpg" alt="제휴문의" />
+        </div>
 
-    <ul class="affiliate_category clearfix">
-        <li class="affiliate_list"><img src="/static/images/img_affiliate.jpg" alt="컨텐츠 제휴" /></li>
-        <li class="affiliate_list"><img src="/static/images/img_ad_video.jpg" alt="영상 광고" /></li>
-        <li class="affiliate_list"><img src="/static/images/img_image_banner.jpg" alt="사이트 배너" /></li>
-    </ul>
+        <ul class="affiliate_category clearfix">
+            <li class="affiliate_list"><img src="/static/images/img_affiliate.jpg" alt="컨텐츠 제휴" /></li>
+            <li class="affiliate_list"><img src="/static/images/img_ad_video.jpg" alt="영상 광고" /></li>
+            <li class="affiliate_list"><img src="/static/images/img_image_banner.jpg" alt="사이트 배너" /></li>
+        </ul>
 
-    <div class="info">
-        <a href="mailto:info@holdemclub.tv" class="mail">info@holdemclub.tv</a> 로 지금 바로 문의하세요!<br />
-        친절히 모시겠습니다. 감사합니다.
+        <div class="info">
+            <a href="mailto:info@holdemclub.tv" class="mail">info@holdemclub.tv</a> 로 지금 바로 문의하세요!<br />
+            친절히 모시겠습니다. 감사합니다.
+        </div>
     </div>
-</div>
+{{/if}}

@@ -1,89 +1,95 @@
-{{#if news}}
-<!-- News Section -->
-<div class="story-rotator no-js ps-ui" data-ps-ui-type="story-rotator">
-    <div class="story-rotator-wrapper">
-        {{#each news}}
-        <div class="item clear">
-            <a href="{{link}}" {{#if (isEquals direction 'EX')}}target="_blank"{{/if}}>
-                <img src="{{../static}}news/{{thumbnail}}" width="540" height="300" alt="{{title}}"/>
-            </a>
-            <div class="caption full">
-                <strong><a href="#">{{title}}</a></strong>
-            </div>
-            <div class="caption small">
-                <strong><a href="#">{{sub_title}}</a></strong>
+{{#if (isEquals isMobile 1 )}}
+    <div class="m_content">
+        mobile index
+    </div>
+{{else}}
+    {{#if news}}
+        <!-- News Section -->
+        <div class="story-rotator no-js ps-ui" data-ps-ui-type="story-rotator">
+            <div class="story-rotator-wrapper">
+                {{#each news}}
+                    <div class="item clear">
+                        <a href="{{link}}" {{#if (isEquals direction 'EX')}}target="_blank"{{/if}}>
+                            <img src="{{../static}}news/{{thumbnail}}" width="540" height="300" alt="{{title}}"/>
+                        </a>
+                        <div class="caption full">
+                            <strong><a href="#">{{title}}</a></strong>
+                        </div>
+                        <div class="caption small">
+                            <strong><a href="#">{{sub_title}}</a></strong>
+                        </div>
+                    </div>
+                {{/each}}
             </div>
         </div>
-        {{/each}}
-    </div>
-</div>
-<!-- // News Section -->
+        <!-- // News Section -->
+    {{/if}}
+
+    {{#if videos}}
+        <h4 class="heading">최신 업데이트</h4>
+        <ul class="recent_update clearfix btm-brd">
+            {{#each videos}}
+                <li class="update_list">
+                    <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+                        <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
+                        <span class="title">{{title}}</span>
+                        <span class="date">{{date created_dt}}</span>
+                        <span class="split">·</span>
+                        <span class="hits">조회수 {{comma-number hits}}</span>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    {{#if representative}}
+        <h4 class="heading">홀클 대표 콘텐츠</h4>
+        <ul class="channel_type clearfix btm-brd">
+            {{#each representative}}
+                <li class="channel_list">
+                    <a href="/channel/{{channel_id}}" class="channel_link">
+                        <img src="{{../static}}channel/{{channel_id}}/thumbnail" alt="{{title}}" width="194" height="242" /><br />
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    {{#if education}}
+        <h4 class="heading">포커 교육 콘텐츠</h4>
+        <ul class="recent_update clearfix">
+            {{#each education}}
+                <li class="update_list">
+                    <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+                        <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
+                        <span class="title">{{title}}</span>
+                        <span class="date">{{date created_dt}}</span>
+                        <span class="split">·</span>
+                        <span class="hits">조회수 {{comma-number hits}}</span>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+
+
+    {{#if summary}}
+        <h4 class="heading">포커 요약 콘텐츠</h4>
+        <ul class="recent_update clearfix">
+            {{#each summary}}
+                <li class="update_list">
+                    <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+                        <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
+                        <span class="title">{{title}}</span>
+                        <span class="date">{{date created_dt}}</span>
+                        <span class="split">·</span>
+                        <span class="hits">조회수 {{comma-number hits}}</span>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    <div class="spacer"></div>
 {{/if}}
-
-{{#if videos}}
-<h4 class="heading">최신 업데이트</h4>
-<ul class="recent_update clearfix btm-brd">
-    {{#each videos}}
-    <li class="update_list">
-        <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
-            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
-            <span class="title">{{title}}</span>
-            <span class="date">{{date created_dt}}</span>
-            <span class="split">·</span>
-            <span class="hits">조회수 {{comma-number hits}}</span>
-        </a>
-    </li>
-    {{/each}}
-</ul>
-{{/if}}
-
-{{#if representative}}
-<h4 class="heading">홀클 대표 콘텐츠</h4>
-<ul class="channel_type clearfix btm-brd">
-    {{#each representative}}
-        <li class="channel_list">
-            <a href="/channel/{{channel_id}}" class="channel_link">
-                <img src="{{../static}}channel/{{channel_id}}/thumbnail" alt="{{title}}" width="194" height="242" /><br />
-            </a>
-        </li>
-    {{/each}}
-</ul>
-{{/if}}
-
-{{#if education}}
-<h4 class="heading">포커 교육 콘텐츠</h4>
-<ul class="recent_update clearfix">
-    {{#each education}}
-    <li class="update_list">
-        <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
-            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
-            <span class="title">{{title}}</span>
-            <span class="date">{{date created_dt}}</span>
-            <span class="split">·</span>
-            <span class="hits">조회수 {{comma-number hits}}</span>
-        </a>
-    </li>
-    {{/each}}
-</ul>
-{{/if}}
-
-
-
-{{#if summary}}
-<h4 class="heading">포커 요약 콘텐츠</h4>
-<ul class="recent_update clearfix">
-    {{#each summary}}
-    <li class="update_list">
-        <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
-            <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
-            <span class="title">{{title}}</span>
-            <span class="date">{{date created_dt}}</span>
-            <span class="split">·</span>
-            <span class="hits">조회수 {{comma-number hits}}</span>
-        </a>
-    </li>
-    {{/each}}
-</ul>
-{{/if}}
-
-<div class="spacer"></div>
