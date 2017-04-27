@@ -18,7 +18,8 @@ module.exports = {
 		'index' : `${entryPoint.js}index.js`,
 		'signup' : `${entryPoint.js}signup.js`,
 		'video_list' : `${entryPoint.js}video_list.js`,
-		'video_view' : `${entryPoint.js}video_view.js`
+		'video_view' : `${entryPoint.js}video_view.js`,
+		'm_nav' : `${entryPoint.js}m_nav.js`
 	},
 	output: {
 		path: './public/javascripts/dist',

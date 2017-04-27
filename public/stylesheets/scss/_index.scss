@@ -6,6 +6,120 @@
 
 // 제휴 문의
 .m_partnership{
-  border : 1px solid #f00;
 
+  .banner_partner_img{
+    width: 100%;
+    min-width: 300px;
+    max-width: 640px;
+  }
+
+  .banner_partnership_m{
+    text-align: center;
+  }
+
+
+  .m_partnership_list{
+    padding: 20px 10px;
+    li{
+      margin-bottom: 10px;
+      text-align: center;
+    }
+  }
+
+  .img_partnership{
+    width: 100%;
+    min-width: 300px;
+    max-width: 640px;
+  }
+
+  .query_info{
+    font-size: 15px;
+    color: #6f6f6f;
+    text-align: center;
+    padding-bottom: 30px;
+  }
+
+  .btn-email-m{
+    color: #b31515;
+    text-decoration: underline;
+  }
+
+}
+
+.m_crew{
+  .ban_m{
+    text-align: center;
+  }
+  .img_banner_crew_m{
+    width: 100%;
+    min-width: 300px;
+    max-width: 640px;
+  }
+
+  .crew_m_list{
+    padding: 10px;
+    li{
+      text-align: center;
+      position: relative;
+      padding: 50px 0 80px 0;
+    }
+    .crew_info_m{
+      width: 100%;
+      min-width: 200px;
+      max-width: 620px;
+    }
+  }
+
+  .img_broadcast{
+    width: 100%;
+    min-width: 200px;
+    max-width: 280px;
+  }
+
+  .btn_broadcast{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+  }
+}
+
+
+// 게임 소개
+.game_info_m{
+  .game_feature_list{
+    text-align: center;
+    padding-top: 50px;
+  }
+  img{
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.community_m{
+  .banner_community_m{
+    text-align: center;
+  }
+  .ban_community{
+    width: 100%;
+    min-width: 300px;
+    max-width: 640px;
+  }
+
+  .community_list_m{
+    padding: 10px;
+    li{
+      margin-bottom: 10px;
+    }
+    a{
+      display: block;
+      text-align: center;
+    }
+    img{
+      width: 100%;
+      min-width: 300px;
+      max-width: 640px;
+    }
+  }
 }

@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .m_download_spot{
   text-align: center;
   background: #000814;
@@ -41,5 +42,56 @@
   .btn-nav-list{
     right: 15px;
   }
+}
 
+.right_menu_m{
+  width: 100%;
+
+  background: #2b2b2b;
+  position: absolute;
+  bottom: -308px;
+  left: 0;
+  z-index: 1000;
+
+  .main_m{
+    width: 100%;
+    background: #fff;
+    height: 60px;
+    overflow: hidden;
+
+    li{
+      float: left;
+      width: 50%;
+      display: block;
+      height: 60px;
+    }
+
+    a{
+      display: block;
+      text-align: center;
+      line-height: 60px;
+      font-size: 17px;
+      color :#333;
+      border-right: 1px solid #b8b8b8;
+    }
+  }
+
+  .sub_m{
+    li{
+      border-bottom: 1px solid #000;
+    }
+    a{
+      height: 60px;
+      display: block;
+      text-align: center;
+      line-height: 60px;
+      font-size: 17px;
+      color: #999;
+    }
+
+  }
+}
+
+.header_s{
+  padding-top: 30px;
 }

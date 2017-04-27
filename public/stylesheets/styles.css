@@ -38,6 +38,37 @@ legend, caption {
   background: #fff;
   height: 50px; }
 
+.white_bg {
+  background: #fff; }
+
+.grey_bg {
+  background: #f3f3f3; }
+
+.dark_blue_bg {
+  background: #090909; }
+
+.ico_poker, .ico_crew,
+.ico_community,
+.ico_partnership {
+  position: relative;
+  top: 3px;
+  margin-right: 3px;
+  width: 20px;
+  height: 20px;
+  display: inline-block; }
+
+.ico_poker {
+  background: url("/static/images/mobile/ico_poker.gif") no-repeat; }
+
+.ico_crew {
+  background: url("/static/images/mobile/ico_crew.gif") no-repeat; }
+
+.ico_community {
+  background: url("/static/images/mobile/ico_community.gif") no-repeat; }
+
+.ico_partnership {
+  background: url("/static/images/mobile/ico_partnership.gif") no-repeat; }
+
 html, body {
   overflow-x: hidden; }
 

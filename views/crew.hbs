@@ -1,21 +1,48 @@
-<div class="crew">
-    <img src="/static/images/crew/banner_crew.jpg" alt="" width="1080" />
-    <ol class="list_crew clearfix">
-        <li class="list_info">
-            <img src="/static/images/crew/img_spunky_info.jpg" alt="" width="500" />
-            <a href="/channel/4551b700-9052-11e6-9820-bdab5846dddd" class="go_broadcast"><img src="/static/images/crew/btn_spunky_broadcast.jpg" alt="" /></a>
-        </li>
-        <li class="list_info">
-            <img src="/static/images/crew/img_satisfaction_info.jpg" alt="" width="500" />
-            <a href="/channel/1c7749d0-cbf3-11e6-9ce5-2354a7cd55d5" class="go_broadcast"><img src="/static/images/crew/btn_satisfaction_broadcast.jpg" alt="" /></a>
-        </li>
-        <li class="list_info">
-            <img src="/static/images/crew/img_hongjinho_info.jpg" alt="" width="500" />
-            <a href="javascript:alert('준비중입니다.');" class="go_broadcast"><img src="/static/images/crew/btn_hongjinho_broadcast.jpg" alt="" /></a>
-        </li>
-        <li class="list_info">
-            <img src="/static/images/crew/img_dedup_info.jpg" alt="" width="500" />
-            <a href="/channel/809b7920-ce7f-11e6-a239-43548c5e1547" class="go_broadcast"><img src="/static/images/crew/btn_dedup_broadcast.jpg" alt="" /></a>
-        </li>
-    </ol>
-</div>
+{{#if (isEquals isMobile 1 )}}
+    <div class="m_crew">
+        <div class="ban_m">
+            <img src="/static/images/mobile/banner_crew_m.jpg" alt="" class="img_banner_crew_m" />
+        </div>
+
+        <ul class="crew_m_list">
+            <li>
+                <img src="/static/images/mobile/img_spunky_info_m.jpg" alt="스펑키" class="crew_info_m" />
+                <a href="/channel/4551b700-9052-11e6-9820-bdab5846dddd" class="btn_broadcast"><img src="/static/images/crew/btn_spunky_broadcast.jpg" alt="방송보기" class="img_broadcast" /></a>
+            </li>
+            <li>
+                <img src="/static/images/mobile/img_satisfaction_info_m.jpg" alt="세티스펙션" class="crew_info_m" />
+                <a href="/channel/1c7749d0-cbf3-11e6-9ce5-2354a7cd55d5" class="btn_broadcast"><img src="/static/images/crew/btn_satisfaction_broadcast.jpg" alt="방송보기" class="img_broadcast" /></a>
+            </li>
+            <li>
+                <img src="/static/images/mobile/img_hongjinho_info_m.jpg" alt="홍진호" class="crew_info_m" />
+                <a href="javascript:alert('준비중입니다.');" class="btn_broadcast"><img src="/static/images/crew/btn_hongjinho_broadcast.jpg" alt="방송보기" class="img_broadcast" /></a>
+            </li>
+            <li>
+                <img src="/static/images/mobile/img_deedup_info_m.jpg" alt="디덥" class="crew_info_m" />
+                <a href="/channel/809b7920-ce7f-11e6-a239-43548c5e1547" class="btn_broadcast"><img src="/static/images/crew/btn_dedup_broadcast.jpg" alt="방송보기" class="img_broadcast" /></a>
+            </li>
+        </ul>
+    </div>
+{{else}}
+    <div class="crew">
+        <img src="/static/images/crew/banner_crew.jpg" alt="" width="1080" />
+        <ol class="list_crew clearfix">
+            <li class="list_info">
+                <img src="/static/images/crew/img_spunky_info.jpg" alt="" width="500" />
+                <a href="/channel/4551b700-9052-11e6-9820-bdab5846dddd" class="go_broadcast"><img src="/static/images/crew/btn_spunky_broadcast.jpg" alt="" /></a>
+            </li>
+            <li class="list_info">
+                <img src="/static/images/crew/img_satisfaction_info.jpg" alt="" width="500" />
+                <a href="/channel/1c7749d0-cbf3-11e6-9ce5-2354a7cd55d5" class="go_broadcast"><img src="/static/images/crew/btn_satisfaction_broadcast.jpg" alt="" /></a>
+            </li>
+            <li class="list_info">
+                <img src="/static/images/crew/img_hongjinho_info.jpg" alt="" width="500" />
+                <a href="javascript:alert('준비중입니다.');" class="go_broadcast"><img src="/static/images/crew/btn_hongjinho_broadcast.jpg" alt="" /></a>
+            </li>
+            <li class="list_info">
+                <img src="/static/images/crew/img_dedup_info.jpg" alt="" width="500" />
+                <a href="/channel/809b7920-ce7f-11e6-a239-43548c5e1547" class="go_broadcast"><img src="/static/images/crew/btn_dedup_broadcast.jpg" alt="" /></a>
+            </li>
+        </ol>
+    </div>
+{{/if}}

@@ -48,7 +48,7 @@
 <title>{{title}}</title>
 </head>
 
-<body {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}class="secure_page"{{/if}}>
+<body class="{{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}secure_page{{else}}white_bg{{/if}}">
 {{! Google Tag Manager (noscript) }}
 <noscript>
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -119,6 +119,9 @@
         <script src="/static/javascripts/dist/video_view.js?v={{version}}"></script>
         <script src="/static/javascripts/dist/video_list.js?v={{version}}"></script>
     {{/if}}
+
+    {{#if (isEquals isMobile 1 )}}<script src="/static/javascripts/dist/m_nav.js"></script>{{/if}}
+
 
     {{! Google Tag Manager }}
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

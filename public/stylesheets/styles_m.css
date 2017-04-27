@@ -38,6 +38,37 @@ legend, caption {
   background: #fff;
   height: 50px; }
 
+.white_bg {
+  background: #fff; }
+
+.grey_bg {
+  background: #f3f3f3; }
+
+.dark_blue_bg {
+  background: #090909; }
+
+.ico_poker, .ico_crew,
+.ico_community,
+.ico_partnership {
+  position: relative;
+  top: 3px;
+  margin-right: 3px;
+  width: 20px;
+  height: 20px;
+  display: inline-block; }
+
+.ico_poker {
+  background: url("/static/images/mobile/ico_poker.gif") no-repeat; }
+
+.ico_crew {
+  background: url("/static/images/mobile/ico_crew.gif") no-repeat; }
+
+.ico_community {
+  background: url("/static/images/mobile/ico_community.gif") no-repeat; }
+
+.ico_partnership {
+  background: url("/static/images/mobile/ico_partnership.gif") no-repeat; }
+
 body,
 button,
 dd,
@@ -158,6 +189,43 @@ mark {
     left: 15px; }
   .m_top_nav .btn-nav-list {
     right: 15px; }
+
+.right_menu_m {
+  width: 100%;
+  background: #2b2b2b;
+  position: absolute;
+  bottom: -308px;
+  left: 0;
+  z-index: 1000; }
+  .right_menu_m .main_m {
+    width: 100%;
+    background: #fff;
+    height: 60px;
+    overflow: hidden; }
+    .right_menu_m .main_m li {
+      float: left;
+      width: 50%;
+      display: block;
+      height: 60px; }
+    .right_menu_m .main_m a {
+      display: block;
+      text-align: center;
+      line-height: 60px;
+      font-size: 17px;
+      color: #333;
+      border-right: 1px solid #b8b8b8; }
+  .right_menu_m .sub_m li {
+    border-bottom: 1px solid #000; }
+  .right_menu_m .sub_m a {
+    height: 60px;
+    display: block;
+    text-align: center;
+    line-height: 60px;
+    font-size: 17px;
+    color: #999; }
+
+.header_s {
+  padding-top: 30px; }
 
 .m_footer {
   padding: 10px;
@@ -1015,7 +1083,79 @@ html, body {
   .game .banner_game_info {
     height: 349px; }
 
-.m_partnership {
-  border: 1px solid #f00; }
+.m_partnership .banner_partner_img {
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px; }
+.m_partnership .banner_partnership_m {
+  text-align: center; }
+.m_partnership .m_partnership_list {
+  padding: 20px 10px; }
+  .m_partnership .m_partnership_list li {
+    margin-bottom: 10px;
+    text-align: center; }
+.m_partnership .img_partnership {
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px; }
+.m_partnership .query_info {
+  font-size: 15px;
+  color: #6f6f6f;
+  text-align: center;
+  padding-bottom: 30px; }
+.m_partnership .btn-email-m {
+  color: #b31515;
+  text-decoration: underline; }
+
+.m_crew .ban_m {
+  text-align: center; }
+.m_crew .img_banner_crew_m {
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px; }
+.m_crew .crew_m_list {
+  padding: 10px; }
+  .m_crew .crew_m_list li {
+    text-align: center;
+    position: relative;
+    padding: 50px 0 80px 0; }
+  .m_crew .crew_m_list .crew_info_m {
+    width: 100%;
+    min-width: 200px;
+    max-width: 620px; }
+.m_crew .img_broadcast {
+  width: 100%;
+  min-width: 200px;
+  max-width: 280px; }
+.m_crew .btn_broadcast {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%; }
+
+.game_info_m .game_feature_list {
+  text-align: center;
+  padding-top: 50px; }
+.game_info_m img {
+  width: 100%;
+  max-width: 300px; }
+
+.community_m .banner_community_m {
+  text-align: center; }
+.community_m .ban_community {
+  width: 100%;
+  min-width: 300px;
+  max-width: 640px; }
+.community_m .community_list_m {
+  padding: 10px; }
+  .community_m .community_list_m li {
+    margin-bottom: 10px; }
+  .community_m .community_list_m a {
+    display: block;
+    text-align: center; }
+  .community_m .community_list_m img {
+    width: 100%;
+    min-width: 300px;
+    max-width: 640px; }
 
 /*# sourceMappingURL=styles_m.css.map */
