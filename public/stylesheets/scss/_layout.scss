@@ -461,6 +461,13 @@ html, body{
 
 .channel_head{
   margin: 30px 0;
+  .btn-red{
+    background: #b31515;
+    color: #fff;
+  }
+  .btn-red:hover{
+    background: #df5050;
+  }
 }
 
 
