@@ -1199,4 +1199,74 @@ html, body {
   .video_list_body .channel_head_m {
     margin: 15px 0 20px 0; }
 
+.index_top_nav {
+  width: 100%; }
+  .index_top_nav li {
+    float: left;
+    width: 25%;
+    background: #404040; }
+  .index_top_nav a {
+    height: 40px;
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    border-right: 1px solid #5c5c5c;
+    text-align: center;
+    line-height: 40px; }
+  .index_top_nav a:hover {
+    text-decoration: none; }
+  .index_top_nav li:last-child a {
+    border-right: none; }
+  .index_top_nav .ico {
+    display: none; }
+
+.representative_channel_m h2 {
+  font-size: 22px;
+  color: #333;
+  padding: 20px 20px 0 20px;
+  font-weight: bold; }
+.representative_channel_m ul {
+  display: block;
+  padding: 20px; }
+.representative_channel_m li {
+  width: 50%;
+  float: left;
+  margin-bottom: 20px; }
+.representative_channel_m a {
+  display: block;
+  text-align: center; }
+.representative_channel_m img {
+  width: 140px;
+  height: 175px; }
+
+.recent_update_m {
+  border-top: 1px solid #d9d9d9; }
+  .recent_update_m h2 {
+    font-size: 22px;
+    color: #333;
+    padding: 20px;
+    font-weight: bold; }
+  .recent_update_m ul {
+    width: 100%; }
+  .recent_update_m li {
+    padding: 10px; }
+  .recent_update_m a {
+    display: block;
+    text-align: center; }
+  .recent_update_m img {
+    width: 100%;
+    max-width: 540px; }
+  .recent_update_m .title {
+    font-size: 18px;
+    text-align: left;
+    padding: 10px 10px 5px 10px;
+    max-width: 540px;
+    display: block;
+    margin: 0 auto; }
+  .recent_update_m .info {
+    padding: 0 10px 5px 10px;
+    max-width: 540px;
+    display: block;
+    margin: 0 auto; }
+
 /*# sourceMappingURL=styles_m.css.map */

@@ -18,13 +18,13 @@
 {{! Open Graph }}
 <meta property="og:title" content="홀덤클럽티비" />
 <meta property="og:url" content="http://holdemclub.tv/" />
-<meta property="og:image" content="https://s3.ap-northeast-2.amazonaws.com/holdemclubtv/static/logo_holdemclubtv.png" />
+<meta property="og:image" content="{{static}}static/logo_holdemclubtv.png" />
 <meta property="og:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠 토너먼트" />
 {{! twitter }}
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="홀덤클럽티비" />
 <meta name="twitter:url" content="http://holdemclub.tv/" />
-<meta name="twitter:image" content="https://s3.ap-northeast-2.amazonaws.com/holdemclubtv/static/logo_holdemclubtv.png" />
+<meta name="twitter:image" content="{{static}}static/logo_holdemclubtv.png" />
 <meta name="twitter:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
 {{! common data }}
 <meta name="naver-site-verification" content="a153f94a1cbbeecf0056394854faf2192600cbc5" />
@@ -39,7 +39,6 @@
 {{else}}
 <link rel='stylesheet' href='/static/stylesheets/styles.min.css?v={{version}}' media="screen,handheld" />
 {{/if}}
-
 
 {{! DNS Prefetch setting for CDN }}
 <link rel="dns-prefetch" href="{{static}}" />
