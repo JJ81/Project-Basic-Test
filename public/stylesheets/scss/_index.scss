@@ -185,11 +185,15 @@
 
 .index_top_nav{
   width: 100%;
+  height: 40px;
+  overflow: hidden;
+
   li{
     float: left;
     width: 25%;
     background: #404040;
   }
+
   a{
     height: 40px;
     display: block;
@@ -209,9 +213,11 @@
       border-right: none;
     }
   }
+
   .ico{
     display: none;
   }
+
 }
 
 .representative_channel_m{
@@ -291,3 +297,9 @@
     margin:0 auto;
   }
 }
+
+.top5px{
+  margin-top: -4px;
+}
+
+

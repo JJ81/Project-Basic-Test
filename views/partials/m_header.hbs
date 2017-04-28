@@ -11,49 +11,140 @@
             <a href="#" class="btn-channel-list"><img src="/static/images/mobile/btn_channel_list.jpg" alt="채널 보기" width="35" /></a>
             <a href="#" class="btn-nav-list"><img src="/static/images/mobile/btn_hamberg.jpg" alt="네비게이션" width="25" /></a>
         </h1>
-
-        <div class="right_menu_m blind">
-            <ul class="main_m clearfix">
-                {{#if loggedIn}}
-                    <li><a href="/private">마이페이지</a></li>
-                    <li><a href="/logout">로그아웃</a></li>
-                {{else}}
-                    <li><a href="/login">로그인</a></li>
-                    <li><a href="/signup">회원가입</a></li>
-                {{/if}}
-            </ul>
-
-            <ol class="sub_m">
-                <li>
-                    <a href="/game">
-                        <i class="ico ico_poker"></i>
-                        포커게임
-                    </a>
-                </li>
-                <li>
-                    <a href="/crew">
-                        <i class="ico ico_crew"></i>
-                        홀클크루
-                    </a>
-                </li>
-                <li>
-                    <a href="/community">
-                        <i class="ico ico_community"></i>
-                        커뮤니티
-                    </a>
-                </li>
-                <li>
-                    <a href="/partnership">
-                        <i class="ico ico_partnership"></i>
-                        제휴문의
-                    </a>
-                </li>
-            </ol>
-        </div>
-
-        <div class="left_menu_m blind">
-            left Nav
-        </div>
-
     </div>
 </div>
+
+<div class="right_menu_m blind">
+    <ul class="main_m clearfix">
+        {{#if loggedIn}}
+            <li><a href="/private">마이페이지</a></li>
+            <li><a href="/logout">로그아웃</a></li>
+        {{else}}
+            <li><a href="/login">로그인</a></li>
+            <li><a href="/signup">회원가입</a></li>
+        {{/if}}
+    </ul>
+
+    <ol class="sub_m">
+        <li>
+            <a href="/game">
+                <i class="ico ico_poker"></i>
+                포커게임
+            </a>
+        </li>
+        <li>
+            <a href="/crew">
+                <i class="ico ico_crew"></i>
+                홀클크루
+            </a>
+        </li>
+        <li>
+            <a href="/community">
+                <i class="ico ico_community"></i>
+                커뮤니티
+            </a>
+        </li>
+        <li>
+            <a href="/partnership">
+                <i class="ico ico_partnership"></i>
+                제휴문의
+            </a>
+        </li>
+    </ol>
+</div>
+
+<div class="left_menu_m blind">
+    {{#if recom}}
+        <h3 class="title">추천방송</h3>
+        <ul class="recomList_m">
+            {{#each recom}}
+                <li class="nav_list_m">
+                    {{#if (isEquals type 'S') }}
+                        <a href="#{{type}}" class="linkNav">
+                            <img src="{{../static}}channel/{{super_channel}}/logo"
+                                 width="35"
+                                 height="35"
+                                 class="img_logo"
+                                 alt="{{super_title}}" />
+                            {{super_title}}
+                        </a>
+                    {{else if (isEquals type 'G') }}
+                        <a href="/channel/{{super_channel}}" class="linkNav">
+                            <img src="{{../static}}channel/{{super_channel}}/logo"
+                                 width="35"
+                                 height="35"
+                                 class="img_logo"
+                                 alt="{{super_title}}" />
+                            {{super_title}}
+                        </a>
+                    {{/if}}
+
+                    <!-- each로 채널 리스트를 그리기 위해서 정리된 배열을 리턴해주는 헬퍼의 도움을 받아서 처리한다. -->
+                    {{#if (isEquals type 'S') }}
+                        <div class="sub_nav_m">
+                            <div class="inner_sub">
+                                <ol class="sub_list_nav_m clearfix">
+                                    {{#each (ExtractSubChannelInfo sub_channel sub_title)}}
+                                        <li class="sub_list_m">
+                                            <a href="/channel/{{channel}}" class="sub_link_m">
+                                                <span class="tit">- {{title}}</span>
+                                            </a>
+                                        </li>
+                                    {{/each}}
+                                </ol>
+                            </div>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    {{#if channels}}
+        <h3 class="title">홀클.tv 컨텐츠</h3>
+        <ul class="channelList_m">
+            {{#each channels}}
+                <li class="nav_list_m">
+                    {{#if (isEquals type 'G') }}
+                        <a href="/channel/{{super_channel}}" class="linkNav">
+                            <img src="{{../static}}channel/{{super_channel}}/logo"
+                                 width="35"
+                                 height="35"
+                                 class="img_logo"
+                                 alt="{{super_title}}" />
+                            {{super_title}}
+                        </a>
+                    {{else}}
+                        <a href="#{{type}}" class="linkNav">
+                            <img src="{{../static}}channel/{{super_channel}}/logo"
+                                 width="35"
+                                 height="35"
+                                 class="img_logo"
+                                 alt="{{super_title}}" />
+                            {{super_title}}
+                        </a>
+                    {{/if}}
+
+                    {{! each로 채널 리스트를 그리기 위해서 정리된 배열을 리턴해주는 헬퍼의 도움을 받아서 처리한다. }}
+                    {{#if (isEquals type 'S') }}
+                        <div class="sub_nav_m">
+                            <div class="inner_sub">
+                                <ol class="sub_list_nav_m clearfix">
+                                    {{#each (ExtractSubChannelInfo sub_channel sub_title)}}
+                                        <li class="sub_list_m">
+                                            <a href="/channel/{{channel}}" class="sub_link_m">
+                                                <span class="tit">- {{title}}</span>
+                                            </a>
+                                        </li>
+                                    {{/each}}
+                                </ol>
+                            </div>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+</div>
+

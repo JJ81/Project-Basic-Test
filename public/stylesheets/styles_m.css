@@ -193,9 +193,6 @@ mark {
 .right_menu_m {
   width: 100%;
   background: #2b2b2b;
-  position: absolute;
-  bottom: -308px;
-  left: 0;
   z-index: 1000; }
   .right_menu_m .main_m {
     width: 100%;
@@ -226,6 +223,59 @@ mark {
 
 .header_s {
   padding-top: 30px; }
+
+.left_menu_m .sub_nav_m {
+  display: none; }
+.left_menu_m .nav_list_m {
+  width: 100%;
+  border-bottom: 1px solid #383838;
+  background: #2b2b2b; }
+.left_menu_m .nav_list_m:hover {
+  background: #212121; }
+  .left_menu_m .nav_list_m:hover .sub_nav_m {
+    display: block !important; }
+  .left_menu_m .nav_list_m:hover .linkNav {
+    background: #212121 url("/static/images/mobile/ico_arrow_up.png") no-repeat right center !important;
+    color: #fff !important; }
+.left_menu_m .linkNav {
+  padding: 10px 0;
+  margin: 0 20px;
+  height: 50px;
+  font-size: 18px;
+  color: #999;
+  background: #2b2b2b url("/static/images/mobile/ico_arrow.png") no-repeat right center;
+  display: block;
+  line-height: 30px; }
+.left_menu_m .linkNav:hover {
+  background: #212121 url("/static/images/mobile/ico_arrow_up.png") no-repeat right center;
+  color: #fff; }
+.left_menu_m .linkNav:hover {
+  text-decoration: none; }
+.left_menu_m .title {
+  height: 50px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background: #8f0000;
+  line-height: 50px;
+  font-weight: bold; }
+.left_menu_m .recomList_m {
+  width: 100%; }
+.left_menu_m .sub_list_nav_m {
+  width: 100%; }
+.left_menu_m .sub_link_m {
+  padding: 10px 20px 10px 50px;
+  height: 50px;
+  font-size: 17px;
+  color: #999;
+  background: #454545;
+  display: block;
+  line-height: 30px; }
+.left_menu_m .sub_link_m:hover {
+  color: #ebcb9a;
+  text-decoration: none; }
+.left_menu_m .sub_list_m {
+  border-bottom: 1px solid #5e5e5e; }
 
 .m_footer {
   padding: 10px;
@@ -1200,7 +1250,9 @@ html, body {
     margin: 15px 0 20px 0; }
 
 .index_top_nav {
-  width: 100%; }
+  width: 100%;
+  height: 40px;
+  overflow: hidden; }
   .index_top_nav li {
     float: left;
     width: 25%;
@@ -1268,5 +1320,8 @@ html, body {
     max-width: 540px;
     display: block;
     margin: 0 auto; }
+
+.top5px {
+  margin-top: -4px; }
 
 /*# sourceMappingURL=styles_m.css.map */

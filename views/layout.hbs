@@ -64,9 +64,8 @@
     {{else}}
         {{! new mobile page }}
         {{>m_header}}
-        {{{body}}}
+        <div class="body_content">{{{body}}}</div>
         {{>m_footer}}
-
     {{/if}}
 {{else}}
     {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}
