@@ -123,3 +123,63 @@
     }
   }
 }
+
+// 비디오 리스트 페이지
+.video_list_body{
+  padding: 10px;
+
+  .video_thumnail_m{
+    width: 150px;
+    height: 85px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-decoration: none ;
+
+  }
+  
+  .video_link_m:active,
+  .video_link_m:hover,
+  .video_link_m:visited{
+    text-decoration: none;
+  }
+
+
+  .video_link_m{
+    display: block;
+    position: relative;
+    padding-left: 160px;
+    height: 85px;
+
+    .title{
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .date,
+    .hits{
+      font-size: 13px;
+      display: block;
+    }
+
+  }
+
+  .list_wrap{
+    margin-bottom: 10px;
+  }
+
+
+  .channel_title{
+    position: relative;
+    top: 5px;
+    left: 5px;
+    font-size: 18px;
+  }
+
+  .channel_head_m{
+    margin: 15px 0 20px 0;
+  }
+
+}
+

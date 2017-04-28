@@ -1,28 +1,59 @@
-<div id="list-video">
-    <h4 class="channel_head">
-        {{#each current_channel}}
-            <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="48" height="48" alt="{{title}}">
-            {{title}}
-        {{/each}}
+{{#if (isEquals isMobile 1 )}}
+    <div id="list-video" class="video_list_body">
+        <h4 class="channel_head_m">
+            {{#each current_channel}}
+                <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="30" height="30" alt="{{title}}" />
+                <strong class="channel_title">{{title}}</strong>
+            {{/each}}
 
-        <span class="pull-right">
-            <a href="javascript:void(0);" class="btn btn-red" v-on:click="desending">최신순</a>
-            <a href="javascript:void(0);" class="btn btn-red" v-on:click="asending">날짜순</a>
-        </span>
+            <span class="pull-right">
+        <a href="javascript:void(0);" class="btn-link btn-red" v-on:click="desending">최신순</a>
+        <a href="javascript:void(0);" class="btn-link btn-red" v-on:click="asending">날짜순</a>
+    </span>
 
-    </h4>
-    <ol class="clearfix video_list clearfix">
-        <li v-for="list in video_list">
-            <a v-bind:href="makeUrl(list)" v-cloak class="video_link">
-                <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="194" height="110" />
-                <strong class="title">{ list.title }</strong>
-                <span class="date">{ list.created_dt }</span>
-                <span class="split">·</span>
-                <span class="hits">조회수 : { list.hits }</span>
-            </a>
-        </li>
-    </ol>
-</div>
+        </h4>
+        <ol class="clearfix video_list_m clearfix">
+            <li v-for="list in video_list" class="list_wrap">
+                <a v-bind:href="makeUrl(list)" v-cloak class="video_link_m">
+                    <img v-bind:src="makeImg(list)" v-bind:alt="list.title" class="video_thumnail_m" />
+                    <strong class="title">{ list.title }</strong>
+                    <span class="date">{ list.created_dt }</span>
+                    <span class="hits">조회수 : { list.hits }</span>
+                </a>
+            </li>
+        </ol>
+    </div>
+{{else}}
+    <div id="list-video">
+        <h4 class="channel_head">
+            {{#each current_channel}}
+                <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="48" height="48" alt="{{title}}">
+                <strong>{{title}}</strong>
+            {{/each}}
+
+            <span class="pull-right">
+        <a href="javascript:void(0);" class="btn btn-red" v-on:click="desending">최신순</a>
+        <a href="javascript:void(0);" class="btn btn-red" v-on:click="asending">날짜순</a>
+    </span>
+
+        </h4>
+        <ol class="clearfix video_list clearfix">
+            <li v-for="list in video_list">
+                <a v-bind:href="makeUrl(list)" v-cloak class="video_link">
+                    <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="194" height="110" />
+                    <strong class="title">{ list.title }</strong>
+                    <span class="date">{ list.created_dt }</span>
+                    <span class="split">·</span>
+                    <span class="hits">조회수 : { list.hits }</span>
+                </a>
+            </li>
+        </ol>
+    </div>
+{{/if}}
+
+
+
+
 {{!-- todo 데이터를 바인딩 하기 위해서 vue 객체에 토스를 해줄 수 있는 방법은 무엇이 있을까 현재와 같은 방법이 가장 좋은 것일까? --}}
 <input type="hidden" value="{{static}}" id="static-url" />
 <input type="hidden" value="{{videos}}" id="data-video-list" />

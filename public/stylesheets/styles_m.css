@@ -1163,4 +1163,40 @@ html, body {
     min-width: 300px;
     max-width: 640px; }
 
+.video_list_body {
+  padding: 10px; }
+  .video_list_body .video_thumnail_m {
+    width: 150px;
+    height: 85px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-decoration: none; }
+  .video_list_body .video_link_m:active,
+  .video_list_body .video_link_m:hover,
+  .video_list_body .video_link_m:visited {
+    text-decoration: none; }
+  .video_list_body .video_link_m {
+    display: block;
+    position: relative;
+    padding-left: 160px;
+    height: 85px; }
+    .video_list_body .video_link_m .title {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 5px; }
+    .video_list_body .video_link_m .date,
+    .video_list_body .video_link_m .hits {
+      font-size: 13px;
+      display: block; }
+  .video_list_body .list_wrap {
+    margin-bottom: 10px; }
+  .video_list_body .channel_title {
+    position: relative;
+    top: 5px;
+    left: 5px;
+    font-size: 18px; }
+  .video_list_body .channel_head_m {
+    margin: 15px 0 20px 0; }
+
 /*# sourceMappingURL=styles_m.css.map */
