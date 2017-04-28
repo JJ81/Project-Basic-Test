@@ -27,15 +27,14 @@
     <div id="list-video">
         <h4 class="channel_head">
             {{#each current_channel}}
-                <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="48" height="48" alt="{{title}}">
+                <img src="http://static.holdemclub.tv/channel/{{channel_id}}/logo" class="img_round" width="48" height="48" alt="{{title}}" />
                 <strong>{{title}}</strong>
             {{/each}}
 
             <span class="pull-right">
-        <a href="javascript:void(0);" class="btn btn-red" v-on:click="desending">최신순</a>
-        <a href="javascript:void(0);" class="btn btn-red" v-on:click="asending">날짜순</a>
-    </span>
-
+                <a href="javascript:void(0);" class="btn btn-red" v-on:click="desending">최신순</a>
+                <a href="javascript:void(0);" class="btn btn-red" v-on:click="asending">날짜순</a>
+            </span>
         </h4>
         <ol class="clearfix video_list clearfix">
             <li v-for="list in video_list">
@@ -50,8 +49,6 @@
         </ol>
     </div>
 {{/if}}
-
-
 
 
 {{!-- todo 데이터를 바인딩 하기 위해서 vue 객체에 토스를 해줄 수 있는 방법은 무엇이 있을까 현재와 같은 방법이 가장 좋은 것일까? --}}
