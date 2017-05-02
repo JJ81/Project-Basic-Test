@@ -69,6 +69,15 @@ legend, caption {
 .ico_partnership {
   background: url("/static/images/mobile/ico_partnership.gif") no-repeat; }
 
+.btn-red,
+.btn-red:active {
+  background: #b31515;
+  color: #fff; }
+
+.btn-red:hover {
+  background: #df5050;
+  color: #fff; }
+
 html, body {
   overflow-x: hidden; }
 
@@ -387,11 +396,6 @@ html, body {
 
 .channel_head {
   margin: 30px 0; }
-  .channel_head .btn-red {
-    background: #b31515;
-    color: #fff; }
-  .channel_head .btn-red:hover {
-    background: #df5050; }
 
 .video_info_box .video_title {
   margin-top: 30px;
@@ -900,6 +904,45 @@ html, body {
     background: #fafafa; }
   .game .banner_game_info {
     height: 349px; }
+
+.board-community {
+  width: 1080px;
+  margin: 0 auto 100px auto; }
+  .board-community .center {
+    text-align: center; }
+  .board-community .tb_community {
+    border-top: 2px solid #151e27;
+    border-bottom: 1px solid #dcddde; }
+    .board-community .tb_community td {
+      padding: 10px 40px; }
+    .board-community .tb_community a {
+      color: #333333;
+      font-family: sans-serif, AppleSDGothicNeo, Malgun Gothinc; }
+    .board-community .tb_community .middle {
+      vertical-align: middle; }
+  .board-community .pagination .current {
+    color: #b31515 !important; }
+  .board-community .pagination .page-link {
+    color: #666; }
+  .board-community .search-area {
+    margin-bottom: 20px;
+    position: relative; }
+  .board-community .btn-write {
+    position: absolute;
+    right: 0;
+    top: 18px; }
+  .board-community .free-board {
+    font-size: 30px; }
+  .board-community .navi-board {
+    text-align: center;
+    position: relative; }
+  .board-community .textarea-freeboard {
+    padding: 20px;
+    color: #333;
+    font-size: 14px; }
+  .board-community .content_area {
+    word-break: break-all;
+    white-space: pre-line; }
 
 /* --- Reset --- */
 /* --- Font --- */

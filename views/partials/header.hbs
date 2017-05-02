@@ -2,18 +2,10 @@
     <div class="inner_top">
         {{#if loggedIn}}
             <ul class="local_nav clearfix">
-                <!--<li class="local_nav_list">-->
-                <!--<span class="nickname">{{loggedIn.nickname}}</span>-->
-                <!--</li>-->
                 <li class="local_nav_list"><a href="/private" class="btn_mypage">마이페이지</a></li>
                 <li class="split">|</li>
                 <li class="local_nav_list"><a href="/logout" class="btn_logout">로그아웃</a></li>
             </ul>
-            <!--<span class="nickname">{{loggedIn.nickname}}</span>-->
-                <!--{{#unless (isEquals current_path 'PRIVATE')}}-->
-            <!--<a href="/private" class="btn_mypage">마이페이지</a>-->
-                <!--{{/unless}}-->
-            <!--<a href="/logout" class="btn_logout">로그아웃</a>-->
         {{else}}
             <a href="/login" class="btn_login">로그인</a>
             <span class="split">|</span>

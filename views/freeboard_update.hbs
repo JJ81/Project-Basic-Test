@@ -1,0 +1,51 @@
+<div class="affiliate community">
+    <div class="banner">
+        <img src="/static/images/community/banner_community.jpg" alt="커뮤니티" width="1080" />
+    </div>
+
+    <ul class="affiliate_category clearfix">
+        <li class="affiliate_list"><a href="http://cafe.naver.com/fate3377" target="_blank"><img src="/static/images/community/img_hol1000_blog.jpg" alt="" /></a></li>
+        <li class="affiliate_list"><a href="http://www.pokergosu.com/" target="_blank"><img src="/static/images/community/img_pokergosu.jpg" alt="" /></a></li>
+        <li class="affiliate_list"><a href="http://hol1000.com/" target="_blank"><img src="/static/images/community/img_hol1000.jpg" alt="" /></a></li>
+    </ul>
+</div>
+
+<div class="board-community" id="boardArea">
+    <div class="search-area clearfix">
+        <a href="/community" class="btn btn-red btn-list">
+            <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
+        </a>
+    </div>
+    {{#each content}}
+    <form action="/update/board" method="post">
+        <table class="tb_community table">
+            <colgroup>
+                <col width="870" />
+                <col width="*" />
+            </colgroup>
+            <tr>
+                <th class="center">
+                    <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." autofocus autocomplete="off" required maxlength="200" value="{{title}}" />
+                </th>
+                <th class="center middle">{{loggedIn.nickname}}</th>
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 30px 10px">
+                    <textarea class="form-control textarea-freeboard" name="content" rows="20" required placeholder="글 내용을 입력하세요." autocomplete="off">{{content}}</textarea>
+                </td>
+            </tr>
+        </table>
+
+        <div class="search-area clearfix">
+            <a href="/community" class="btn btn-red btn-list">
+                <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
+            </a>
+            <a href="/community" class="btn btn-default pull-right">취소</a>
+            <button type="submit" class="btn btn-primary pull-right" style="margin-right: 10px;">저장</button>
+        </div>
+
+        <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        <input type="hidden" name="id" value="{{id}}" />
+    </form>
+    {{/each}}
+</div>

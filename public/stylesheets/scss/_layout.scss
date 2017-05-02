@@ -457,13 +457,7 @@ html, body{
 
 .channel_head{
   margin: 30px 0;
-  .btn-red{
-    background: #b31515;
-    color: #fff;
-  }
-  .btn-red:hover{
-    background: #df5050;
-  }
+
 }
 
 
@@ -1174,3 +1168,76 @@ html, body{
 
 }
 
+
+
+.board-community{
+  width: $whole-width;
+  margin: 0 auto 100px auto;
+  
+  .center{
+    text-align: center;
+  }
+
+  .tb_community{
+    border-top: 2px solid #151e27;
+    border-bottom: 1px solid #dcddde;
+    td{
+      padding: 10px 40px;
+    }
+    a{
+      color: #333333;
+      font-family: $font-common;
+    }
+    .middle{
+      vertical-align: middle;
+    }
+
+  }
+
+  .pagination{
+    .current{
+      color: #b31515 !important;
+    }
+
+    .page-link{
+      color: #666;
+    }
+
+  }
+
+
+  .search-area{
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+
+  .btn-write{
+    position: absolute;
+    right: 0;
+    top: 18px;
+  }
+
+
+  .free-board{
+    font-size: 30px;
+  }
+
+  .navi-board{
+    text-align: center;
+    position: relative;
+  }
+
+  .textarea-freeboard{
+    padding: 20px;
+    color: #333;
+    font-size: 14px;
+  }
+
+  .content_area{
+    word-break: break-all;
+    white-space: pre-line;
+  }
+
+
+}
