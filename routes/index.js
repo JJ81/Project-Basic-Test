@@ -587,6 +587,7 @@ router.get('/', httpsToHttp, (req, res) => {
 			});
 		} else {
 			console.error(err);
+			// todo 테스트가 필요
 			throw new Error(err);
 		}
 	});
@@ -651,10 +652,12 @@ router.get('/event/:id/result', (req, res) => {
 				});
 			}else{
 				console.error(err);
+				// todo
 				throw new Error(err);
 			}
 		}else{
 			console.error(err);
+			// todo
 			throw new Error(err);
 		}
 	});
@@ -729,6 +732,8 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 	let _channel_id = sanitize(req.params.channel_id.trim());
 
 	if(_channel_id === ''){
+		console.error(MSG.WRONG_ACCESS);
+		// todo 테스트가 필요
 		throw new Error(MSG.WRONG_ACCESS);
 	}
 
@@ -832,6 +837,7 @@ router.get('/channel/:channel_id', httpsToHttp, (req, res) => {
 				});
 			}else{
 				console.error(err);
+				// todo 테스트가 필요
 				throw new Error(err);
 			}
 		});
@@ -954,6 +960,7 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 				});
 			}else{
 				console.error(err);
+				// todo
 				throw new Error(err);
 			}
 		});
@@ -1880,6 +1887,7 @@ router.get('/community', httpsToHttp, (req, res)=> {
 				});
 			}else{
 				console.error(err);
+				// todo 테스트가 필요
 				throw new Error(err);
 			}
 		});
@@ -1920,7 +1928,7 @@ router.post('/community/board/write', isAuthenticated, parseForm, (req, res) => 
 	}
 });
 
-
+// todo 입력된 아이디값이 없을 경우 리스트로 리다이렉트한다.
 router.get('/community/content/:id', (req, res) => {
 	const id = sanitize(req.params.id.trim());
 
@@ -1934,7 +1942,8 @@ router.get('/community/content/:id', (req, res) => {
 			});
 		}else{
 			console.error(err);
-			throw new Error(err);
+			res.redirect('/community');
+			//throw new Error(err);
 		}
 	});
 });
