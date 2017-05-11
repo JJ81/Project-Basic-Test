@@ -30,9 +30,10 @@
   }
 
   .btn-channel-list,
-  .btn-nav-list{
+  .btn-nav-list,
+  .btn-nav-home{
     position: absolute;
-    top: 20px;
+    top: 23px;
   }
 
   .btn-channel-list{
@@ -42,6 +43,12 @@
   .btn-nav-list{
     right: 15px;
   }
+
+  .btn-nav-home{
+    top: 15px;
+    left: 15px;
+  }
+
 }
 
 .right_menu_m{

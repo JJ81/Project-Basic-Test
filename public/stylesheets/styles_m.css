@@ -191,13 +191,17 @@ mark {
   .m_top_nav .btn-lg {
     display: inline-block; }
   .m_top_nav .btn-channel-list,
-  .m_top_nav .btn-nav-list {
+  .m_top_nav .btn-nav-list,
+  .m_top_nav .btn-nav-home {
     position: absolute;
-    top: 20px; }
+    top: 23px; }
   .m_top_nav .btn-channel-list {
     left: 15px; }
   .m_top_nav .btn-nav-list {
     right: 15px; }
+  .m_top_nav .btn-nav-home {
+    top: 15px;
+    left: 15px; }
 
 .right_menu_m {
   width: 100%;

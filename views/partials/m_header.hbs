@@ -8,7 +8,13 @@
             <a href="/" class="btn-lg">
                 <img src="/static/images/mobile/m_logo.jpg" alt="홀덤클럽티비" width="160" />
             </a>
-            <a href="#" class="btn-channel-list"><img src="/static/images/mobile/btn_channel_list.jpg" alt="채널 보기" width="35" /></a>
+
+            {{#if (isEqualsInArray current_path 'GAME' 'CREW' 'EVENT' 'COMMUNITY' 'PARTNERSHIP')}}
+                <a href="/" class="btn-nav-home"><img src="/static/images/mobile/btn_home.png" alt="홈으로" width="32" /></a>
+            {{else}}
+                <a href="#" class="btn-channel-list"><img src="/static/images/mobile/btn_channel_list.jpg" alt="채널 보기" width="35" /></a>
+            {{/if}}
+
             <a href="#" class="btn-nav-list"><img src="/static/images/mobile/btn_hamberg.jpg" alt="네비게이션" width="25" /></a>
         </h1>
     </div>
