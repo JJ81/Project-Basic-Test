@@ -1,24 +1,24 @@
 <ol class="index_top_nav clearfix">
     <li>
-        <a href="/game">
+        <a href="/game" {{#if (isEquals current_path 'GAME')}}class="active"{{/if}}>
             <i class="ico ico_poker"></i>
             포커게임
         </a>
     </li>
     <li>
-        <a href="/crew">
+        <a href="/crew" {{#if (isEquals current_path 'CREW')}}class="active"{{/if}}>
             <i class="ico ico_crew"></i>
             홀클크루
         </a>
     </li>
     <li>
-        <a href="/community">
+        <a href="/community" {{#if (isEquals current_path 'COMMUNITY')}}class="active"{{/if}}>
             <i class="ico ico_community"></i>
             커뮤니티
         </a>
     </li>
     <li>
-        <a href="/partnership">
+        <a href="/partnership" {{#if (isEquals current_path 'PARTNERSHIP')}}class="active"{{/if}}>
             <i class="ico ico_partnership"></i>
             제휴문의
         </a>

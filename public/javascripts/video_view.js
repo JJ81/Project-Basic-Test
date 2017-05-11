@@ -26,10 +26,10 @@ var adPlayer = videojs('really-cool-video', {/* Options */}, function () {
 
 	this.on('ready', function () {
 		// 모바일의 경우만 이 버튼을 노출시킬 수 있도록 한다 그리고 poster 기능을 사용할 경우에만 해당한다.
-		$('.btn-ad-play').bind('click', function () {
+		$('.video-play-btn').bind('click', function () {
 			adPlayer.play();
+			$(this).remove();
 		});
-
 	});
 
 	this.on('play', function () {

@@ -530,6 +530,16 @@ html, body{
 
 // video view
 .ad_video{
+
+  .video-play-btn{
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    margin-left: -25px;
+    z-index: 999;
+  }
+
+
   position: relative;
   top: 0;
   left: 0;

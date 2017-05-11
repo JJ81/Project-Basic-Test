@@ -88,9 +88,12 @@ legend, caption{
 .btn-red:active{
   background: #b31515;
   color: #fff;
+  text-decoration: none;
 }
-.btn-red:hover{
+.btn-red:hover,
+.btn-red:focus{
   background: #df5050;
   color: #fff;
+  text-decoration: none;
 }
 

@@ -72,11 +72,14 @@ legend, caption {
 .btn-red,
 .btn-red:active {
   background: #b31515;
-  color: #fff; }
+  color: #fff;
+  text-decoration: none; }
 
-.btn-red:hover {
+.btn-red:hover,
+.btn-red:focus {
   background: #df5050;
-  color: #fff; }
+  color: #fff;
+  text-decoration: none; }
 
 body,
 button,
@@ -687,6 +690,12 @@ html, body {
   position: relative;
   top: 0;
   left: 0; }
+  .ad_video .video-play-btn {
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    margin-left: -25px;
+    z-index: 999; }
   .ad_video .vjs-fullscreen-control,
   .ad_video .vjs-remaining-time-display,
   .ad_video .vjs-play-control,
@@ -1263,6 +1272,8 @@ html, body {
 
 .video_list_body {
   padding: 10px; }
+  .video_list_body .btn-red {
+    padding: 5px 8px; }
   .video_list_body .video_thumnail_m {
     width: 150px;
     height: 85px;
@@ -1315,6 +1326,8 @@ html, body {
     line-height: 40px; }
   .index_top_nav a:hover {
     text-decoration: none; }
+  .index_top_nav a.active {
+    background: url("/static/images/mobile/bg_top_nav_m.gif") repeat-x !important; }
   .index_top_nav li:last-child a {
     border-right: none; }
   .index_top_nav .ico {

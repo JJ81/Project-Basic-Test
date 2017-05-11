@@ -128,6 +128,10 @@
 .video_list_body{
   padding: 10px;
 
+  .btn-red{
+    padding: 5px 8px;
+  }
+
   .video_thumnail_m{
     width: 150px;
     height: 85px;
@@ -206,6 +210,10 @@
 
   a:hover{
     text-decoration: none;
+  }
+
+  a.active{
+    background: url('/static/images/mobile/bg_top_nav_m.gif') repeat-x !important;
   }
 
   li:last-child{
