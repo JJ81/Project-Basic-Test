@@ -2038,7 +2038,7 @@ router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
 					console.error('[WARN] update something on the free board ' +  + _info.id);
 					res.redirect('/community');
 				}else{
-					FreeBoardService.CreateBoard(_info, (err, results) => {
+					FreeBoardService.UpdateBoard(_info, (err, results) => {
 						if(!err){
 							res.redirect(`/community/content/${results.insertId}#boardArea`);
 						}else{
