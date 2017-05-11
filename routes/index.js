@@ -2040,7 +2040,11 @@ router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
 				}else{
 					FreeBoardService.UpdateBoard(_info, (err, results) => {
 						if(!err){
-							res.redirect(`/community/content/${results.insertId}#boardArea?size=20&page=1`);
+							// console.log('result (update)');
+							// console.log(results);
+
+							res.redirect(`/community/content/${_info.id}#boardArea`);
+							// res.redirect(`/community`);
 						}else{
 							console.error(err);
 							//throw new Error(err);

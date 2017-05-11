@@ -54,10 +54,10 @@ FreeBoard.CreateBoard = (info, cb) => {
 
 FreeBoard.UpdateBoard = (info, cb) => {
 	connection.query(QUERY.FREEBOARD.updateContent, [
-		info.id,
 		info.title,
+		info.content,
+		info.id,
 		info.user_id,
-		info.content
 	], (err, rows) => {
 		if(!err){
 			cb(null, rows);
