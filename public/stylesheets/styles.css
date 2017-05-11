@@ -907,7 +907,7 @@ html, body {
 
 .board-community {
   width: 1080px;
-  margin: 0 auto 100px auto; }
+  margin: 0 auto 50px auto; }
   .board-community .center {
     text-align: center; }
   .board-community .tb_community {
@@ -932,7 +932,8 @@ html, body {
     right: 0;
     top: 18px; }
   .board-community .free-board {
-    font-size: 30px; }
+    font-size: 30px;
+    text-align: left; }
   .board-community .navi-board {
     text-align: center;
     position: relative; }

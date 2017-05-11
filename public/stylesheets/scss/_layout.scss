@@ -1172,7 +1172,7 @@ html, body{
 
 .board-community{
   width: $whole-width;
-  margin: 0 auto 100px auto;
+  margin: 0 auto 50px auto;
   
   .center{
     text-align: center;
@@ -1221,6 +1221,7 @@ html, body{
 
   .free-board{
     font-size: 30px;
+    text-align: left;
   }
 
   .navi-board{
