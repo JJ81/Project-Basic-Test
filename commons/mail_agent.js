@@ -1,4 +1,6 @@
+const nodemailer = require('nodemailer');
 const config = require('../secret/config');
+
 module.exports = (msg) => { //  msg는 에러와 관련된 문구를 받는다.
 	const user_name     = config.email.devops.user_name;
 	const refresh_token = config.email.devops.refresh_token;
@@ -7,7 +9,7 @@ module.exports = (msg) => { //  msg는 에러와 관련된 문구를 받는다.
 	const client_secret = config.email.devops.client_secret;
 	const email_to = config.email.devops.user_name;
 
-	const nodemailer = require('nodemailer');
+
 
 	let transporter = nodemailer
 		.createTransport({
