@@ -75,6 +75,7 @@ const isMobile = require('is-mobile');
 app.use((req, res, next) => {
 	res.locals.version  = '2.0.0';
 	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
+	res.locals.download = 'http://www.naver.com/';
 
 	if(req.headers['x-forwarded-port'] === '443'){
 		res.locals.static = 'https://assets.holdemclub.tv/';

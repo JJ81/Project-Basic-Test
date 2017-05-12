@@ -36,12 +36,12 @@
 {{else}}
     {{#if news}}
         <!-- News Section -->
-        <div class="story-rotator no-js ps-ui" data-ps-ui-type="story-rotator">
+        <div class="story-rotator no-js ps-ui blind" data-ps-ui-type="story-rotator">
             <div class="story-rotator-wrapper">
                 {{#each news}}
                     <div class="item clear">
                         <a href="{{link}}" {{#if (isEquals direction 'EX')}}target="_blank"{{/if}}>
-                            <img src="{{../static}}news/{{thumbnail}}" width="540" height="300" alt="{{title}}"/>
+                            <img src="{{../static}}news/{{thumbnail}}" width="540" height="300" alt="{{title}}" />
                         </a>
                         <div class="caption full">
                             <strong><a href="#">{{title}}</a></strong>
@@ -54,6 +54,25 @@
             </div>
         </div>
         <!-- // News Section -->
+
+        {{! new sliding banner }}
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {{#each news}}
+                <div class="swiper-slide">
+                    <a href="{{link}}" {{#if (isEquals direction 'EX')}}target="_blank"{{/if}}>
+                        <img src="{{../static}}news/{{thumbnail}}" width="840" height="350" alt="{{title}}" />
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        {{! // new sliding banner }}
+
     {{/if}}
 
     {{#if videos}}
