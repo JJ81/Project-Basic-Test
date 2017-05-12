@@ -81,6 +81,12 @@ legend, caption {
   color: #fff;
   text-decoration: none; }
 
+.swiper-pagination-bullet {
+  background: #fff !important; }
+
+.swiper-pagination-bullet-active {
+  background: #b31515 !important; }
+
 body,
 button,
 dd,
