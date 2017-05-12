@@ -21,6 +21,9 @@ const helmet = require('helmet');
 // const routes = require('./routes/index');
 const api = require('./api/api');
 
+// const nodemailer = require('nodemailer');
+// const smtpTransport = require('nodemailer-smtp-transport');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -110,6 +113,8 @@ if (app.get('env') !== 'production') {
 	app.use(errorHandler());
 }
 
+
+
 if(app.get('env') === 'production'){
 	// todo production으로 띄울 경우 에러가 발생했을 때 메일을 받을 수 있도록 변경할 것
 
@@ -122,8 +127,11 @@ if(app.get('env') === 'production'){
 			console.error(`CSRFERR : ${err}`);
 		}
 
-		// todo log@holdemclub.tv로 받을 수 있도록 한다.
-		console.error(err.stack);
+		const mailer = require('./commons/mail_agent');
+		mailer(err);
+
+		console.error('[ERROR]' + err.stack);
+
 		res.send('Holdemclubtv v2.0 (500)');
 		// res.render('500', {
 		// 	current_path: '500 Error Page',
