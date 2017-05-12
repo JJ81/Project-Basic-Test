@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const config = require('../secret/db_info').beta;
+const config = require('../secret/db_info').alpha;
 
 module.exports = () => {
 	return {
