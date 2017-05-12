@@ -16,6 +16,7 @@ const
  *
  */
 const LOGIN_ERROR_RESULT = require('../commons/error_interface');
+const mailer = require('../commons/mail_agent');
 
 router.post('/login', (req, res) => {
 	'use strict';
@@ -38,6 +39,8 @@ router.post('/login', (req, res) => {
 		UserService.DoLogin(user_id, (err, data) => {
 			if (err) {
 				console.error(`[User : ${user_id}]' + ${err}`);
+				mailer(`[User : ${user_id}]' + ${err}`);
+
 				res.status(500);
 				res.json({
 					'status': res.statusCode,
@@ -154,7 +157,6 @@ router.post('/login', (req, res) => {
 									console.error('[ERROR] 로그인 실패 횟수를 0으로 변경하고, 게임에 로그인을 한 시간을 기록하고, user테이블에도 마지막 로그인 시간을 기록한다. ');
 
 									// send msg to email
-									const mailer = require('./commons/mail_agent');
 									mailer('[ERROR] 로그인 실패 횟수를 0으로 변경하고, 게임에 로그인을 한 시간을 기록하고, user테이블에도 마지막 로그인 시간을 기록한다. => ' + err);
 								}
 
