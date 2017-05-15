@@ -533,45 +533,48 @@ router.get('/', httpsToHttp, (req, res) => {
 						cb(err, null);
 					}
 				});
-			},
+			}
 
 			// 교육 콘텐츠 가져오기
-			(cb) => {
-				request(`${HOST}/contents/education/list?size=4&offset=0`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('Edu', null);
-						}
-					}else{
-						console.error('[Edu] ');
-						cb(err, null);
-					}
-				});
-			},
+			// ,(cb) => {
+			// 	request(`${HOST}/contents/education/list?size=4&offset=0`, (err, res, body) => {
+			// 		if(!err && res.statusCode == 200){
+			// 			let _body  = JSON.parse(body);
+			//
+			// 			if(_body.success){
+			// 				cb(null, _body);
+			// 			}else{
+			// 				cb('Edu', null);
+			// 			}
+			// 		}else{
+			// 			console.error('[Edu] ');
+			// 			cb(err, null);
+			// 		}
+			// 	});
+			// }
 
 			// 요약 콘텐츠 가져오기
-			(cb) => {
-				request(`${HOST}/contents/summary/list?size=4&offset=0`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('Summary', null);
-						}
-					}else{
-						console.error('[Summary] ');
-						cb(err, null);
-					}
-				});
-			}
+			// ,(cb) => {
+			// 	request(`${HOST}/contents/summary/list?size=4&offset=0`, (err, res, body) => {
+			// 		if(!err && res.statusCode == 200){
+			// 			let _body  = JSON.parse(body);
+			//
+			// 			if(_body.success){
+			// 				cb(null, _body);
+			// 			}else{
+			// 				cb('Summary', null);
+			// 			}
+			// 		}else{
+			// 			console.error('[Summary] ');
+			// 			cb(err, null);
+			// 		}
+			// 	});
+			// }
 		], (err, result) => {
 		if (!err) {
+
+			console.info()
+
 			res.render('index', {
 				current_path: 'INDEX',
 				title: PROJ_TITLE,
@@ -581,9 +584,9 @@ router.get('/', httpsToHttp, (req, res) => {
 				videos : result[2].result,
 				recom : result[3].result,
 				news : result[4].result,
-				representative : result[5].result,
-				education : result[6].result,
-				summary : result[7].result
+				representative : result[5].result
+				//education : result[6].result,
+				//summary : result[7].result
 			});
 		} else {
 			console.error(err);
