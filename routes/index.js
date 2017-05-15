@@ -1580,10 +1580,6 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 			(done) => { // 넘어온 데이터를 기반으로 데이터가 있는지 확인을 한다.
 				UserService.UserWithUserIdAndEmail(_info, (err, result) => {
 					if(!err){
-
-						// console.log('result');
-						// console.info(result);
-						// todo 만약 result에 데이터가 없다면, 비어 있다면??
 						done(null, result);
 					}else{
 						req.flash('error', MSG.SERVER_ERROR);
@@ -1595,7 +1591,6 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 				crypto.randomBytes(20, function(err, buf) {
 					var token = buf.toString('hex');
 					if(!err){
-
 						console.log('token : ' + token);
 						done(null, result, token);
 					}else{
@@ -1607,24 +1602,30 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 			},
 			(result, token, done) => { // 정보를 레디스에 캐시
 
-				// todo 여기서 result가 비어 있을 경우 문제가 된다.
+				// 결과값이 있으면 토큰 생성 진행
+				if(result[0]){
+					var _value = {
+						user_id : result[0].user_id,
+						email : result[0].email,
+						token,
+						expired_dt : (new Date().getTime() + EXPIRED_DATE) // 30 mins.
+					};
 
-				var _value = {
-					user_id : result[0].user_id,
-					email : result[0].email,
-					token,
-					expired_dt : (new Date().getTime() + EXPIRED_DATE) // 30 mins.
-				};
+					RedisDAO.CacheWithKeyName(req.cache, `${token}`, JSON.stringify(_value), (r_err, r_result) => {
+						if(!r_err){
+							done(null, token);
+						}else{
+							req.flash('error', MSG.SERVER_ERROR);
+							console.error(MSG.SERVER_ERROR);
+							res.redirect('/find/pw');
+						}
+					});
 
-				RedisDAO.CacheWithKeyName(req.cache, `${token}`, JSON.stringify(_value), (r_err, r_result) => {
-					if(!r_err){
-						done(null, token);
-					}else{
-						req.flash('error', MSG.SERVER_ERROR);
-						console.error(MSG.SERVER_ERROR);
-						res.redirect('/find/password');
-					}
-				});
+				}else{
+					req.flash('error', MSG.NO_INFO);
+					console.error(MSG.NO_INFO);
+					res.redirect('/find/pw');
+				}
 			}
 		],
 		(err, token) => {
@@ -1638,7 +1639,7 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 			}else{
 				console.error(err);
 				req.flash('error', MSG.SERVER_ERROR);
-				res.redirect('/find/password');
+				res.redirect('/find/pw');
 			}
 		});
 });

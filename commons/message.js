@@ -18,7 +18,8 @@ module.exports = {
 	DIGIT_NEEDED : '숫자가 포함되어야 합니다.',
 	NO_FORMET_EMAIL : '이메일 형식이 맞지 않습니다.',
 	LETTER_NEEDED : '문자가 포함되어야 합니다.',
-	NEED_EIGHT_LETTER : '8자 이상 입력을 해야합니다.'
+	NEED_EIGHT_LETTER : '8자 이상 입력을 해야합니다.',
+	NO_INFO : '등록되지 않은 정보입니다.'
 
 	// LOGIN_ERROR : {
 	// 	INTERNAL_ERROR : 'INTERNAL_ERROR',
