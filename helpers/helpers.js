@@ -142,6 +142,3 @@ hbs.registerHelper('ExtractSubChannelInfo', (channels, titles) => {
 
 	return array;
 });
-
-
-// iOS or Android를 찾을 수 있도록 하는 헬퍼가 필요

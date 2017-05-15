@@ -75,8 +75,19 @@ const isMobile = require('is-mobile');
 app.use((req, res, next) => {
 	res.locals.version  = '2.0.0';
 	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
+
 	res.locals.download = 'https://play.google.com/store/apps/details?id=com.hc.holdem.live';
 	res.locals.m_download = 'market://details?id=com.hc.holdem.live';
+
+
+	// Android인지 iPhone인지 구분할 수 있어야 한다
+	console.info('device agent');
+	console.info(req.headers['user-agent']);
+
+	var ua = req.headers['user-agent'];
+	if(!/Android/.test(ua)){
+		res.locals.m_download = 'https://play.google.com/store/apps/details?id=com.hc.holdem.live';
+	}
 
 	if(req.headers['x-forwarded-port'] === '443'){
 		res.locals.static = 'https://assets.holdemclub.tv/';
@@ -86,6 +97,7 @@ app.use((req, res, next) => {
 
 	next();
 });
+
 
 app.use('/', routes);
 app.use('/api/v1/', api);
