@@ -1515,7 +1515,8 @@ router.post('/find/id/result', parseForm, csrfProtection, (req, res) => {
 	UserService.UserWithNicknameAndEmail(_info, (err, result) => {
 		if(!err){
 			if(result !== null && result.length > 0){
-				if(result[0].auth_id == null && result[0].password !== null){
+				if(result[0].user_id !== null && result[0].password !== null){
+
 					res.render('find_id_result', {
 						current_path: 'FINDIDRESULT',
 						// static : STATIC_URL,
@@ -1605,6 +1606,7 @@ router.post('/find/password/request', parseForm, csrfProtection, (req, res) => {
 				});
 			},
 			(result, token, done) => { // 정보를 레디스에 캐시
+
 				// todo 여기서 result가 비어 있을 경우 문제가 된다.
 
 				var _value = {
