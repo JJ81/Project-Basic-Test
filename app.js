@@ -76,6 +76,7 @@ app.use((req, res, next) => {
 	res.locals.version  = '2.0.0';
 	res.locals.isMobile = (isMobile(req) == 1) ? 1 : 0;
 	res.locals.download = 'https://play.google.com/store/apps/details?id=com.hc.holdem.live';
+	res.locals.m_download = 'market://details?id=com.hc.holdem.live';
 
 	if(req.headers['x-forwarded-port'] === '443'){
 		res.locals.static = 'https://assets.holdemclub.tv/';
