@@ -587,7 +587,6 @@ router.get('/', httpsToHttp, (req, res) => {
 			});
 		} else {
 			console.error(err);
-			// todo 테스트가 필요
 			throw new Error(err);
 		}
 	});
