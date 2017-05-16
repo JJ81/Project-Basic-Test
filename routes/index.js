@@ -1873,23 +1873,26 @@ router.get('/community', httpsToHttp, (req, res)=> {
 					prev = _info.page - 1;
 				}
 
-				if(_info.page !== totalPage){
+				if(_info.page !== totalPage && totalPage > 0){
 					next = _info.page + 1;
 				}
 
-				// 다음 페이지
+				if(totalPage === 0 && _info.page !== 1){
+					res.redirect('/community?size=20&page=1');
+				}else{
+					res.render('community', {
+						current_path: 'COMMUNITY',
+						title: PROJ_TITLE + ', 커뮤니티',
+						loggedIn: req.user,
+						list : results[0],
+						page : _info.page,
+						total : (totalPage === 0) ? 1 : totalPage,
+						size: _info.size,
+						prev,
+						next
+					});
+				}
 
-				res.render('community', {
-					current_path: 'COMMUNITY',
-					title: PROJ_TITLE + ', 커뮤니티',
-					loggedIn: req.user,
-					list : results[0],
-					page : _info.page,
-					total : (totalPage === 0) ? 1 : totalPage,
-					size: _info.size,
-					prev,
-					next
-				});
 			}else{
 				console.error(err);
 				// todo 테스트가 필요
