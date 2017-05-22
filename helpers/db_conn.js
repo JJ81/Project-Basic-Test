@@ -1,5 +1,5 @@
 const mysql = require('mysql');
-const config = require('../secret/db_info').real;
+const config = require('../secret/db_info').dev;
 
 
 module.exports = function () {
