@@ -193,13 +193,18 @@ html, body{
 }
 
 #spot{
-  margin: 10px auto 20px auto;
-  width: $whole-width;
+  width: 840px;
   padding: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  position: relative;
+  .btn-download-game{
+    position: absolute;
+    top: 52px;
+    right: 20px;
+  }
 }
 
-
-#content{}
 .inner_content{
   position: relative;
   margin:0 auto;
@@ -632,15 +637,23 @@ html, body{
 }
 
 
-
-
 .affiliate{
   width: $whole-width;
   margin: 30px auto 0 auto;
   text-align: center;
+
   .banner{
     margin-bottom: 20px;
+    position: relative;
   }
+
+
+  .btn-download-game{
+    position: absolute;
+    right: 100px;
+    top: 105px;
+  }
+
   .info{
     color: #6f6f6f;
     font-size: 18px;
@@ -705,6 +718,11 @@ html, body{
 
 .community{
   margin-bottom: 100px;
+  .btn-download-community{
+    position: absolute;
+    bottom: 20px;
+    right: 90px;
+  }
 }
 
 
@@ -1250,5 +1268,29 @@ html, body{
     white-space: pre-line;
   }
 
+
+}
+
+.game_banner{
+  position: relative;
+  width: $whole-width;
+  margin: 0 auto;
+
+  .btn-download-game{
+    position: absolute;
+    bottom: 0;
+    left: 35px;
+  }
+}
+
+.crew_banner{
+  position: relative;
+
+  .btn-download-game{
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+
+  }
 
 }

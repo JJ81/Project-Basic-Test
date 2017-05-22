@@ -475,9 +475,15 @@ html, body {
     line-height: 21px; }
 
 #spot {
-  margin: 10px auto 20px auto;
-  width: 1080px;
-  padding: 0; }
+  width: 840px;
+  padding: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  position: relative; }
+  #spot .btn-download-game {
+    position: absolute;
+    top: 52px;
+    right: 20px; }
 
 .inner_content {
   position: relative;
@@ -779,7 +785,12 @@ html, body {
   margin: 30px auto 0 auto;
   text-align: center; }
   .affiliate .banner {
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    position: relative; }
+  .affiliate .btn-download-game {
+    position: absolute;
+    right: 100px;
+    top: 105px; }
   .affiliate .info {
     color: #6f6f6f;
     font-size: 18px;
@@ -826,6 +837,10 @@ html, body {
 
 .community {
   margin-bottom: 100px; }
+  .community .btn-download-community {
+    position: absolute;
+    bottom: 20px;
+    right: 90px; }
 
 .login-box, #signup, .find_id_page, .find-pw-page, .result_find_id, .reset-pw, .private, .modify-email, .private-modify-pw, .insert-market-code, .usage,
 .privacy {
@@ -1206,6 +1221,22 @@ html, body {
   .board-community .content_area {
     word-break: break-all;
     white-space: pre-line; }
+
+.game_banner {
+  position: relative;
+  width: 1080px;
+  margin: 0 auto; }
+  .game_banner .btn-download-game {
+    position: absolute;
+    bottom: 0;
+    left: 35px; }
+
+.crew_banner {
+  position: relative; }
+  .crew_banner .btn-download-game {
+    position: absolute;
+    bottom: 30px;
+    right: 30px; }
 
 .m_partnership .banner_partner_img {
   width: 100%;
