@@ -1805,8 +1805,9 @@ router.get('/partnership', httpsToHttp, (req, res)=> {
 });
 
 const FreeBoardService = require('../service/FreeBoardService');
+const NoticeBoardService = require('../service/NoticeBoardService');
 
-router.get('/community', httpsToHttp, (req, res)=> {
+router.get('/community', (req, res)=> {
 
 	var _info = {};
 
@@ -1834,7 +1835,7 @@ router.get('/community', httpsToHttp, (req, res)=> {
 
 		async.parallel([
 			(cb) => {
-				FreeBoardService.List(_info, (err, result) => {
+				NoticeBoardService.List(_info, (err, result) => {
 					if(!err){
 						cb(null, result);
 					}else{
@@ -1843,7 +1844,7 @@ router.get('/community', httpsToHttp, (req, res)=> {
 				});
 			},
 			(cb) => {
-				FreeBoardService.GetTotalCount((err, result) => {
+				NoticeBoardService.GetTotalCount((err, result) => {
 					if(!err){
 						cb(null, result);
 					}else{
@@ -1936,18 +1937,23 @@ router.post('/community/board/write', isAuthenticated, parseForm, (req, res) => 
 	}
 });
 
-// todo 입력된 아이디값이 없을 경우 리스트로 리다이렉트한다.
-router.get('/community/content/:id', (req, res) => {
+
+router.get('/community/notice/:id', (req, res) => {
 	const id = sanitize(req.params.id.trim());
 
-	FreeBoardService.GetContent(id, (err, result) => {
+	NoticeBoardService.GetContent(id, (err, result) => {
 		if(!err){
-			res.render('freeboard_contents', {
-				current_path: 'BOARD_CONTENT',
-				title: PROJ_TITLE + ', 커뮤니티 게시판',
-				loggedIn: req.user,
-				content: result
-			});
+
+			if(result.length > 0){
+				res.render('noticeboard_contents', {
+					current_path: 'BOARD_CONTENT',
+					title: PROJ_TITLE + ', 커뮤니티 게시판',
+					loggedIn: req.user,
+					content: result
+				});
+			}else{
+				res.redirect('/community');
+			}
 		}else{
 			console.error(err);
 			res.redirect('/community');
@@ -2077,7 +2083,6 @@ router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
 		});
 	}
 });
-
 
 
 router.get('/game', httpsToHttp, (req, res)=> {
