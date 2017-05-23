@@ -211,6 +211,7 @@ mark {
     position: absolute;
     top: 23px; }
   .m_top_nav .btn-channel-list {
+    top: 6px;
     left: 15px; }
   .m_top_nav .btn-nav-list {
     right: 15px; }
