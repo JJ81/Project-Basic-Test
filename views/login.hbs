@@ -1,8 +1,14 @@
 {{#if (isEquals redirect 'hcpoker')}}
 
-    <div style="padding: 150px 10px 50px 10px;">
-        <a href="com.hc.holdem.live://gameactive" class="btn btn-block btn-red" style="padding: 15px 0;font-weight: bold;">게임 로그인</a>
-        <a href="{{m_download}}" target="_blank" class="btn btn-block btn-default" style="padding: 15px 0;font-weight: bold;">게임 다운로드</a>
+    <div style="padding: 50px 10px;">
+        <a href="/"><img src="/static/images/mobile/img_character.png" alt="홀덤클럽포커" class="m_character" /></a>
+
+        <a href="com.hc.holdem.live://gameactive">
+            <img src="/static/images/mobile/btn-go-login-game.png" alt="게임 로그인" class="img-go-game" />
+        </a>
+        <a href="{{m_download}}" target="_blank">
+            <img src="/static/images/mobile/btn-download-m.png" alt="게임 로그인" class="img-go-game" />
+        </a>
     </div>
 
 {{else}}
@@ -24,8 +30,6 @@
                 {{#if msg}}<div class="has-error">{{msg}}</div>{{/if}}
 
                 <button type="submit" class="btn btn-primary btn-block btnLogin">로그인</button>
-
-
 
                 <div class="btnArea">
                     <a href="/find/id" class="btn btn-link btnLoginArea">아이디 찾기</a>

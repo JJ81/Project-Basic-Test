@@ -306,6 +306,14 @@ mark {
 .left_menu_m .sub_list_m {
   border-bottom: 1px solid #5e5e5e; }
 
+.m_character {
+  width: 100%;
+  min-width: 320px;
+  margin: 0 auto; }
+
+.img-go-game {
+  width: 100%; }
+
 .m_footer {
   padding: 10px;
   border-top: 1px solid #e6e7e2;

@@ -1019,10 +1019,6 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 		env = sanitize(req.query.env.trim());
 	}
 
-
-
-
-
 	res.render('signup', {
 		current_path: 'SIGNUP',
 		title : PROJ_TITLE + ', 회원가입',
