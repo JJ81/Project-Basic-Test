@@ -152,10 +152,17 @@ router.get('/login', httpToHttps, function (req, res) {
 	}
 
 	if (req.user == null) {
+
+		var redirect = null;
+		if(req.query.redirect){
+			redirect = sanitize(req.query.redirect.trim());
+		}
+
 		res.render('login', {
 			current_path: 'login',
 			title: PROJ_TITLE + ', 로그인',
-			msg
+			msg,
+			redirect
 		});
 	} else {
 		res.redirect('/');
@@ -1002,7 +1009,15 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 		res.redirect('/');
 	}
 
-	// 하나의 객체로 묶어서 메모리에 보낼 경우 출력에 문제가 발생한다 (connect-flash)
+	// todo 회원가입 url을 진행할 때 모바일에서 진입을 하는 것인지 체크가 필요하다
+	// 일단 파라미터를 받을 수 있도록 한다
+	//
+
+	var env = null;
+
+	if(req.query.env){
+		env = sanitize(req.query.env.trim());
+	}
 
 	res.render('signup', {
 		current_path: 'SIGNUP',
@@ -1016,7 +1031,8 @@ router.get('/signup', httpToHttps, csrfProtection, (req, res) => {
 		error : req.flash('error'),
 		usr_username : req.flash('usr_username'),
 		usr_nickname : req.flash('usr_nickname'),
-		usr_email : req.flash('usr_email')
+		usr_email : req.flash('usr_email'),
+		env
 		// todo market_code 현재 의미가 없다.
 	});
 });
@@ -1030,6 +1046,14 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	if(req.user !== undefined){
 		res.redirect('/');
 	}
+
+	// todo env에 대한 판단을 할 수 있도록 설정한다
+	var env = null;
+	if(req.body._env){
+		env = sanitize(req.body._env.trim());
+	}
+
+
 
 	// protect sql injection or xss
 	const _info = {
@@ -1152,7 +1176,13 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 				axios.post(`${HOST}/signup`, _info)
 					.then((response)=>{
 						if(response.data.success){
-							res.redirect('/login');
+							// todo env를 판단해서 각기 다른 경로로 이동시킬 수 있도록 한다.
+							if(env !== null && env !== ''){
+								res.redirect('/login?redirect=hcpoker');
+							}else{
+								res.redirect('/login');
+							}
+
 						}
 					}).catch((error)=>{
 						console.error(error);

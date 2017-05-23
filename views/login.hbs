@@ -1,30 +1,47 @@
+{{#if (isEquals redirect 'hcpoker')}}
+
+    <div style="padding: 50px 10px;">
+        <a href="/"><img src="/static/images/mobile/img_character.png" alt="홀덤클럽포커" class="m_character" /></a>
+
+        <a href="com.hc.holdem.live://gameactive">
+            <img src="/static/images/mobile/btn-go-login-game.png" alt="게임 로그인" class="img-go-game" />
+        </a>
+        <a href="{{m_download}}" target="_blank">
+            <img src="/static/images/mobile/btn-download-m.png" alt="게임 로그인" class="img-go-game" />
+        </a>
+    </div>
+
+{{else}}
 <h2 class="heading-s">로그인</h2>
 <div class="login-box">
     <div class="login-box-body">
-        <form role="form" id="form-login" method="post" action="/login">
+            <form role="form" id="form-login" method="post" action="/login">
 
-            <div class="form-group has-feedback">
-                <input type="text" class="form-control txt_input" name="user_id" id="agent" placeholder="아이디" autofocus autocomplete="off" required />
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control txt_input" name="user_id" id="agent" placeholder="아이디" autofocus autocomplete="off" required />
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
 
-            <div class="form-group has-feedback">
-                <input type="password" class="form-control txt_input" name="password" id="password" placeholder="비밀번호" autocomplete="off" required />
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control txt_input" name="password" id="password" placeholder="비밀번호" autocomplete="off" required />
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
 
-            {{#if msg}}<div class="has-error">{{msg}}</div>{{/if}}
+                {{#if msg}}<div class="has-error">{{msg}}</div>{{/if}}
 
-            <button type="submit" class="btn btn-primary btn-block btnLogin">로그인</button>
+                <button type="submit" class="btn btn-primary btn-block btnLogin">로그인</button>
 
-            <div class="btnArea">
-                <a href="/find/id" class="btn btn-link btnLoginArea">아이디 찾기</a>
-                <a href="/find/pw" class="btn btn-link btnLoginArea">비밀번호 찾기</a>
-                <a href="/signup" class="btnSignUp btnLoginArea pull-right">회원가입</a>
-            </div>
+                <div class="btnArea">
+                    <a href="/find/id" class="btn btn-link btnLoginArea">아이디 찾기</a>
+                    <a href="/find/pw" class="btn btn-link btnLoginArea">비밀번호 찾기</a>
+                    <a href="/signup" class="btnSignUp btnLoginArea pull-right">회원가입</a>
+                </div>
+
+                <input type="hidden" id="redirect" value="{{redirect}}" />
+
+            </form>
+        {{/if}}
 
 
-        </form>
     </div>
 </div>
-
