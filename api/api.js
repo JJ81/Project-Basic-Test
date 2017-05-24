@@ -800,6 +800,44 @@ router.get('/news/list', (req, res) => {
 		});
 });
 
+// todo 채널 조회수 올리기는 나중에
+// router.get('/increase/channel/hits/:id', (req, res) => {
+// 	const id = sanitize(req.params.id.trim());
+//
+// 	connection.query(QUERY.VIDEO.RaiseChannelHits, [id],
+// 		(err, rows) => {
+// 			if(!err){
+// 				res.json({
+// 					success : true,
+// 					result : rows
+// 				});
+// 			}else{
+// 				res.json({
+// 					success : false,
+// 					msg : err
+// 				});
+// 			}
+// 		});
+// });
+
+router.get('/increase/video/hits/:id', (req, res) => {
+	const id = sanitize(req.params.id.trim());
+
+	connection.query(QUERY.VIDEO.RaiseVideoHits, [id],
+		(err, rows) => {
+			if(!err){
+				res.json({
+					success : true,
+					result : rows
+				});
+			}else{
+				res.json({
+					success : false,
+					msg : err
+				});
+			}
+		});
+});
 
 /**
  * @ 임시로 기존의 로그인 API를 업그레이드 하여 지원한다.

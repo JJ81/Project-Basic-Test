@@ -943,6 +943,25 @@ router.get('/channel/:channel_id/video/:video_id', httpsToHttp, (req, res) => {
 						console.error(err);
 					}
 				});
+			},
+
+			// 비디오 조회수 증가
+			(cb) => {
+				request.get(`${HOST}/increase/video/hits/${_video_id}`, (err, res, body) => {
+					if(!err && res.statusCode == 200){
+						let _body = JSON.parse(body);
+
+						if(_body.success){
+							cb(null, _body);
+						}else{
+							console.error('[hit video] success status is false');
+							cb(null, null);
+						}
+					}else{
+						cb(err, null);
+						console.error(err);
+					}
+				});
 			}
 
 		],
