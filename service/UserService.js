@@ -250,8 +250,10 @@ UserService.StoreNewPassword= (user_info, callback) => {
 	console.log(user_info);
 
 	var _pass = bcrypt.hashSync(user_info.password, 10);
+	console.log(_pass);
+
 	connection.query(QUERY.USER.UpdateNewPassword,
-		[ user_info.user_id, _pass ],
+		[ _pass, user_info.user_id ],
 		(err, result) => {
 			if(!err){
 				callback(null, result);
