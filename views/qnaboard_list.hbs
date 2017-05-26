@@ -1,0 +1,63 @@
+<div class="board-community" id="boardArea">
+    <div class="btn-group btn-group-justified" role="group" style="width: 400px;margin-bottom: 30px;">
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default active">공지</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default">문의</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a href="#" class="btn btn-default">FAQ</a>
+        </div>
+    </div>
+
+
+    <div class="search-area clearfix">
+        <h4 class="free-board">공지 게시판</h4>
+    </div>
+
+    <table class="tb_community table">
+        <colgroup>
+            <col width="670" />
+            <col width="200" />
+            <col width="*" />
+        </colgroup>
+        <tr>
+            <th class="center">제목</th>
+            <th class="center">날짜</th>
+            <th class="center">작성자</th>
+        </tr>
+        {{#if list}}
+            {{#each list}}
+                <tr>
+                    <td align="left"><a href="/community/notice/{{id}}#boardArea">{{title}}</a></td>
+                    <td align="center">{{date created_dt}}</td>
+                    <td class="center middle"><strong>홀클 관리자</strong></td>
+                </tr>
+            {{/each}}
+        {{else}}
+            <tr><td colspan="3" class="center" style="padding: 50px 20px">등록된 글이 없습니다.</td></tr>
+        {{/if}}
+
+    </table>
+
+    <nav aria-label="Page navigation" class="navi-board">
+        <ul class="pagination justify-content-center">
+            <li class="page-item{{#if (isEmpty prev )}} disabled{{/if}}">
+                {{#if (isEmpty prev )}}
+                    <a class="page-link" href="#boardArea" tabindex="-1">이전</a>
+                {{else}}
+                    <a class="page-link" href="/community?size={{size}}&page={{prev}}#boardArea" tabindex="-1">이전</a>
+                {{/if}}
+            </li>
+            <li class="page-item"><a class="page-link disabled" href="#freeboard"> <strong class="current">{{page}}</strong> / {{total}}</a></li>
+            <li class="page-item{{#if (isEmpty next )}} disabled{{/if}}">
+                {{#if (isEmpty next )}}
+                    <a class="page-link" href="#boardArea">다음</a>
+                {{else}}
+                    <a class="page-link" href="/community?size={{size}}&page={{next}}#boardArea">다음</a>
+                {{/if}}
+            </li>
+        </ul>
+    </nav>
+</div>
