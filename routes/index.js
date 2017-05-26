@@ -2137,7 +2137,6 @@ router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
 router.get('/game', httpsToHttp, (req, res)=> {
 	res.render('game', {
 		current_path: 'GAME',
-		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 포커게임',
 		loggedIn: req.user
 	});
@@ -2146,7 +2145,6 @@ router.get('/game', httpsToHttp, (req, res)=> {
 router.get('/crew', httpsToHttp, (req, res)=> {
 	res.render('crew', {
 		current_path: 'CREW',
-		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 크루',
 		loggedIn: req.user
 	});
@@ -2155,7 +2153,6 @@ router.get('/crew', httpsToHttp, (req, res)=> {
 router.get('/usage', httpsToHttp, (req, res)=> {
 	res.render('usage', {
 		current_path: 'USAGE',
-		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 이용약관',
 		loggedIn: req.user
 	});
@@ -2164,7 +2161,6 @@ router.get('/usage', httpsToHttp, (req, res)=> {
 router.get('/privacy', httpsToHttp, (req, res)=> {
 	res.render('privacy', {
 		current_path: 'PRIVACY',
-		//static : STATIC_URL,
 		title: PROJ_TITLE + ', 개인정보취급방침',
 		loggedIn: req.user
 	});
