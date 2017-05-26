@@ -1932,6 +1932,7 @@ router.get('/community', (req, res)=> {
 				}else{
 					res.render('community', {
 						current_path: 'COMMUNITY',
+						board_type : 'notice',
 						title: PROJ_TITLE + ', 커뮤니티',
 						loggedIn: req.user,
 						list : results[0],
@@ -2166,5 +2167,134 @@ router.get('/privacy', httpsToHttp, (req, res)=> {
 	});
 });
 
+const QnaBoardService = require('../service/QnaBoardService');
+
+router.get('/community/qna', (req, res) => {
+	var _info = {};
+
+	if(req.query.size === undefined || req.query.page === undefined){
+		_info = {
+			size : 20,
+			page : 1
+		};
+	}else{
+		_info = {
+			size : parseInt(sanitize(req.query.size.trim())),
+			page : parseInt(sanitize(req.query.page.trim()))
+		};
+	}
+
+	if(req.query.size == undefined ||
+		req.query.page === undefined ||
+		req.query.size === '' ||
+		req.query.page === '' ||
+		req.query.size <= 0 ||
+		req.query.page <= 0
+	){
+		res.redirect('/community?size=20&page=1');
+	}else{
+
+		async.parallel([
+			(cb) => {
+				QnaBoardService.List(_info, (err, result) => {
+					if(!err){
+						cb(null, result);
+					}else{
+						cb(err, null);
+					}
+				});
+			},
+			(cb) => {
+				QnaBoardService.GetTotalCount((err, result) => {
+					if(!err){
+						cb(null, result);
+					}else{
+						cb(err, null);
+					}
+				});
+			}
+		], (err, results) => {
+
+			if(!err){
+
+				var totalList = results[1][0].size;
+				var totalPage = Math.ceil(totalList/_info.size);
+				var prev = null;
+				var next = null;
+
+				// console.log('total list');
+				// console.log(totalList);
+				// console.log('total page');
+				// console.log(totalPage);
+				// console.log(prev);
+				// console.log(next);
+
+
+				// 이전 페이지
+				if(_info.page > 1){
+					prev = _info.page - 1;
+				}
+
+				if(_info.page !== totalPage && totalPage > 0){
+					next = _info.page + 1;
+				}
+
+				// if(totalPage === 0 && _info.page !== 1){
+				// 	res.redirect('/community?size=20&page=1');
+				// }else{
+				// 	res.render('community', {
+				// 		current_path: 'COMMUNITY',
+				// 		board_type : 'notice',
+				// 		title: PROJ_TITLE + ', 커뮤니티',
+				// 		loggedIn: req.user,
+				// 		list : results[0],
+				// 		page : _info.page,
+				// 		total : (totalPage === 0) ? 1 : totalPage,
+				// 		size: _info.size,
+				// 		prev,
+				// 		next
+				// 	});
+				// }
+				if(totalPage === 0 && _info.page !== 1){
+					res.redirect('/community/qna?size=20&page=1');
+				}else{
+					res.render('COMMUNITY', {
+						current_path: 'COMMUNITY',
+						board_type : 'qna',
+						title: PROJ_TITLE + ', 문의 게시판',
+						loggedIn: req.user,
+						list : results[0],
+						page : _info.page,
+						total : (totalPage === 0) ? 1 : totalPage,
+						size: _info.size,
+						prev,
+						next
+					});
+				}
+
+			}else{
+				console.error(err);
+				// todo 테스트가 필요
+				throw new Error(err);
+			}
+		});
+	}
+
+
+
+
+
+});
+
+
+router.get('/community/faq', (req, res) => {
+	res.render('COMMUNITY', {
+		current_path: 'COMMUNITY',
+		board_type : 'faq',
+		title: PROJ_TITLE + ', FAQ',
+		loggedIn: req.user
+	});
+
+});
 
 module.exports = router;
