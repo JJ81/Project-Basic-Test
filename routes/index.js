@@ -2243,7 +2243,7 @@ router.get('/community/qna', (req, res) => {
 				if(totalPage === 0 && _info.page !== 1){
 					res.redirect('/community/qna?size=20&page=1');
 				}else{
-					res.render('COMMUNITY', {
+					res.render('community', {
 						current_path: 'COMMUNITY',
 						board_type : 'qna',
 						title: PROJ_TITLE + ', 문의 게시판',
