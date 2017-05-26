@@ -18,7 +18,6 @@
                     <img v-bind:src="makeImg(list)" v-bind:alt="list.title" class="video_thumnail_m" />
                     <strong class="title">{ list.title }</strong>
                     <span class="date">{ list.created_dt }</span>
-                    <span class="hits">조회수 : { list.hits }</span>
                 </a>
             </li>
         </ol>
@@ -42,8 +41,6 @@
                     <img v-bind:src="makeImg(list)" v-bind:alt="list.title" width="194" height="110" />
                     <strong class="title">{ list.title }</strong>
                     <span class="date">{ list.created_dt }</span>
-                    <span class="split">·</span>
-                    <span class="hits">조회수 : { list.hits }</span>
                 </a>
             </li>
         </ol>
