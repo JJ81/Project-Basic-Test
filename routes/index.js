@@ -2465,7 +2465,7 @@ router.post('/community/qna/update', isAuthenticated, parseForm, (req, res) => {
 });
 
 router.get('/community/faq', (req, res) => {
-	res.render('COMMUNITY', {
+	res.render('community', {
 		current_path: 'COMMUNITY',
 		board_type : 'faq',
 		title: PROJ_TITLE + ', FAQ',
