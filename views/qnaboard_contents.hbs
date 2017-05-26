@@ -7,9 +7,13 @@
     <div class="board-community" id="boardArea">
         {{#each content}}
             <div class="search-area clearfix text-left">
-                <a href="/community" class="btn btn-red btn-list">
+                <a href="/community/qna" class="btn btn-red btn-list">
                     <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
                 </a>
+                {{#if (isEmpty answer) }}
+                <a href="/community/qna/{{id}}/delete" class="btn btn-default pull-right">삭제</a>
+                <a href="/community/qna/{{id}}/update" class="btn btn-warning pull-right" style="margin-right: 10px;">수정</a>
+                {{/if}}
             </div>
 
             <table class="tb_community table">
@@ -21,19 +25,34 @@
                 <tr>
                     <th class="text-left">{{title}}</th>
                     <th class="text-center">{{date created_dt}}</th>
-                    <th class="center middle"><strong>홀클 관리자</strong></th>
+                    <th class="center middle"><strong>{{nickname}}</strong></th>
                 </tr>
                 <tr>
                     <td colspan="3" style="padding: 50px 20px">
                         <div class="content_area text-left">{{{content}}}</div>
                     </td>
                 </tr>
+                {{#unless (isEmpty answer) }}
+                <tr>
+                    <td colspan="3" style="padding: 0 40px 30px 40px">
+                        <div class="content_area text-left">
+                            <h4>홀클 관리자 답변</h4>
+                            {{{answer}}}
+                        </div>
+                    </td>
+                </tr>
+                {{/unless}}
+
             </table>
 
             <div class="search-area clearfix text-left">
-                <a href="/community" class="btn btn-red btn-list">
+                <a href="/community/qna" class="btn btn-red btn-list">
                     <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
                 </a>
+                {{#if (isEmpty answer) }}
+                <a href="/community/qna/{{id}}/delete" class="btn btn-default pull-right">삭제</a>
+                <a href="/community/qna/{{id}}/update" class="btn btn-warning pull-right" style="margin-right: 10px;">수정</a>
+                {{/if}}
             </div>
         {{/each}}
     </div>

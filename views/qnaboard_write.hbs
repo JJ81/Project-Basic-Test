@@ -1,0 +1,43 @@
+<div class="affiliate community">
+    <div class="banner">
+        <a href="{{download}}" target="_blank" class="btn-download-community"><img src="/static/images/btn_download.png" alt="게임 다운로드" /></a>
+        <img src="/static/images/community/banner_community.jpg" alt="커뮤니티" width="1080" />
+    </div>
+
+
+    <div class="board-community" id="boardArea">
+        <div class="search-area clearfix text-left">
+            <h2>문의 게시판 글쓰기</h2>
+        </div>
+
+        <form action="/community/create/qna" method="post">
+            <table class="tb_community table">
+                <colgroup>
+                    <col width="870" />
+                    <col width="*" />
+                </colgroup>
+                <tr>
+                    <th class="center">
+                        <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." autofocus autocomplete="off" required maxlength="200" />
+                    </th>
+                    <th class="center middle">{{loggedIn.nickname}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding: 30px 10px">
+                        <textarea class="form-control textarea-freeboard" name="content" rows="20" required placeholder="글 내용을 입력하세요." autocomplete="off"></textarea>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="search-area clearfix text-left">
+                <a href="/community/qna" class="btn btn-red btn-list">
+                    <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
+                </a>
+                <a href="/community/qna" class="btn btn-default pull-right">취소</a>
+                <button type="submit" class="btn btn-red pull-right" style="margin-right: 10px;">저장</button>
+            </div>
+
+            <input type="hidden" name="_csrf" value="{{csrfToken}}" />
+        </form>
+    </div>
+</div>

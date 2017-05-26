@@ -2,32 +2,35 @@
 
     <div class="search-area clearfix">
         <h4 class="free-board">문의 게시판</h4>
-        <a href="/community/qna/create#boardArea" class="btn btn-red btn-write">
+        <a href="/community/write/qna#boardArea" class="btn btn-red btn-write">
             <span class="glyphicon glyphicon-pencil"></span>&nbsp; 글쓰기
         </a>
     </div>
 
     <table class="tb_community table">
         <colgroup>
-            <col width="670" />
+            <col width="550" />
             <col width="200" />
+            <col width="100" />
             <col width="*" />
         </colgroup>
         <tr>
             <th class="center">제목</th>
             <th class="center">날짜</th>
+            <th class="center">답변여부</th>
             <th class="center">작성자</th>
         </tr>
         {{#if list}}
             {{#each list}}
                 <tr>
-                    <td align="left"><a href="/community/notice/{{id}}#boardArea">{{title}}</a></td>
+                    <td align="left"><a href="/community/qna/{{id}}#boardArea">{{title}}</a></td>
                     <td align="center">{{date created_dt}}</td>
-                    <td class="center middle"><strong>홀클 관리자</strong></td>
+                    <td> {{#if (isEmpty answer)}} NO {{else}} YES {{/if}} </td>
+                    <td class="center middle"><strong>{{nickname}}</strong></td>
                 </tr>
             {{/each}}
         {{else}}
-            <tr><td colspan="3" class="center" style="padding: 50px 20px">등록된 글이 없습니다.</td></tr>
+            <tr><td colspan="4" class="center" style="padding: 50px 20px">등록된 글이 없습니다.</td></tr>
         {{/if}}
 
     </table>
@@ -38,7 +41,7 @@
                 {{#if (isEmpty prev )}}
                     <a class="page-link" href="#boardArea" tabindex="-1">이전</a>
                 {{else}}
-                    <a class="page-link" href="/communityqna?size={{size}}&page={{prev}}#boardArea" tabindex="-1">이전</a>
+                    <a class="page-link" href="/community/qna?size={{size}}&page={{prev}}#boardArea" tabindex="-1">이전</a>
                 {{/if}}
             </li>
             <li class="page-item"><a class="page-link disabled" href="#freeboard"> <strong class="current">{{page}}</strong> / {{total}}</a></li>
@@ -51,7 +54,7 @@
             </li>
         </ul>
 
-        <a href="/community/board/create" class="btn btn-red btn-write">
+        <a href="/community/write/qna#boardArea" class="btn btn-red btn-write">
             <span class="glyphicon glyphicon-pencil"></span>&nbsp; 글쓰기
         </a>
     </nav>
