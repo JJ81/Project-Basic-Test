@@ -476,7 +476,7 @@ router.get('/', httpsToHttp, (req, res) => {
 				});
 			},
 			(cb) => { // 최신 업데이트 비디오
-				request.get(`${HOST}/video/recent/list?size=4&offset=0`, (err, res, body)  => {
+				request.get(`${HOST}/video/recent/list?size=8&offset=0`, (err, res, body)  => {
 					if(!err && res.statusCode == 200){
 						let _body  = JSON.parse(body);
 
@@ -580,8 +580,6 @@ router.get('/', httpsToHttp, (req, res) => {
 		], (err, result) => {
 		if (!err) {
 
-			console.info()
-
 			res.render('index', {
 				current_path: 'INDEX',
 				title: PROJ_TITLE,
@@ -596,6 +594,95 @@ router.get('/', httpsToHttp, (req, res) => {
 				//summary : result[7].result
 			});
 		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+
+// todo 업데이트 더보기 25개를 먼저 보여주고 하단에 더보기 버튼을 둔다. 25개씩 더 보는 방식으로 진행한다.
+router.get('/recent', (req, res) => {
+	'use strict';
+	async.parallel([
+		(cb) => { // 방송중
+			request.get(`${HOST}/broadcast/live`, (err, res, body) => {
+				if(!err && res.statusCode == 200){
+					let _body = JSON.parse(body);
+
+					if(_body.success){
+						cb(null, _body);
+					}else{
+						console.error('[live] success status is false');
+						cb(null, null);
+					}
+				}else{
+					cb(err, null);
+					console.error(err);
+				}
+			});
+		},
+		(cb) => { // 좌측 채널 리스트
+			request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
+				if(!err && res.statusCode == 200){
+					let _body = JSON.parse(body);
+
+					if(_body.success){
+						cb(null, _body);
+					}else{
+						console.error('[navi] success status is false');
+						cb('Navigation', null);
+					}
+				}else{
+					cb(err, null);
+					console.error(err);
+				}
+			});
+		},
+		(cb) => { // 최신 업데이트 비디오
+			request.get(`${HOST}/video/recent/list?size=100&offset=0`, (err, res, body)  => {
+				if(!err && res.statusCode == 200){
+					let _body  = JSON.parse(body);
+
+					if(_body.success){
+						cb(null, _body);
+					}else{
+						cb('Video', null);
+					}
+				}else{
+					console.error('[video] recent 3 videos');
+					cb(err, null);
+				}
+			});
+		},
+		(cb) => { // 추천 채널 리스트
+			request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
+				if(!err && res.statusCode == 200){
+					let _body  = JSON.parse(body);
+
+					if(_body.success){
+						cb(null, _body);
+					}else{
+						cb('Recom', null);
+					}
+				}else{
+					console.error('[Recom] ');
+					cb(err, null);
+				}
+			});
+		}
+	], (err, result) => {
+		if(!err){
+			res.render('recent', {
+				current_path: 'INDEX',
+				title: PROJ_TITLE,
+				loggedIn: req.user,
+				live : result[0].result,
+				channels : result[1].result,
+				videos : result[2].result,
+				recom : result[3].result
+			});
+		}else{
 			console.error(err);
 			throw new Error(err);
 		}
@@ -2415,7 +2502,6 @@ router.get('/community/qna/:id/update', isAuthenticated, csrfProtection, (req, r
 	}
 });
 
-// todo
 // 글 수정 처리
 router.post('/community/qna/update', isAuthenticated, parseForm, (req, res) => {
 
@@ -2471,7 +2557,6 @@ router.get('/community/faq', (req, res) => {
 		title: PROJ_TITLE + ', FAQ',
 		loggedIn: req.user
 	});
-
 });
 
 module.exports = router;

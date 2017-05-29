@@ -15,7 +15,10 @@
         </div>
 
         <div class="recent_update_m">
-            <h2>최신 업데이트</h2>
+            <h2>
+                최신 업데이트
+                <a href="/recent" class="btn btn-red btn-sm pull-right">더보기</a>
+            </h2>
             <ul>
                 {{#each videos}}
                     <li class="update_list_m">
@@ -29,6 +32,9 @@
                     </li>
                 {{/each}}
             </ul>
+            <div style="margin: 10px 20px 30px 20px;">
+                <a href="/recent" class="btn btn-default btn-block">더보기</a>
+            </div>
         </div>
     </div>
 {{else}}
@@ -78,7 +84,10 @@
     {{/if}}
 
     {{#if videos}}
-        <h4 class="heading">최신 업데이트</h4>
+        <h4 class="heading">
+            최신 업데이트
+            <a href="/recent" class="btn btn-red pull-right">더보기</a>
+        </h4>
         <ul class="recent_update clearfix btm-brd">
             {{#each videos}}
                 <li class="update_list">
@@ -94,7 +103,7 @@
 
     {{#if representative}}
         <h4 class="heading">홀클 대표 콘텐츠</h4>
-        <ul class="channel_type clearfix btm-brd">
+        <ul class="channel_type clearfix">
             {{#each representative}}
                 <li class="channel_list">
                     <a href="/channel/{{channel_id}}" class="channel_link">

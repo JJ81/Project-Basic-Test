@@ -1,0 +1,36 @@
+{{#if (isEquals isMobile 1 )}}
+    <div class="recent_update_m">
+        <h2>최신 업데이트</h2>
+        <ul>
+            {{#each videos}}
+                <li class="update_list_m">
+                    <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+                        <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" class="img_thumbnail" />
+                        <strong class="title">{{title}}</strong>
+                        <p class="text-left info">
+                            <span class="date">{{date created_dt}}</span>
+                        </p>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+{{else}}
+
+    {{#if videos}}
+        <h4 class="heading">최신 업데이트</h4>
+        <ul class="recent_update clearfix">
+            {{#each videos}}
+                <li class="update_list">
+                    <a href="/channel/{{channel_id}}/video/{{video_id}}" class="update_link">
+                        <img src="{{../static}}channel/{{channel_id}}/{{video_id}}/thumbnail" alt="{{title}}" width="194" height="110" class="img_thumbnail" />
+                        <span class="title">{{title}}</span>
+                        <span class="date">{{date created_dt}}</span>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    <div class="spacer"></div>
+{{/if}}

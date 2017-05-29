@@ -292,17 +292,23 @@ html, body{
 
 // 비디오 썸네일 리스트 유형
 .recent_update{
-  padding: 0 0 15px 0;
+  padding: 0;
 
   .update_list{
     list-style: none;
     float: left;
     margin-right: 21px;
+    margin-bottom: 15px;
   }
 
-  .update_list:last-child{
+  //.update_list:last-child{
+  //  margin-right: 0;
+  //}
+
+  .update_list:nth-child(4n){
     margin-right: 0;
   }
+
 
   .update_link{
     font-family: $font-common;
