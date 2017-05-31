@@ -126,6 +126,86 @@ FreeBoard.GetInfoById = (info, cb) => {
 		});
 };
 
+FreeBoard.GetReplyById = (info, cb) => {
+	connection.query(QUERY.FREEBOARD.GetReplyById,
+		[
+			info.reply_id,
+			info.parent_id,
+			info.user_id
+		], (err, rows) => {
+			if(!err){
+				cb(null, rows);
+			}else{
+				cb(err, null);
+				console.error(err);
+			}
+		});
+};
 
+FreeBoard.GetReplyListById = (info, cb) => {
+	connection.query(QUERY.FREEBOARD.GetReplyListById,
+		[info],
+		(err, rows) => {
+			if(!err){
+				cb(null, rows);
+			}else{
+				cb(err, null);
+				console.error(err);
+			}
+		});
+};
+
+
+FreeBoard.CreateReply = (info, cb) => {
+	connection.query(QUERY.FREEBOARD.CreateReply,
+		[
+			info.content,
+			info.user_id,
+			info.reply_id
+		],
+		(err, rows) => {
+			if(!err){
+				cb(null, rows);
+			}else{
+				cb(err, null);
+				console.error(err);
+			}
+		});
+};
+
+FreeBoard.DeleteReplyById = (info, cb) => {
+	connection.query(QUERY.FREEBOARD.DeleteReplyById,
+		[
+			info.reply_id,
+			info.parent_id,
+			info.user_id
+		],
+		(err, rows) => {
+			if(!err){
+				cb(null, rows);
+			}else{
+				cb(err, null);
+				console.error(err);
+			}
+		});
+};
+
+FreeBoard.UpdateReply = (info, cb) => {
+	connection.query(QUERY.FREEBOARD.UpdateReply,
+		[
+			info.content,
+			info.user_id,
+			info.reply_id,
+			info.parent_id
+		],
+		(err, rows) => {
+			if(!err){
+				cb(null, rows);
+			}else{
+				cb(err, null);
+				console.error(err);
+			}
+		});
+};
 
 module.exports = FreeBoard;

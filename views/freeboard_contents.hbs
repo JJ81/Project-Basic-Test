@@ -1,18 +1,19 @@
 <div class="affiliate community">
     <div class="banner">
+        <a href="{{download}}" target="_blank" class="btn-download-community"><img src="/static/images/btn_download.png" alt="게임 다운로드" /></a>
         <img src="/static/images/community/banner_community.jpg" alt="커뮤니티" width="1080" />
     </div>
 
     <div class="board-community" id="boardArea">
         {{#each content}}
             <div class="search-area clearfix text-left">
-                <a href="/community" class="btn btn-red btn-list">
+                <a href="/community/freeboard" class="btn btn-red btn-list">
                     <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
                 </a>
-                    <!--{{#if (isEquals nickname ../loggedIn.nickname) }}-->
-                <!--<a href="/delete/board/{{id}}#boardArea" class="btn btn-default pull-right">삭제</a>-->
-                <!--<a href="/update/board/{{id}}#boardArea" class="btn btn-default pull-right" style="margin-right: 10px;">수정</a>-->
-                    <!--{{/if}}-->
+                {{#if (isEquals nickname ../loggedIn.nickname) }}
+                <a href="/delete/board/{{id}}#boardArea" class="btn btn-default pull-right">삭제</a>
+                <a href="/update/board/{{id}}#boardArea" class="btn btn-default pull-right" style="margin-right: 10px;">수정</a>
+                {{/if}}
             </div>
 
             <table class="tb_community table">
@@ -31,15 +32,30 @@
                 </tr>
             </table>
 
-            <div class="search-area clearfix text-left">
-                <a href="/community" class="btn btn-red btn-list">
-                    <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
-                </a>
-                    <!--{{#if (isEquals nickname ../loggedIn.nickname) }}-->
-                <!--<a href="/delete/board/{{id}}#boardArea" class="btn btn-default pull-right">삭제</a>-->
-                <!--<a href="/update/board/{{id}}#boardArea" class="btn btn-default pull-right" style="margin-right: 10px;">수정</a>-->
-                    <!--{{/if}}-->
-            </div>
+            <h4 class="text-left" style="margin-left: 10px;margin-top: 30px;">
+                댓글 <small>({{../reply_count}})</small>
+                <a href="/community/create/reply/{{id}}" class="btn btn-default btn-sm pull-right">댓글쓰기</a>
+            </h4>
+            <table class="table" style="margin-top: 20px;">
+                <colgroup>
+                    <col width="200" />
+                    <col width="*" />
+                </colgroup>
+                {{#each ../reply}}
+                <tr>
+                    <th align="center">{{nickname}}</th>
+                    <td align="left">
+                        <div style="word-break: break-all;white-space: pre-line;">{{{content}}}</div>
+                        {{#if (isEquals nickname ../../loggedIn.nickname) }}
+                        <a href="/delete/reply/{{../id}}/{{id}}" class="btn btn-reply-delete pull-right"><i class="glyphicon glyphicon-erase" aria-hidden="true"></i>&nbsp;삭제</a>
+                        <a href="/update/reply/{{../id}}/{{id}}" class="btn btn-reply-delete pull-right" style="position:relative;right:-15px;"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i>&nbsp;수정</a>
+                        {{/if}}
+                    </td>
+                </tr>
+                {{/each}}
+            </table>
+
+
         {{/each}}
     </div>
 

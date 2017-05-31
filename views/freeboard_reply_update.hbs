@@ -5,38 +5,30 @@
 
     <div class="board-community" id="boardArea">
         <div class="search-area clearfix text-left">
-            <h2>자유 게시판 수정하기</h2>
+            <h2>댓글 수정하기</h2>
         </div>
         {{#each content}}
-            <form action="/update/board" method="post">
+            <form action="/update/reply" method="post">
                 <table class="tb_community table">
                     <colgroup>
                         <col width="870" />
                         <col width="*" />
                     </colgroup>
                     <tr>
-                        <th class="center">
-                            <input type="text" name="title" class="form-control" placeholder="제목을 입력하세요." autofocus autocomplete="off" required maxlength="200" value="{{title}}" />
-                        </th>
-                        <th class="center middle">{{loggedIn.nickname}}</th>
-                    </tr>
-                    <tr>
                         <td colspan="2" style="padding: 30px 10px">
-                            <textarea class="form-control textarea-freeboard" name="content" rows="20" required placeholder="글 내용을 입력하세요." autocomplete="off">{{content}}</textarea>
+                            <textarea class="form-control textarea-freeboard" name="content" rows="20" required placeholder="댓글 내용을 입력하세요." autocomplete="off" autofocus>{{{content}}}</textarea>
                         </td>
                     </tr>
                 </table>
 
                 <div class="search-area clearfix text-left">
-                    <a href="/community" class="btn btn-red btn-list">
-                        <span class="glyphicon glyphicon-align-justify"></span>&nbsp; 목록
-                    </a>
-                    <a href="/community" class="btn btn-default pull-right">취소</a>
+                    <a href="/community/freeboard/{{../parent_id}}" class="btn btn-default pull-right">취소</a>
                     <button type="submit" class="btn btn-red pull-right" style="margin-right: 10px;">저장</button>
                 </div>
 
-                <input type="hidden" name="_csrf" value="{{csrfToken}}" />
-                <input type="hidden" name="id" value="{{id}}" />
+                <input type="hidden" name="_csrf" value="{{../csrfToken}}" />
+                <input type="hidden" name="reply_id" value="{{../reply_id}}" />
+                <input type="hidden" name="parent_id" value="{{../parent_id}}" />
             </form>
         {{/each}}
     </div>

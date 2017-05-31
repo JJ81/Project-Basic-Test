@@ -2041,40 +2041,6 @@ router.get('/community', (req, res)=> {
 });
 
 
-// router.get('/community/board/create', isAuthenticated, csrfProtection, (req, res) => {
-// 	res.render('freeboard_write', {
-// 		current_path: 'BOARD_WRITE',
-// 		title: PROJ_TITLE + ', 커뮤니티 게시판 글쓰기',
-// 		loggedIn: req.user,
-// 		csrfToken : req.csrfToken()
-// 	});
-// });
-//
-// router.post('/community/board/write', isAuthenticated, parseForm, (req, res) => {
-//
-// 	const _info = {
-// 		title : sanitize(req.body.title.trim()),
-// 		content : sanitize(req.body.content.trim()),
-// 		user_id : req.user.username
-// 	};
-//
-// 	if(!_info.title || !_info.content || !_info.user_id){
-// 		console.error('[WARN] write something on the free board');
-// 		res.redirect('/community');
-// 	}else{
-// 		FreeBoardService.CreateBoard(_info, (err, result) => {
-// 			if(!err){
-// 				res.redirect(`/community/content/${result.insertId}#boardArea`);
-// 			}else{
-// 				console.error(err);
-// 				// throw new Error(err);
-// 				res.redirect('/community');
-// 			}
-// 		});
-// 	}
-// });
-
-
 router.get('/community/notice/:id', (req, res) => {
 	const id = sanitize(req.params.id.trim());
 
@@ -2098,128 +2064,6 @@ router.get('/community/notice/:id', (req, res) => {
 		}
 	});
 });
-
-// router.get('/delete/board/:id', isAuthenticated, (req, res) => {
-//
-// 	const _info = {
-// 		id : sanitize(req.params.id.trim()),
-// 		user_id : req.user.username
-// 	};
-//
-// 	if(!_info.id || !_info.user_id){
-// 		console.error('[WARN] Wrong parameters on the Free board');
-// 		//throw new Error('Wrong parameters on the Free board');
-// 		res.redirect('/community');
-// 	}
-//
-//
-// 	FreeBoardService.GetCountById(_info, (err, result) => {
-// 		if(!err){
-// 			if(result[0].count === 0){
-// 				//throw new Error(`Wrong access to delete board [${_info.id}]`);
-// 				console.error(`[WARN] Wrong access to delete board [${_info.id}]`);
-// 				res.redirect('/community');
-// 			}else{
-// 				//  삭제를 진행한다.
-// 				FreeBoardService.DeleteBoardById(_info, (err, result2) => {
-// 					if(!err){
-// 						res.redirect('/community');
-// 					}else{
-// 						console.error(`[WARN] id : ${_info.id} / user : ${_info.user_id}`);
-// 						res.redirect('/community');
-// 						//throw new Error(`[DEL ERR] id : ${_info.id} / user : ${_info.user_id}`);
-// 					}
-// 				});
-// 			}
-// 		}else{
-// 			console.error(err);
-// 			// throw new Error(err);
-// 			res.redirect('/community');
-// 		}
-// 	});
-// });
-//
-//
-// // 수정 화면 출력
-// router.get('/update/board/:id', isAuthenticated, csrfProtection, (req, res) => {
-// 	// 해당 글에 대한 권한이 있는지 확인한다.
-// 	const _info = {
-// 		id : sanitize(req.params.id.trim()),
-// 		user_id : req.user.username
-// 	};
-//
-// 	if(!_info.id || !_info.user_id){
-// 		console.error('[WARN] Wrong parameters on the Free board when entry to update.');
-// 		res.redirect('/community');
-// 	}else{
-//
-// 		// id와 user_id로 해당 글에 대한 권한이 있는지 확인한다.
-// 		FreeBoardService.GetInfoById(_info, (err, result) => {
-// 			if(!err){
-// 				if(result[0].count === 0){
-// 					console.error('[WARN] Wrong parameters on the Free board when entry to update.');
-// 					res.redirect('/community');
-// 				}else{
-// 					res.render('freeboard_update', {
-// 						current_path: 'BOARD_UPDATE',
-// 						title: PROJ_TITLE + ', 커뮤니티 게시판 수정하기',
-// 						loggedIn: req.user,
-// 						csrfToken : req.csrfToken(),
-// 						content: result
-// 					});
-// 				}
-// 			}else{
-// 				console.error('[WARN] Wrong parameters on the Free board when entry to update.');
-// 				res.redirect('/community');
-// 			}
-// 		});
-// 	}
-// });
-//
-//
-// // 글 수정 처리
-// router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
-//
-// 	const _info = {
-// 		title : sanitize(req.body.title.trim()),
-// 		content : sanitize(req.body.content.trim()),
-// 		user_id : req.user.username,
-// 		id : sanitize(req.body.id)
-// 	};
-//
-// 	if(!_info.title || !_info.content || !_info.user_id || !_info.id){
-// 		console.error('[WARN] update something on the free board ' + _info.id);
-// 		res.redirect('/community');
-// 	}else{
-//
-// 		FreeBoardService.GetCountById(_info, (err, result) => {
-// 			if(!err){
-// 				if(result[0].count === 0){
-// 					console.error('[WARN] update something on the free board ' +  + _info.id);
-// 					res.redirect('/community');
-// 				}else{
-// 					FreeBoardService.UpdateBoard(_info, (err, results) => {
-// 						if(!err){
-// 							// console.log('result (update)');
-// 							// console.log(results);
-//
-// 							res.redirect(`/community/content/${_info.id}#boardArea`);
-// 							// res.redirect(`/community`);
-// 						}else{
-// 							console.error(err);
-// 							//throw new Error(err);
-// 							res.redirect('/community');
-// 						}
-// 					});
-// 				}
-//
-// 			}else{
-// 				console.error(err);
-// 				res.redirect('/community');
-// 			}
-// 		});
-// 	}
-// });
 
 
 router.get('/game', httpsToHttp, (req, res)=> {
@@ -2558,5 +2402,436 @@ router.get('/community/faq', (req, res) => {
 		loggedIn: req.user
 	});
 });
+
+
+
+router.get('/community/freeboard', (req, res)=> {
+
+	var _info = {};
+
+	if(req.query.size === undefined || req.query.page === undefined){
+		_info = {
+			size : 20,
+			page : 1
+		};
+	}else{
+		_info = {
+			size : parseInt(sanitize(req.query.size.trim())),
+			page : parseInt(sanitize(req.query.page.trim()))
+		};
+	}
+
+	if(req.query.size == undefined ||
+		req.query.page === undefined ||
+		req.query.size === '' ||
+		req.query.page === '' ||
+		req.query.size <= 0 ||
+		req.query.page <= 0
+	){
+		res.redirect('/community/freeboard?size=20&page=1');
+	}else{
+
+		async.parallel([
+			(cb) => {
+				FreeBoardService.List(_info, (err, result) => {
+					if(!err){
+						cb(null, result);
+					}else{
+						cb(err, null);
+					}
+				});
+			},
+			(cb) => {
+				FreeBoardService.GetTotalCount((err, result) => {
+					if(!err){
+						cb(null, result);
+					}else{
+						cb(err, null);
+					}
+				});
+			}
+		], (err, results) => {
+
+			if(!err){
+
+				var totalList = results[1][0].size;
+				var totalPage = Math.ceil(totalList/_info.size);
+				var prev = null;
+				var next = null;
+
+
+				// 이전 페이지
+				if(_info.page > 1){
+					prev = _info.page - 1;
+				}
+
+				if(_info.page !== totalPage && totalPage > 0){
+					next = _info.page + 1;
+				}
+
+				if(totalPage === 0 && _info.page !== 1){
+					res.redirect('/community/freeboard?size=20&page=1');
+				}else{
+					res.render('community', {
+						current_path: 'COMMUNITY',
+						board_type : 'free',
+						title: PROJ_TITLE + ', 커뮤니티',
+						loggedIn: req.user,
+						list : results[0],
+						page : _info.page,
+						total : (totalPage === 0) ? 1 : totalPage,
+						size: _info.size,
+						prev,
+						next
+					});
+				}
+
+			}else{
+				console.error(err);
+				throw new Error(err);
+			}
+		});
+	}
+});
+
+router.get('/community/freeboard/:id', (req, res) => {
+	const id = sanitize(req.params.id.trim());
+
+
+	// 댓글을 동시에 가져올 수 있도록 한다
+	async.parallel([
+		(cb) => {
+			FreeBoardService.GetContent(id, (err, result) => {
+				if(!err){
+					cb(null, result);
+				}else{
+					cb(err, null);
+					console.error(err);
+				}
+			});
+		},
+		(cb) => {
+			FreeBoardService.GetReplyListById(id, (err, result) => {
+				if(!err){
+					cb(null, result);
+				}else{
+					cb(err, null);
+					console.error(err);
+				}
+			});
+		}
+	], (err, results) => {
+		if(!err){
+
+			console.info(results);
+
+			if(results.length > 0){
+				res.render('freeboard_contents', {
+					current_path: 'BOARD_CONTENT',
+					title: PROJ_TITLE + ', 커뮤니티 게시판',
+					loggedIn: req.user,
+					content: results[0],
+					reply : results[1],
+					reply_count : results[1].length
+				});
+			}else{
+				res.redirect('/community/freeboard');
+			}
+		}else{
+			console.error(err);
+			res.redirect('/community/freeboard');
+			//throw new Error(err);
+		}
+	});
+
+
+
+});
+
+router.get('/community/create/freeboard', isAuthenticated, csrfProtection, (req, res) => {
+	res.render('freeboard_write', {
+		current_path: 'BOARD_WRITE',
+		title: PROJ_TITLE + ', 커뮤니티 게시판 글쓰기',
+		loggedIn: req.user,
+		csrfToken : req.csrfToken()
+	});
+});
+
+
+router.post('/community/board/write', isAuthenticated, parseForm, (req, res) => {
+
+	const _info = {
+		title : sanitize(req.body.title.trim()),
+		content : sanitize(req.body.content.trim()),
+		user_id : req.user.username
+	};
+
+	if(!_info.title || !_info.content || !_info.user_id){
+		console.error('[WARN] write something on the free board');
+		res.redirect('/community');
+	}else{
+		FreeBoardService.CreateBoard(_info, (err, result) => {
+			if(!err){
+				res.redirect(`/community/freeboard/${result.insertId}#boardArea`);
+			}else{
+				console.error(err);
+				res.redirect('/community');
+			}
+		});
+	}
+});
+
+
+router.get('/delete/board/:id', isAuthenticated, (req, res) => {
+
+	const _info = {
+		id : sanitize(req.params.id.trim()),
+		user_id : req.user.username
+	};
+
+	if(!_info.id || !_info.user_id){
+		console.error('[WARN] Wrong parameters on the Free board');
+		//throw new Error('Wrong parameters on the Free board');
+		res.redirect('/community');
+	}
+
+
+	FreeBoardService.GetCountById(_info, (err, result) => {
+		if(!err){
+			if(result[0].count === 0){
+				//throw new Error(`Wrong access to delete board [${_info.id}]`);
+				console.error(`[WARN] Wrong access to delete board [${_info.id}]`);
+				res.redirect('/community');
+			}else{
+				//  삭제를 진행한다.
+				FreeBoardService.DeleteBoardById(_info, (err, result2) => {
+					if(!err){
+						res.redirect('/community/freeboard');
+					}else{
+						console.error(`[WARN] id : ${_info.id} / user : ${_info.user_id}`);
+						res.redirect('/community/freeboard');
+						//throw new Error(`[DEL ERR] id : ${_info.id} / user : ${_info.user_id}`);
+					}
+				});
+			}
+		}else{
+			console.error(err);
+			res.redirect('/community');
+		}
+	});
+});
+
+
+// 수정 화면 출력
+router.get('/update/board/:id', isAuthenticated, csrfProtection, (req, res) => {
+	// 해당 글에 대한 권한이 있는지 확인한다.
+	const _info = {
+		id : sanitize(req.params.id.trim()),
+		user_id : req.user.username
+	};
+
+	if(!_info.id || !_info.user_id){
+		console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+		res.redirect('/community/freeboard');
+	}else{
+
+		// id와 user_id로 해당 글에 대한 권한이 있는지 확인한다.
+		FreeBoardService.GetInfoById(_info, (err, result) => {
+			if(!err){
+				if(result[0].count === 0){
+					console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+					res.redirect('/community/freeboard');
+				}else{
+					res.render('freeboard_update', {
+						current_path: 'BOARD_UPDATE',
+						title: PROJ_TITLE + ', 커뮤니티 게시판 수정하기',
+						loggedIn: req.user,
+						csrfToken : req.csrfToken(),
+						content: result
+					});
+				}
+			}else{
+				console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+				res.redirect('/community/freeboard');
+			}
+		});
+	}
+});
+
+
+// 글 수정 처리
+router.post('/update/board', isAuthenticated, parseForm, (req, res) => {
+
+	const _info = {
+		title : sanitize(req.body.title.trim()),
+		content : sanitize(req.body.content.trim()),
+		user_id : req.user.username,
+		id : sanitize(req.body.id)
+	};
+
+	if(!_info.title || !_info.content || !_info.user_id || !_info.id){
+		console.error('[WARN] update something on the free board ' + _info.id);
+		res.redirect('/community/freeboard');
+	}else{
+
+		FreeBoardService.GetCountById(_info, (err, result) => {
+			if(!err){
+				if(result[0].count === 0){
+					console.error('[WARN] update something on the free board ' +  + _info.id);
+					res.redirect('/community/freeboard');
+				}else{
+					FreeBoardService.UpdateBoard(_info, (err, results) => {
+						if(!err){
+							// console.log('result (update)');
+							// console.log(results);
+
+							res.redirect(`/community/freeboard/${_info.id}#boardArea`);
+							// res.redirect(`/community`);
+						}else{
+							console.error(err);
+							//throw new Error(err);
+							res.redirect('/community/freeboard');
+						}
+					});
+				}
+
+			}else{
+				console.error(err);
+				res.redirect('/community/freeboard');
+			}
+		});
+	}
+});
+
+
+router.get('/community/create/reply/:id', isAuthenticated, csrfProtection, (req, res) => {
+	const reply_id = sanitize(req.params.id.trim());
+
+	if(reply_id){
+		res.render('freeboard_reply_write', {
+			current_path: 'BOARD_WRITE',
+			title: PROJ_TITLE + ', 커뮤니티 게시판 글쓰기',
+			loggedIn: req.user,
+			csrfToken : req.csrfToken(),
+			reply_id
+		});
+	}else{
+		res.redirect(`/community/freeboard/${reply_id}`);
+	}
+});
+
+
+router.post('/community/reply/write', isAuthenticated, parseForm, (req, res) => {
+	const _info = {
+		content : sanitize(req.body.content.trim()),
+		user_id : req.user.username,
+		reply_id : sanitize(req.body.reply_id.trim())
+	};
+
+	if(!_info.content || !_info.user_id || !_info.reply_id){
+		console.error('[WARN] write something on the free board (reply)');
+		res.redirect(`/community/freeboard/${_info.reply_id}#boardArea`);
+	}else{
+		FreeBoardService.CreateReply(_info, (err, result) => {
+			if(!err){
+				res.redirect(`/community/freeboard/${_info.reply_id}#boardArea`);
+			}else{
+				console.error(err);
+				res.redirect(`/community/freeboard/${_info.reply_id}#boardArea`);
+			}
+		});
+	}
+});
+
+
+router.get('/delete/reply/:parent_id/:reply_id', isAuthenticated, (req, res) => {
+
+	const _info = {
+		parent_id : sanitize(req.params.parent_id.trim()),
+		reply_id : sanitize(req.params.reply_id.trim()),
+		user_id : req.user.username
+	};
+
+	if(!_info.parent_id || !_info.parent_id || !_info.user_id){
+		console.error('[WARN] Wrong parameters on the Free board');
+		res.redirect(`/community/freeboard/${_info.parent_id}`);
+	}else{
+		FreeBoardService.DeleteReplyById(_info, (err, result) => {
+			if(!err){
+				res.redirect(`/community/freeboard/${_info.parent_id}`);
+			}else{
+				console.error(`[WARN] id : ${_info.parent_id} / user : ${_info.user_id}`);
+				res.redirect(`/community/freeboard/${_info.parent_id}`);
+			}
+		});
+	}
+});
+
+// 수정 화면 출력
+router.get('/update/reply/:parent_id/:reply_id', isAuthenticated, csrfProtection, (req, res) => {
+	const _info = {
+		parent_id : sanitize(req.params.parent_id.trim()),
+		reply_id : sanitize(req.params.reply_id.trim()),
+		user_id : req.user.username
+	};
+
+	if(!_info.parent_id || !_info.reply_id || !_info.user_id){
+		console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+		res.redirect(`/community/freeboard/${_info.parent_id}`);
+	}else{
+
+		FreeBoardService.GetReplyById(_info, (err, result) => {
+			if(!err){
+				if(result[0].count === 0){
+					console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+					res.redirect(`/community/freeboard/${_info.parent_id}`);
+				}else{
+					res.render('freeboard_reply_update', {
+						current_path: 'BOARD_UPDATE',
+						title: PROJ_TITLE + ', 커뮤니티 게시판 수정하기',
+						loggedIn: req.user,
+						csrfToken : req.csrfToken(),
+						content: result,
+						reply_id : _info.reply_id,
+						parent_id : _info.parent_id
+					});
+				}
+			}else{
+				console.error('[WARN] Wrong parameters on the Free board when entry to update.');
+				res.redirect(`/community/freeboard/${_info.parent_id}`);
+			}
+		});
+	}
+});
+
+// 글 수정 처리
+router.post('/update/reply', isAuthenticated, parseForm, (req, res) => {
+	const _info = {
+		content : sanitize(req.body.content.trim()),
+		user_id : req.user.username,
+		parent_id : sanitize(req.body.parent_id),
+		reply_id : sanitize(req.body.reply_id)
+	};
+
+	// console.info(_info);
+
+	if(!_info.parent_id || !_info.content || !_info.user_id || !_info.reply_id){
+		console.error('[WARN] update something on the free board ' + _info.reply_id);
+		res.redirect('/community/freeboard/' + _info.parent_id);
+	}else{
+		FreeBoardService.UpdateReply(_info, (err, result) => {
+			if(!err){
+
+				console.log(result);
+
+				res.redirect(`/community/freeboard/${_info.parent_id}#boardArea`);
+			}else{
+				console.error(err);
+				res.redirect('/community/freeboard/' + _info.parent_id);
+			}
+		});
+	}
+});
+
 
 module.exports = router;

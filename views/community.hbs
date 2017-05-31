@@ -26,22 +26,27 @@
         </div>
         <div style="margin-bottom: 50px;"><a href="mailto:info@holdemclub.tv"><img src="/static/images/btn_info_holdemclubtv.jpg" alt="info@holdemclub.tv" /></a></div>
 
-        <div class="btn-group btn-group-justified" role="group" style="width: 400px;margin-bottom: 30px;">
+        <div class="btn-group btn-group-justified" role="group" style="width: 500px;margin-bottom: 30px;">
             <div class="btn-group" role="group">
-                <a href="/community?size=20&page=1" class="btn btn-default {{#if (isEquals board_type 'notice')}}active{{/if}}">공지</a>
+                <a href="/community?size=20&page=1" class="btn btn-default {{#if (isEquals board_type 'notice')}}active{{/if}}">공지사항</a>
             </div>
             <div class="btn-group" role="group">
-                <a href="/community/qna?size=20&page=1" class="btn btn-default {{#if (isEquals board_type 'qna')}}active{{/if}}">문의</a>
+                <a href="/community/freeboard?size=20&page=1" class="btn btn-default {{#if (isEquals board_type 'free')}}active{{/if}}">자유게시판</a>
             </div>
-            <!--<div class="btn-group" role="group">-->
-                <!--<a href="/community/faq" class="btn btn-default {{#if (isEquals board_type 'faq')}}active{{/if}}">FAQ</a>-->
-            <!--</div>-->
+            <div class="btn-group" role="group">
+                <a href="/community/qna?size=20&page=1" class="btn btn-default {{#if (isEquals board_type 'qna')}}active{{/if}}">문의(Q&A)</a>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/community/faq" class="btn btn-default {{#if (isEquals board_type 'faq')}}active{{/if}}">FAQ</a>
+            </div>
         </div>
 
         {{#if (isEquals board_type 'notice')}}
             {{>noticeboard_list}}
         {{else if (isEquals board_type 'qna')}}
             {{>qnaboard_list}}
+        {{else if (isEquals board_type 'free')}}
+            {{>freeboard_list}}
         {{else if (isEquals board_type 'faq')}}
             <div class="faq_list" style="padding: 100px 0;">준비중입니다.</div>
         {{/if}}
