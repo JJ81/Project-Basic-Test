@@ -47,6 +47,7 @@
     "passport-kakao": "0.0.4",
     "passport-local": "^1.0.0",
     "passport-naver": "^1.0.4",
+    "querystring": "^0.2.0",
     "redis": "^2.6.3",
     "request": "^2.79.0",
     "sanitize-html": "^1.14.1",

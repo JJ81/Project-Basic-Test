@@ -22,7 +22,7 @@ require('../helpers/helpers');
 
 const axios = require('axios');
 const request = require('request');
-
+const qs = require('querystring');
 
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
@@ -1175,6 +1175,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 	req.flash('usr_nickname', _info.nickname);
 	req.flash('usr_email', _info.email);
 
+	console.log('inserted info');
 	console.log(_info);
 
 	// 여기서부터 check validation
@@ -1203,12 +1204,15 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 						cb('[error] check if username is duplicated or not', null);
 					}
 				}).catch((error)=>{
+					console.error('A1');
 					console.error(error);
 					cb(error, null);
 				});
 		},
 		(cb) => {
-			axios.get(`${HOST}/users/duplication/nickname?nickname=${_info.nickname}`)
+
+			const _nickname = qs.escape(_info.nickname);
+			axios.get(`${HOST}/users/duplication/nickname?nickname=${_nickname}`)
 				.then((response)=>{
 					if(response.data.success){
 						cb(null, response);
@@ -1216,6 +1220,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 						cb('[error] check if nickname is duplicated or not', null);
 					}
 				}).catch((error)=>{
+					console.error('A2');
 					console.error(error);
 					cb(error, null);
 				});
@@ -1229,6 +1234,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 						cb('[error] check if email is duplicated or not', null);
 					}
 				}).catch((error)=>{
+				console.error('A3');
 					console.error(error);
 					cb(error, null);
 				});
@@ -1291,6 +1297,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 
 						}
 					}).catch((error)=>{
+						console.error('check A');
 						console.error(error);
 						req.flash('error', MSG.SERVER_ERROR);
 						res.redirect('signup');
@@ -1299,6 +1306,7 @@ router.post('/signup', parseForm, csrfProtection, (req, res) => {
 				res.redirect('/signup');
 			}
 		}else{
+			console.error('check B');
 			console.error(err);
 			req.flash('error', MSG.SERVER_ERROR);
 			res.redirect('/signup');
