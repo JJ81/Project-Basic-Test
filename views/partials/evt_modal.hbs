@@ -1,0 +1,21 @@
+{{!-- modal event --}}
+<div id="modal_event_training" style="position: absolute;left: 50%; top: 10px;margin-left: -300px;z-index:9999">
+    <div style="position: relative;">
+        <button id="btn-event-training" type="button" class="close" aria-label="Close" style="font-size: 40px;color :#fff; position: absolute;top: 0;right: 10px;opacity: 0.8">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <img src="{{static}}event/event_banner_training.jpg" alt="" width="600" />
+    </div>
+</div>
+
+<script>
+    (function () {
+        var
+                btn = document.getElementById('btn-event-training'),
+                evt_ban = document.getElementById('modal_event_training');
+        btn.onclick = function (e) {
+            e.preventDefault();
+            evt_ban.style.display = 'none';
+        };
+    }());
+</script>
