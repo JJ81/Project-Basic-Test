@@ -1,12 +1,25 @@
 {{!-- modal event --}}
-<div id="modal_event_training" style="position: absolute;left: 50%; top: 10px;margin-left: -300px;z-index:9999">
-    <div style="position: relative;">
-        <button id="btn-event-training" type="button" class="close" aria-label="Close" style="font-size: 40px;color :#fff; position: absolute;top: 0;right: 10px;opacity: 0.8">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <img src="{{static}}event/event_banner_training.jpg" alt="" width="600" />
+
+
+{{#if (isEquals isMobile 1 )}}
+    <div id="modal_event_training" style="position: absolute;left: 0; top: 10px;z-index:9999;width: 100%">
+        <div style="position: relative;">
+            <button id="btn-event-training" type="button" class="close" aria-label="Close" style="font-size: 40px;color :#fff; position: absolute;top: 0;right: 10px;opacity: 0.8">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="{{static}}event/event_banner_training.jpg" alt="" width="100%" />
+        </div>
     </div>
-</div>
+{{else}}
+    <div id="modal_event_training" style="position: absolute;left: 50%; top: 10px;margin-left: -300px;z-index:9999;max-width: 600px;min-width:300px;">
+        <div style="position: relative;">
+            <button id="btn-event-training" type="button" class="close" aria-label="Close" style="font-size: 40px;color :#fff; position: absolute;top: 0;right: 10px;opacity: 0.8">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <img src="{{static}}event/event_banner_training.jpg" alt="" width="600" />
+        </div>
+    </div>
+{{/if}}
 
 <script>
     (function () {
