@@ -1,14 +1,3 @@
 # Created by .ignore support plugin (hsz.mobi)
 /.idea
 /node_modules
-/docs
-/secret
-/_bak
-/public/components
-/public/_bak
-/public/javascripts/_bak
-/public/stylesheets/_bak
-/service/_bak
-/sql
-/database/query.js
-/public/test

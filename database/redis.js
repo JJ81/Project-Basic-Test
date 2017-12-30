@@ -8,9 +8,9 @@ module.exports = function (router, server){
 	var server = server || "local";
 
 	if(server === 'local'){
-		global.client = redis.createClient(db_info.redis.local.port, db_info.redis.local.host);
-	}else if(server === 'real'){
-		global.client = redis.createClient(db_info.redis.real.port, db_info.redis.real.host);
+	// 	global.client = redis.createClient(db_info.redis.local.port, db_info.redis.local.host);
+	// }else if(server === 'real'){
+	// 	global.client = redis.createClient(db_info.redis.real.port, db_info.redis.real.host);
 	}
 
 	client.on("connect", function () {

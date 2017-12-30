@@ -12,11 +12,11 @@ const JSON = require('JSON');
 const fs = require('fs');
 // const secret_config = require('../secret/federation');
 
-if(express().get('env') === 'production'){
-	require('../database/redis')(router, 'real');
-}else{
-	require('../database/redis')(router, 'local');
-}
+// if(express().get('env') === 'production'){
+// 	require('../database/redis')(router, 'real');
+// }else{
+// 	require('../database/redis')(router, 'local');
+// }
 
 require('../helpers/helpers');
 
@@ -422,9 +422,9 @@ var httpsToHttp = function (req, res, next) {
 };
 
 
-const
-	HOST_INFO = require('../secret/config').API_INFO,
-	HOST = `${HOST_INFO.PATH}${HOST_INFO.VERSION}`;
+// const
+// 	HOST_INFO = require('../secret/config').API_INFO,
+// 	HOST = `${HOST_INFO.PATH}${HOST_INFO.VERSION}`;
 
 /**
  * landing page
@@ -434,159 +434,16 @@ router.get('/', httpsToHttp, (req, res) => {
 
 	async.parallel(
 		[
-			(cb) => { // 방송중
-				request.get(`${HOST}/broadcast/live`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							console.error('[live] success status is false');
-							cb(null, null);
-						}
-					}else{
-						cb(err, null);
-						console.error(err);
-					}
-				});
-			},
-			(cb) => { // 좌측 채널 리스트
-				request.get(`${HOST}/navigation/channel/list`, (err, res, body)=>{
-					if(!err && res.statusCode == 200){
-						let _body = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							console.error('[navi] success status is false');
-							cb('Navigation', null);
-						}
-					}else{
-						cb(err, null);
-						console.error(err);
-					}
-				});
-			},
-			(cb) => { // 최신 업데이트 비디오
-				request.get(`${HOST}/video/recent/list?size=4&offset=0`, (err, res, body)  => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('Video', null);
-						}
-					}else{
-						console.error('[video] recent 3 videos');
-						cb(err, null);
-					}
-				});
-			},
-			(cb) => { // 추천 채널 리스트
-				request.get(`${HOST}/navigation/recommend/list`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('Recom', null);
-						}
-					}else{
-						console.error('[Recom] ');
-						cb(err, null);
-					}
-				});
-			},
-			(cb) => { // 뉴스 가져오기
-				request.get(`${HOST}/news/list?size=4`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('News', null);
-						}
-					}else{
-						console.error('[News] ');
-						cb(err, null);
-					}
-				});
-			},
-
-			// 대표 콘텐츠 가져오기
-			(cb) => {
-				request(`${HOST}/contents/representative/list?size=4&offset=0`, (err, res, body) => {
-					if(!err && res.statusCode == 200){
-						let _body  = JSON.parse(body);
-
-						if(_body.success){
-							cb(null, _body);
-						}else{
-							cb('Representative', null);
-						}
-					}else{
-						console.error('[Representative] ');
-						cb(err, null);
-					}
-				});
-			}
-
-			// 교육 콘텐츠 가져오기
-			// ,(cb) => {
-			// 	request(`${HOST}/contents/education/list?size=4&offset=0`, (err, res, body) => {
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body  = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				cb('Edu', null);
-			// 			}
-			// 		}else{
-			// 			console.error('[Edu] ');
-			// 			cb(err, null);
-			// 		}
-			// 	});
-			// }
-
-			// 요약 콘텐츠 가져오기
-			// ,(cb) => {
-			// 	request(`${HOST}/contents/summary/list?size=4&offset=0`, (err, res, body) => {
-			// 		if(!err && res.statusCode == 200){
-			// 			let _body  = JSON.parse(body);
-			//
-			// 			if(_body.success){
-			// 				cb(null, _body);
-			// 			}else{
-			// 				cb('Summary', null);
-			// 			}
-			// 		}else{
-			// 			console.error('[Summary] ');
-			// 			cb(err, null);
-			// 		}
-			// 	});
-			// }
+		
 		], (err, result) => {
 		if (!err) {
 
-			console.info()
+			console.info('index page');
 
 			res.render('index', {
 				current_path: 'INDEX',
 				title: PROJ_TITLE,
-				loggedIn: req.user,
-				live : result[0].result,
-				channels : result[1].result,
-				videos : result[2].result,
-				recom : result[3].result,
-				news : result[4].result,
-				representative : result[5].result
-				//education : result[6].result,
-				//summary : result[7].result
+				loggedIn: req.user
 			});
 		} else {
 			console.error(err);
