@@ -427,7 +427,7 @@ var httpsToHttp = function (req, res, next) {
 // 	HOST = `${HOST_INFO.PATH}${HOST_INFO.VERSION}`;
 
 /**
- * landing page
+ * TODO Main Page
  */
 router.get('/', httpsToHttp, (req, res) => {
 	'use strict';
@@ -440,7 +440,7 @@ router.get('/', httpsToHttp, (req, res) => {
 
 			console.info('index page');
 
-			res.render('index', {
+			res.render('v1.0/index', {
 				current_path: 'INDEX',
 				title: PROJ_TITLE,
 				loggedIn: req.user

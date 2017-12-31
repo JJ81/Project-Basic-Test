@@ -5,17 +5,9 @@
 .heading{
   color: #333;
   font-size: 30px;
-  pading: 0;
+  padding: 0;
   margin-top: 30px;
   margin-bottom: 30px;
-}
-
-.img_logo{
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  margin-right: 5px;
-  border: 1px solid #686868;
 }
 
 .ellipsis {
@@ -53,54 +45,35 @@ legend, caption{
   background: #f3f3f3;
 }
 
-.dark_blue_bg{
-  background: #090909;
+hr{
+  display: none;
 }
 
-.ico_poker,.ico_crew,
-.ico_community,
-.ico_partnership{
-  position: relative;
-  top: 3px;
-  margin-right: 3px;
-  width: 20px;
-  height: 20px;
-  display: inline-block;
+ol,ul{
+  padding: 0;
 }
 
-.ico_poker{
-  background: url('/static/images/mobile/ico_poker.gif') no-repeat;
+li{
+  list-style: none;
 }
 
-.ico_crew{
-  background: url('/static/images/mobile/ico_crew.gif') no-repeat;
-}
-
-.ico_community{
-  background: url('/static/images/mobile/ico_community.gif') no-repeat;
-}
-
-.ico_partnership{
-  background: url('/static/images/mobile/ico_partnership.gif') no-repeat;
-}
-
-.btn-red,
-.btn-red:active{
-  background: #b31515;
-  color: #fff;
-  text-decoration: none;
-}
-.btn-red:hover,
-.btn-red:focus{
-  background: #df5050;
-  color: #fff;
+a:hover{
   text-decoration: none;
 }
 
-.swiper-pagination-bullet{
-  background: #fff !important;
+h1,h2,h3,h4,h5,h6{
+  padding: 0;
+  margin: 0;
 }
 
-.swiper-pagination-bullet-active{
-  background: #b31515 !important;
+.center{
+  text-align: center;
+}
+
+.txt-blue{
+  color: #0092ee;
+}
+
+.txt-red{
+  color: #d02b2b;
 }

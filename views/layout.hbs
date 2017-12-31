@@ -2,142 +2,50 @@
 <html>
 <head>
 <meta charset="utf-8" />
-{{! 로그인 회원가입 아이디찾기 비번찾기 로그인 등에서 모바일에서 접근할 경우와 PC에서 접근할 경우 별도의 뷰포트를 적용할 수 있도록 한다.  }}
-{{#if (isEquals isMobile 1 )}}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-{{else}}
-    {{#if (isEqualsInArray current_path 'INDEX' 'VIDEOLIST' 'VIDEOVIEW' 'GAME' 'CREW' 'COMMUNITY' 'PARTNERSHIP' )}}
-        <meta name="viewport" content="width=1100" />
-    {{else}}
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    {{/if}}
-{{! 메인, 채널 리스트, 비디오 뷰 페이지를 제외하고 모바일 환경을 적용한다. }}
-{{/if}}
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="Referrer" content="origin" />
 {{! Open Graph }}
+  {{!
 <meta property="og:title" content="홀덤클럽티비" />
 <meta property="og:url" content="http://holdemclub.tv/" />
-<meta property="og:image" content="{{static}}static/logo_holdemclubtv.png" />
+<meta property="og:image" content="" />
 <meta property="og:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠 토너먼트" />
-{{! twitter }}
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="홀덤클럽티비" />
-<meta name="twitter:url" content="http://holdemclub.tv/" />
-<meta name="twitter:image" content="{{static}}static/logo_holdemclubtv.png" />
-<meta name="twitter:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
-{{! common data }}
-<meta name="naver-site-verification" content="a153f94a1cbbeecf0056394854faf2192600cbc5" />
-<meta name="description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
-<meta name="keyword" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />
-<meta name="author" content="홀덤클럽티비" />
-<meta http-equiv="x-dns-prefetch-control" content="on" />
-<link rel="canonical" href="http://holdemclub.tv/" />
 
-{{#if (isEquals isMobile 1 )}}
-<link rel='stylesheet' href='/static/stylesheets/styles_m.min.css?v={{version}}' media="screen,handheld" />
-{{else}}
+<!--<meta name="twitter:card" content="summary" />-->
+<!--<meta name="twitter:title" content="홀덤클럽티비" />-->
+<!--<meta name="twitter:url" content="http://holdemclub.tv/" />-->
+<!--<meta name="twitter:image" content="static/logo_holdemclubtv.png" />-->
+<!--<meta name="twitter:description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />-->
+
+<!--<meta name="naver-site-verification" content="a153f94a1cbbeecf0056394854faf2192600cbc5" />-->
+<!--<meta name="description" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />-->
+<!--<meta name="keyword" content="텍사스 홀덤, 홀덤, 포커, 포커 전문 영상, 홀덤교육, 홀덤스쿨, 홀덤 콘텐츠, 토너먼트" />-->
+<!--<meta name="author" content="홀덤클럽티비" />-->
+<!--<meta http-equiv="x-dns-prefetch-control" content="on" />-->
+<!--<link rel="canonical" href="http://holdemclub.tv/" />-->
+
+}}
 <link rel='stylesheet' href='/static/stylesheets/styles.min.css?v={{version}}' media="screen,handheld" />
-{{/if}}
-
 {{! DNS Prefetch setting for CDN }}
-<link rel="dns-prefetch" href="{{static}}" />
+{{! <link rel="dns-prefetch" href="" /> }}
 {{! 페이지뷰가 낮을 경우 prefetch를 꺼버린다. }}
 {{! <meta http-equiv="x-dns-prefetch-control" content="off" /> }}
 <title>{{title}}</title>
 </head>
 
-<body class="{{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}secure_page{{else}}white_bg{{/if}}">
+<body>
 {{! Google Tag Manager (noscript) }}
-<noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KT2VT6" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-</noscript>
 {{! End Google Tag Manager (noscript) }}
 
-{{#if (isEquals isMobile 1 )}}
-    {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}
-        <div id="holdemclub">
-            {{>header_simple}}
-            {{{body}}}
-            {{>footer_simple}}
-        </div>
-    {{else}}
-        {{! new mobile page }}
-        {{>m_header}}
-        <div class="body_content">{{{body}}}</div>
-        {{>m_footer}}
-    {{/if}}
-{{else}}
-    {{#if (isEqualsInArray current_path 'login' 'SIGNUP' 'FINDID' 'FINDIDRESULT' 'FINDPW' 'RESETPW' 'PRIVATE' 'PRIVATE-EMAIL' 'PRIVATE-PASSWORD' 'PRIVATE-MARKETCODE' 'USAGE' 'PRIVACY')}}
-        <div id="holdemclub">
-            {{>header_simple}}
-            {{{body}}}
-            {{>footer_simple}}
-        </div>
-    {{else}}
-        <div id="holdemclub">
-            {{>header}}
+{{{body}}}
 
-            {{#if (isEqualsInArray current_path 'GAME' 'CREW' 'EVENT' 'COMMUNITY' 'PARTNERSHIP' 'BOARD_WRITE' 'BOARD_CONTENT' 'BOARD_UPDATE')}}
-                <div id="content">
-                    {{{body}}}
-                </div>
-            {{else}}
-            {{! start content }}
-                <div id="content">
-                    <div class="inner_content clearfix">
-                        {{> left_nav}}
-                        <div class="main_area">
-                            <div id="spot">
-                                <a href="{{download}}" target="_blank">
-                                    <img src="/static/images/banner_download.gif" alt="홀덤클럽포 다운로드" width="840" />
-                                </a>
-                            </div>
+{{! todo requirejs를 사용할 것인지 여부를 결정하자. }}
+{{! Google Tag Manager }}
 
-                            <div class="content_body">
-                                {{{body}}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{! // end content }}
-            {{/if}}
+{{! End Google Tag Manager }}
 
-            {{> footer}}
-        </div>
-    {{/if}}
-{{/if}}
+{{! GA }}
 
-    {{#if (isEquals current_path 'INDEX')}}<script src="/static/javascripts/dist/index.js?v={{version}}"></script>{{/if}}
-    {{#if (isEquals current_path 'SIGNUP')}}<script src="/static/javascripts/dist/signup.js?v={{version}}"></script>{{/if}}
-    {{#if (isEquals current_path 'VIDEOLIST')}}<script src="/static/javascripts/dist/video_list.js?v={{version}}"></script>{{/if}}
-    {{#if (isEquals current_path 'VIDEOVIEW')}}
-        <script src="/static/javascripts/vendor/videojs.js?v={{version}}"></script>
-        <script src="/static/javascripts/vendor/youtube.min.js?v={{version}}"></script>
-        <script src="/static/javascripts/dist/video_view.js?v={{version}}"></script>
-        <script src="/static/javascripts/dist/video_list.js?v={{version}}"></script>
-    {{/if}}
-
-    {{#if (isEquals isMobile 1 )}}<script src="/static/javascripts/dist/m_nav.js"></script>{{/if}}
-
-
-    {{! Google Tag Manager }}
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KT2VT6');</script>
-    {{! End Google Tag Manager }}
-
-    {{! GA }}
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-83384040-1', 'auto');
-        ga('send', 'pageview');
-    </script>
-    {{! end GA }}
+{{! end GA }}
 </body>
 </html>

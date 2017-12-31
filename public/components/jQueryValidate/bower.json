@@ -1,0 +1,30 @@
+{
+    "name": "jQueryValidate",
+    "version": "1.0.0",
+    "main": "jquery-validate.min.js",
+    "ignore": [
+        "sass",
+        "spec",
+        ".bowerrc",
+        ".gitignore",
+        ".jshintignore",
+        ".jshintrc",
+        ".bower.json",
+        "bower.json",
+        "gruntfile.js",
+        "package.json",
+        "README.md",
+        "css/style.css",
+        "screenshot.png",
+        "index.html",
+        "Gruntfile.js"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/ryanburgess/jquery-validate.git"
+    },
+    "authors": [
+        "Ryan Burgess", "Ryan Burgess",
+        "Ryan Burgess <github.com/ryanburgess> (http://github.com/ryanburgess)"
+    ]
+}

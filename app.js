@@ -27,14 +27,14 @@ app.set('view engine', 'hbs');
 hbs.registerPartials(__dirname + '/views/partials');
 hbs.registerPartials(__dirname + '/views');
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.png')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/static', express.static(__dirname + '/public'));
 
 // var expiryDate = new Date( Date.now() + 60 * 60 * 1000 ); // 1 hour
 app.use(cookieSession({
-	name: 'hc_session',
-	keys: ['HC2.0', 'HoldemclubTV', 'ghfejazmffjqdlwhgdk'], // this is secret key
+	name: 'tops_session',
+	keys: ['tops', 'topstockgroup'], // this is secret key
 	cookie: {
 		secure: true // https를 통해서만 쿠키를 전송하도록 한다
 		,httpOnly: false // 쿠키가 클라이언트 js가 아닌 httpd를 통해서만 전송이 되도록 하며 XSS 공격으로부터 보호할 수 있다
@@ -68,7 +68,7 @@ app.use(allowCORS);
 app.enable('trust proxy');
 
 
-global.PROJ_TITLE = '홀덤클럽티비';
+global.PROJ_TITLE = 'ProjectName';
 
 const isMobile = require('is-mobile');
 
@@ -87,8 +87,8 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
-app.use('/api/v1/', api);
-app.use('/api/v2/', api);
+// app.use('/api/v1/', api);
+// app.use('/api/v2/', api);
 
 
 // catch 404 and forward to error handler

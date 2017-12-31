@@ -1,0 +1,124 @@
+{{>header}}
+{{>navigation}}
+<div class="tp_body">
+  {{! content }}
+  <div class="tp_landing">
+    <section class="spot_banner clearfix">
+      <div class="tp_expert_stock">
+        <img src="/static/images/main/img_profile_leeyongwoo.jpg" alt="전문가 이용우" />
+      </div>
+      <div class="tp_banner">
+        {{! TODO slider }}
+        <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
+      </div>
+    </section>
+
+    <section class="profile_list clearfix">
+      <div class="p_list">
+        <img src="/static/images/profile/img_profile_01.jpg" alt="" />
+      </div>
+      <div class="p_list">
+        <img src="/static/images/profile/img_profile_02.jpg" alt="" />
+      </div>
+      <div class="p_list">
+        <img src="/static/images/profile/img_profile_03.jpg" alt="" />
+      </div>
+    </section>
+
+    <section class="tp_progress clearfix">
+      <div class="tp_benefit">
+        <img src="/static/images/main/img_ban_benefit.jpg" alt="" />
+      </div>
+      <div class="tp_current_benefit">
+        <h3 class="tit center">실시간 수익현황</h3>
+        <ol class="bf_list_wrp">
+          <li class="bf_list">
+            <strong class="target">삼성전자</strong><span class="num">[01234]</span>
+            <strong class="percentage">63.27%</strong>
+          </li>
+          <li class="bf_list">
+            <strong class="target">삼성전자</strong><span class="num">[01234]</span>
+            <strong class="percentage">63.27%</strong>
+          </li>
+          <li class="bf_list">
+            <strong class="target">삼성전자</strong><span class="num">[01234]</span>
+            <strong class="percentage">63.27%</strong>
+          </li>
+          <li class="bf_list">
+            <strong class="target">삼성전자</strong><span class="num">[01234]</span>
+            <strong class="percentage">63.27%</strong>
+          </li>
+          <li class="bf_list">
+            <strong class="target">삼성전자</strong><span class="num">[01234]</span>
+            <strong class="percentage">63.27%</strong>
+          </li>
+        </ol>
+        <a href="#" class="btn-more-benefit"><img src="/static/images/main/btn-entire-benefit.gif" alt="수익현황 전체보기" /></a>
+      </div>
+    </section>
+
+    <section class="free_experience">
+      <form action="/" method="post" class="tp_form_free">
+        <label for="customer_name">이름</label>&nbsp;
+        <input type="text" id="customer_name" name="customer_name" class="input_customer_name" autocomplete="off" required />&nbsp;&nbsp;&nbsp;&nbsp;
+        <label for="tel">휴대폰</label>
+        <select name="tel" id="tel" class="select_tel">
+          <option value="010" selected>010</option>
+          <option value="011">011</option>
+          <option value="016">016</option>
+          <option value="017">017</option>
+          <option value="018">018</option>
+          <option value="019">019</option>
+        </select>
+        <span>-</span>
+        <input type="text" name="mid-tel" class="mid-tel" maxlength="4" required autocomplete="off" />
+        <span>-</span>
+        <input type="text" name="end-tel" class="end-tel" maxlength="4" required autocomplete="off" />
+        <p class="desc center info">※ 고객님의 정보는 상담을 위해서만 사용됩니다.</p>
+        <p class="desc center">
+          <input type="checkbox" name="info_agree_box" id="info_agree_box" />
+          <label for="info_agree_box">개인정보 활용동의</label>
+          <a href="#" target="_blank" class="btn-view-agreement">[자세히보기]</a>
+        </p>
+        <input type="hidden" name="_csrfToken" class="_csrfToken" value="" />
+      </form>
+      <a href="#" class="btn-free-exp"><img src="/static/images/main/btn-free-exp.jpg" alt="무료체험 신청하기"></a>
+    </section>
+
+    <section class="vip_count">
+      <div class="tp_vip_count">
+        <span class="vip_info_pos">
+          <strong class="person_count">6,401</strong><span class="unit">명</span>
+        </span>
+      </div>
+      <div class="current_apply">
+
+      </div>
+    </section>
+
+    <div class="center" style="margin: 25px 0 35px 0;">
+      <a href="/"><img src="/static/images/main/btn-customer-review.jpg" alt="" /></a>
+    </div>
+
+    <section class="stock_info clearfix">
+      <div class="kospi">
+        <span class="name">코스피</span>
+        <strong class="num">2,079.74</strong>
+        <span class="percentage txt-blue bg_down_info">0.04%</span>
+      </div>
+      <div class="cosdaq">
+        <span class="name">코스닥</span>
+        <strong class="num">2,079.74</strong>
+        <span class="percentage txt-blue bg_down_info">0.04%</span>
+      </div>
+      <div class="exchange">
+        <span class="name">환율</span>
+        <strong class="num">2,079.74</strong>
+        <span class="percentage txt-red bg_up_info">0.04%</span>
+      </div>
+    </section>
+
+  </div>
+  {{! -- content }}
+</div>
+{{>footer}}

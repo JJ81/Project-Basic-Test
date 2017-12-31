@@ -1,31 +1,6 @@
-<div id="top">
-    <div class="inner_top">
-        {{#if loggedIn}}
-            <ul class="local_nav clearfix">
-                <li class="local_nav_list"><a href="/private" class="btn_mypage">마이페이지</a></li>
-                <li class="split">|</li>
-                <li class="local_nav_list"><a href="/logout" class="btn_logout">로그아웃</a></li>
-            </ul>
-        {{else}}
-            <a href="/login" class="btn_login">로그인</a>
-            <span class="split">|</span>
-            <a href="/signup" class="btn_signup">회원가입</a>
-        {{/if}}
-    </div>
-</div>
-
-<div id="header">
-    <div class="inner_header clearfix">
-        <h1 class="logo">
-            <a href="/"><img src="/static/images/mobile/m_logo.jpg" alt="홀덤클럽로고" width="200" /></a>
-        </h1>
-
-        <ol id="nav_top" class="clearfix">
-            <li class="nav_list"><a href="/game" class="link_nav {{#if (isEquals current_path 'GAME')}}active{{/if}}">포커게임</a></li>
-            <li class="nav_list"><a href="/crew" class="link_nav {{#if (isEquals current_path 'CREW')}}active{{/if}}">홀클 크루</a></li>
-            <!--<li class="nav_list"><a href="/event" class="link_nav {{#if (isEquals current_path 'EVENT')}}active{{/if}}">이벤트</a></li>-->
-            <li class="nav_list"><a href="/community" class="link_nav {{#if (isEquals current_path 'COMMUNITY')}}active{{/if}}">커뮤니티</a></li>
-            <li class="nav_list"><a href="/partnership" class="link_nav {{#if (isEquals current_path 'PARTNERSHIP')}}active{{/if}}">제휴 문의</a></li>
-        </ol>
-    </div>
+<div class="tp_hd">
+  <div class="tp_hd_inner">
+    <h1 class="tp_lg"><a href="/"><img src="/static/images/main/img_logo.jpg" alt="탑스투자그룹" /></a></h1>
+    <span class="tp_tel"><img src="/static/images/main/img_txt_tel.gif" alt="고객센터 1522-6619"></span>
+  </div>
 </div>
