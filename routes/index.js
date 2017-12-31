@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const mysql_dbc = require('../commons/db_conn')();
-const connection = mysql_dbc.init();
+// const mysql_dbc = require('../commons/db_conn')();
+// const connection = mysql_dbc.init();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const flash = require('connect-flash');
