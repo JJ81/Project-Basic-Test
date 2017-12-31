@@ -68,7 +68,7 @@ app.use(allowCORS);
 app.enable('trust proxy');
 
 
-global.PROJ_TITLE = 'ProjectName';
+global.PROJ_TITLE = '탑스투자그룹';
 
 const isMobile = require('is-mobile');
 
