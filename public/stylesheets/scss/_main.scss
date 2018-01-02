@@ -5,10 +5,32 @@
   padding: 20px 0 80px 0;
   @extend .tp_center;
 
+  .signal_air{
+    position: absolute;
+    height: 24px;
+    overflow: hidden;
+    background: url('/static/images/main/bg_broadcast.png') no-repeat;
+  }
+
+  .air_on{
+    width: 75px;
+    background-position: -82px 0;
+  }
+
+  .air_off{
+    width: 82px;
+    background-position: 0 0;
+  }
+
   .tp_expert_stock{
     float: left;
     width: 257px;
     margin-right: 15px;
+    position: relative;
+    .signal_air{
+      top: 12px;
+      left: 14px;
+    }
   }
 
   .profile_list{
@@ -20,6 +42,11 @@
     float: left;
     width: 350px;
     margin-right: 15px;
+    position: relative;
+    .signal_air{
+      bottom: 12px;
+      right: 14px;
+    }
   }
 
   .p_list:last-child{
@@ -203,4 +230,14 @@
   .exchange{
     margin-right: 0;
   }
+
+  .swiper-pagination-bullet-active{
+    background: #d02b2b !important;
+  }
+
+  .swiper-pagination-bullet{
+    background: #fff;
+  }
+
+
 }

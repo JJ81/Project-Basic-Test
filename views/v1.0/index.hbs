@@ -5,22 +5,41 @@
   <div class="tp_landing">
     <section class="spot_banner clearfix">
       <div class="tp_expert_stock">
+          <span class="signal_air air_on"></span>
         <img src="/static/images/main/img_profile_leeyongwoo.jpg" alt="전문가 이용우" />
       </div>
       <div class="tp_banner">
-        {{! TODO slider }}
-        <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
+          <div class="swiper-container">
+              <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                      <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
+                  </div>
+                  <div class="swiper-slide">
+                      <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
+                  </div>
+                  <div class="swiper-slide">
+                      <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
+                  </div>
+              </div>
+
+              <div class="swiper-pagination"></div>
+              <!--<div class="swiper-button-prev"></div>-->
+              <!--<div class="swiper-button-next"></div>-->
+          </div>
       </div>
     </section>
 
     <section class="profile_list clearfix">
       <div class="p_list">
+          <span class="signal_air air_off"></span>
         <img src="/static/images/profile/img_profile_01.jpg" alt="" />
       </div>
       <div class="p_list">
+          <span class="signal_air air_on"></span>
         <img src="/static/images/profile/img_profile_02.jpg" alt="" />
       </div>
       <div class="p_list">
+          <span class="signal_air air_on"></span>
         <img src="/static/images/profile/img_profile_03.jpg" alt="" />
       </div>
     </section>
