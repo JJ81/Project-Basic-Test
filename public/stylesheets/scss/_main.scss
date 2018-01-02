@@ -164,6 +164,7 @@
     border: 1px solid #e1e1e1;
     background: #fff;
     overflow: hidden;
+    position: relative;
   }
 
   .tp_vip_count{
@@ -239,5 +240,58 @@
     background: #fff;
   }
 
+  .current_apply{
+    position: absolute;
+    top: 0;
+    left: 365px;
+    width: 715px;
+    height: 70px;
+  }
+
+  .participant{
+    position: relative;
+  }
+
+  .participant_wrp{
+    margin-bottom: 0;
+  }
+
+  .participant_list{
+    text-align: center;
+    font-size: 15px;
+    color: #666;
+    padding: 5px 0;
+  }
+
+  /* ticker */
+  .TickerNews{
+    width: 100%;
+    height: 70px;
+    line-height: 70px;
+  }
+
+  .ti_wrapper{
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ti_slide{
+    width: 30000px;
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+
+  .ti_content{
+    width: 8000px;
+    position: relative;
+    float:left;
+  }
+
+  .ti_news{
+    float:left;
+    margin: 0 40px;
+  }
 
 }
