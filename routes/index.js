@@ -429,21 +429,115 @@ var httpsToHttp = function (req, res, next) {
 /**
  * TODO Main Page
  */
-router.get('/', httpsToHttp, (req, res) => {
+router.get('/', (req, res) => {
 	'use strict';
-
-	async.parallel(
-		[
-		
-		], (err, result) => {
+	const task = [];
+	async.parallel(task, (err, result) => {
 		if (!err) {
-
-			console.info('index page');
-
 			res.render('v1.0/index', {
 				current_path: 'INDEX',
-				title: PROJ_TITLE,
-				loggedIn: req.user
+				title: PROJ_TITLE
+				//loggedIn: req.user
+			});
+		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+/**
+ * 서비스 안내
+ */
+router.get('/service_info', (req, res) => {
+	'use strict';
+	const task = [];
+	async.parallel(task, (err, result) => {
+		if (!err) {
+			res.render('v1.0/service_info', {
+				current_path: 'SERVICE',
+				title: PROJ_TITLE
+				//loggedIn: req.user
+			});
+		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+/**
+ * VIP
+ */
+router.get('/vip', (req, res) => {
+	'use strict';
+	const task = [];
+	async.parallel(task, (err, result) => {
+		if (!err) {
+			res.render('v1.0/vip', {
+				current_path: 'VIP',
+				title: PROJ_TITLE
+				//loggedIn: req.user
+			});
+		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+/**
+ * 이용후기
+ */
+router.get('/post_review', (req, res) => {
+	'use strict';
+	const task = [];
+	async.parallel(task, (err, result) => {
+		if (!err) {
+			res.render('v1.0/post_review', {
+				current_path: 'REVIEW',
+				title: PROJ_TITLE
+				//loggedIn: req.user
+			});
+		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+/**
+ * 투자 정보
+ */
+router.get('/investment_info', (req, res) => {
+	'use strict';
+	const task = [];
+	async.parallel(task, (err, result) => {
+		if (!err) {
+			res.render('v1.0/investment_info', {
+				current_path: 'INVESTMENT',
+				title: PROJ_TITLE
+				//loggedIn: req.user
+			});
+		} else {
+			console.error(err);
+			throw new Error(err);
+		}
+	});
+});
+
+/**
+ * 고객센터
+ */
+router.get('/cs_center', (req, res) => {
+	'use strict';
+	const task = [];
+	async.parallel(task, (err, result) => {
+		if (!err) {
+			res.render('v1.0/cs_center', {
+				current_path: 'CSCENTER',
+				title: PROJ_TITLE
+				//loggedIn: req.user
 			});
 		} else {
 			console.error(err);

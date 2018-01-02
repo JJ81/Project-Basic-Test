@@ -297,4 +297,39 @@ html, body {
   .tp_landing .exchange {
     margin-right: 0; }
 
+.tp_service {
+  position: relative;
+  padding-bottom: 105px; }
+
+.tp_banner_info {
+  height: 130px;
+  background: url("/static/images/service/bg_info_service.jpg") center 0 no-repeat; }
+
+.tp_content_img {
+  position: relative;
+  margin-top: 30px;
+  height: 998px;
+  background: url("/static/images/service/img_info_service.jpg") center 0 no-repeat; }
+
+.tp_wing_right {
+  position: absolute;
+  right: -20px;
+  top: 160px;
+  width: 180px;
+  height: 365px;
+  background: url("/static/images/service/img_wing_service.jpg") no-repeat; }
+
+.tp_vip {
+  position: relative;
+  padding-bottom: 105px; }
+
+.bg_ban_vip {
+  height: 130px;
+  background: url("/static/images/vip/bg_info_vip.jpg") center 0 no-repeat; }
+
+.img_info_vip {
+  height: 637px;
+  margin-top: 30px;
+  background: url("/static/images/vip/img_info_vip.jpg") center 0 no-repeat; }
+
 /*# sourceMappingURL=styles.css.map */
