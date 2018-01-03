@@ -65,6 +65,9 @@ h1, h2, h3, h4, h5, h6 {
 .bold {
   font-weight: bold; }
 
+.brd-white {
+  border: 1px solid #fff; }
+
 html, body {
   overflow-x: hidden;
   font-family: "Nanum Gothic", sans-serif, Arial; }
@@ -368,7 +371,8 @@ html, body {
     position: relative;
     margin-top: 16px;
     height: 300px;
-    background: url("/static/images/main/bg_post_review.gif") no-repeat; }
+    background: url("/static/images/main/bg_post_review.gif") no-repeat;
+    overflow: hidden; }
     .tp_landing .live_post_review .tit {
       font-size: 20px;
       color: #f4f6ff;
@@ -377,6 +381,17 @@ html, body {
   .tp_landing .slider_post_wrp {
     position: relative;
     height: 228px; }
+  .tp_landing .post-button-prev {
+    width: 32px !important;
+    height: 58px !important;
+    padding: 10px !important;
+    overflow: hidden;
+    background: url("/static/images/banner/btn-post-left.png") center center no-repeat; }
+  .tp_landing .post-button-next {
+    width: 32px !important;
+    height: 58px !important;
+    overflow: hidden;
+    background: url("/static/images/banner/btn-post-right.png") center center no-repeat; }
 
 .tp_service {
   position: relative;

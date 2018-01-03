@@ -1,8 +1,24 @@
 (function () {
-	new Swiper('.swiper-container', {
+
+	// 상단 슬라이더
+	new Swiper('.spot_top_banner', {
 		pagination: '.swiper-pagination',
-		nextButton: '.swiper-button-next',
-		prevButton: '.swiper-button-prev',
+		// nextButton: '.swiper-button-next',
+		// prevButton: '.swiper-button-prev',
+		slidesPerView: 1,
+		paginationClickable: true,
+		spaceBetween: 0,
+		loop: true,
+		centeredSlides: true,
+		autoplay: 6000,
+		autoplayDisableOnInteraction: false
+	});
+
+
+	// 하단 슬라이더
+	new Swiper('.bottom-ban-review', {
+		nextButton: '.post-button-next',
+		prevButton: '.post-button-prev',
 		slidesPerView: 1,
 		paginationClickable: true,
 		spaceBetween: 0,

@@ -9,7 +9,7 @@
         <img src="/static/images/main/img_profile_leeyongwoo.jpg" alt="전문가 이용우" />
       </div>
       <div class="tp_banner">
-          <div class="swiper-container">
+          <div class="swiper-container spot_top_banner">
               <div class="swiper-wrapper">
                   <div class="swiper-slide">
                       <a href="/"><img src="/static/images/banner/banner_event_01.jpg" alt="" /></a>
@@ -146,9 +146,32 @@
     </section>
 
     <div class="live_post_review">
-        <h3 class="tit bold center">실시간 후기</h3>
+        <h3 class="tit bold center">실시간 이용 후기</h3>
         <div class="slider_post_wrp">
+            {{! slider review }}
+            <div class="swiper-container bottom-ban-review">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide center">
+                        <a href="/"><img src="/static/images/banner/img_post_dummy.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy2.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy3.jpg" alt="" class="brd-white" /></a>
+                    </div>
+                    <div class="swiper-slide center">
+                        <a href="/"><img src="/static/images/banner/img_post_dummy3.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy2.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy.jpg" alt="" class="brd-white" /></a>
+                    </div>
+                    <div class="swiper-slide center">
+                        <a href="/"><img src="/static/images/banner/img_post_dummy2.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy3.jpg" alt="" class="brd-white" /></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="/"><img src="/static/images/banner/img_post_dummy.jpg" alt="" class="brd-white" /></a>
+                    </div>
+                </div>
 
+                <div class="swiper-button-prev post-button-prev"></div>
+                <div class="swiper-button-next post-button-next"></div>
+            </div>
+            {{! -- slider review }}
         </div>
     </div>
 

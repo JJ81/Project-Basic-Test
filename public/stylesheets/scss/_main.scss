@@ -308,6 +308,7 @@
     margin-top: 16px;
     height: 300px;
     background: url('/static/images/main/bg_post_review.gif') no-repeat;
+    overflow: hidden;
 
     .tit{
       font-size: 20px;
@@ -322,5 +323,21 @@
     height: 228px;
   }
 
+
+  .post-button-prev{
+    width: 32px !important;
+    height: 58px !important;
+    padding: 10px !important;
+    overflow: hidden;
+    background: url('/static/images/banner/btn-post-left.png') center center no-repeat;
+  }
+
+
+  .post-button-next{
+    width: 32px !important;
+    height: 58px !important;
+    overflow: hidden;
+    background: url('/static/images/banner/btn-post-right.png') center center no-repeat;
+  }
 
 }
