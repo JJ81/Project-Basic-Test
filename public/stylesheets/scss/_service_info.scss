@@ -12,16 +12,21 @@
 
 .tp_content_img{
   position: relative;
+  margin: 0 auto;
+  width: 1080px;
   margin-top: 30px;
   height: 998px;
-  background: url('/static/images/service/img_info_service.jpg') center 0 no-repeat;
+  background: url('/static/images/service/img_info_service.gif') center 0 no-repeat;
+}
+
+.tp_wing_left{
+  position: absolute;
+  top: 0;
+  left: -173px;
 }
 
 .tp_wing_right{
   position: absolute;
-  right: -20px;
-  top: 160px;
-  width: 180px;
-  height: 365px;
-  background: url('/static/images/service/img_wing_service.jpg') no-repeat;
+  top: 0;
+  right: -173px;
 }

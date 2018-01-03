@@ -61,10 +61,13 @@
     float: left;
     width: 350px;
     height: 355px;
-    background: #fff;
+    background: #fff url('/static/images/main/bg_benefit.gif') no-repeat;
     margin-left: 15px;
     border: 1px solid #dfdfdf;
     padding: 20px;
+    .tit{
+      font-size: 20px;
+    }
   }
 
   .bf_list_wrp{
@@ -108,7 +111,8 @@
     margin-bottom: 20px;
     height: 240px;
     position: relative;
-    background: url('/static/images/main/bg_customer_approach.jpg') no-repeat;
+    background: url('/static/images/main/bg_customer_approach.gif') no-repeat;
+
 
     .desc{
       font-size: 13px;
@@ -200,7 +204,7 @@
     width: 350px;
     height: 95px;
     border: 1px solid #e1e1e1;
-    padding: 0 20px;
+    // padding: 0 20px;
     margin-right: 15px;
     float: left;
     background: #fff;
@@ -293,5 +297,30 @@
     float:left;
     margin: 0 40px;
   }
+  /* end ticker */
+
+  .tp_banner{
+    position: relative;
+  }
+
+  .live_post_review{
+    position: relative;
+    margin-top: 16px;
+    height: 300px;
+    background: url('/static/images/main/bg_post_review.gif') no-repeat;
+
+    .tit{
+      font-size: 20px;
+      color: #f4f6ff;
+      height: 72px;
+      line-height: 72px;
+    }
+  }
+
+  .slider_post_wrp{
+    position: relative;
+    height: 228px;
+  }
+
 
 }

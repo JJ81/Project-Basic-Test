@@ -62,9 +62,12 @@ h1, h2, h3, h4, h5, h6 {
 .txt-red {
   color: #d02b2b; }
 
+.bold {
+  font-weight: bold; }
+
 html, body {
   overflow-x: hidden;
-  font-family: Arial, "Nanum Gothic", sans-serif; }
+  font-family: "Nanum Gothic", sans-serif, Arial; }
 
 .tp_center, .tp_hd .tp_hd_inner, .tp_nav .tp_navigation, .tp_ft .tp_ft_inner, .tp_ft_nav_wrp .tp_ft_nav_inner, .tp_landing {
   width: 1080px;
@@ -90,22 +93,23 @@ html, body {
   border-bottom: 1px solid #e0e0e0; }
   .tp_nav .nav_li {
     float: left;
-    padding-left: 42px;
-    padding-right: 42px;
+    padding-left: 48px;
+    padding-right: 48px;
     background: url("/static/images/main/bl_nav_split.gif") right center no-repeat; }
   .tp_nav .nav_li:last-child {
     background: none;
     padding-right: 0; }
   .tp_nav .nav_link {
     color: #333333;
-    font-size: 20px;
+    font-size: 17px;
     display: inline-block;
     line-height: 60px;
     height: 60px; }
   .tp_nav .nav_link:hover {
     color: #d33a3a; }
   .tp_nav .active {
-    color: #d33a3a; }
+    color: #d33a3a;
+    font-weight: bold; }
 
 .tp_ft {
   border-top: 1px solid #d7d7d6; }
@@ -160,7 +164,8 @@ html, body {
 
 .tp_landing {
   padding: 20px 0 80px 0;
-  /* ticker */ }
+  /* ticker */
+  /* end ticker */ }
   .tp_landing .signal_air {
     position: absolute;
     height: 24px;
@@ -199,10 +204,12 @@ html, body {
     float: left;
     width: 350px;
     height: 355px;
-    background: #fff;
+    background: #fff url("/static/images/main/bg_benefit.gif") no-repeat;
     margin-left: 15px;
     border: 1px solid #dfdfdf;
     padding: 20px; }
+    .tp_landing .tp_current_benefit .tit {
+      font-size: 20px; }
   .tp_landing .bf_list_wrp {
     margin-top: 30px; }
   .tp_landing .bf_list {
@@ -233,7 +240,7 @@ html, body {
     margin-bottom: 20px;
     height: 240px;
     position: relative;
-    background: url("/static/images/main/bg_customer_approach.jpg") no-repeat; }
+    background: url("/static/images/main/bg_customer_approach.gif") no-repeat; }
     .tp_landing .free_experience .desc {
       font-size: 13px;
       color: #999; }
@@ -294,7 +301,6 @@ html, body {
     width: 350px;
     height: 95px;
     border: 1px solid #e1e1e1;
-    padding: 0 20px;
     margin-right: 15px;
     float: left;
     background: #fff;
@@ -356,6 +362,21 @@ html, body {
   .tp_landing .ti_news {
     float: left;
     margin: 0 40px; }
+  .tp_landing .tp_banner {
+    position: relative; }
+  .tp_landing .live_post_review {
+    position: relative;
+    margin-top: 16px;
+    height: 300px;
+    background: url("/static/images/main/bg_post_review.gif") no-repeat; }
+    .tp_landing .live_post_review .tit {
+      font-size: 20px;
+      color: #f4f6ff;
+      height: 72px;
+      line-height: 72px; }
+  .tp_landing .slider_post_wrp {
+    position: relative;
+    height: 228px; }
 
 .tp_service {
   position: relative;
@@ -367,17 +388,21 @@ html, body {
 
 .tp_content_img {
   position: relative;
+  margin: 0 auto;
+  width: 1080px;
   margin-top: 30px;
   height: 998px;
-  background: url("/static/images/service/img_info_service.jpg") center 0 no-repeat; }
+  background: url("/static/images/service/img_info_service.gif") center 0 no-repeat; }
+
+.tp_wing_left {
+  position: absolute;
+  top: 0;
+  left: -173px; }
 
 .tp_wing_right {
   position: absolute;
-  right: -20px;
-  top: 160px;
-  width: 180px;
-  height: 365px;
-  background: url("/static/images/service/img_wing_service.jpg") no-repeat; }
+  top: 0;
+  right: -173px; }
 
 .tp_vip {
   position: relative;
@@ -388,6 +413,9 @@ html, body {
   background: url("/static/images/vip/bg_info_vip.jpg") center 0 no-repeat; }
 
 .img_info_vip {
+  position: relative;
+  margin: 0 auto;
+  width: 1080px;
   height: 637px;
   margin-top: 30px;
   background: url("/static/images/vip/img_info_vip.jpg") center 0 no-repeat; }
