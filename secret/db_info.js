@@ -8,18 +8,18 @@ module.exports = (function () {
 			database: ''
 		},
 		// 'dev': {
-		// 	host: 'dev-holdemclub.ccchnydnz10o.ap-northeast-2.rds.amazonaws.com',
+		// 	host: '',
 		// 	port: '3306',
-		// 	user: 'devholdemclub',
-		// 	password: 'ghfejazmffjqdlwhgdk',
-		// 	database: 'dev_holdemclub'
+		// 	user: '',
+		// 	password: '',
+		// 	database: ''
 		// },
 		// 'real': {
-		// 	host: 'dev-holdemclub.ccchnydnz10o.ap-northeast-2.rds.amazonaws.com',
+		// 	host: '',
 		// 	port: '3306',
-		// 	user: 'devholdemclub',
-		// 	password: 'ghfejazmffjqdlwhgdk',
-		// 	database: 'dev_holdemclub'
+		// 	user: '',
+		// 	password: '',
+		// 	database: ''
 		// },
 		redis: {
 			local: {
@@ -27,11 +27,11 @@ module.exports = (function () {
 				port: '6379'
 			},
 			// dev: {
-			// 	host: 'holdemclub.coq3ns.ng.0001.apn2.cache.amazonaws.com',
+			// 	host: '',
 			// 	port: '6379'
 			// },
 			// real: {
-			// 	host: 'holdemclub.coq3ns.ng.0001.apn2.cache.amazonaws.com',
+			// 	host: '',
 			// 	port: '6379'
 			// }
 		}
