@@ -28,7 +28,6 @@
 		autoplayDisableOnInteraction: false
 	});
 
-
 	// move text like marquee action
 	$(function(){
 		var timer = !1;
@@ -46,14 +45,13 @@
 		});
 	});
 
-
 	// about wing banner
 	var
 		_win = $(window),
 		tp_wing_left = $('.tp_wing_left'),
 		tp_wing_right = $('.tp_wing_right'),
+		gapToTop = $('.tp_wing_left').offset().top - 20, // 20 is proper space for user
 		duration = 200;
-
 
 	/**
 	 * Get scroll's position
@@ -63,17 +61,16 @@
 		return _win.scrollTop();
 	}
 
-
 	_win.bind('scroll', function (e) {
 		var pos = getScrollPos();
 
-		if(pos >= 160){
+		if(pos >= gapToTop){
 			setTimeout(function () {
 				tp_wing_left.css({
-					top : pos - 160
+					top : pos - gapToTop
 				});
 				tp_wing_right.css({
-					top : pos - 160
+					top : pos - gapToTop
 				});
 			}, duration);
 		}else{
