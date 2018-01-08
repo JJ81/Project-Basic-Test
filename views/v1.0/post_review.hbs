@@ -2,7 +2,49 @@
 {{>navigation}}
 <div class="tp_body">
 {{! content }}
-    REVIEW
+    <div class="tp_review">
+        <div class="bg_review"></div>
+        <div class="tp_review_tb_wrp">
+            {{>wing}}
+            <div class="review_thumbnail_board clearfix">
+                <h3 class="center page-head">
+                    <img src="/static/images/investment/txt_vip_best.jpg" alt="" />
+                    <strong class="total_count">
+                        Total <span class="txt-red">423</span> 건
+                    </strong>
+                </h3>
+                {{#for 0 9 1}}
+                <div class="tp_review_list">
+                    <a href="#" class="review_link">
+                        <span class="img_wrp">
+                            <img src="/static/images/tmp/tmp_review_thumbnail.jpg" alt="" width="348" height="204" class="img-thumbnail-review" />
+                        </span>
+                        <span class="desc">
+                            <strong class="txt">★프로젝트★[아이진]190%수익확정!! </strong>
+                            <span class="info clearfix">
+                                <span class="name">홍길동</span>
+                                <span class="cal"><i class="fa fa-calendar" aria-hidden="true"></i> 2018-01-01</span>
+                                <span><i class="fa fa-eye" aria-hidden="true"></i> 1,200</span>
+                            </span>
+                        </span>
+                    </a>
+                </div>
+                {{/for}}
+            </div>
+
+            <div class="center" style="position: relative;">
+                <div class="tp_paging">
+                    <a href="#" class="go-first"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                    <a href="#" class="go-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <span> <strong class="txt-red">1</strong> / 10</span>
+                    <a href="#" class="go-next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <a href="#" class="go-end"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+                <a href="#" class="btn_write_review"><img src="/static/images/investment/btn-write-vip-review.jpg" alt="" /></a>
+            </div>
+
+        </div>
+    </div>
 {{! -- content }}
 </div>
 {{>footer}}

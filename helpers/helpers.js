@@ -80,35 +80,7 @@ hbs.registerHelper('IndentWithLetter', function (number, letter) {
   return str;
 });
 
-
-/*
- * http://bdadam.com/blog/comparison-helper-for-handlebars.html
- * 사용법 참고*/
-hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
-  switch (operator) {
-    case '==':
-      return (v1 == v2) ? options.fn(this) : options.inverse(this);
-    case '===':
-      return (v1 === v2) ? options.fn(this) : options.inverse(this);
-    case '!==':
-      return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-    case '<':
-      return (v1 < v2) ? options.fn(this) : options.inverse(this);
-    case '<=':
-      return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-    case '>':
-      return (v1 > v2) ? options.fn(this) : options.inverse(this);
-    case '>=':
-      return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-    case '&&':
-      return (v1 && v2) ? options.fn(this) : options.inverse(this);
-    case '||':
-      return (v1 || v2) ? options.fn(this) : options.inverse(this);
-    default:
-      return options.inverse(this);
-  }
-});
-
+// https://stackoverflow.com/questions/11924452/iterating-over-basic-for-loop-using-handlebars-js
 hbs.registerHelper('for', function(from, to, incr, block) {
   var accum = '';
   for(var i = from; i < to; i += incr)
@@ -116,29 +88,3 @@ hbs.registerHelper('for', function(from, to, incr, block) {
   return accum;
 });
 
-
-hbs.registerHelper('divideChannel', function (string) {
-	var _arr = string.split(',');
-	return _arr[0];
-});
-
-
-hbs.registerHelper('ExtractSubChannelInfo', (channels, titles) => {
-	// 컴마로 구분된 채널 아이디와
-	// 컴마로 구분된 채널 타이틀을 하나의 배열로 분리하여 전달한다.
-	'use strict';
-	let array = [];
-	let _info = {
-		channel : channels.split(','),
-		title : titles.split(',')
-	};
-
-	for(var i=0, len = _info.channel.length; i < len; i++){
-		array.push({
-			channel : _info.channel[i],
-			title: _info.title[i]
-		});
-	}
-
-	return array;
-});

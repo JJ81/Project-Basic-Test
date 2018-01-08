@@ -2,7 +2,48 @@
 {{>navigation}}
 <div class="tp_body">
 {{! content }}
-    Investment Info
+    <div class="tp_investment">
+        <div class="bg_investment"></div>
+        <div class="tp_review_tb_wrp">
+            {{>wing}}
+            <table class="tp_review_table">
+                <colgroup>
+                    <col width="100" />
+                    <col width="*" />
+                    <col width="120" />
+                    <col width="150" />
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                    <th>조회수</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#for 0 20 1}}
+                    <tr>
+                        <td>200</td>
+                        <td class="td_link"><a href="#" class="link">[삼성엔지니어링(028050)] : 수주잔고 증가 및 4분기 실적 기대감에 상승.</a></td>
+                        <td>2018-01-01</td>
+                        <td>2,000</td>
+                    </tr>
+                {{/for}}
+                </tbody>
+            </table>
+            <div class="center">
+                <div class="tp_paging">
+                    <a href="#" class="go-first"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+                    <a href="#" class="go-prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                    <span> <strong class="txt-red">1</strong> / 10</span>
+                    <a href="#" class="go-next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    <a href="#" class="go-end"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {{! -- content }}
 </div>
 {{>footer}}

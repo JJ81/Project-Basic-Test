@@ -19,7 +19,7 @@ const cookieSession = require('cookie-session');
 const helmet = require('helmet');
 /*routes*/
 const routes = require('./routes/index');
-const api = require('./api/api');
+// const api = require('./api/api');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -87,8 +87,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', routes);
-// app.use('/api/v1/', api);
-// app.use('/api/v2/', api);
 
 
 // catch 404 and forward to error handler
