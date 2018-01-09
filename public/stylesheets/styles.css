@@ -200,6 +200,17 @@ html, body {
     .tp_landing .p_list .signal_air {
       bottom: 12px;
       right: 14px; }
+    .tp_landing .p_list .desc {
+      width: 185px;
+      display: block;
+      position: absolute;
+      top: 92px;
+      left: 0;
+      color: #8d7c68;
+      font-size: 13px;
+      padding: 10px 15px;
+      text-align: left;
+      line-height: 22px; }
   .tp_landing .p_list:last-child {
     margin-right: 0; }
   .tp_landing .tp_benefit {

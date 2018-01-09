@@ -86,8 +86,21 @@
 	});
 
 
+	// 정회원 무료체험 및 결제문의
+	var btnFreeExp = $('.btn-free-exp');
+	btnFreeExp.bind('click', function (e) {
+		e.preventDefault();
+		alert('준비중입니다. 빠른 상담을 위해서 고객센터 1522-6619로 연락주시기 바랍니다.');
+	});
 
 
+
+	// vip 후기 작성
+	var btn_write_review = $('.btn_write_review');
+	btn_write_review.bind('click', function (e) {
+		e.preventDefault();
+		alert('준비중입니다.');
+	});
 
 
 }());
