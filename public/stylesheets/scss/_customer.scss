@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.tp_customer {
+  .bg_customer {
+    height: 130px;
+    background: url('/static/images/customer/bg_customer_ban.jpg') center 0 no-repeat;
+  }
+
+  .tp_customer_tb_wrp{
+    position: relative;
+    margin: 0 auto;
+    width: 1080px;
+    margin-top: 30px;
+    padding-bottom: 100px;
+  }
+
+
+  .tp_review_table{
+    margin-top: 20px;
+  }
+
+
+}
