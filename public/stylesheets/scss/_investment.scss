@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+.tp_investment{
+  .bg_investment{
+    height: 130px;
+    background: url('/static/images/investment/bg_investment_ban.jpg') center 0 no-repeat;
+  }
+
+  .tp_review_tb_wrp{
+    position: relative;
+    margin: 0 auto;
+    width: 1080px;
+    margin-top: 30px;
+    padding-bottom: 100px;
+  }
+
+  .tp_review_table{
+    border-top: 2px solid #000;
+    width: 100%;
+
+
+    th{
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+      background: #f3f3f3;
+      height: 40px;
+      border-bottom: 1px solid #e3e3e3;
+    }
+
+    td{
+      color: #999;
+      font-size: 14px;
+      text-align: center;
+      border-bottom: 1px solid #e3e3e3;
+      height: 40px;
+      background: #fff;
+    }
+
+    td.td_link{
+      text-align: left;
+      padding: 0 10px;
+    }
+
+    .link{
+      color: #333;
+    }
+    .link:hover{
+      color: $main-color-red;
+    }
+  }
+}
+
+.tp_paging{
+  margin-top: 30px;
+  display: inline-block;
+
+  a{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #dbdbdb;
+    color: #171717;
+    line-height: 40px;
+    float: left;
+    text-align: center;
+    background: #fff;
+  }
+  a:hover{
+    color: $main-color-red;
+  }
+  span{
+    height: 40px;
+    padding: 0 20px;
+    display: inline-block;
+    // border: 1px solid #dbdbdb;
+    line-height: 40px;
+    font-size: 14px;
+    color: #171717;
+    float: left;
+    text-align: center;
+  }
+  .go-prev{
+    margin-left: 10px;
+  }
+  .go-next{
+    margin-right: 10px;
+  }
+}
