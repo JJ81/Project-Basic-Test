@@ -293,7 +293,8 @@ html, body {
     border: 1px solid #e1e1e1;
     background: #fff;
     overflow: hidden;
-    position: relative; }
+    position: relative;
+    margin-top: 15px; }
   .tp_landing .tp_vip_count {
     position: relative;
     width: 365px;
@@ -404,6 +405,18 @@ html, body {
     height: 58px !important;
     overflow: hidden;
     background: url("/static/images/banner/btn-post-right.png") center center no-repeat; }
+
+.tp_approval {
+  background: url("/static/images/main/ban_proof.gif") no-repeat;
+  height: 220px;
+  position: relative;
+  margin-bottom: 15px; }
+  .tp_approval .btn-view-approval-doc {
+    position: absolute;
+    bottom: 43px;
+    right: 24px;
+    width: 220px;
+    height: 65px; }
 
 .tp_service {
   position: relative;

@@ -103,6 +103,16 @@
 	});
 
 
+	// 공증서 확인 팝업 준비중
+	var btnViewApprovalDoc = $('.btn-view-approval-doc');
+	btnViewApprovalDoc.bind('click', function (e) {
+		e.preventDefault();
+		alert('준비중입니다.');
+	});
+	
+	
+	
+	
 }());
 
 
