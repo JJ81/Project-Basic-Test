@@ -69,6 +69,9 @@ h1, h2, h3, h4, h5, h6 {
 .brd-white {
   border: 1px solid #fff; }
 
+.txt-yellow {
+  color: #f0cd5f; }
+
 html, body {
   overflow-x: hidden;
   font-family: "Nanum Gothic", sans-serif, Arial; }
@@ -417,6 +420,14 @@ html, body {
     right: 24px;
     width: 220px;
     height: 65px; }
+  .tp_approval .whole-benefit-ratio {
+    position: absolute;
+    top: 144px;
+    left: 22px;
+    font-size: 30px;
+    color: #d02b2b; }
+  .tp_approval .txt-yellow {
+    font-size: 40px; }
 
 .tp_service {
   position: relative;
