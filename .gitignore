@@ -2,3 +2,4 @@
 /.idea
 /node_modules
 /public/stylesheets/scss
+/secret/db_info.js
