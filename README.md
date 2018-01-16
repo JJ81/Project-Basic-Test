@@ -1,6 +1,3 @@
-# Holdemclub TV 2.0 Project
-<a href="#"><img src="https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000" alt="license" class="badge"></a>
-
 ## Tech Stack
 1. Nodejs & Expressjs & NPM
 2. MySQL & Redis
