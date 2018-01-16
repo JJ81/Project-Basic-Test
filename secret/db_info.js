@@ -15,11 +15,11 @@ module.exports = (function () {
 		// 	database: ''
 		// },
 		'real': {
-			host: 'topsstock.co.kr',
+			host: '',
 			port: '3306',
-			user: 'tops77',
-			password: 'qwer3377!',
-			database: 'tops77'
+			user: '',
+			password: '',
+			database: ''
 		},
 		redis: {
 			local: {
